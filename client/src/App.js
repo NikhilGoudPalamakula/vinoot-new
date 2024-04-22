@@ -7,6 +7,7 @@ import PrivateRoute from './MasterLogin/PrivateRoute';
 import RegisterPage from './MasterLogin/RegisterPage';
 import LoginPage from './MasterLogin/LoginPage';
 import MasterUserT from './MasterLogin/MasterUserT';
+import FranchiseReg from './MasterLogin/FranchiseReg';
 
 
 function App() {
@@ -16,7 +17,9 @@ function App() {
     <Routes>
  
     <Route path="/reg" element={<RegisterPage/>}/>
-    <Route path="/" element={<LoginPage/>}/>
+    <Route path="/l" element={<LoginPage/>}/>
+    <Route path="/" element={<FranchiseReg/>}/>
+    
 
       
     <Route element={<PrivateRoute/>}>

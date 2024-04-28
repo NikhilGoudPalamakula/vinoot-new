@@ -13,6 +13,7 @@ import Cities from './Masterdata/Citymaster/City';
 import Area from './Masterdata/Areamaster/Area';
 import FranchiseLogin from './MasterLogin/FranchiseLogin';
 import FranchiseAdmintable from './MasterLogin/FranchiseAdmintable';
+import Home from './Home/Home';
 
 
 function App() {
@@ -20,31 +21,29 @@ function App() {
   
     <Router>
      
-     
     <Routes>
 
         {/* Mastar data */}
-
+        <Route path="/" element={<Home/>}/>
         <Route path="/States" element={<States/>}/>
        <Route path="/Cities" element={<Cities/>}/>
        <Route path="/Area" element={<Area/>}/>
  
     <Route path="*" element={<NotFound />} />
 
-    <Route path="/" element={<LoginPage/>}/>
+    <Route path="/superadminlogin" element={<LoginPage/>}/>
     <Route path="/fl" element={<FranchiseLogin/>}/>
    
-
+    <Route path="/fr" element={<FranchiseReg/>}/>
       
      <Route element={<PrivateRoute/>}>
-
 
      <Route path="/FrSidebar" element={<FranchiseAdmintable/>}/>
       <Route path="/Sidebar" element={<Sidebar/>}/>
       <Route path="/MasterUsert" element={<MasterUserT/>}/>
-      <Route path="/fr" element={<FranchiseReg/>}/>
+
     
-<Route path="/reg" element={<RegisterPage/>}/>
+      <Route path="/reg" element={<RegisterPage/>}/>
      
        
       </Route>

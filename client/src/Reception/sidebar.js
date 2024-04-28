@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Link } from 'react-router-dom';
 
 const Sidebar = () => {
-  const navigate =useNavigate();
+  const navigate = useNavigate();
   const handleLogOut = () => {
     localStorage.clear();
     navigate('/');
@@ -15,51 +15,51 @@ const Sidebar = () => {
 
 
 
-<button>
-  
-<Link to='/MasterUsert'>
-MasterUsers
-</Link>
+      <button>
 
-</button>
+        <Link to='/MasterUsert'>
+          MasterUsers
+        </Link>
 
-<button>
-  
-<Link to='/FrSidebar'>
-Franchise admin Users
-</Link>
-</button>
-<button>
-<Link to='/States'>
-Add States
-</Link>
-</button>
-<button>
-<Link to='/Cities'>
-Add Cities
-</Link>
-</button>
-<button>
-<Link to='/Area'>
-Add Areas
-</Link>
-</button>
+      </button>
 
-<button>
-<Link to='/Area'>
-Add treatment category
-</Link>
-</button>
-<button>
-<Link to='/Area'>
-Add Treatementplan
-</Link>
-</button>
+      <button>
 
-<button onClick={handleLogOut}>
-Sign Out
+        <Link to='/FrSidebar'>
+          Franchise admin Users
+        </Link>
+      </button>
+      <button>
+        <Link to='/States'>
+          Add States
+        </Link>
+      </button>
+      <button>
+        <Link to='/Cities'>
+          Add Cities
+        </Link>
+      </button>
+      <button>
+        <Link to='/Area'>
+          Add Areas
+        </Link>
+      </button>
 
-</button>
+      <button>
+        <Link to='/TreatmentCategory'>
+          Add treatment category
+        </Link>
+      </button>
+      <button>
+        <Link to='/TreatmentPlan'>
+          Add Treatementplan
+        </Link>
+      </button>
+
+      <button onClick={handleLogOut}>
+        Sign Out
+
+      </button>
 
 
     </div>

@@ -12,6 +12,9 @@ const apiRoutes = require('./routes/FranchiseRoutes');
 const stateRoutes = require('./routes/StateRoutes');
 const cityRoutes = require('./routes/CityRoutes');
 const areaRoutes = require('./routes/AreaRoutes');
+const treatmentCategoryRoutes = require('./routes/TreatmentcategoryRoutes');
+const treatmentPlanRoutes = require('./routes/TreatmentplanRoutes');
+
 
 const app = express();
 
@@ -35,6 +38,15 @@ mongoose.connect(process.env.MONGODB_URI, {
 app.use('/api', masterAdminRoutes);
 
 app.use('/api', apiRoutes);
+
+
+// Master data 
+// Mount the treatment category routes
+app.use("/api", treatmentCategoryRoutes);
+
+// Mount the treatment plan routes
+app.use("/api", treatmentPlanRoutes);
+
 app.use('/api', stateRoutes); 
 app.use('/api', cityRoutes);
 app.use('/api', areaRoutes);

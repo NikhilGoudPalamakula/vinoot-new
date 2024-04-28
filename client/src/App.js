@@ -17,7 +17,7 @@ function App() {
   return (
   
     <Router>
-      <Cities/>
+     
      
     <Routes>
  
@@ -29,7 +29,7 @@ function App() {
     
 
       
-    <Route element={<PrivateRoute/>}>
+     <Route element={<PrivateRoute/>}>
   
       <Route path="/Sidebar" element={<Sidebar/>}/>
       <Route path="/MasterUsert" element={<MasterUserT/>}/>
@@ -40,6 +40,7 @@ function App() {
        <Route path="/States" element={<States/>}/>
        <Route path="/Cities" element={<Cities/>}/>
        <Route path="/Area" element={<Area/>}/>
+       
       </Route>
       
      

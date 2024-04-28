@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 const FranchiseReg = () => {
   const [franchiseData, setFranchiseData] = useState({
@@ -166,6 +167,10 @@ const FranchiseReg = () => {
 
         <button type="submit">Submit</button>
       </form>
+
+      <Link to="/States" >  <button>States</button> </Link>
+      <Link to="/Cities" >  <button>Cities</button> </Link>
+      <Link to="/Area" >  <button>Area</button> </Link>
     </div>
   );
 };

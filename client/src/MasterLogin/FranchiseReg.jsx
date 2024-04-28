@@ -49,11 +49,11 @@ const FranchiseReg = () => {
       };
   
       // Make the POST request with updated adminData
-      await axios.post("http://localhost:5000/api/admin", updatedAdminData);
+      await axios.post("http://localhost:5001/api/admin", updatedAdminData);
       console.log("admin Data:", updatedAdminData);
   
       // Now make the POST request with updated franchiseData
-      await axios.post("http://localhost:5000/api/franchise", updatedFranchiseData);
+      await axios.post("http://localhost:5001/api/franchise", updatedFranchiseData);
       console.log("Franchise Data:", updatedFranchiseData);
   
       alert("Data submitted successfully.");
@@ -182,10 +182,6 @@ const FranchiseReg = () => {
 
         <button type="submit">Submit</button>
       </form>
-
-      <Link to="/States" >  <button>States</button> </Link>
-      <Link to="/Cities" >  <button>Cities</button> </Link>
-      <Link to="/Area" >  <button>Area</button> </Link>
     </div>
   );
 };

@@ -22,7 +22,7 @@ const LoginPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post('http://localhost:5000/api/login', formData);
+      const res = await axios.post('http://localhost:5001/api/login', formData);
       console.log('User logged in:', res.data);
       localStorage.setItem('username', res.data.username);
         navigate("/Sidebar");
@@ -35,7 +35,7 @@ const LoginPage = () => {
 
   return (
     <>
-      <h2>User Login</h2>
+      <h2> Super Admin User Login</h2>
       <form onSubmit={handleSubmit}>
         <input
           type="text"

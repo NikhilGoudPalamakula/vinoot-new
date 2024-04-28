@@ -26,6 +26,14 @@ MasterUsers
 
 </button>
 
+<button>
+  
+<Link to='/FrSidebar'>
+Franchise admin Users
+</Link>
+
+</button>
+
 
 
 

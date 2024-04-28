@@ -11,6 +11,8 @@ import FranchiseReg from './MasterLogin/FranchiseReg';
 import States from './Masterdata/Statemaster/State';
 import Cities from './Masterdata/Citymaster/City';
 import Area from './Masterdata/Areamaster/Area';
+import FranchiseLogin from './MasterLogin/FranchiseLogin';
+import FranchiseAdmintable from './MasterLogin/FranchiseAdmintable';
 
 
 function App() {
@@ -30,16 +32,17 @@ function App() {
     <Route path="*" element={<NotFound />} />
 
     <Route path="/reg" element={<RegisterPage/>}/>
-    <Route path="/l" element={<LoginPage/>}/>
-    <Route path="/" element={<FranchiseReg/>}/>
-    
+    <Route path="/" element={<LoginPage/>}/>
+    <Route path="/fl" element={<FranchiseLogin/>}/>
+   
 
       
      <Route element={<PrivateRoute/>}>
-  
+     <Route path="/FrSidebar" element={<FranchiseAdmintable/>}/>
       <Route path="/Sidebar" element={<Sidebar/>}/>
       <Route path="/MasterUsert" element={<MasterUserT/>}/>
-
+      <Route path="/fr" element={<FranchiseReg/>}/>
+    
 
      
        

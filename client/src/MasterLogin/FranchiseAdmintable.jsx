@@ -10,7 +10,7 @@ const FranchiseAdmintable = () => {
   
     const fetchAdmins = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/franchisefetch'); // Adjust the route according to your backend
+        const response = await axios.get('http://localhost:5001/api/franchisefetch'); // Adjust the route according to your backend
         setAdmins(response.data);
       } catch (error) {
         console.error('Error fetching admins:', error);
@@ -20,7 +20,7 @@ const FranchiseAdmintable = () => {
     const toggleActiveState = async (id, isActive) => {
         try {
           const updatedBy = localStorage.getItem('username'); // Get username from localStorage
-          await axios.patch(`http://localhost:5000/api/franchisestateupdate/${id}`, { isActive: !isActive, updatedBy });
+          await axios.patch(`http://localhost:5001/api/franchisestateupdate/${id}`, { isActive: !isActive, updatedBy });
           // Refresh user list after updating active state
           fetchAdmins();
         } catch (error) {

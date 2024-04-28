@@ -10,7 +10,7 @@ const MasterUserT = () => {
   
     const fetchUsers = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/users');
+        const response = await axios.get('http://localhost:5001/api/users');
         setUsers(response.data);
       } catch (error) {
         console.error('Error fetching users:', error);
@@ -20,7 +20,7 @@ const MasterUserT = () => {
     const toggleActiveState = async (id, isActive) => {
       try {
         const updatedBy = localStorage.getItem('username'); // Get username from localStorage
-        await axios.patch(`http://localhost:5000/api/users/${id}`, { isActive: !isActive, updatedBy });
+        await axios.patch(`http://localhost:5001/api/users/${id}`, { isActive: !isActive, updatedBy });
         // Refresh user list after updating active state
         fetchUsers();
       } catch (error) {

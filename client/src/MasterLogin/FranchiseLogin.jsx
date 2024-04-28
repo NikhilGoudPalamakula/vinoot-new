@@ -19,7 +19,7 @@ const FranchiseLogin = () => {
       const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-          const res = await axios.post('http://localhost:5000/api/franchiselogin', formData);
+          const res = await axios.post('http://localhost:5001/api/franchiselogin', formData);
          
           const { franchisename, FranchiseID, username } = res.data;
 
@@ -38,7 +38,7 @@ const FranchiseLogin = () => {
 
   return (
    <>
-      <h2>User Login</h2>
+      <h2>Farnchise Admin User Login</h2>
       <form onSubmit={handleSubmit}>
         <input
           type="text"

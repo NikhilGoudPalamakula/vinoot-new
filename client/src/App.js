@@ -26,11 +26,7 @@ function App() {
 
         {/* Mastar data */}
         <Route path="/" element={<Home />} />
-        <Route path="/States" element={<States />} />
-        <Route path="/Cities" element={<Cities />} />
-        <Route path="/Area" element={<Area />} />
-        <Route path="/TreatmentCategory" element={<TreatmentCategory />} />
-        <Route path="/TreatmentPlan" element={<TreatmentPlan />} />
+
 
         <Route path="*" element={<NotFound />} />
 
@@ -44,11 +40,13 @@ function App() {
           <Route path="/FrSidebar" element={<FranchiseAdmintable />} />
           <Route path="/Sidebar" element={<Sidebar />} />
           <Route path="/MasterUsert" element={<MasterUserT />} />
-
-
           <Route path="/reg" element={<RegisterPage />} />
 
-
+          <Route path="/States" element={<States />} />
+          <Route path="/Cities" element={<Cities />} />
+          <Route path="/Area" element={<Area />} />
+          <Route path="/TreatmentCategory" element={<TreatmentCategory />} />
+          <Route path="/TreatmentPlan" element={<TreatmentPlan />} />
         </Route>
 
 

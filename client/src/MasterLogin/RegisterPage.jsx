@@ -38,7 +38,7 @@ const RegisterPage = () => {
 
   return (
     <div>
-      <h2>User Registration</h2>
+      <h2>Add Super Admin </h2>
       <form onSubmit={handleSubmit}>
         <input
           type="text"

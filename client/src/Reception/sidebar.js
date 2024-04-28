@@ -12,13 +12,19 @@ const Sidebar = () => {
     <div>
 
 
+<button>
 
+        <Link to='/reg'>
+          Add Super Admin
+        </Link>
+
+      </button>
 
 
       <button>
 
         <Link to='/MasterUsert'>
-          MasterUsers
+          Super admin users
         </Link>
 
       </button>

@@ -20,6 +20,12 @@ function App() {
      
      
     <Routes>
+
+        {/* Mastar data */}
+
+        <Route path="/States" element={<States/>}/>
+       <Route path="/Cities" element={<Cities/>}/>
+       <Route path="/Area" element={<Area/>}/>
  
     <Route path="*" element={<NotFound />} />
 
@@ -35,11 +41,7 @@ function App() {
       <Route path="/MasterUsert" element={<MasterUserT/>}/>
 
 
-       {/* Mastar data */}
-
-       <Route path="/States" element={<States/>}/>
-       <Route path="/Cities" element={<Cities/>}/>
-       <Route path="/Area" element={<Area/>}/>
+     
        
       </Route>
       

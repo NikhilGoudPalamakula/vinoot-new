@@ -11,10 +11,7 @@ const Sidebar = () => {
   return (
     <div>
 
-<button onClick={handleLogOut}>
-Sign Out
 
-</button>
 
 
 
@@ -31,10 +28,38 @@ MasterUsers
 <Link to='/FrSidebar'>
 Franchise admin Users
 </Link>
-
+</button>
+<button>
+<Link to='/States'>
+Add States
+</Link>
+</button>
+<button>
+<Link to='/Cities'>
+Add Cities
+</Link>
+</button>
+<button>
+<Link to='/Area'>
+Add Areas
+</Link>
 </button>
 
+<button>
+<Link to='/Area'>
+Add treatment category
+</Link>
+</button>
+<button>
+<Link to='/Area'>
+Add Treatementplan
+</Link>
+</button>
 
+<button onClick={handleLogOut}>
+Sign Out
+
+</button>
 
 
     </div>

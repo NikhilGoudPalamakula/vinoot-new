@@ -31,19 +31,20 @@ function App() {
  
     <Route path="*" element={<NotFound />} />
 
-    <Route path="/reg" element={<RegisterPage/>}/>
     <Route path="/" element={<LoginPage/>}/>
     <Route path="/fl" element={<FranchiseLogin/>}/>
    
 
       
      <Route element={<PrivateRoute/>}>
+
+
      <Route path="/FrSidebar" element={<FranchiseAdmintable/>}/>
       <Route path="/Sidebar" element={<Sidebar/>}/>
       <Route path="/MasterUsert" element={<MasterUserT/>}/>
       <Route path="/fr" element={<FranchiseReg/>}/>
     
-
+<Route path="/reg" element={<RegisterPage/>}/>
      
        
       </Route>

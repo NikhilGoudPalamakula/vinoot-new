@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios"; // Import Axios
 import { useNavigate } from "react-router-dom";
-
+import { VINOOTNEW } from "../../Helper/Helper";
 const States = () => {
   const [stateName, setStateName] = useState("");
   const navigate = useNavigate();
@@ -11,14 +11,14 @@ const States = () => {
     try {
       // Fetch the current count of states
       const existingStates = await axios.get(
-        "http://localhost:5000/api/states"
+        `${VINOOTNEW}/api/states`
       );
       const count = existingStates.data.length;
 
       // Generate unique ID
       const state_id = generateUniqueId(stateName, count + 0);
 
-      const response = await axios.post("http://localhost:5000/api/states", {
+      const response = await axios.post(`${VINOOTNEW}/api/states`, {
         state_id: state_id,
         name: stateName,
       });

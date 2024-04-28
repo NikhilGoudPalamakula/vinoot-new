@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios"; // Import Axios
 import Cities from "../Citymaster/City";
 import { useNavigate } from "react-router-dom";
+import { VINOOTNEW } from "../../Helper/Helper";
 
 const Area = () => {
   const [CityName, setCityName] = useState("");
@@ -14,7 +15,7 @@ const Area = () => {
     // Fetch states data when component mounts
     const fetchCities = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/api/cities");
+        const response = await axios.get(`${VINOOTNEW}/api/cities`);
         setCities(response.data);
       } catch (error) {
         console.error("Failed to fetch cities", error);
@@ -36,11 +37,11 @@ const Area = () => {
     e.preventDefault();
     try {
       const selectedCity = cities.find((city) => city.name === CityName);
-      const existingAreas = await axios.get("http://localhost:5000/api/areas");
+      const existingAreas = await axios.get(`${VINOOTNEW}/api/areas`);
       const count = existingAreas.data.length;
       // Generate unique ID
       const area_id = generateUniqueId(areaName, count + 0);
-      const response = await axios.post("http://localhost:5000/api/area", {
+      const response = await axios.post(`${VINOOTNEW}/api/area`, {
         cityId: selectedCity._id,
         areaName: areaName,
         city_id: selectedCity.city_id, // Include city_id in the request body
@@ -50,7 +51,7 @@ const Area = () => {
       if (response.status === 201) {
         console.log("City added successfully");
         alert("area added successfully");
-        navigate("/home");
+        navigate("/");
       } else {
         console.error("Failed to add city");
       }

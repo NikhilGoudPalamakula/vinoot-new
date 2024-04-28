@@ -1,0 +1,1 @@
+export const VINOOTNEW = `http://localhost:5001`;

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios"; // Import Axios
 // import States from "../components/States";
 import { useNavigate } from "react-router-dom";
-
+import { VINOOTNEW } from "../../Helper/Helper";
 const Cities = () => {
   const [stateName, setStateName] = useState("");
   const [stateId, setStateId] = useState("");
@@ -14,7 +14,7 @@ const Cities = () => {
     // Fetch states data when component mounts
     const fetchStates = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/api/states");
+        const response = await axios.get(`${VINOOTNEW}/api/states`);
         setStates(response.data);
       } catch (error) {
         console.error("Failed to fetch states", error);
@@ -41,13 +41,13 @@ const Cities = () => {
         return;
       }
       const existingStates = await axios.get(
-        "http://localhost:5000/api/cities"
+        `${VINOOTNEW}/api/cities`
       );
       const count = existingStates.data.length;
       // Generate unique ID
       const city_id = generateUniqueId(cityName, count + 0);
 
-      const response = await axios.post("http://localhost:5000/api/cities", {
+      const response = await axios.post(`${VINOOTNEW}/api/cities`, {
         stateId: selectedState._id, // Use _id of the selected statess
         cityName: cityName,
         city_id: city_id,
@@ -55,7 +55,7 @@ const Cities = () => {
       if (response.status === 201) {
         console.log("City added successfully");
         alert("City added successfully");
-        navigate("/area");
+        navigate("/Area");
       } else {
         console.error("Failed to add city");
       }

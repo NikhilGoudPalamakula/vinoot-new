@@ -13,28 +13,39 @@ import Cities from './Masterdata/Citymaster/City';
 import Area from './Masterdata/Areamaster/Area';
 
 
-
 function App() {
   return (
-
+  
     <Router>
-      <Routes>
-           {/* Mastar data */}
-          <Route path="/States" element={<States />} />
-          <Route path="/Cities" element={<Cities />} />
-          <Route path="/Area" element={<Area />} />
+     
+     
+    <Routes>
+ 
+    <Route path="*" element={<NotFound />} />
 
-          <Route path="/" element={<FranchiseReg />} />
-          <Route element={<PrivateRoute />}>
-          <Route path="*" element={<NotFound />} />
-          <Route path="/reg" element={<RegisterPage />} />
-          <Route path="/l" element={<LoginPage />} />
-          <Route path="/Sidebar" element={<Sidebar />} />
-          <Route path="/MasterUsert" element={<MasterUserT />} />
+    <Route path="/reg" element={<RegisterPage/>}/>
+    <Route path="/l" element={<LoginPage/>}/>
+    <Route path="/" element={<FranchiseReg/>}/>
+    
 
-        </Route>
-      </Routes>
-    </Router>
+      
+     <Route element={<PrivateRoute/>}>
+  
+      <Route path="/Sidebar" element={<Sidebar/>}/>
+      <Route path="/MasterUsert" element={<MasterUserT/>}/>
+
+
+       {/* Mastar data */}
+
+       <Route path="/States" element={<States/>}/>
+       <Route path="/Cities" element={<Cities/>}/>
+       <Route path="/Area" element={<Area/>}/>
+       
+      </Route>
+      
+     
+    </Routes>
+  </Router>
 
   );
 }

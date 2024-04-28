@@ -1,17 +1,18 @@
 const mongoose = require('mongoose');
 
 const adminSchema = new mongoose.Schema({
-  adminName: String,
+  username: String,
   Adminid: String,
   franchisename: String,
   FranchiseID: String,
   designation: String,
   email: String,
   password: String,
-  createdby: String,
-  createdat: Date,
-  modifiedby: String,
-  modifiedat: Date
+  isActive: { type: Boolean, default: true },
+  modifiedBy: { type: String },
+  modifiedAt: { type: Date, default: Date.now },
+  createdAt: { type: Date, default: Date.now }, 
+  createdBy: { type:  String,}
 });
 
 module.exports = mongoose.model('FranchiseAdmin', adminSchema);

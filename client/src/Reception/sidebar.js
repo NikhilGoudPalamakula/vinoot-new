@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 const Sidebar = () => {
   const navigate =useNavigate();
   const handleLogOut = () => {
-    localStorage.removeItem("username");
+    localStorage.clear();
     navigate('/');
   };
   return (
@@ -25,6 +25,9 @@ MasterUsers
 </Link>
 
 </button>
+
+
+
 
     </div>
   )

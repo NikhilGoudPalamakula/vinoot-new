@@ -34,7 +34,7 @@ const LoginPage = () => {
   };
 
   return (
-    <div>
+    <>
       <h2>User Login</h2>
       <form onSubmit={handleSubmit}>
         <input
@@ -55,7 +55,7 @@ const LoginPage = () => {
         />
         <button type="submit">Login</button>
       </form>
-    </div>
+    </>
   );
 };
 

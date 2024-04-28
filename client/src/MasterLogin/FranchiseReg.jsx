@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 
 const FranchiseReg = () => {
+
   const [franchiseData, setFranchiseData] = useState({
     franchisename: "",
     FranchiseID: "",
@@ -15,7 +16,7 @@ const FranchiseReg = () => {
   });
 
   const [adminData, setAdminData] = useState({
-    adminName: "",
+    username: "",
     Adminid: "",
     franchisename: "",
     FranchiseID: "",
@@ -24,31 +25,45 @@ const FranchiseReg = () => {
     password: "",
   });
 
+  
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      // Update adminData with the current values from franchiseData
-      setAdminData({
+      // Update adminData and franchiseData with the current values from state and localStorage
+      const createdBy = localStorage.getItem('username');
+  
+      // Update adminData
+      const updatedAdminData = {
         ...adminData,
         franchisename: franchiseData.franchisename,
-        FranchiseID: franchiseData.FranchiseID
-      });
-
+        FranchiseID: franchiseData.FranchiseID,
+        createdBy: createdBy // Add CreatedBy from localStorage
+      };
+  
+      // Update franchiseData
+      const updatedFranchiseData = {
+        ...franchiseData,
+        createdBy: createdBy // Add CreatedBy from localStorage
+      };
+  
       // Make the POST request with updated adminData
-      await axios.post("http://localhost:5000/api/admin", adminData);
-      console.log("admin Data:", adminData);
-
-      // Now make the POST request with franchiseData
-      await axios.post("http://localhost:5000/api/franchise", franchiseData);
-      console.log("Franchise Data:", franchiseData);
-
-
+      await axios.post("http://localhost:5000/api/admin", updatedAdminData);
+      console.log("admin Data:", updatedAdminData);
+  
+      // Now make the POST request with updated franchiseData
+      await axios.post("http://localhost:5000/api/franchise", updatedFranchiseData);
+      console.log("Franchise Data:", updatedFranchiseData);
+  
       alert("Data submitted successfully.");
+  
     } catch (error) {
       console.error("Failed to submit data", error);
       alert("Failed to submit data. Please try again.");
     }
   };
+  
+  
 
   const handleFranchiseInputChange = (e) => {
     setFranchiseData({ ...franchiseData, [e.target.name]: e.target.value });
@@ -130,10 +145,10 @@ const FranchiseReg = () => {
         <h2>Admin Form</h2>
         <input
           type="text"
-          name="adminName"
-          value={adminData.adminName}
+          name="username"
+          value={adminData.username}
           onChange={handleAdminInputChange}
-          placeholder="Admin Name"
+          placeholder="username"
         />
         <input
           type="text"

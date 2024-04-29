@@ -31,6 +31,13 @@ const Sidebar = () => {
 
       <button>
 
+<Link to='/fr'>
+  Franchise Register
+</Link>
+</button>
+
+      <button>
+
         <Link to='/FrSidebar'>
           Franchise admin Users
         </Link>

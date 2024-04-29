@@ -41,7 +41,7 @@ exports.updateUserActiveState = async (req, res) => {
   const { isActive, updatedBy } = req.body; // Updated by information
   try {
     // Update active state and updated by information
-    await User.findByIdAndUpdate(id, { isActive, activeChangedBy: updatedBy, activeChangedAt: Date.now() });
+    await User.findByIdAndUpdate(id, { isActive, modifiedBy: updatedBy, modifiedAt: Date.now() });
     res.status(200).json({ message: 'User active state updated successfully' });
   } catch (error) {
     console.error(error);

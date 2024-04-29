@@ -6,9 +6,7 @@ const Home = () => {
     <div>
         <Link to="/superadminlogin"><button>Super admin Login</button></Link>
         <Link to="/fl"><button>Francise Staff Login</button></Link>
-        <Link to="/fr"><button>Franchise Registration</button></Link>
-        <Link to="/Patientdetails"><button>patient Form</button></Link>
-        
+
     </div>
   )
 }

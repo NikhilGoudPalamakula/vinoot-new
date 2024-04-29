@@ -21,7 +21,7 @@ const FranchiseReg = () => {
     Adminid: "",
     franchisename: "",
     FranchiseID: "",
-    designation: "",
+    designation: "FrAdmin",
     email: "",
     password: "",
   });
@@ -158,13 +158,13 @@ const FranchiseReg = () => {
           onChange={handleAdminInputChange}
           placeholder="Admin ID"
         />
-        <input
+        {/* <input
           type="text"
           name="designation"
           value={adminData.designation}
           onChange={handleAdminInputChange}
           placeholder="Designation"
-        />
+        /> */}
         <input
           type="text"
           name="email"

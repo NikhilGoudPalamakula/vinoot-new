@@ -57,7 +57,7 @@ const MasterUserT = () => {
               <td>{user.gender}</td>
               <td>{user.userType}</td>
               <td>{user.isActive ? 'Active' : 'Inactive'}</td>
-              <td>{user.activeChangedBy}</td> 
+              <td>{user.modifiedBy}</td> 
               <td>
 
                 <button onClick={() => toggleActiveState(user._id, user.isActive)}>

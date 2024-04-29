@@ -1,24 +1,29 @@
 // RegisterPage.js
 
-import React, { useState } from 'react';
-import axios from 'axios';
+import React, { useState } from "react";
+import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
+
 const RegisterPage = () => {
-    const navigate = useNavigate();
+  const createdby =localStorage.getItem("username")
+
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
-    fullName: '',
-    username: '',
-    email: '',
-    phoneNumber: '',
-    dateOfBirth: '',
-    password: '',
-    confirmPassword: '',
-    gender: '',
-    userType: 'Master', // Assuming there's a default user type
-    activeChangedBy: 'none',
+    fullName: "",
+    username: "",
+    email: "",
+    phoneNumber: "",
+    dateOfBirth: "",
+    password: "",
+    confirmPassword: "",
+    gender: "",
+    userType: "Master",
+    activeChangedBy: "none",
+    createdBy:createdby,
   });
 
+ 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
@@ -26,13 +31,14 @@ const RegisterPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post('http://localhost:5001/api/register', formData);
-      console.log('User registered:', res.data);
-        navigate('/')
-      // Optionally, you can redirect the user to another page after successful registration
+      const res = await axios.post(
+        "http://localhost:5001/api/register",
+        formData
+      );
+      console.log("User registered:", res.data);
+      navigate("/");
     } catch (error) {
-      console.error('Registration failed:', error.response.data.error);
-      // Optionally, you can display an error message to the user
+      console.error("Registration failed:", error.response.data.error);
     }
   };
 

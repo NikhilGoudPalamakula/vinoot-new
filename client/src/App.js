@@ -17,6 +17,7 @@ import Home from './Home/Home';
 import TreatmentCategory from './Masterdata/Categorymasterdata/Category';
 import TreatmentPlan from './Masterdata/Treatmentplanmaster/Plan';
 import PatientForm from './Franchisemanagement/Patientdetails/Addpatient';
+import FranchiseStaffReg from './MasterLogin/FranchiseStaffReg';
 
 
 function App() {
@@ -34,7 +35,7 @@ function App() {
         <Route path="/superadminlogin" element={<LoginPage />} />
         <Route path="/fl" element={<FranchiseLogin />} />
 
-        <Route path="/fr" element={<FranchiseReg />} />
+      
 
         <Route element={<PrivateRoute />}>
 
@@ -42,6 +43,8 @@ function App() {
           <Route path="/Sidebar" element={<Sidebar />} />
           <Route path="/MasterUsert" element={<MasterUserT />} />
           <Route path="/reg" element={<RegisterPage />} />
+          <Route path="/fr" element={<FranchiseReg />} />
+          <Route path="/fsr" element={<FranchiseStaffReg />} />
 
           <Route path="/States" element={<States />} />
           <Route path="/Cities" element={<Cities />} />

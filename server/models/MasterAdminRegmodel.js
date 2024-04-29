@@ -11,9 +11,10 @@ const userSchema = new mongoose.Schema({
   gender: { type: String, required: true },
   userType: { type: String, required: true },
   isActive: { type: Boolean, default: true },
-  activeChangedBy: { type: String },
-  activeChangedAt: { type: Date, default: Date.now },
-  createdAt: { type: Date, default: Date.now }
+  modifiedBy: { type: String },
+  modifiedAt: { type: Date, default: Date.now },
+  createdAt: { type: Date, default: Date.now },
+  createdBy: { type: String },
 });
 
 const MasterAdminRegmodel = mongoose.model('MasterUser', userSchema);

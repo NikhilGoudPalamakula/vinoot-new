@@ -1,8 +1,10 @@
-// RegisterPage.js
+// // RegisterPage.js
+
 
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import './RegisterPage.css'
 
 
 const RegisterPage = () => {
@@ -43,66 +45,111 @@ const RegisterPage = () => {
   };
 
   return (
-    <div>
-      <h2>Add Super Admin </h2>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          name="fullName"
-          value={formData.fullName}
-          onChange={handleChange}
-          placeholder="Full Name"
-          required
-        />
-        <input
-          type="text"
-          name="username"
-          value={formData.username}
-          onChange={handleChange}
-          placeholder="Username"
-          required
-        />
-        <input
-          type="email"
-          name="email"
-          value={formData.email}
-          onChange={handleChange}
-          placeholder="Email"
-          required
-        />
-        <input
-          type="text"
-          name="phoneNumber"
-          value={formData.phoneNumber}
-          onChange={handleChange}
-          placeholder="Phone Number"
-          required
-        />
-        <input
-          type="date"
-          name="dateOfBirth"
-          value={formData.dateOfBirth}
-          onChange={handleChange}
-          placeholder="Date of Birth"
-          required
-        />
-        <input
-          type="password"
-          name="password"
-          value={formData.password}
-          onChange={handleChange}
-          placeholder="Password"
-          required
-        />
-        <input
-          type="password"
-          name="confirmPassword"
-          value={formData.confirmPassword}
-          onChange={handleChange}
-          placeholder="Confirm Password"
-          required
-        />
-        <select
+    <div className="body_rp">
+    <div className="frame_RP">
+      <h2 className="add_h2">Add Super Admin </h2>
+      <form className="form_rp" onSubmit={handleSubmit}>
+      <div className="flex1_rp" >
+              <label>
+                <input
+                  className="input1_rp"
+                  type="text"
+                    name="fullName"
+                    value={formData.fullName}
+                     onChange={handleChange}
+                  placeholder=""
+                  required
+                />
+                <span>Full Name</span>
+              </label>
+            </div>
+            <div className="flex1_rp" >
+              <label>
+                <input
+                  className="input1_rp"
+                  type="text"
+                    name="username"
+                    value={formData.username}
+                    onChange={handleChange}
+                  placeholder=""
+                  required
+                />
+                <span>Username</span>
+              </label>
+            </div>
+            <div className="flex1_rp" >
+              <label>
+                <input
+                  className="input1_rp"
+                  type="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                  placeholder=""
+                  required
+                />
+                <span>Email</span>
+              </label>
+            </div>
+            <div className="flex1_rp" >
+              <label>
+                <input
+                  className="input1_rp"
+                  type="text"
+                    name="phoneNumber"
+                    value={formData.phoneNumber}
+                    onChange={handleChange}
+                  placeholder=""
+                  required
+                />
+                <span>Phone Number</span>
+              </label>
+            </div>
+            <div className="flex1_rp" >
+              <label>
+                <input
+                  className="input1_rp"
+                  type="date"
+                    name="dateOfBirth"
+                    value={formData.dateOfBirth}
+                    onChange={handleChange}
+                  placeholder=""
+                  required
+                />
+                <span>Date of Birth</span>
+              </label>
+            </div>
+            <div className="flex1_rp" >
+              <label>
+                <input
+                  className="input1_rp"
+                  type="password"
+                    name="password"
+                    value={formData.password}
+                     onChange={handleChange}
+                  placeholder=""
+                  required
+                />
+                <span>Password</span>
+              </label>
+            </div>
+            <div className="flex1_rp" >
+              <label>
+                <input
+                  className="input1_rp"
+                  type="password"
+                    name="confirmPassword"
+                    value={formData.confirmPassword}
+                    onChange={handleChange}
+                  placeholder=""
+                  required
+                />
+                <span>Confirm Password</span>
+              </label>
+            </div>
+            <div className="flex1_rp" >
+            <select
+            className="input2_rp"
           name="gender"
           value={formData.gender}
           onChange={handleChange}
@@ -113,8 +160,11 @@ const RegisterPage = () => {
           <option value="female">Female</option>
           <option value="other">Other</option>
         </select>
-        <button type="submit">Register</button>
+            </div>
+        
+        <button className="submit_rp" type="submit">Register</button>
       </form>
+    </div>
     </div>
   );
 };

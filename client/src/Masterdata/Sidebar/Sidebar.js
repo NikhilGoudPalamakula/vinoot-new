@@ -7,6 +7,7 @@ import { IoIosPeople } from "react-icons/io";
 import { FaBell } from "react-icons/fa";
 import { IoPerson } from "react-icons/io5";
 import { FaQuestionCircle } from "react-icons/fa";
+import { Link } from 'react-router-dom'; 
 
 const SuperSidebar = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -28,12 +29,17 @@ const SuperSidebar = () => {
                 </div>
                 <div className='sidebar-list-items'>
                     <ul className='first-lists'>
-                        <li className={activeItem === 'dashboard' ? 'active' : ''} onClick={() => handleItemClick('dashboard')}><MdDashboard className='icon' />Dashboard</li>
-                        <li className={activeItem === 'products' ? 'active' : ''} onClick={() => handleItemClick('products')}><FaBoxArchive className='icon' />Products</li>
-                        <li className={activeItem === 'branches' ? 'active' : ''} onClick={() => handleItemClick('branches')}><FaStoreAlt className='icon' />Branches</li>
-                        <li className={activeItem === 'add-admin' ? 'active' : ''} onClick={() => handleItemClick('add-admin')}><IoIosPeople className='icon' />Add M-Admin</li>
+                       <Link to="/" className='sidebar-links' ><li className={activeItem === 'dashboard' ? 'active' : ''} onClick={() => handleItemClick('dashboard')}><MdDashboard className='icon' />Dashboard</li></Link> 
+                       <Link to="/MasterUsert" className='sidebar-links' ><li className={activeItem === 'superadmins' ? 'active' : ''} onClick={() => handleItemClick('superadmins')}><FaBoxArchive className='icon' />Super Admin's</li></Link> 
+                       <Link to="/FrSidebar" className='sidebar-links' > <li className={activeItem === 'franchise' ? 'active' : ''} onClick={() => handleItemClick('franchise')}><FaStoreAlt className='icon' />Frachises</li> </Link>
+                       <Link to="/TreatmentCategory" className='sidebar-links' > <li className={activeItem === 'treatmentcat' ? 'active' : ''} onClick={() => handleItemClick('treatmentcat')}><IoIosPeople className='icon' />Treatment Category</li></Link>
+                       <Link to="/TreatmentPlan" className='sidebar-links' > <li className={activeItem === 'treatmentplan' ? 'active' : ''} onClick={() => handleItemClick('treatmentplan')}><IoIosPeople className='icon' />Treatment Plan</li></Link>
+                       <Link to="/States" className='sidebar-links' > <li className={activeItem === 'states' ? 'active' : ''} onClick={() => handleItemClick('states')}><IoIosPeople className='icon' />States</li></Link>
+                       <Link to="/Cities" className='sidebar-links' > <li className={activeItem === 'cities' ? 'active' : ''} onClick={() => handleItemClick('cities')}><IoIosPeople className='icon' />Cities</li></Link>
+                       <Link to="/Area" className='sidebar-links' ><li className={activeItem === 'areas' ? 'active' : ''} onClick={() => handleItemClick('areas')}><IoIosPeople className='icon' />Areas</li></Link>
+                       <Link to="/" className='sidebar-links' > <li className={activeItem === 'logout' ? 'active' : ''} onClick={() => handleItemClick('logout')}><IoIosPeople className='icon' />Logout</li></Link>
                     </ul>
-                    <div className='side-bar-second-lists'>
+                    {/* <div className='side-bar-second-lists'>
                         <h5>Accounts Pages</h5>
                         <ul className='second-lists'>
                             <li className={activeItem === 'notification' ? 'active' : ''} onClick={() => handleItemClick('notification')}><FaBell className='icon' />Notification</li>
@@ -53,7 +59,7 @@ const SuperSidebar = () => {
                         <div className='documentaion-btn'>
                             <button>DOCUMENTATION </button>
                         </div>
-                    </div>
+                    </div> */}
                 </div>
             </div>
             <div className='hamburger-menu' onClick={toggleSidebar}>

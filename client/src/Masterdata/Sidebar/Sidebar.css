@@ -58,16 +58,19 @@
     align-items: center;
     /* Align items vertically */
     cursor: pointer;
-    padding: 6px;
+    padding: 10px 6px;
     transition: border-color 0.3s ease-in-out, color 0.3s ease-in-out;
     margin-top: 10px;
-    width: 70%;
-    margin-left: 8%;
+    width: 88%;
+    margin-left: 2%;
     border-radius: 15px;
     background-color: #fff;
     transition: transform 0.3s ease;
 }
-
+.sidebar-links{
+    text-decoration: none;
+    color: black;
+}
 .second-lists li {
     display: flex;
     align-items: center;

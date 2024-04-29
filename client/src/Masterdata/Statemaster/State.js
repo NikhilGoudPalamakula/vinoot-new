@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios"; // Import Axios
 import { useNavigate } from "react-router-dom";
 import { VINOOTNEW } from "../../Helper/Helper";
+import SuperSidebar from "../Sidebar/Sidebar";
 const States = () => {
   const [stateName, setStateName] = useState("");
   const navigate = useNavigate();
@@ -47,7 +48,10 @@ const States = () => {
   };
 
   return (
-    <div className="App">
+    <>
+    <SuperSidebar/>
+    <div>
+      
       <form onSubmit={handleSubmit}>
         <label>
           State Name:
@@ -60,6 +64,7 @@ const States = () => {
         <button type="submit">Submit</button>
       </form>
     </div>
+    </>
   );
 };
 

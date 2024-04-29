@@ -3,6 +3,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { VINOOTNEW } from "../../Helper/Helper";
 import "./Category.css";
+import SuperSidebar from "../Sidebar/Sidebar";
 
 const TreatmentCategory = () => {
   const navigate = useNavigate();
@@ -87,6 +88,11 @@ const TreatmentCategory = () => {
   };
 
   return (
+    <div className="total-tcategory" >
+<div>
+  <SuperSidebar/>
+</div>
+   
     <div>
       <h1>Treatment Category Master</h1>
       <form action="" onSubmit={handleSubmit} className="cat-form">
@@ -130,6 +136,7 @@ const TreatmentCategory = () => {
           ))}
         </tbody>
       </table>
+    </div>
     </div>
   );
 };

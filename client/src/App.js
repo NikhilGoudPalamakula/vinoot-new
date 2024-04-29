@@ -18,12 +18,14 @@ import TreatmentCategory from './Masterdata/Categorymasterdata/Category';
 import TreatmentPlan from './Masterdata/Treatmentplanmaster/Plan';
 import PatientForm from './Franchisemanagement/Patientdetails/Addpatient';
 import FranchiseStaffReg from './MasterLogin/FranchiseStaffReg';
+import SuperSidebar from './Masterdata/Sidebar/Sidebar';
 
 
 function App() {
   return (
 
     <Router>
+
       <Routes>
 
         {/* Mastar data */}
@@ -54,6 +56,8 @@ function App() {
         </Route>
 
         <Route path="/Patientdetails" element={<PatientForm />} />
+        <Route path="/SuperSidebar" element={<SuperSidebar />} />
+        
     
       </Routes>
     </Router>

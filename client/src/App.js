@@ -16,6 +16,7 @@ import FranchiseAdmintable from './MasterLogin/FranchiseAdmintable';
 import Home from './Home/Home';
 import TreatmentCategory from './Masterdata/Categorymasterdata/Category';
 import TreatmentPlan from './Masterdata/Treatmentplanmaster/Plan';
+import PatientForm from './Franchisemanagement/Patientdetails/Addpatient';
 
 
 function App() {
@@ -49,7 +50,8 @@ function App() {
           <Route path="/TreatmentPlan" element={<TreatmentPlan />} />
         </Route>
 
-
+        <Route path="/Patientdetails" element={<PatientForm />} />
+    
       </Routes>
     </Router>
 

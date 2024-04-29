@@ -155,6 +155,7 @@ import "./Plan.css";
 import { VINOOTNEW } from "../../Helper/Helper";
 const TreatmentPlan = () => {
   const [categories, setCategories] = useState([]);
+  const [plans, setPlans] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("");
   const [plan, setPlan] = useState("");
   const [GST, setGST] = useState("");
@@ -166,7 +167,7 @@ const TreatmentPlan = () => {
   const fetchCategory = async () => {
     try {
       const response = await axios.get(
-        `${VINOOTNEW}/api/treatment-category`
+        `${ VINOOTNEW }/api/treatment-category`
       );
       // Filter only active categories
       const activeCategories = response.data.filter(
@@ -178,6 +179,20 @@ const TreatmentPlan = () => {
       console.error("Error fetching category:", error);
     }
   };
+  const fetchPlans = async () => {
+    try {
+      const response = await axios.get(
+        `${ VINOOTNEW }/api/treatment-plan`
+      );
+      setPlans(response.data); // Assuming the response contains an array of categories
+    } catch (error) {
+      console.error("Error fetching categories:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchPlans(); // Fetch categories when the component mounts
+  }, []);
 
   // Fetch the category when the component is mounted
   useEffect(() => {
@@ -206,14 +221,14 @@ const TreatmentPlan = () => {
     e.preventDefault();
     try {
       const noOfPlans = await axios.get(
-        `${VINOOTNEW}/api/treatment-plan`
+        `${ VINOOTNEW }/api/treatment-plan`
       );
       const count = noOfPlans.data.length;
 
       // Generate unique ID
       const plan_id = generateUniqueId(count + 0);
       // setDate(presentTime);
-      await axios.post(`${VINOOTNEW}/api/treatment-plan`, {
+      await axios.post(`${ VINOOTNEW }/api/treatment-plan`, {
         plan_id: plan_id,
         category_name: selectedCategory,
         plan_name: plan,
@@ -221,6 +236,7 @@ const TreatmentPlan = () => {
         price: price,
         days: days,
         updatedAt: presentTime,
+        status: "active", // Default status is active
       });
       navigate("/TreatmentCategory");
       // console.log(planDetails);
@@ -232,6 +248,20 @@ const TreatmentPlan = () => {
     const paddedCount = (count + 1).toString().padStart(3, "0"); // Increment count and pad with zeros
     const id = "PLAN-" + paddedCount; // Generate unique ID
     return id;
+  };
+  const toggleStatus = async (plan_id, currentStatus) => {
+    try {
+      const newStatus = currentStatus === "active" ? "inactive" : "active";
+
+      await axios.put(`${ VINOOTNEW }/api/treatment-plan/${plan_id}`, {
+        status: newStatus,
+        updatedAt: presentTime, // Updated time
+      });
+
+      fetchPlans(); // Refresh the plan list after status change
+    } catch (error) {
+      console.error("Error toggling status:", error);
+    }
   };
 
   return (
@@ -293,6 +323,31 @@ const TreatmentPlan = () => {
         </div>
         <button>Submit Plan</button>
       </form>
+      <h2>Plans List</h2>
+      <table className="table">
+        <thead>
+          <tr>
+            <th>Plan Name</th>
+            <th>UpdatedTime</th>
+            <th>Status</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {plans.map((plan) => (
+            <tr key={plan.plan_id}>
+              <td>{plan.plan_name}</td>
+              <td>{plan.updatedAt}</td>
+              <td>{plan.status}</td>
+              <td>
+                <button onClick={() => toggleStatus(plan.plan_id, plan.status)}>
+                  {plan.status === "active" ? "Set Inactive" : "Set Active"}
+                </button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 };

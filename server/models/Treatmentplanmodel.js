@@ -8,6 +8,11 @@ const treatmentPlanSchema = new mongoose.Schema({
   days: Number,
   price: Number,
   updatedAt: String,
+  status: {
+    type: String,
+    enum: ["active", "inactive"],
+    default: "active",
+  },
 });
 
 const TreatmentPlan = mongoose.model("TreatmentPlan", treatmentPlanSchema);

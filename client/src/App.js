@@ -19,7 +19,7 @@ import TreatmentPlan from './Masterdata/Treatmentplanmaster/Plan';
 import PatientForm from './Franchisemanagement/Patientdetails/Addpatient';
 import FranchiseStaffReg from './MasterLogin/FranchiseStaffReg';
 import SuperSidebar from './Masterdata/Sidebar/Sidebar';
-
+import LoginForm from './Login/LoginForm'
 
 function App() {
   return (
@@ -30,6 +30,7 @@ function App() {
       <Routes>
 
         {/* Mastar data */}
+        {/* <Route path="/" element={<LoginForm />} /> */}
         <Route path="/" element={<Home />} />
 
 

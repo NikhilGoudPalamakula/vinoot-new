@@ -24,7 +24,7 @@ import Thearpy from './Franchisemanagement/Thearpy';
 import Doctor from './Franchisemanagement/Doctor';
 import Recepttion from './Franchisemanagement/Reception/Recepttion';
 import Billing from './Franchisemanagement/Reception/Billing/Billing';
-import FranchiseAdmin from './Franchisemanagement/FranchiseAdmin';
+import FranchiseAdmin from './Franchisemanagement/Franchiseadmin/Franchisestaff/FranchiseAdmin';
 
 function App() {
   return (

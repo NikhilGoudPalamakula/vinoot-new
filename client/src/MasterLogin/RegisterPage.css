@@ -11,10 +11,10 @@
 
 .frame_RP{
     border: 2px solid #0AA506;
-    height: 55%;
+    height: 51%;
     /* width: 30%; */
     padding: 1rem 1rem 1rem 1rem;
-    margin: 3% 5% 0% 5%;
+    margin: 0.5% 5% 0% 5%;
     border-radius: 15px;
     background-color: white;
     text-align: center;
@@ -24,7 +24,7 @@
 
 .add_h2{
     color: #0AA506;
-    margin-top: 1%;
+    margin-top: 0.3%;
 }
 
 .flex1_rp{
@@ -105,7 +105,7 @@
     background-color: #0AA506;
     border-radius: 10px;
     margin-left: -7%;
-    margin-top: 2%;
+    margin-top: 1%;
     margin-bottom: 10%;
     color: #f8f7f7;
     font-size: 1rem;

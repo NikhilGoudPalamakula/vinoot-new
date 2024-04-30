@@ -219,7 +219,7 @@ const MasterUserT = () => {
                 <button onClick={() => toggleActiveState(user._id, user.isActive)}>
                   {user.isActive ? 'Deactivate' : 'Activate'}
                 </button>
-                <button onClick={() => handleDelete(user._id)}>Delete</button>
+                {/* <button onClick={() => handleDelete(user._id)}>Delete</button> */}
               </td>
             </tr>
           ))}

@@ -3,6 +3,7 @@ import axios from "axios"; // Import Axios
 import Cities from "../Citymaster/City";
 import { useNavigate } from "react-router-dom";
 import { VINOOTNEW } from "../../Helper/Helper";
+import Sidebar from "../Sidebar/Sidebar";
 
 const Area = () => {
   const [CityName, setCityName] = useState("");
@@ -71,33 +72,36 @@ const Area = () => {
   };
 
   return (
-    <div className="App">
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>
-            Select City:
-            <select value={CityName} onChange={handleStateChange}>
-              <option value="">Select a city</option>
-              {cities.map((city) => (
-                <option key={city._id} value={city.name}>
-                  {city.name}
-                </option>
-              ))}
-            </select>
-          </label>
-        </div>
-        <div>
-          <label>
-            Area Name:
-            <input
-              type="text"
-              value={areaName}
-              onChange={(e) => setAreaName(e.target.value)}
-            />
-          </label>
-        </div>
-        <button type="submit">Submit</button>
-      </form>
+    <div style={{display:'flex'}}>
+      <div><Sidebar/></div>
+      <div className="App">
+        <form onSubmit={handleSubmit}>
+          <div>
+            <label>
+              Select City:
+              <select value={CityName} onChange={handleStateChange}>
+                <option value="">Select a city</option>
+                {cities.map((city) => (
+                  <option key={city._id} value={city.name}>
+                    {city.name}
+                  </option>
+                ))}
+              </select>
+            </label>
+          </div>
+          <div>
+            <label>
+              Area Name:
+              <input
+                type="text"
+                value={areaName}
+                onChange={(e) => setAreaName(e.target.value)}
+              />
+            </label>
+          </div>
+          <button type="submit">Submit</button>
+        </form>
+      </div>
     </div>
   );
 };

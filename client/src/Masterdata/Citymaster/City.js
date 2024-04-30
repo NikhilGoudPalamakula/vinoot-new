@@ -115,6 +115,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { VINOOTNEW } from "../../Helper/Helper";
+import Sidebar from "../Sidebar/Sidebar";
 
 const Cities = () => {
   const [stateName, setStateName] = useState("");
@@ -218,62 +219,65 @@ const Cities = () => {
   };
 
   return (
-    <div className="App">
-      <form onSubmit={handleSubmit}>
+    <div style={{display:'flex'}}>
+      <div><Sidebar/></div>
+      <div className="App">
+        <form onSubmit={handleSubmit}>
+          <div>
+            <label>
+              Select State:
+              <select value={stateName} onChange={handleStateChange}>
+                <option value="">Select a state</option>
+                {states.map((state) => (
+                  <option key={state._id} value={state.name}>
+                    {state.name}
+                  </option>
+                ))}
+              </select>
+            </label>
+          </div>
+          <div>
+            <label>
+              City Name:
+              <input
+                type="text"
+                value={cityName}
+                onChange={(e) => setCityName(e.target.value)}
+              />
+            </label>
+          </div>
+          <button type="submit">Submit</button>
+        </form>
         <div>
-          <label>
-            Select State:
-            <select value={stateName} onChange={handleStateChange}>
-              <option value="">Select a state</option>
-              {states.map((state) => (
-                <option key={state._id} value={state.name}>
-                  {state.name}
-                </option>
-              ))}
-            </select>
-          </label>
-        </div>
-        <div>
-          <label>
-            City Name:
-            <input
-              type="text"
-              value={cityName}
-              onChange={(e) => setCityName(e.target.value)}
-            />
-          </label>
-        </div>
-        <button type="submit">Submit</button>
-      </form>
-      <div>
-        {isLoading ? (
-          <p>Loading cities...</p>
-        ) : (
-          <table>
-            <thead>
-              <tr>
-                <th>City</th>
-                <th>Status</th>
-                <th>Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              {cities.map((city) => (
-                <tr key={city._id}>
-                  <td>{city.name}</td>
-                  <td>{city.status}</td>
-                  <td>
-                    <button
-                      onClick={() => toggleCityStatus(city._id, city.status)}
-                    >
-                      {city.status === "active" ? "Inactive" : "Active"}
-                    </button>
-                  </td>
+          {isLoading ? (
+            <p>Loading cities...</p>
+          ) : (
+            <table>
+              <thead>
+                <tr>
+                  <th>City</th>
+                  <th>Status</th>
+                  <th>Action</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-        )}
+              </thead>
+              <tbody>
+                {cities.map((city) => (
+                  <tr key={city._id}>
+                    <td>{city.name}</td>
+                    <td>{city.status}</td>
+                    <td>
+                      <button
+                        onClick={() => toggleCityStatus(city._id, city.status)}
+                      >
+                        {city.status === "active" ? "Inactive" : "Active"}
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          )}
+        </div>
       </div>
     </div>
   );

@@ -77,6 +77,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios"; // Import Axios
 import { useNavigate } from "react-router-dom";
 import { VINOOTNEW } from "../../Helper/Helper";
+import Sidebar from "../Sidebar/Sidebar";
 
 const States = () => {
   const [stateName, setStateName] = useState("");
@@ -142,42 +143,45 @@ const States = () => {
   };
 
   return (
-    <div className="App">
-      <form onSubmit={handleSubmit}>
-        <label>
-          State Name:
-          <input
-            type="text"
-            value={stateName}
-            onChange={(e) => setStateName(e.target.value)}
-          />
-        </label>
-        <button type="submit">Submit</button>
-      </form>
-      <table>
-        <thead>
-          <tr>
-            <th>State</th>
-            <th>Status</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          {states.map((state) => (
-            <tr key={state._id}>
-              <td>{state.name}</td>
-              <td>{state.status === "active" ? "Active" : "Inactive"}</td>
-              <td>
-                <button
-                  onClick={() => toggleStateStatus(state._id, state.status)}
-                >
-                  {state.status === "active" ? "InActive" : "Active"}
-                </button>
-              </td>
+    <div style={{display:'flex'}}>
+      <div><Sidebar/></div>
+      <div className="App">
+        <form onSubmit={handleSubmit}>
+          <label>
+            State Name:
+            <input
+              type="text"
+              value={stateName}
+              onChange={(e) => setStateName(e.target.value)}
+            />
+          </label>
+          <button type="submit">Submit</button>
+        </form>
+        <table>
+          <thead>
+            <tr>
+              <th>State</th>
+              <th>Status</th>
+              <th>Action</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {states.map((state) => (
+              <tr key={state._id}>
+                <td>{state.name}</td>
+                <td>{state.status === "active" ? "Active" : "Inactive"}</td>
+                <td>
+                  <button
+                    onClick={() => toggleStateStatus(state._id, state.status)}
+                  >
+                    {state.status === "active" ? "InActive" : "Active"}
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };

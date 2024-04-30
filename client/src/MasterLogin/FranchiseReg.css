@@ -1,4 +1,4 @@
-.Frame{
+/* .Frame{
     border: 2px solid #0AA506;
     height: 60%;
     width: 80%;
@@ -166,4 +166,232 @@
   .submit1:hover{
     background-color: black;
     color: azure;
-  }
+  } */
+
+
+
+  /* .Frame {
+  border: 2px solid #0aa506;
+  height: 60%;
+  width: 80%;
+  padding: 5% 5% 1% 5%;
+  margin: 6% 5% 0% 5%;
+  border-radius: 15px;
+  background-color: white;
+  position: absolute;
+
+  align-items: center;
+}
+.fr {
+  position: absolute;
+  margin-top: 2%;
+  color: #0aa506;
+  margin-left: 38%;
+}
+.h2 {
+  position: absolute;
+  margin-top: -3.5%;
+  color: #0aa506;
+}
+.Admin {
+  margin-top: -36%;
+  margin-left: 69%;
+  color: #0aa506;
+}
+.flex1 {
+  display: flex;
+
+  width: 100%;
+  gap: 6px;
+  margin-top: 2.75%;
+}
+
+.form label {
+  position: relative;
+}
+
+.form label .input1 {
+  background-color: #f8f7f7;
+  color: #0aa506;
+  height: 30%;
+  width: 135%;
+  padding: 20px 05px 05px 10px;
+  outline: 0;
+  border: 1px solid #0aa506;
+  border-radius: 10px;
+}
+
+.form label .input1 + span {
+  color: #0aa506;
+  position: absolute;
+  left: 10px;
+  top: 0px;
+  font-size: 0.9em;
+  cursor: text;
+  transition: 0.3s ease;
+}
+
+.form label .input1:placeholder-shown + span {
+  top: 12.5px;
+  font-size: 0.9em;
+}
+
+.form label .input1:focus + span,
+.form label .input1:valid + span {
+  color: #0aa506;
+  top: 0px;
+  font-size: 0.7em;
+  font-weight: 600;
+}
+
+.flex2 {
+  display: flex;
+
+  width: 100%;
+  gap: 6px;
+  margin-top: 3.75%;
+  margin-left: 69%;
+}
+.flex3 {
+  display: flex;
+
+  width: 100%;
+  gap: 6px;
+  margin-top: 2.75%;
+  margin-left: 69%;
+}
+.flex4 {
+  display: flex;
+
+  width: 100%;
+  gap: 6px;
+  margin-top: 2.5%;
+  margin-left: 69%;
+}
+.flex5 {
+  display: flex;
+
+  width: 100%;
+  gap: 6px;
+  margin-top: 2.75%;
+  margin-left: 69%;
+}
+.flex6 {
+  display: flex;
+
+  width: 100%;
+  gap: 6px;
+  margin-top: 2.75%;
+  margin-left: 69%;
+}
+.flex1a {
+  display: flex;
+
+  width: 100%;
+  gap: 6px;
+  margin-top: -30.5%;
+  margin-left: 35%;
+}
+.flex1b {
+  display: flex;
+
+  width: 100%;
+  gap: 6px;
+  margin-top: 2.75%;
+  margin-left: 35%;
+}
+.flex1c {
+  display: flex;
+
+  width: 100%;
+  gap: 6px;
+  margin-top: 2.75%;
+  margin-left: 35%;
+}
+.flex1d {
+  display: flex;
+
+  width: 100%;
+  gap: 6px;
+  margin-top: 2.75%;
+  margin-left: 35%;
+}
+
+.submit1 {
+  position: absolute;
+  border: 0 solid red;
+  height: 8%;
+  width: 15%;
+  background-color: #0aa506;
+  border-radius: 10px;
+  margin-left: 75%;
+  margin-top: 42%;
+  margin-bottom: 10%;
+  color: #f8f7f7;
+  font-size: 1rem;
+  transition: 1s;
+}
+
+.submit1:hover {
+  background-color: black;
+  color: azure;
+} */
+
+.franchise-header {
+  text-align: center;
+}
+
+.form-franchiseReg {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.franchise-column-wrapper {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  margin-top: 20px;
+}
+
+.column {
+  width: 30%;
+  position: relative;
+}
+
+.input-box-container {
+  margin-bottom: 10px;
+}
+
+.suggestion-list {
+  list-style-type: none;
+  padding: 0;
+  background-color: #f9f9f9;
+  border: 1px solid #ccc;
+  max-height: 150px;
+  overflow-y: auto;
+  position: absolute;
+  width: calc(100% - 2px); /* Match the width of the input box */
+  top: calc(100% + 5px);
+  left: 0;
+  z-index: 1000;
+}
+
+.suggestion-list li {
+  padding: 5px;
+  cursor: pointer;
+}
+
+.franchise-button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.franchise-button:hover {
+  background-color: #0056b3;
+}

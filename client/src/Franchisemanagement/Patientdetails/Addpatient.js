@@ -198,7 +198,7 @@
 
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-// import "./Home.css"; // Import your CSS file for transitions
+import "./Addpatient.css"; 
 
 const PatientForm = () => {
   const [states, setStates] = useState([]);
@@ -388,7 +388,7 @@ const PatientForm = () => {
 
   return (
     <div>
-      <h1>Patient Form</h1>
+      <h1 className="h1-head">Patient Form</h1>
       <div className="input-container">
         <form action="" onSubmit={handleSubmit}>
           <div className="column-wrapper">
@@ -570,7 +570,7 @@ const PatientForm = () => {
             </div>
           </div>
           <div>
-            <button type="submit">Submit</button>
+            <button className="patsubmit-btn" type="submit">Submit</button>
           </div>
         </form>
       </div>

@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-
+import './FranchiseStaffReg.css'
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import FranchiseadminSidebar from "../Franchiseadminsidebar/Franchiseadminsidebar";
 
 const FranchiseStaffReg = () => {
   const navigate =useNavigate();
@@ -48,7 +49,12 @@ const FranchiseStaffReg = () => {
   };
 
   return (
-    <div>
+    <div className="fraddstaff-total">
+      <div>
+        <FranchiseadminSidebar/>
+      </div>
+  
+    <div  className="fradmin-right">
       <h2>Franchise Form</h2>
       <form onSubmit={handleSubmit}>
 
@@ -96,6 +102,7 @@ const FranchiseStaffReg = () => {
 
         <button type="submit">Submit</button>
       </form>
+    </div>
     </div>
   );
 };

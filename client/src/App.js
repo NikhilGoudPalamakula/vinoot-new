@@ -17,7 +17,7 @@ import Home from './Home/Home';
 import TreatmentCategory from './Masterdata/Categorymasterdata/Category';
 import TreatmentPlan from './Masterdata/Treatmentplanmaster/Plan';
 import PatientForm from './Franchisemanagement/Reception/Patientdetails/Addpatient';
-import FranchiseStaffReg from './MasterLogin/FranchiseStaffReg';
+import FranchiseStaffReg from './Franchisemanagement/Franchiseadmin/FranchisestaffReg/FranchiseStaffReg';
 import SuperSidebar from './Masterdata/Sidebar/Sidebar';
 import LoginForm from './Login/LoginForm'
 import Thearpy from './Franchisemanagement/Thearpy';

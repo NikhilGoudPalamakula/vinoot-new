@@ -26,8 +26,8 @@ function App() {
   return (
 
     <Router>
-      <Billing/>
-
+    
+{/* //////// */}
       <Routes>
 
         {/* Mastar data */}

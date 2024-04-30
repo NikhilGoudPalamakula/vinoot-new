@@ -33,7 +33,7 @@ function App() {
       <Routes>
 
         {/* Mastar data */}
-        {/* <Route path="/" element={<LoginForm />} /> */}
+        <Route path="/Login" element={<LoginForm />} />
         <Route path="/" element={<Home />} />
 
 

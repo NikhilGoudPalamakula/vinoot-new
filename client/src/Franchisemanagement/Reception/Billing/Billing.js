@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { VINOOTNEW } from '../../../Helper/Helper';
 import axios from "axios";
 import ReceptionSidebar from '../ReceptionSidebar/ReceptionSidebar';
-
+import './Billing.css'
 const Billing = () => {
   const [doctors, setDoctors] = useState([]);
   const [paymentType, setPaymentType] = useState(""); // State for payment type

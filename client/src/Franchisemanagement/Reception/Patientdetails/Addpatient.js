@@ -382,6 +382,9 @@ const PatientForm = () => {
       setStateInput(""); // Clear the state input
       setCity(""); // Clear the city input
       setArea(""); // Clear the area input
+
+      localStorage.setItem("franchisename", formData.franchise_name);
+      localStorage.setItem("FranchiseID", formData.franchise_id);
     } catch (error) {
       console.error("Failed to submit data", error);
     }
@@ -410,7 +413,7 @@ const PatientForm = () => {
                   required
                 />
               </div>
-              <div className="input-wrapper">
+              {/* <div className="input-wrapper">
                 <label htmlFor="franchise_name">Franchise Name:</label>
                 <input
                   id="franchise_name"
@@ -431,7 +434,7 @@ const PatientForm = () => {
                   onChange={handleInputChange}
                   required
                 />
-              </div>
+              </div> */}
               <div className="input-wrapper">
                 <label htmlFor="patient_name">Patient Name:</label>
                 <input

@@ -12,7 +12,7 @@ import States from './Masterdata/Statemaster/State';
 import Cities from './Masterdata/Citymaster/City';
 import Area from './Masterdata/Areamaster/Area';
 import FranchiseLogin from './MasterLogin/FranchiseLogin';
-import FranchiseAdmintable from './MasterLogin/FranchiseAdmintable';
+import FranchiseAdmintable from './MasterLogin/Franchisedetails/FranchiseAdmintable';
 import Home from './Home/Home';
 import TreatmentCategory from './Masterdata/Categorymasterdata/Category';
 import TreatmentPlan from './Masterdata/Treatmentplanmaster/Plan';

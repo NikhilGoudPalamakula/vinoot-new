@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './FranchiseAdmintable.css';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import Sidebar from '../Masterdata/Sidebar/Sidebar';
+import Sidebar from '../../Masterdata/Sidebar/Sidebar';
 
 const FranchiseAdmintable = () => {
     const [admins, setAdmins] = useState([]);
@@ -40,7 +40,6 @@ const FranchiseAdmintable = () => {
           <Sidebar/>
           </div>
         <div style={{marginLeft:'20%'}}>
-          <Link to='/fsr'><button className='btnf'>franchise staff Registration</button></Link>
           <table className='tabf'>
             <thead>
               <tr>

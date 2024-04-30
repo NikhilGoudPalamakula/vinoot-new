@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import FranchiseadminSidebar from './Franchiseadmin/Franchiseadminsidebar/Franchiseadminsidebar';
+import FranchiseadminSidebar from '../Franchiseadminsidebar/Franchiseadminsidebar';
 import './FranchiseAdmin.css'
 const FranchiseAdmin = () => {
   const [admins, setAdmins] = useState([]);

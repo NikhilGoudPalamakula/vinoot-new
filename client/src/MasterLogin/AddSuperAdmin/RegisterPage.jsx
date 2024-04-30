@@ -5,8 +5,8 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import './RegisterPage.css'
-import Sidebar from "../Masterdata/Sidebar/Sidebar";
-import MasterUserT from "./MasterUserT";
+import Sidebar from "../../Masterdata/Sidebar/Sidebar";
+import MasterUserT from "../Masterusers/MasterUserT";
 
 
 const RegisterPage = () => {

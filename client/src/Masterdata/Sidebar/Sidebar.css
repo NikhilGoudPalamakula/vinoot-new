@@ -6,7 +6,7 @@
     flex-direction: column;
     transition: width 0.3s ease;
     overflow-x: hidden;
-    position: relative;
+    position: fixed;
     /* Add position relative */
 }
 

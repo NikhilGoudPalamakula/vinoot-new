@@ -2,29 +2,35 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 
-const FranchiseAdmintable = () => {
+const FranchiseAdmin = () => {
     const [admins, setAdmins] = useState([]);
-
    
     useEffect(() => {
       fetchAdmins();
     }, []);
   
+   
+
     const fetchAdmins = async () => {
       try {
-        const response = await axios.get('http://localhost:5001/api/franchisefetchAdmin');
-        // Filter admins whose designation is "FranchiseAdmin"
-        const filteredAdmins = response.data.filter(admin => admin.designation === "FranchiseAdmin");
-        setAdmins(filteredAdmins);
+        const frid = localStorage.getItem('FranchiseID'); // Corrected localStorage key
+        if (frid) {
+          const response = await axios.get(`http://localhost:5001/api/franchisefetchusers/${frid}`);
+          setAdmins(response.data);
+        } else {
+          console.error('FranchiseID not found in localStorage');
+        }
       } catch (error) {
         console.error('Error fetching admins:', error);
       }
     };
+    
   
     const toggleActiveState = async (id, isActive) => {
         try {
-          const updatedBy = localStorage.getItem('username');
+          const updatedBy = localStorage.getItem('username'); // Get username from localStorage
           await axios.patch(`http://localhost:5001/api/franchisestateupdate/${id}`, { isActive: !isActive, updatedBy });
+          // Refresh user list after updating active state
           fetchAdmins();
         } catch (error) {
           console.error('Error updating active state:', error);
@@ -82,5 +88,5 @@ const FranchiseAdmintable = () => {
     );
   };
 
-export default FranchiseAdmintable;
+export default FranchiseAdmin;
 

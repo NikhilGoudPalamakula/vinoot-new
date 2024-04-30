@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import CreatableSelect from 'react-select/creatable';
-import Select from 'react-select';
+
 
 const Billing = () => {
     const [planName, setPlanName] = useState(""); // User input

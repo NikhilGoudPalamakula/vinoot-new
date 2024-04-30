@@ -22,7 +22,7 @@ const RegisterPage = () => {
     password: "",
     confirmPassword: "",
     gender: "",
-    userType: "Master",
+    userType: "SuperAdmin",
     activeChangedBy: "none",
     createdBy:createdby,
   });
@@ -49,7 +49,7 @@ const RegisterPage = () => {
   return (
     <div style={{display:'flex'}}>
       <Sidebar/>
-    <div className="body_rp" style={{width:'100%'}}>
+    <div className="body_rp" style={{width:'80%', marginLeft:'20%'}}>
       <div className="frame_RP">
         <h2 className="add_h2">Add Super Admin </h2>
         <form className="form_rp" onSubmit={handleSubmit}>
@@ -174,7 +174,7 @@ const RegisterPage = () => {
           </div>
           <button className="submit_rp" type="submit">Register</button>
         </form>
-        <div style={{marginTop:'20%'}}><MasterUserT/></div>
+        <div style={{marginTop:'10%'}}><MasterUserT/></div>
       </div>
     </div>
     </div>

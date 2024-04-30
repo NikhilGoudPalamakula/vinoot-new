@@ -1,43 +1,59 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from 'axios';
+import axios from "axios";
 
 const FranchiseLogin = () => {
+  //  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-        //  const dispatch = useDispatch();
-        const navigate = useNavigate();
+  const [formData, setFormData] = useState({
+    Adminid: "",
+    password: "",
+  });
 
-        const [formData, setFormData] = useState({
-        Adminid: '',
-        password: '',
-      });
-    
-      const handleChange = (e) => {
-        setFormData({ ...formData, [e.target.name]: e.target.value });
-      };
-    
-      const handleSubmit = async (e) => {
-        e.preventDefault();
-        try {
-          const res = await axios.post('http://localhost:5001/api/franchiselogin', formData);
-         
-          const { franchisename, FranchiseID, username } = res.data;
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
 
-          localStorage.setItem('franchisename',franchisename);
-          localStorage.setItem('FranchiseID',FranchiseID);
-          localStorage.setItem('username',username);
-          console.log(franchisename);
-          navigate("/FrSidebar");
-          // Optionally, you can redirect the user to another page after successful login
-        } catch (error) {
-          console.error('Login failed:', error.response.data.error);
-          // Optionally, you can display an error message to the user
-        }
-      };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const res = await axios.post(
+        "http://localhost:5001/api/franchiselogin",
+        formData
+      );
+      const { franchisename, FranchiseID, username, designation } = res.data;
 
+      localStorage.setItem("franchisename", franchisename);
+      localStorage.setItem("FranchiseID", FranchiseID);
+      localStorage.setItem("username", username);
+      localStorage.setItem("designation", designation); // Save the designation
+
+      switch (designation) {
+        case "FranchiseAdmin":
+          navigate("/FranchiseAdmin");
+          break;
+        case "Doctor":
+          navigate("/Doctor");
+          break;
+        case "Reception":
+          navigate("/Recepttion");
+          break;
+        case "Thearpy":
+          navigate("/Thearpy");
+          break;
+        default:
+          navigate("/defaultDashboard");
+          break;
+      }
+    } catch (error) {
+      console.error("Login failed:", error.response.data.error);
+      // Optionally, you can display an error message to the user
+    }
+  };
 
   return (
-   <>
+    <>
       <h2>Farnchise Admin User Login</h2>
       <form onSubmit={handleSubmit}>
         <input
@@ -59,7 +75,7 @@ const FranchiseLogin = () => {
         <button type="submit">Login</button>
       </form>
     </>
-  )
-}
+  );
+};
 
-export default FranchiseLogin
+export default FranchiseLogin;

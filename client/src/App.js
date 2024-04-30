@@ -20,7 +20,11 @@ import PatientForm from './Franchisemanagement/Patientdetails/Addpatient';
 import FranchiseStaffReg from './MasterLogin/FranchiseStaffReg';
 import SuperSidebar from './Masterdata/Sidebar/Sidebar';
 import LoginForm from './Login/LoginForm'
+import Thearpy from './Franchisemanagement/Thearpy';
+import Doctor from './Franchisemanagement/Doctor';
+import Recepttion from './Franchisemanagement/Recepttion';
 import Billing from './Franchisemanagement/Billing/Billing';
+import FranchiseAdmin from './Franchisemanagement/FranchiseAdmin';
 
 function App() {
   return (
@@ -56,10 +60,20 @@ function App() {
           <Route path="/Area" element={<Area />} />
           <Route path="/TreatmentCategory" element={<TreatmentCategory />} />
           <Route path="/TreatmentPlan" element={<TreatmentPlan />} />
+
+
+          <Route path="/FranchiseAdmin" element={<FranchiseAdmin />} />
+          <Route path="/Thearpy" element={<Thearpy />} />
+          <Route path="/Doctor" element={<Doctor />} />
+          <Route path="/Recepttion" element={<Recepttion />} />
+
+
+
+
         </Route>
 
         <Route path="/Patientdetails" element={<PatientForm />} />
-        <Route path="/Billng" element={<Billing />} />
+        {/* <Route path="/Billng" element={<Billing />} /> */}
         <Route path="/SuperSidebar" element={<SuperSidebar />} />
         
     

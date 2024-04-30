@@ -179,3 +179,16 @@ exports.deleteAdmin = async (req, res) => {
     res.status(500).json({ error: 'Server Error' });
   }
 };
+
+
+
+exports.getDoctors = async (req, res) => {
+  try {
+    const doctors = await User.find({ designation: "admin" }, 'fullName');
+    const doctorNames = doctors.map(doctor => doctor.fullName);
+    res.json(doctorNames);
+  } catch (error) {
+    console.error("Error fetching doctors:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+}

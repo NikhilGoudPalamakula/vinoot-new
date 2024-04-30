@@ -41,5 +41,6 @@ router.get('/franchisefetch', franchiseAdminController.getAllFranchiseAmins);
 router.post('/franchiselogin', franchiseAdminController.loginfranchiseUser);
 router.patch('/updateFranchiseAdmin/:id', franchiseAdminController.updateFranchiseAdmin);
 router.delete('/deleteFranchiseAdmin/:id', franchiseAdminController.deleteAdmin);
+router.get('/doctors', franchiseAdminController.getDoctors);
 
 module.exports = router;

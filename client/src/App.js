@@ -20,12 +20,13 @@ import PatientForm from './Franchisemanagement/Patientdetails/Addpatient';
 import FranchiseStaffReg from './MasterLogin/FranchiseStaffReg';
 import SuperSidebar from './Masterdata/Sidebar/Sidebar';
 import LoginForm from './Login/LoginForm'
+import Billing from './Franchisemanagement/Billing/Billing';
 
 function App() {
   return (
 
     <Router>
-      
+      <Billing/>
 
       <Routes>
 
@@ -58,6 +59,7 @@ function App() {
         </Route>
 
         <Route path="/Patientdetails" element={<PatientForm />} />
+        <Route path="/Billng" element={<Billing />} />
         <Route path="/SuperSidebar" element={<SuperSidebar />} />
         
     

@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
-import { VINOOTNEW } from '../../Helper/Helper';
+import { VINOOTNEW } from '../../../Helper/Helper';
 import axios from "axios";
 
 const Billing = () => {

@@ -16,14 +16,14 @@ import FranchiseAdmintable from './MasterLogin/FranchiseAdmintable';
 import Home from './Home/Home';
 import TreatmentCategory from './Masterdata/Categorymasterdata/Category';
 import TreatmentPlan from './Masterdata/Treatmentplanmaster/Plan';
-import PatientForm from './Franchisemanagement/Patientdetails/Addpatient';
+import PatientForm from './Franchisemanagement/Reception/Patientdetails/Addpatient';
 import FranchiseStaffReg from './MasterLogin/FranchiseStaffReg';
 import SuperSidebar from './Masterdata/Sidebar/Sidebar';
 import LoginForm from './Login/LoginForm'
 import Thearpy from './Franchisemanagement/Thearpy';
 import Doctor from './Franchisemanagement/Doctor';
-import Recepttion from './Franchisemanagement/Recepttion';
-import Billing from './Franchisemanagement/Billing/Billing';
+import Recepttion from './Franchisemanagement/Reception/Recepttion';
+import Billing from './Franchisemanagement/Reception/Billing/Billing';
 import FranchiseAdmin from './Franchisemanagement/FranchiseAdmin';
 
 function App() {

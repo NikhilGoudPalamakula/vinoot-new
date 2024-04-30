@@ -104,7 +104,6 @@
 
 // export default Area;
 
-
 import React, { useState, useEffect } from "react";
 import axios from "axios"; // Import Axios
 import Cities from "../Citymaster/City";
@@ -125,6 +124,7 @@ const Area = () => {
     fetchCities();
     fetchAreas();
   }, []);
+
   const fetchAreas = async () => {
     try {
       setIsLoading(true);
@@ -136,14 +136,15 @@ const Area = () => {
       setIsLoading(false);
     }
   };
-    const fetchCities = async () => {
-      try {
-        const response = await axios.get(`${VINOOTNEW}/api/cities`);
-        setCities(response.data);
-      } catch (error) {
-        console.error("Failed to fetch cities", error);
-      }
-    };
+
+  const fetchCities = async () => {
+    try {
+      const response = await axios.get(`${VINOOTNEW}/api/cities`);
+      setCities(response.data);
+    } catch (error) {
+      console.error("Failed to fetch cities", error);
+    }
+  };
 
   const handleStateChange = (e) => {
     const selectedState = cities.find((city) => city.name === e.target.value);
@@ -194,10 +195,9 @@ const Area = () => {
       const newStatus = currentStatus === "active" ? "inactive" : "active";
 
       const response = await axios.post(
-        // Update to POST method
-       ` ${VINOOTNEW}/api/areas/${areaId}/toggle`, // Update the route
+        `${VINOOTNEW}/api/areas/${areaId}/toggle`,
         {
-        status: newStatus,
+          status: newStatus,
         }
       );
 
@@ -214,16 +214,15 @@ const Area = () => {
   };
 
   const generateUniqueId = (name, count) => {
-    const abbreviation = name.substring(0, 3).toUpperCase(); // Get first three letters and convert to uppercase
-    const paddedCount = (count + 1).toString().padStart(3, "0"); // Increment count and pad with zeros
-    const id = abbreviation + paddedCount; // Generate unique ID
+    const abbreviation = name.substring(0, 3).toUpperCase();
+    const paddedCount = (count + 1).toString().padStart(3, "0");
+    const id = abbreviation + paddedCount;
     return id;
   };
 
   return (
-<<<<<<< HEAD
-    <div style={{display:'flex'}}>
-      <div><Sidebar/></div>
+    <div style={{ display: 'flex' }}>
+      <div><Sidebar /></div>
       <div className="App">
         <form onSubmit={handleSubmit}>
           <div>
@@ -251,66 +250,38 @@ const Area = () => {
           </div>
           <button type="submit">Submit</button>
         </form>
-=======
-    <div className="App">
-      <form onSubmit={handleSubmit}>
         <div>
-          <label>
-            Select City:
-            <select value={CityName} onChange={handleStateChange}>
-              <option value="">Select a city</option>
-              {cities.map((city) => (
-                <option key={city._id} value={city.name}>
-                  {city.name}
-                </option>
-              ))}
-            </select>
-          </label>
+          {isLoading ? (
+            <p>Loading cities...</p>
+          ) : (
+              <table className="table">
+                <thead>
+                  <tr>
+                    <th>Area Name</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {areas.map((area) => (
+                    <tr key={area._id}>
+                      <td>{area.name}</td>
+                      <td>{area.status}</td>
+                      <td>
+                        <button onClick={() => toggleStatus(area._id, area.status)}>
+                          {area.status === "active" ? "Inactive" : "Active"}
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            )}
         </div>
-        <div>
-          <label>
-            Area Name:
-            <input
-              type="text"
-              value={areaName}
-              onChange={(e) => setAreaName(e.target.value)}
-            />
-          </label>
-        </div>
-        <button type="submit">Submit</button>
-      </form>
-      <div>
-        {isLoading ? (
-          <p>Loading cities...</p>
-        ) : (
-      <table className="table">
-        <thead>
-          <tr>
-            <th>Area Name</th>
-            <th>Status</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          {areas.map((area) => (
-            <tr key={area._id}>
-              <td>{area.name}</td>
-                  {/* Assuming status field exists in the Area schema */}
-              <td>{area.status}</td>
-              <td>
-                <button onClick={() => toggleStatus(area._id, area.status)}>
-                      {area.status === "active" ? "Inactive" : "Active"}
-                </button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-        )}
->>>>>>> c3db5cd260a7b083f1507c044753c547ba60eac3
       </div>
     </div>
   );
 };
 
 export default Area;
+

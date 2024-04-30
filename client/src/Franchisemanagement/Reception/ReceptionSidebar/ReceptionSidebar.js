@@ -39,7 +39,7 @@ const ReceptionSidebar = () => {
                     <ul className='first-lists'>
                        <Link to="/Recepttion" className='sidebar-links' ><li className={activeItem === 'dashboard' ? 'active' : ''} onClick={() => handleItemClick('dashboard')}><MdDashboard className='icon' />Dashboard</li></Link> 
                        <Link to="/Patientdetails" className='sidebar-links' ><li className={activeItem === 'Patientdetails' ? 'active' : ''} onClick={() => handleItemClick('Patientdetails')}><FaBoxArchive className='icon' />Add Patient </li></Link> 
-                       <Link to="/Billng" className='sidebar-links' > <li className={activeItem === 'Billng' ? 'active' : ''} onClick={() => handleItemClick('Billng')}><FaStoreAlt className='icon' />Billing</li> </Link>
+                       <Link to="/Billing" className='sidebar-links' > <li className={activeItem === 'Billng' ? 'active' : ''} onClick={() => handleItemClick('Billng')}><FaStoreAlt className='icon' />Billing</li> </Link>
                        {/* <Link to="/TreatmentCategory" className='sidebar-links' > <li className={activeItem === 'treatmentcat' ? 'active' : ''} onClick={() => handleItemClick('treatmentcat')}><IoIosPeople className='icon' />Treatment Category</li></Link>
                        <Link to="/TreatmentPlan" className='sidebar-links' > <li className={activeItem === 'treatmentplan' ? 'active' : ''} onClick={() => handleItemClick('treatmentplan')}><IoIosPeople className='icon' />Treatment Plan</li></Link>
                        <Link to="/States" className='sidebar-links' > <li className={activeItem === 'states' ? 'active' : ''} onClick={() => handleItemClick('states')}><IoIosPeople className='icon' />States</li></Link>

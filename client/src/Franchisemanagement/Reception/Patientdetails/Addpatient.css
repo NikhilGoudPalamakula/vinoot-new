@@ -1,3 +1,10 @@
+.addpa-total{
+display: flex;
+}
+.addp-right{
+margin-left: 19%;
+}
+
 .input-container {
     display: flex;
     justify-content: center;

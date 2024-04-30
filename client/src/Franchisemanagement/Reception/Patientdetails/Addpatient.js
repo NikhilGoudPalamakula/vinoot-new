@@ -199,6 +199,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./Addpatient.css"; 
+import ReceptionSidebar from "../ReceptionSidebar/ReceptionSidebar";
 
 const PatientForm = () => {
   const [states, setStates] = useState([]);
@@ -387,7 +388,12 @@ const PatientForm = () => {
   };
 
   return (
-    <div>
+    <div  className="addpa-total">
+      <div>
+        <ReceptionSidebar/>
+      </div>
+  
+    <div  className="addp-right">
       <h1 className="h1-head">Patient Form</h1>
       <div className="input-container">
         <form action="" onSubmit={handleSubmit}>
@@ -574,6 +580,7 @@ const PatientForm = () => {
           </div>
         </form>
       </div>
+    </div>
     </div>
   );
 };

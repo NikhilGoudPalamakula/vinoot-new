@@ -1,47 +1,52 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-
+import FranchiseadminSidebar from './Franchiseadmin/Franchiseadminsidebar/Franchiseadminsidebar';
+import './FranchiseAdmin.css'
 const FranchiseAdmin = () => {
-    const [admins, setAdmins] = useState([]);
-   
-    useEffect(() => {
-      fetchAdmins();
-    }, []);
-  
-   
+  const [admins, setAdmins] = useState([]);
 
-    const fetchAdmins = async () => {
-      try {
-        const frid = localStorage.getItem('FranchiseID'); // Corrected localStorage key
-        if (frid) {
-          const response = await axios.get(`http://localhost:5001/api/franchisefetchusers/${frid}`);
-          setAdmins(response.data);
-        } else {
-          console.error('FranchiseID not found in localStorage');
-        }
-      } catch (error) {
-        console.error('Error fetching admins:', error);
+  useEffect(() => {
+    fetchAdmins();
+  }, []);
+
+
+
+  const fetchAdmins = async () => {
+    try {
+      const frid = localStorage.getItem('FranchiseID'); // Corrected localStorage key
+      if (frid) {
+        const response = await axios.get(`http://localhost:5001/api/franchisefetchusers/${frid}`);
+        setAdmins(response.data);
+      } else {
+        console.error('FranchiseID not found in localStorage');
       }
-    };
-    
-  
-    const toggleActiveState = async (id, isActive) => {
-        try {
-          const updatedBy = localStorage.getItem('username'); // Get username from localStorage
-          await axios.patch(`http://localhost:5001/api/franchisestateupdate/${id}`, { isActive: !isActive, updatedBy });
-          // Refresh user list after updating active state
-          fetchAdmins();
-        } catch (error) {
-          console.error('Error updating active state:', error);
-        }
-      };
+    } catch (error) {
+      console.error('Error fetching admins:', error);
+    }
+  };
 
 
-    return (
+  const toggleActiveState = async (id, isActive) => {
+    try {
+      const updatedBy = localStorage.getItem('username'); // Get username from localStorage
+      await axios.patch(`http://localhost:5001/api/franchisestateupdate/${id}`, { isActive: !isActive, updatedBy });
+      // Refresh user list after updating active state
+      fetchAdmins();
+    } catch (error) {
+      console.error('Error updating active state:', error);
+    }
+  };
+
+
+  return (
+    <div className='franchise-admin-total'>
       <div>
-        <Link to='/fsr'><button>franchise staff Registration</button></Link>
-        <table>
+        <FranchiseadminSidebar />
+      </div>
+      <div className='fradmin-staffri'>
+        {/* <Link to='/fsr'><button>franchise staff Registration</button></Link> */}
+        <table  className='franchisestaff-table'>
           <thead>
             <tr>
               <th>Username</th>
@@ -72,10 +77,10 @@ const FranchiseAdmin = () => {
                 <td>{admin.isActive ? 'Active' : 'Inactive'}</td>
                 <td>
 
-<button onClick={() => toggleActiveState(admin._id, admin.isActive)}>
-  {admin.isActive ? 'Deactivate' : 'Activate'}
-</button>
-</td>
+                  <button onClick={() => toggleActiveState(admin._id, admin.isActive)}>
+                    {admin.isActive ? 'Deactivate' : 'Activate'}
+                  </button>
+                </td>
                 <td>{admin.modifiedBy}</td>
                 <td>{admin.modifiedAt}</td>
                 <td>{admin.createdAt}</td>
@@ -85,8 +90,9 @@ const FranchiseAdmin = () => {
           </tbody>
         </table>
       </div>
-    );
-  };
+    </div>
+  );
+};
 
 export default FranchiseAdmin;
 

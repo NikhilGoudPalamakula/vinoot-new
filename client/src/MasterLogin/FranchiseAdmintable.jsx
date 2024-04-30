@@ -36,7 +36,9 @@ const FranchiseAdmintable = () => {
 
     return (
       <div style={{display:'flex'}}>
-        <div><Sidebar/></div>
+        <div>
+          <Sidebar/>
+          </div>
         <div style={{marginLeft:'20%'}}>
           <Link to='/fsr'><button className='btnf'>franchise staff Registration</button></Link>
           <table className='tabf'>

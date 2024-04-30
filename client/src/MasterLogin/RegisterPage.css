@@ -11,9 +11,9 @@
 
 .frame_RP{
     border: 2px solid #0AA506;
-    height: 70%;
-    width: 30%;
-    padding: 2% 5% 1% 5%;
+    height: 55%;
+    /* width: 30%; */
+    padding: 1rem 1rem 1rem 1rem;
     margin: 3% 5% 0% 5%;
     border-radius: 15px;
     background-color: white;
@@ -50,7 +50,16 @@
     border: 1px solid #0AA506;
     border-radius: 10px;
   }
-  
+  .input2_rp {
+    background-color: #f8f7f7;
+    color: #0AA506;
+    height: 30%;
+    width: 200%;
+    padding: 20px 05px 05px 10px;
+    outline: 0;
+    border: 1px solid #0AA506;
+    border-radius: 10px;
+  }
   .form_rp label .input1_rp + span {
     color: #0AA506;
     position: absolute;
@@ -95,7 +104,7 @@
     width: 15%;
     background-color: #0AA506;
     border-radius: 10px;
-    margin-left: 5%;
+    margin-left: -7%;
     margin-top: 2%;
     margin-bottom: 10%;
     color: #f8f7f7;

@@ -20,6 +20,11 @@ import PatientForm from './Franchisemanagement/Patientdetails/Addpatient';
 import FranchiseStaffReg from './MasterLogin/FranchiseStaffReg';
 import SuperSidebar from './Masterdata/Sidebar/Sidebar';
 import LoginForm from './Login/LoginForm'
+import Thearpy from './Franchisemanagement/Thearpy';
+import Doctor from './Franchisemanagement/Doctor';
+import Recepttion from './Franchisemanagement/Recepttion';
+import Billing from './Franchisemanagement/Billing/Billing';
+import FranchiseAdmin from './Franchisemanagement/FranchiseAdmin';
 
 function App() {
   return (

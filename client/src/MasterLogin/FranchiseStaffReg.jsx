@@ -1,7 +1,10 @@
 import React, { useState } from "react";
+
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const FranchiseStaffReg = () => {
+  const navigate =useNavigate();
   const [adminData, setAdminData] = useState({
     username: "",
     Adminid: "",
@@ -32,6 +35,8 @@ const FranchiseStaffReg = () => {
       console.log("admin Data:", updatedAdminData);
 
       alert("Data submitted successfully.");
+      navigate('/FranchiseAdmin')
+
     } catch (error) {
       console.error("Failed to submit data", error);
       alert("Failed to submit data. Please try again.");

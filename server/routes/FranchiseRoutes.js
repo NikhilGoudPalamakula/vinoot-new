@@ -6,8 +6,10 @@ const adminController = require('../controllers/FranchiseAdminController');
 router.post('/franchise', franchiseController.createFranchise);
 router.post('/admin', adminController.createAdmin);
 router.post('/franchiselogin', adminController.loginfranchiseUser);
-router.get('/franchisefetch', adminController.getAllFranchiseAmins);
+router.get('/franchisefetchAdmin', adminController.getAllFranchiseAmins);
 router.patch('/franchisestateupdate/:id', adminController.updateFranchiseAdminActiveState);
+router.get('/franchisefetchusers/:frid', adminController.getExceptAllFranchiseAmins);
+
 
 module.exports = router;
 

@@ -1,3 +1,73 @@
-.total-tcategory{
-    /* display: flex; */
-}
+/* Category.css */
+
+.total-tcategory {
+    display: flex;
+  }
+  
+  /* Sidebar styling */
+  .sidebar {
+    width: 200px; /* Adjust width as needed */
+    background-color: #f0f0f0;
+    padding: 20px;
+  }
+  
+  /* Main content styling */
+  .main-content {
+    flex: 1;
+    padding: 20px;
+  }
+  
+  h1 {
+    margin-bottom: 20px;
+  }
+  
+  .cat-form {
+    margin-bottom: 20px;
+  }
+  
+  .cat-form label {
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  .cat-form input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .cat-form button {
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .tabc {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .tabc th,
+  .tabc td {
+    border: 1px solid #ccc;
+    padding: 10px;
+  }
+  
+  .tabc th {
+    background-color: #f0f0f0;
+  }
+  
+  .tabc td button {
+    padding: 5px 10px;
+    background-color: #4CAF50;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  

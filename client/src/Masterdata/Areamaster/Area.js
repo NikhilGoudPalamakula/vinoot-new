@@ -106,6 +106,7 @@
 
 import React, { useState, useEffect } from "react";
 import axios from "axios"; // Import Axios
+import './Area.css';
 import Cities from "../Citymaster/City";
 import { useNavigate } from "react-router-dom";
 import { VINOOTNEW } from "../../Helper/Helper";
@@ -223,7 +224,7 @@ const Area = () => {
   return (
     <div style={{ display: 'flex' }}>
       <div><Sidebar /></div>
-      <div className="App">
+      <div className="Appa" style={{marginLeft:'45%',marginTop:'3%'}}>
         <form onSubmit={handleSubmit}>
           <div>
             <label>

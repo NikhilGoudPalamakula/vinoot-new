@@ -271,7 +271,7 @@ const TreatmentPlan = () => {
       <div>
         <Sidebar/>
       </div>
-    <div>
+    <div style={{marginLeft:'30%'}}>
       <h1>Treatment Plan Master</h1>
       <form action="" onSubmit={handleSubmitPlan} className="form23">
         <div>
@@ -330,7 +330,7 @@ const TreatmentPlan = () => {
         <button>Submit Plan</button>
       </form>
       <h2>Plans List</h2>
-      <table className="table">
+      <table className="tabp">
         <thead>
           <tr>
             <th>Plan Name</th>

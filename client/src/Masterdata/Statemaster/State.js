@@ -74,6 +74,7 @@
 
 // State.js
 import React, { useState, useEffect } from "react";
+import './State.css';
 import axios from "axios"; // Import Axios
 import { useNavigate } from "react-router-dom";
 import { VINOOTNEW } from "../../Helper/Helper";
@@ -145,7 +146,7 @@ const States = () => {
   return (
     <div style={{display:'flex'}}>
       <div><Sidebar/></div>
-      <div className="App">
+      <div className="Appss" style={{marginLeft:'45%',marginTop:'3%'}}>
         <form onSubmit={handleSubmit}>
           <label>
             State Name:
@@ -157,7 +158,7 @@ const States = () => {
           </label>
           <button type="submit">Submit</button>
         </form>
-        <table>
+        <table className="tabss">
           <thead>
             <tr>
               <th>State</th>

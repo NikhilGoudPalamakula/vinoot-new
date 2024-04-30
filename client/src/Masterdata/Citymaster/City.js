@@ -112,6 +112,7 @@
 
 
 import React, { useState, useEffect } from "react";
+import './City.css';
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { VINOOTNEW } from "../../Helper/Helper";
@@ -221,7 +222,7 @@ const Cities = () => {
   return (
     <div style={{display:'flex'}}>
       <div><Sidebar/></div>
-      <div className="App">
+      <div className="Appc" style={{marginLeft:'45%',marginTop:"3%"}}>
         <form onSubmit={handleSubmit}>
           <div>
             <label>
@@ -252,7 +253,7 @@ const Cities = () => {
           {isLoading ? (
             <p>Loading cities...</p>
           ) : (
-            <table>
+            <table className="tabc">
               <thead>
                 <tr>
                   <th>City</th>

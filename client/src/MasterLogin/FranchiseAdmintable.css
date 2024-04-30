@@ -1,0 +1,40 @@
+/* FranchiseAdmintable.css */
+
+/* Table styles */
+.tabf {
+    font-family: Arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  .tabf th, .tabf td {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+  }
+  
+  .tabf th {
+    background-color: #f2f2f2;
+  }
+  
+  /* Button style */
+  .btnf {
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 10px 0px;
+    cursor: pointer;
+  }
+  
+  .btnf:hover {
+    background-color: #45a049; /* Darker Green */
+  }
+  
+  /* Sidebar styles */
+  /* Assuming you have styling for the Sidebar component already */
+  

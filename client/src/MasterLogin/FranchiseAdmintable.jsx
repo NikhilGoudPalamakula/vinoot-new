@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
+import './FranchiseAdmintable.css';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import Sidebar from '../Masterdata/Sidebar/Sidebar';
 
 const FranchiseAdmintable = () => {
     const [admins, setAdmins] = useState([]);
@@ -33,51 +35,54 @@ const FranchiseAdmintable = () => {
 
 
     return (
-      <div>
-        <Link to='/fsr'><button>franchise staff Registration</button></Link>
-        <table>
-          <thead>
-            <tr>
-              <th>Username</th>
-              <th>Admin ID</th>
-              <th>Franchise Name</th>
-              <th>Franchise ID</th>
-              <th>Designation</th>
-              <th>Email</th>
-              <th>Password</th>
-              <th>Is Active</th>
-              <th>Action</th>
-              <th>Modified By</th>
-              <th>Modified At</th>
-              <th>Created At</th>
-              <th>Created By</th>
-            </tr>
-          </thead>
-          <tbody>
-            {admins.map(admin => (
-              <tr key={admin._id}>
-                <td>{admin.username}</td>
-                <td>{admin.Adminid}</td>
-                <td>{admin.franchisename}</td>
-                <td>{admin.FranchiseID}</td>
-                <td>{admin.designation}</td>
-                <td>{admin.email}</td>
-                <td>{admin.password}</td>
-                <td>{admin.isActive ? 'Active' : 'Inactive'}</td>
-                <td>
-
-<button onClick={() => toggleActiveState(admin._id, admin.isActive)}>
-  {admin.isActive ? 'Deactivate' : 'Activate'}
-</button>
-</td>
-                <td>{admin.modifiedBy}</td>
-                <td>{admin.modifiedAt}</td>
-                <td>{admin.createdAt}</td>
-                <td>{admin.createdBy}</td>
+      <div style={{display:'flex'}}>
+        <div><Sidebar/></div>
+        <div style={{marginLeft:'20%'}}>
+          <Link to='/fsr'><button className='btnf'>franchise staff Registration</button></Link>
+          <table className='tabf'>
+            <thead>
+              <tr>
+                <th>Username</th>
+                <th>Admin ID</th>
+                <th>Franchise Name</th>
+                <th>Franchise ID</th>
+                <th>Designation</th>
+                <th>Email</th>
+                <th>Password</th>
+                <th>Is Active</th>
+                <th>Action</th>
+                <th>Modified By</th>
+                <th>Modified At</th>
+                <th>Created At</th>
+                <th>Created By</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {admins.map(admin => (
+                <tr key={admin._id}>
+                  <td>{admin.username}</td>
+                  <td>{admin.Adminid}</td>
+                  <td>{admin.franchisename}</td>
+                  <td>{admin.FranchiseID}</td>
+                  <td>{admin.designation}</td>
+                  <td>{admin.email}</td>
+                  <td>{admin.password}</td>
+                  <td>{admin.isActive ? 'Active' : 'Inactive'}</td>
+                  <td>
+
+  <button onClick={() => toggleActiveState(admin._id, admin.isActive)}>
+    {admin.isActive ? 'Deactivate' : 'Activate'}
+  </button>
+  </td>
+                  <td>{admin.modifiedBy}</td>
+                  <td>{admin.modifiedAt}</td>
+                  <td>{admin.createdAt}</td>
+                  <td>{admin.createdBy}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
     );
   };

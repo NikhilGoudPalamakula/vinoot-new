@@ -68,7 +68,7 @@ function App() {
         </Route>
 
         <Route path="/Patientdetails" element={<PatientForm />} />
-        <Route path="/Billng" element={<Billing />} />
+        {/* <Route path="/Billng" element={<Billing />} /> */}
         <Route path="/SuperSidebar" element={<SuperSidebar />} />
         
     

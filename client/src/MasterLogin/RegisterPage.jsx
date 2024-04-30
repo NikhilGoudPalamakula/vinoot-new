@@ -5,6 +5,8 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import './RegisterPage.css'
+import Sidebar from "../Masterdata/Sidebar/Sidebar";
+import MasterUserT from "./MasterUserT";
 
 
 const RegisterPage = () => {
@@ -45,125 +47,135 @@ const RegisterPage = () => {
   };
 
   return (
-    <div className="body_rp">
-    <div className="frame_RP">
-      <h2 className="add_h2">Add Super Admin </h2>
-      <form className="form_rp" onSubmit={handleSubmit}>
-      <div className="flex1_rp" >
-              <label>
-                <input
-                  className="input1_rp"
-                  type="text"
-                    name="fullName"
-                    value={formData.fullName}
-                     onChange={handleChange}
-                  placeholder=""
-                  required
-                />
-                <span>Full Name</span>
-              </label>
+    <div style={{display:'flex'}}>
+      <Sidebar/>
+    <div className="body_rp" style={{width:'80%', marginLeft:'20%'}}>
+      <div className="frame_RP">
+        <h2 className="add_h2">Add Super Admin </h2>
+        <form className="form_rp" onSubmit={handleSubmit}>
+        <div style={{display:'flex'}}>
+          <div>
+              <div className="flex1_rp" >
+                  <label>
+                    <input
+                      className="input1_rp"
+                      type="text"
+                        name="fullName"
+                        value={formData.fullName}
+                        onChange={handleChange}
+                      placeholder=""
+                      required
+                    />
+                    <span>Full Name</span>
+                  </label>
+                </div>
+                <div className="flex1_rp" >
+                  <label>
+                    <input
+                      className="input1_rp"
+                      type="text"
+                        name="username"
+                        value={formData.username}
+                        onChange={handleChange}
+                      placeholder=""
+                      required
+                    />
+                    <span>Username</span>
+                  </label>
+                </div>
+                <div className="flex1_rp" >
+                  <label>
+                    <input
+                      className="input1_rp"
+                      type="email"
+                        name="email"
+                        value={formData.email}
+                        onChange={handleChange}
+                      placeholder=""
+                      required
+                    />
+                    <span>Email</span>
+                  </label>
+                </div>
+                <div className="flex1_rp" >
+                  <label>
+                    <input
+                      className="input1_rp"
+                      type="text"
+                        name="phoneNumber"
+                        value={formData.phoneNumber}
+                        onChange={handleChange}
+                      placeholder=""
+                      required
+                    />
+                    <span>Phone Number</span>
+                  </label>
+                </div>
+              </div>
+              {/* .......................................... */}
+              <div style={{marginLeft:'30%'}}>
+              <div className="flex1_rp" >
+                <label>
+                  <input
+                    className="input1_rp"
+                    type="date"
+                      name="dateOfBirth"
+                      value={formData.dateOfBirth}
+                      onChange={handleChange}
+                    placeholder=""
+                    required
+                  />
+                  <span>Date of Birth</span>
+                </label>
+              </div>
+              <div className="flex1_rp" >
+                <label>
+                  <input
+                    className="input1_rp"
+                    type="password"
+                      name="password"
+                      value={formData.password}
+                      onChange={handleChange}
+                    placeholder=""
+                    required
+                  />
+                  <span>Password</span>
+                </label>
+              </div>
+              <div className="flex1_rp" >
+                <label>
+                  <input
+                    className="input1_rp"
+                    type="password"
+                      name="confirmPassword"
+                      value={formData.confirmPassword}
+                      onChange={handleChange}
+                    placeholder=""
+                    required
+                  />
+                  <span>Confirm Password</span>
+                </label>
+              </div>
+              <div className="flex1_rp" >
+              <select
+              className="input2_rp"
+                name="gender"
+                value={formData.gender}
+                onChange={handleChange}
+                required
+                  >
+                <option value="">Select Gender</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+                <option value="other">Other</option>
+              </select>
+              </div>
             </div>
-            <div className="flex1_rp" >
-              <label>
-                <input
-                  className="input1_rp"
-                  type="text"
-                    name="username"
-                    value={formData.username}
-                    onChange={handleChange}
-                  placeholder=""
-                  required
-                />
-                <span>Username</span>
-              </label>
-            </div>
-            <div className="flex1_rp" >
-              <label>
-                <input
-                  className="input1_rp"
-                  type="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                  placeholder=""
-                  required
-                />
-                <span>Email</span>
-              </label>
-            </div>
-            <div className="flex1_rp" >
-              <label>
-                <input
-                  className="input1_rp"
-                  type="text"
-                    name="phoneNumber"
-                    value={formData.phoneNumber}
-                    onChange={handleChange}
-                  placeholder=""
-                  required
-                />
-                <span>Phone Number</span>
-              </label>
-            </div>
-            <div className="flex1_rp" >
-              <label>
-                <input
-                  className="input1_rp"
-                  type="date"
-                    name="dateOfBirth"
-                    value={formData.dateOfBirth}
-                    onChange={handleChange}
-                  placeholder=""
-                  required
-                />
-                <span>Date of Birth</span>
-              </label>
-            </div>
-            <div className="flex1_rp" >
-              <label>
-                <input
-                  className="input1_rp"
-                  type="password"
-                    name="password"
-                    value={formData.password}
-                     onChange={handleChange}
-                  placeholder=""
-                  required
-                />
-                <span>Password</span>
-              </label>
-            </div>
-            <div className="flex1_rp" >
-              <label>
-                <input
-                  className="input1_rp"
-                  type="password"
-                    name="confirmPassword"
-                    value={formData.confirmPassword}
-                    onChange={handleChange}
-                  placeholder=""
-                  required
-                />
-                <span>Confirm Password</span>
-              </label>
-            </div>
-            <div className="flex1_rp" >
-            <select
-            className="input2_rp"
-          name="gender"
-          value={formData.gender}
-          onChange={handleChange}
-          required
-        >
-          <option value="">Select Gender</option>
-          <option value="male">Male</option>
-          <option value="female">Female</option>
-          <option value="other">Other</option>
-        </select>
-            </div>
-        
-        <button className="submit_rp" type="submit">Register</button>
-      </form>
+          </div>
+          <button className="submit_rp" type="submit">Register</button>
+        </form>
+        <div style={{marginTop:'10%'}}><MasterUserT/></div>
+      </div>
     </div>
     </div>
   );

@@ -169,13 +169,13 @@ exports.updateFranchiseAdminActiveState = async (req, res) => {
 //   }
 // };
 
-// exports.deleteAdmin = async (req, res) => {
-//   const { id } = req.params;
-//   try {
-//     await FranchiseAdmin.findByIdAndDelete(id);
-//     res.status(200).json({ message: 'Admin deleted successfully' });
-//   } catch (error) {
-//     console.error('Error deleting admin:', error);
-//     res.status(500).json({ error: 'Server Error' });
-//   }
-// };
+exports.deleteAdmin = async (req, res) => {
+  const { id } = req.params;
+  try {
+    await FranchiseAdmin.findByIdAndDelete(id);
+    res.status(200).json({ message: 'Admin deleted successfully' });
+  } catch (error) {
+    console.error('Error deleting admin:', error);
+    res.status(500).json({ error: 'Server Error' });
+  }
+};

@@ -20,17 +20,13 @@ import PatientForm from './Franchisemanagement/Patientdetails/Addpatient';
 import FranchiseStaffReg from './MasterLogin/FranchiseStaffReg';
 import SuperSidebar from './Masterdata/Sidebar/Sidebar';
 import LoginForm from './Login/LoginForm'
-import FranchiseAdmin from './Franchisemanagement/FranchiseAdmin';
-import Thearpy from './Franchisemanagement/Thearpy';
-import Doctor from './Franchisemanagement/Doctor';
-import Recepttion from './Franchisemanagement/Recepttion';
 
 function App() {
   return (
 
     <Router>
-      
-
+    
+{/* //////// */}
       <Routes>
 
         {/* Mastar data */}
@@ -72,6 +68,7 @@ function App() {
         </Route>
 
         <Route path="/Patientdetails" element={<PatientForm />} />
+        <Route path="/Billng" element={<Billing />} />
         <Route path="/SuperSidebar" element={<SuperSidebar />} />
         
     

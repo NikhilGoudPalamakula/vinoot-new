@@ -3,7 +3,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { VINOOTNEW } from "../../Helper/Helper";
 import "./Category.css";
-import SuperSidebar from "../Sidebar/Sidebar";
+import Sidebar from "../../Masterdata/Sidebar/Sidebar";
 
 const TreatmentCategory = () => {
   const navigate = useNavigate();
@@ -88,9 +88,9 @@ const TreatmentCategory = () => {
   };
 
   return (
-    <div className="total-tcategory" >
+    <div className="total-tcategory" style={{display:'flex'}}>
 <div>
-  <SuperSidebar/>
+  <Sidebar/>
 </div>
    
     <div>

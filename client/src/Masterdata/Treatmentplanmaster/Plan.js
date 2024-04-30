@@ -153,6 +153,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import "./Plan.css";
 import { VINOOTNEW } from "../../Helper/Helper";
+import Sidebar from "../../Masterdata/Sidebar/Sidebar";
 const TreatmentPlan = () => {
   const [categories, setCategories] = useState([]);
   const [plans, setPlans] = useState([]);
@@ -265,9 +266,14 @@ const TreatmentPlan = () => {
   };
 
   return (
+    <div >
+    <div className="totalplan"style={{display:'flex'}} >
+      <div>
+        <Sidebar/>
+      </div>
     <div>
       <h1>Treatment Plan Master</h1>
-      <form action="" onSubmit={handleSubmitPlan} className="form">
+      <form action="" onSubmit={handleSubmitPlan} className="form23">
         <div>
           <label>Select Category:</label>
           <select
@@ -348,6 +354,8 @@ const TreatmentPlan = () => {
           ))}
         </tbody>
       </table>
+    </div>
+    </div>
     </div>
   );
 };

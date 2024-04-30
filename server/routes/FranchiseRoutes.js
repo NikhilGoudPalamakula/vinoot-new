@@ -36,10 +36,10 @@ module.exports = router;
 // const franchiseAdminController = require('../controllers/FranchiseAdminController');
 
 // router.post('/franchise', franchiseController.createFranchise);
-router.post('/admin', franchiseAdminController.createAdmin);
-router.get('/franchisefetch', franchiseAdminController.getAllFranchiseAmins);
-router.post('/franchiselogin', franchiseAdminController.loginfranchiseUser);
-router.patch('/updateFranchiseAdmin/:id', franchiseAdminController.updateFranchiseAdmin);
-router.delete('/deleteFranchiseAdmin/:id', franchiseAdminController.deleteAdmin);
+// router.post('/admin', franchiseAdminController.createAdmin);
+// router.get('/franchisefetch', franchiseAdminController.getAllFranchiseAmins);
+// router.post('/franchiselogin', franchiseAdminController.loginfranchiseUser);
+// router.patch('/updateFranchiseAdmin/:id', franchiseAdminController.updateFranchiseAdmin);
+// router.delete('/deleteFranchiseAdmin/:id', franchiseAdminController.deleteAdmin);
 
 // module.exports = router;

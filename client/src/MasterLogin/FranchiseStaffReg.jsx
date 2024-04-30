@@ -69,10 +69,10 @@ const FranchiseStaffReg = () => {
           onChange={handleAdminInputChange}
         >
           <option value="">Select designation</option>
-          <option value="doctor">Doctor</option>
-          <option value="reception">Reception</option>
-          <option value="therapy">Therapy</option>
-          <option value="FrAdmin">FrAdmin</option>
+          <option value="Doctor">Doctor</option>
+          <option value="Reception">Reception</option>
+          <option value="Thearpy">Therapy</option>
+          <option value="FranchiseAdmin">FrAdmin</option>
         </select>
         <input
           type="text"

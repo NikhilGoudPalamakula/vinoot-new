@@ -22,7 +22,7 @@ const RegisterPage = () => {
     password: "",
     confirmPassword: "",
     gender: "",
-    userType: "Master",
+    userType: "SuperAdmin",
     activeChangedBy: "none",
     createdBy:createdby,
   });

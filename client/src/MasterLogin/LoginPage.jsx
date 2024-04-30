@@ -25,7 +25,7 @@ const LoginPage = () => {
       const res = await axios.post('http://localhost:5001/api/login', formData);
       console.log('User logged in:', res.data);
       localStorage.setItem('username', res.data.username);
-        navigate("/Sidebar");
+        navigate("/FrSidebar");
       // Optionally, you can redirect the user to another page after successful login
     } catch (error) {
       console.error('Login failed:', error.response.data.error);

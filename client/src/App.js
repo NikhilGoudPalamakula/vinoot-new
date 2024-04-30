@@ -30,8 +30,6 @@ function App() {
   return (
 
     <Router>
-    
-{/* //////// */}
       <Routes>
 
         {/* Mastar data */}

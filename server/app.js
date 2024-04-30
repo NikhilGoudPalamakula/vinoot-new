@@ -15,6 +15,8 @@ const areaRoutes = require('./routes/AreaRoutes');
 const treatmentCategoryRoutes = require('./routes/TreatmentcategoryRoutes');
 const treatmentPlanRoutes = require('./routes/TreatmentplanRoutes');
 const patientdetails = require('./routes/PatientdetailsRoutes')
+const billing = require('./routes/BillingRoute')
+
 
 const app = express();
 
@@ -53,6 +55,7 @@ app.use('/api', areaRoutes);
 
 // --------------
 app.use('/api', patientdetails);
+app.use('/api', billing);
 
 
 const PORT =  5001;

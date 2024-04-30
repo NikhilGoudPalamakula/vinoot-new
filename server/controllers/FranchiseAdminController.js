@@ -63,3 +63,14 @@ exports.updateFranchiseAdminActiveState = async (req, res) => {
     res.status(500).json({ error: 'Server Error' });
   }
 };
+
+
+
+exports.getDoctors = async (req, res) => {
+  try {
+      const doctors = await Admin.find({ designation: 'Doctor' });
+      res.json(doctors);
+  } catch (error) {
+      res.status(500).json({ error: 'Internal Server Error' });
+  }
+};

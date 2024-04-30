@@ -9,7 +9,7 @@ router.post('/franchiselogin', adminController.loginfranchiseUser);
 router.get('/franchisefetchAdmin', adminController.getAllFranchiseAmins);
 router.patch('/franchisestateupdate/:id', adminController.updateFranchiseAdminActiveState);
 router.get('/franchisefetchusers/:frid', adminController.getExceptAllFranchiseAmins);
-
+router.get('/doctors', adminController.getDoctors);
 
 module.exports = router;
 

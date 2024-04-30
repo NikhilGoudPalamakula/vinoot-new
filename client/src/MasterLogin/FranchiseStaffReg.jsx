@@ -61,7 +61,7 @@ const FranchiseStaffReg = () => {
           name="Adminid"
           value={adminData.Adminid}
           onChange={handleAdminInputChange}
-          placeholder="Admin ID"
+          placeholder="user ID"
         />
         <select
           name="designation"

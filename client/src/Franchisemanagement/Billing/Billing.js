@@ -59,21 +59,21 @@ const Billing = () => {
 
     // -----------------------
 
-  const [doctors, setDoctors] = useState([]);
-  const [selectedDoctor, setSelectedDoctor] = useState(null);
-
-  useEffect(() => {
-    const fetchDoctors = async () => {
-      try {
-        const response = await axios.get("/api/doctors");
-        setDoctors(response.data);
-      } catch (error) {
-        console.error("Error fetching doctors:", error);
-      }
-    };
-
-    fetchDoctors();
-  }, []);
+    const [doctors, setDoctors] = useState([]);
+    const [selectedDoctor, setSelectedDoctor] = useState(null);
+  
+    useEffect(() => {
+      const fetchDoctors = async () => {
+        try {
+          const response = await axios.get("http://127.0.0.1:5001/api/doctors");
+          setDoctors(response.data);
+        } catch (error) {
+          console.error("Error fetching doctors:", error);
+        }
+      };
+  
+      fetchDoctors();
+    }, []);
   
     return (
       <div style={{ position: "relative" }}>

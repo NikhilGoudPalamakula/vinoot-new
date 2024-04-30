@@ -184,11 +184,11 @@ exports.deleteAdmin = async (req, res) => {
 
 exports.getDoctors = async (req, res) => {
   try {
-    const doctors = await User.find({ designation: "admin" }, 'fullName');
+    const doctors = await FranchiseAdmin.find({ designation: "Doctor" }, 'fullName');
     const doctorNames = doctors.map(doctor => doctor.fullName);
     res.json(doctorNames);
   } catch (error) {
     console.error("Error fetching doctors:", error);
     res.status(500).json({ message: "Internal server error" });
   }
-}
+};

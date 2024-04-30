@@ -84,6 +84,7 @@
 
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 const FranchiseAdmintable = () => {
     const [admins, setAdmins] = useState([]);
@@ -149,6 +150,7 @@ const FranchiseAdmintable = () => {
 
     return (
       <div>
+        <Link to='/fsr'><button>franchise staff Registration</button></Link>
         <table>
           <thead>
             <tr>

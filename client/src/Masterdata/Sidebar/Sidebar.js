@@ -37,7 +37,7 @@ const SuperSidebar = () => {
                 </div>
                 <div className='sidebar-list-items'>
                     <ul className='first-lists'>
-                       <Link to="/" className='sidebar-links' ><li className={activeItem === 'dashboard' ? 'active' : ''} onClick={() => handleItemClick('dashboard')}><MdDashboard className='icon' />Dashboard</li></Link> 
+                       <Link to="/FrSidebar" className='sidebar-links' ><li className={activeItem === 'dashboard' ? 'active' : ''} onClick={() => handleItemClick('dashboard')}><MdDashboard className='icon' />Dashboard</li></Link> 
                        <Link to="/reg" className='sidebar-links' ><li className={activeItem === 'superadmins' ? 'active' : ''} onClick={() => handleItemClick('superadmins')}><FaBoxArchive className='icon' />Super Admin's</li></Link> 
                        <Link to="/FrSidebar" className='sidebar-links' > <li className={activeItem === 'franchise' ? 'active' : ''} onClick={() => handleItemClick('franchise')}><FaStoreAlt className='icon' />Frachises</li> </Link>
                        <Link to="/TreatmentCategory" className='sidebar-links' > <li className={activeItem === 'treatmentcat' ? 'active' : ''} onClick={() => handleItemClick('treatmentcat')}><IoIosPeople className='icon' />Treatment Category</li></Link>

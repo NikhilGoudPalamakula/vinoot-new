@@ -168,11 +168,11 @@ const TreatmentPlan = () => {
                 required
               />
             </div>
-            <button>Submit Plan</button>
+            <button className="paln_submit-btn">Submit Plan</button>
           </form>
 
           {/* Plans List */}
-          <h2>Plans List</h2>
+          <h2 className="plan_list_heading">Plans List</h2>
           <table className="tabp">
             <thead>
               <tr>

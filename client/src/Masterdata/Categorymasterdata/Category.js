@@ -104,7 +104,7 @@ const TreatmentCategory = () => {
           required
         />
         <br />
-        <button>Submit</button>
+        <button className="category_submit-btn">Submit</button>
       </form>
 
       <h2>Categories List</h2>

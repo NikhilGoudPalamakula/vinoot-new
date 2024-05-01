@@ -108,7 +108,7 @@
     box-sizing: border-box; /* Include padding in width */
   }
   
-  button {
+  .paln_submit-btn {
     /* Style your button */
     background-color: #4caf50; /* Blue color */
     color: #fff; /* White text */
@@ -116,9 +116,10 @@
     border: none; /* No border */
     border-radius: 4px; /* Add border-radius */
     cursor: pointer; /* Pointer cursor */
+    margin-top: 2%;
   }
   
-  button:hover {
+  .paln_submit-btn:hover {
     background-color: #0056b3; /* Darker blue on hover */
   }
 .pagination{
@@ -130,4 +131,6 @@
  margin: 2% 0;
  margin-left: 1%;
 }
-  
+  .plan_list_heading{
+    margin:2% 0;
+  }

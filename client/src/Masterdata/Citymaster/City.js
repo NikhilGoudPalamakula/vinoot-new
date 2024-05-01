@@ -111,7 +111,7 @@ const Cities = () => {
     <div className="city-total" >
       <div><Sidebar/></div>
       <div className="city-right" >
-      <h1  className="h1111">City Master</h1>
+      <h1 >City Master</h1>
         <form className="city-form" onSubmit={handleSubmit}>
           <div>
             <label>
@@ -139,7 +139,7 @@ const Cities = () => {
           <button type="submit">Submit</button>
         </form>
 
-      <h2 className="cities_list_heading">cities List</h2>
+      <h2 className="cities_list_heading">Cities List</h2>
 
         <div>
           {isLoading ? (

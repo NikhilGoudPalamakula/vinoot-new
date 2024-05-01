@@ -4,12 +4,16 @@
     display: flex;
   }
   
+
+  .treat-cat-right{
+    margin-left: 28%;
+  }
   /* Sidebar styling */
-  .sidebar {
-    width: 200px; /* Adjust width as needed */
+  /* .sidebar {
+    width: 200px; 
     background-color: #f0f0f0;
     padding: 20px;
-  }
+  } */
   
   /* Main content styling */
   .main-content {
@@ -48,45 +52,52 @@
   }
   
   .category_submit-btn {
-    padding: 10px 20px;
-    background-color: #4CAF50;
-    color: #fff;
     border: none;
-    border-radius: 5px;
-    cursor: pointer;
+    outline: none;
+    padding: 10px 20px 10px 20px;
+    border-radius: 10px;
+    color: #fff;
+    font-size: 0.8rem;
+    transform: .3s ease;
+    background-color: #0AA506;
   }
-  
+  .category_submit-btn:hover{
+    background-color: #0d390c;
+  }
   .tabc {
     width: 100%;
     border-collapse: collapse;
   }
   
-  .tabc th,
-  .tabc td {
-    border: 1px solid #ccc;
-    padding: 10px;
-  }
   
   .tabc th {
-    background-color: #f0f0f0;
+    text-align: center;
+    padding: 8px;
+    font-size: 0.7rem;
+    color: white;
+    background-color: #0AA506;
   }
-  
-  .tabc td button {
-    padding: 5px 10px;
-    background-color: #4CAF50;
-    color: #fff;
+  .tabc td{
+    text-align: center;
+    padding: 8px;
+    font-size: 0.7rem;
+  }
+
+
+  .treatcat-btn {
     border: none;
-    border-radius: 5px;
-    cursor: pointer;
+    outline: none;
+    padding: 10px 7px 10px 7px;
+    border-radius: 10px;
+    color: #fff;
+    font-size: 0.7rem;
+    transform: .3s ease;
+    background-color: #0AA506;
   }
-  .tabc td button{
-    width: 8vw;
-    height: 4.5vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-left: 10%;
+  .treatcat-btn:hover {
+    background-color: #0d390c;
   }
+
   .category_list_heading{
     margin: 2.5% 0;
   }

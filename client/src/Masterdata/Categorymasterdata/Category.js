@@ -92,7 +92,7 @@ const TreatmentCategory = () => {
     <div>
       <Sidebar/>
     </div>
-    <div >
+    <div className="treat-cat-right" >
       <h1  className="h1111">Treatment Category Master</h1>
       <form action="" onSubmit={handleSubmit} className="cat-form">
         <label htmlFor="tar">Category</label>
@@ -124,7 +124,7 @@ const TreatmentCategory = () => {
               <td>{category.time}</td>
               <td>{category.status}</td>
               <td>
-                <button
+                <button className="treatcat-btn"
                   onClick={() =>
                     toggleStatus(category.category_id, category.status)
                   }>

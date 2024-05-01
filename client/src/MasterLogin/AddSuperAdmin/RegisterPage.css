@@ -1,100 +1,93 @@
-/* *{
-    margin: 0;
-    padding: 0;
-    font-family: 'poppins',sans-serif;
-} */
-/* .body_rp{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-} */
 
-.frame_RP{
+
+
+
+.super-regtoatl{
+  display: flex;
+}
+.super-regright{
+  margin-left: 18%; 
+
+  .super-rheading{
+    color: #0AA506;
+    margin-top: 0.5%;
+    text-align: center;
+  }
+}
+
+.super-regright-1{
     border: 2px solid #0AA506;
-    height: 51%;
-    /* width: 30%; */
-    padding: 1rem 1rem 1rem 1rem;
-    margin: 0.5% 5% 0% 5%;
+    height: 44vh;
+    padding: 20px 10px 20px 20px;
+    margin: 1% 5% 0% 5%;
     border-radius: 15px;
     background-color: white;
     text-align: center;
     justify-content: center;
     align-items: center;
 }
-
-.add_h2{
-    color: #0AA506;
-    margin-top: 0.3%;
+.super-flex{
+  display: flex;
 }
-
-.flex1_rp{
-    display: flex;
-    
-    width: 100%;
-    gap: 6px;
-    margin-top: 3.25%;
+.super-regdiv{
+    /* display: flex; */
+    /* width: 100%; */
+    /* gap: 6px; */
+    /* margin-top: 0.2vh; */
   }
-  
-  
-  .form_rp label {
+
+
+  .super-regfrom label {
     position: relative;
   }
   
-  .form_rp label .input1_rp {
-    background-color: #f8f7f7;
+  .super-regfrom label .input1_rp {
+    /* background-color: #f8f7f7; */
     color: #0AA506;
-    height: 30%;
-    width: 200%;
-    padding: 20px 05px 05px 10px;
+    height: 7vh;
+    width: 23vw;
+    padding: 20px 5px 5px 20px;
     outline: 0;
     border: 1px solid #0AA506;
     border-radius: 10px;
   }
   .input2_rp {
-    background-color: #f8f7f7;
+    /* background-color: #f8f7f7; */
     color: #0AA506;
-    height: 30%;
-    width: 200%;
+    /* height: 30%; */
+    height: 7vh;
+    width: 23vw;
     padding: 20px 05px 05px 10px;
     outline: 0;
     border: 1px solid #0AA506;
     border-radius: 10px;
   }
-  .form_rp label .input1_rp + span {
+  .super-regfrom label .input1_rp + span {
     color: #0AA506;
     position: absolute;
     left: 10px;
     top: 0px;
-    font-size: 0.9em;
+    font-size: 0.5em;
+    font-weight: bold;
     cursor: text;
     transition: 0.3s ease;
   }
   
-  .form_rp label .input1_rp:placeholder-shown + span {
+  .super-regfrom label .input1_rp:placeholder-shown + span {
     top: 12.5px;
-    font-size: 0.9em;
+    font-size: 0.7em;
   }
   
-  .form_rp label .input1_rp:focus + span,
-  .form_rp label .input1_rp:valid + span {
+  .super-regfrom label .input1_rp:focus + span,
+  .super-regfrom label .input1_rp:valid + span {
     color: #0AA506;
     top: 0px;
-    font-size: 0.7em;
+    font-size: 0.5em;
     font-weight: 600;
   }
 
-
-  .input2_rp{
-    background-color: #f8f7f7;
-    color: #0AA506;
-    height: 30%;
-    width: 100%;
-    padding: 15px 05px 05px 10px;
-    outline: 0;
-    border: 1px solid #0AA506;
-    border-radius: 10px;
-
-
+  .super-flex1{
+    margin-left: 20vw;
   }
 
   .submit_rp{

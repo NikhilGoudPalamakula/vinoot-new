@@ -25,7 +25,7 @@ const FranchiseAdmintable = () => {
   
     const toggleActiveState = async (id, isActive) => {
         try {
-          const updatedBy = localStorage.getItem('username');
+          const updatedBy = localStorage.getItem('userId');
           await axios.patch(`http://localhost:5001/api/franchisestateupdate/${id}`, { isActive: !isActive, updatedBy });
           fetchAdmins();
         } catch (error) {
@@ -43,8 +43,8 @@ const FranchiseAdmintable = () => {
           <table className='tabf'>
             <thead>
               <tr>
-                <th>Username</th>
-                <th>Admin ID</th>
+                <th>fullname</th>
+                <th>userId</th>
                 <th>Franchise Name</th>
                 <th>Franchise ID</th>
                 <th>Designation</th>
@@ -61,8 +61,8 @@ const FranchiseAdmintable = () => {
             <tbody>
               {admins.map(admin => (
                 <tr key={admin._id}>
-                  <td>{admin.username}</td>
-                  <td>{admin.Adminid}</td>
+                  <td>{admin.fullname}</td>
+                  <td>{admin.userId}</td>
                   <td>{admin.franchisename}</td>
                   <td>{admin.FranchiseID}</td>
                   <td>{admin.designation}</td>

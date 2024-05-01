@@ -7,20 +7,21 @@ import FranchiseadminSidebar from "../Franchiseadminsidebar/Franchiseadminsideba
 const FranchiseStaffReg = () => {
   const navigate =useNavigate();
   const [adminData, setAdminData] = useState({
-    username: "",
-    Adminid: "",
+    fullname: "",
+    userId: "",
     franchisename: "",
     FranchiseID: "",
     designation: "",
     email: "",
     password: "",
+    
   });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       // Update adminData and franchiseData with the current values from state and localStorage
-      const createdBy = localStorage.getItem("username");
+      const createdBy = localStorage.getItem("userId");
       const franchiseName = localStorage.getItem("franchisename");
       const FranchiseiD = localStorage.getItem("FranchiseID");
       // Update adminData
@@ -62,17 +63,17 @@ const FranchiseStaffReg = () => {
         <h2>Admin Form</h2>
         <input
           type="text"
-          name="username"
-          value={adminData.username}
+          name="fullname"
+          value={adminData.fullname}
           onChange={handleAdminInputChange}
-          placeholder="username"
+          placeholder="fullname"
         />
         <input
           type="text"
-          name="Adminid"
-          value={adminData.Adminid}
+          name="userId"
+          value={adminData.userId}
           onChange={handleAdminInputChange}
-          placeholder="user ID"
+          placeholder="userId"
         />
         <select
           name="designation"

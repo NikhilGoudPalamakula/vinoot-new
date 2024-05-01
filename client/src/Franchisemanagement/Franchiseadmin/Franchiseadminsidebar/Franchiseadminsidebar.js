@@ -45,7 +45,7 @@ const FranchiseadminSidebar = () => {
                        <Link to="/States" className='sidebar-links' > <li className={activeItem === 'states' ? 'active' : ''} onClick={() => handleItemClick('states')}><IoIosPeople className='icon' />States</li></Link>
                        <Link to="/Cities" className='sidebar-links' > <li className={activeItem === 'cities' ? 'active' : ''} onClick={() => handleItemClick('cities')}><IoIosPeople className='icon' />Cities</li></Link>
                        <Link to="/Area" className='sidebar-links' ><li className={activeItem === 'areas' ? 'active' : ''} onClick={() => handleItemClick('areas')}><IoIosPeople className='icon' />Areas</li></Link> */}
-                       <Link to="/" className='sidebar-links' > <li className={activeItem === 'logout' ? 'active' : ''} onClick={() => handleItemClick('logout') || handleLogOut  }><IoIosPeople className='icon' />Logout</li></Link>
+                       <Link to="/" className='sidebar-links' > <li className={activeItem === 'logout' ? 'active' : ''} onClick={() =>  handleLogOut() &&  handleItemClick('logout')  }><IoIosPeople className='icon' />Logout</li></Link>
                     </ul>
                     {/* <div className='side-bar-second-lists'>
                         <h5>Accounts Pages</h5>

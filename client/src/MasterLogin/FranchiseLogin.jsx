@@ -7,7 +7,7 @@ const FranchiseLogin = () => {
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
-    Adminid: "",
+    userId: "",
     password: "",
   });
 
@@ -22,11 +22,11 @@ const FranchiseLogin = () => {
         "http://localhost:5001/api/franchiselogin",
         formData
       );
-      const { franchisename, FranchiseID, username, designation } = res.data;
+      const { franchisename, FranchiseID, userId, designation } = res.data;
 
       localStorage.setItem("franchisename", franchisename);
       localStorage.setItem("FranchiseID", FranchiseID);
-      localStorage.setItem("username", username);
+      localStorage.setItem("userId", userId);
       localStorage.setItem("designation", designation); // Save the designation
 
       switch (designation) {
@@ -58,10 +58,10 @@ const FranchiseLogin = () => {
       <form onSubmit={handleSubmit}>
         <input
           type="text"
-          name="Adminid"
-          value={formData.Adminid}
+          name="userId"
+          value={formData.userId}
           onChange={handleChange}
-          placeholder="Adminid"
+          placeholder="userId"
           required
         />
         <input

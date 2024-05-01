@@ -1,12 +1,8 @@
 import React, { useState } from 'react';
 import './Sidebar.css';
 import { MdDashboard } from "react-icons/md";
-import { FaBoxArchive } from "react-icons/fa6";
-import { FaStoreAlt } from "react-icons/fa";
-import { IoIosPeople } from "react-icons/io";
 import { Link } from 'react-router-dom'; 
 import { useNavigate } from "react-router-dom";
-
 
 import { RiAdminFill } from "react-icons/ri";
 import { FaCodeBranch } from "react-icons/fa";

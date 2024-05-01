@@ -49,8 +49,8 @@ const FranchiseAdmin = () => {
         <table  className='franchisestaff-table'>
           <thead>
             <tr>
-              <th>Username</th>
-              <th>Admin ID</th>
+              <th>fullnmae</th>
+              <th>userId</th>
               <th>Franchise Name</th>
               <th>Franchise ID</th>
               <th>Designation</th>
@@ -67,8 +67,8 @@ const FranchiseAdmin = () => {
           <tbody>
             {admins.map(admin => (
               <tr key={admin._id}>
-                <td>{admin.username}</td>
-                <td>{admin.Adminid}</td>
+                <td>{admin.fullname}</td>
+                <td>{admin.userId}</td>
                 <td>{admin.franchisename}</td>
                 <td>{admin.FranchiseID}</td>
                 <td>{admin.designation}</td>

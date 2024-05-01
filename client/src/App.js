@@ -42,6 +42,7 @@ function App() {
         <Route path="/superadminlogin" element={<LoginPage />} />
         <Route path="/fl" element={<FranchiseLogin />} />
 
+        <Route path="/reg" element={<RegisterPage />} />
       
 
         <Route element={<PrivateRoute />}>

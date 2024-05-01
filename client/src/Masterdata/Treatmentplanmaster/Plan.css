@@ -11,18 +11,29 @@
   }
   
   .form23 {
-    /* Style your form */
-    margin-bottom: 20px; /* Add some bottom margin */
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 50vw;
+    padding: 20px;
+    border-radius: 10px;
+    position: relative;
+    color: #000;
+    border: 1px solid #333;
   }
   
-  .form23 div {
-    margin-bottom: 10px; /* Add space between form elements */
+  .inline-fields {
+    display: flex; /* Make the container flex */
+    gap: 10px; /* Add some space between inline fields */
+  }
+  
+  .inline-fields > div {
+    flex: 1; /* Equal width for both inline divs */
   }
   
   .select,
   input[type="text"],
   input[type="number"] {
-    /* Style your form inputs */
     width: 100%; /* Full width */
     padding: 8px; /* Adjust padding as needed */
     border: 1px solid #ccc; /* Add border */
@@ -31,8 +42,7 @@
   }
   
   button {
-    /* Style your button */
-    background-color: #4CAF50; /* Blue color */
+    background-color: #4caf50; /* Blue color */
     color: #fff; /* White text */
     padding: 10px 20px; /* Adjust padding */
     border: none; /* No border */
@@ -43,6 +53,7 @@
   button:hover {
     background-color: #0056b3; /* Darker blue on hover */
   }
+  
   
   .tabp {
     /* Style your table */
@@ -64,4 +75,62 @@
   .tabp tr:nth-child(even) {
     background-color: #f2f2f2; /* Alternate row background */
   }
+  .form23 {
+     display: flex;
+  flex-direction: column;
+  gap: 10px;
+  /* max-width: 350px; */
+  width: 50vw;
+  padding: 20px;
+  border-radius: 10px;
+  position: relative;
+  /* background-color: #1a1a1a; */
+  color: #000;
+  border: 1px solid #333;
+  }
+  .inline-fields {
+    display: flex; /* Make the container flex */
+  }
   
+  .inline-fields > div {
+    flex: 1; /* Equal width for both inline divs */
+    margin-right: 10px; /* Add some space between inline divs */
+  }
+  
+  .select,
+  input[type="text"],
+  input[type="number"] {
+    /* Style your form inputs */
+    width: 100%; /* Full width */
+    padding: 12px; /* Adjust padding as needed */
+    border: 1px solid #ccc; /* Add border */
+    border-radius: 4px; /* Add border-radius */
+    box-sizing: border-box; /* Include padding in width */
+  }
+  
+  .paln_submit-btn {
+    /* Style your button */
+    background-color: #4caf50; /* Blue color */
+    color: #fff; /* White text */
+    padding: 10px 20px; /* Adjust padding */
+    border: none; /* No border */
+    border-radius: 4px; /* Add border-radius */
+    cursor: pointer; /* Pointer cursor */
+    margin-top: 2%;
+  }
+  
+  .paln_submit-btn:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+  }
+.pagination{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.pagenation-btn{
+ margin: 2% 0;
+ margin-left: 1%;
+}
+  .plan_list_heading{
+    margin:2% 0;
+  }

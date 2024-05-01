@@ -2,7 +2,7 @@ const Admin = require('../models/FranchiseAdminmodel');
 
 exports.createAdmin = async (req, res) => {
   try {
-    const admin = new Admin(req.body);
+    const admin = new Admin(req.body); // This line may cause issues
     await admin.save();
     res.status(201).json({ success: true, message: 'Admin created successfully.' });
   } catch (error) {

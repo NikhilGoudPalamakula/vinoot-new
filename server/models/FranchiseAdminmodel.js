@@ -6,7 +6,7 @@ const franchiseAdminSchema = new mongoose.Schema({
     franchisename:  { type: String},
     FranchiseID:  { type: String},
     designation:  { type: String, required: true},
-    email:  { type: String, required: true},
+    email:  { type: String,},
     password:  { type: String, required: true},
     isActive: { type: Boolean, default: true },
     modifiedBy: { type: String },

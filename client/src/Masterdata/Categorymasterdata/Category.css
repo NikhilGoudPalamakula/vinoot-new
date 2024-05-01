@@ -23,6 +23,10 @@
   
   .cat-form {
     margin-bottom: 20px;
+    padding: 20px;
+  border-radius: 10px;
+  border: 1px solid #333;
+  width: 50vw;
   }
   
   .cat-form label {
@@ -38,7 +42,7 @@
     border-radius: 5px;
   }
   
-  .cat-form button {
+  .category_submit-btn {
     padding: 10px 20px;
     background-color: #4CAF50;
     color: #fff;
@@ -70,4 +74,14 @@
     border-radius: 5px;
     cursor: pointer;
   }
-  
+  .tabc td button{
+    width: 8vw;
+    height: 4.5vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 10%;
+  }
+  .category_list_heading{
+    margin: 2.5% 0;
+  }

@@ -473,4 +473,3 @@ const FranchiseReg = () => {
 };
 
 export default FranchiseReg;
-

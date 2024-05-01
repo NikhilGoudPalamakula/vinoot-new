@@ -151,7 +151,7 @@
   .addfr-input-wrap {
     width: 35vw;
   }
-  .addfr-submit-button{
+  .addfr-submit-button {
     margin-left: 22vw;
     width: 30vw;
   }
@@ -165,7 +165,7 @@
     height: 6vh;
     width: 8vw;
   }
-  .addfr-submit-button{
+  .addfr-submit-button {
     margin-left: 20vw;
     width: 30vw;
   }
@@ -179,14 +179,14 @@
     height: 6vh;
     width: 15vw;
   }
-  .addfr-franchise-detail-columns{
+  .addfr-franchise-detail-columns {
     display: flex;
     flex-direction: column;
   }
   .addfr-input-wrap {
     width: 60vw;
   }
-  .addfr-submit-button{
+  .addfr-submit-button {
     margin-left: 19vw;
     width: 30vw;
   }

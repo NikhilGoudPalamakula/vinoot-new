@@ -338,7 +338,7 @@
 } */
 
 .franchise-header {
-  text-align: center;
+  text-align: left;
 }
 
 .form-franchiseReg {
@@ -394,4 +394,14 @@
 
 .franchise-button:hover {
   background-color: #0056b3;
+}
+
+
+
+
+.addfr-total{
+  margin: 5vh 6vw 0px 6vw;
+  border: 2px solid #0AA506;
+  border-radius: 10px;
+  padding: 10px 20px 10px 20px;
 }

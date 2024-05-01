@@ -208,8 +208,8 @@ const FranchiseReg = () => {
     setAdminData({ ...adminData, [e.target.name]: e.target.value });
   };
   return (
-    <div>
-      <h2 className="franchise-header">Franchise Form</h2>
+    <div  className="addfr-total">
+      <h2 className="franchise-header">Franchise Details </h2>
       <form onSubmit={handleSubmit} className="form-franchiseReg">
         <div className="franchise-column-wrapper">
           <div className="column">

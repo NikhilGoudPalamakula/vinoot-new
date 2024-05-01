@@ -64,3 +64,92 @@
     }
   }
    */
+
+.city-total{
+  display: flex;
+}
+   .city-right{
+    margin-left: 28%;
+    h1{
+      margin-bottom: 20px;
+    }
+
+   }
+   .city-form{
+
+   }
+
+   .city-form{
+    margin-bottom: 20px;
+    padding: 20px;
+  border-radius: 10px;
+  border: 1px solid #333;
+  width: 50vw;
+  }
+
+  .city-form label {
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  .city-form input[type="text"] {
+    width: 90%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  .city-form select {
+    width: 93%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+
+
+  .city-form{
+
+    button {
+      border: none;
+      outline: none;
+      padding: 10px 20px 10px 20px;
+      border-radius: 10px;
+      color: #fff;
+      font-size: 0.8rem;
+      transform: .3s ease;
+      background-color: #0AA506;
+    }
+    button:hover{
+      background-color: #0d390c;
+    }
+  }
+  .cities_list_heading{
+    margin: 2.5% 0;
+  }
+  .cities-table{
+    width: 100%;
+    border-collapse: collapse;
+    th{
+      text-align: center;
+      padding: 8px;
+      font-size: 0.7rem;
+      color: white;
+      background-color: #0AA506;
+    }
+     td{
+      text-align: center;
+      padding: 8px;
+      font-size: 0.7rem;
+     }
+     button{
+      border: none;
+      outline: none;
+      padding: 7px 7px 7px 7px;
+      border-radius: 10px;
+      color: #fff;
+      font-size: 0.7rem;
+      transform: .3s ease;
+      background-color: #0AA506;
+     }
+  }

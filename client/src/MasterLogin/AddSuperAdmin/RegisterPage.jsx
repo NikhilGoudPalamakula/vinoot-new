@@ -52,12 +52,12 @@ const RegisterPage = () => {
         <Sidebar />
       </div>
       <div className="super-regright">
-        <h2 className="super-rheading">Add Super Admin </h2>
-        <div className="super-regright-1">
-          <form className="super-regfrom" onSubmit={handleSubmit}>
-            <div className="super-flex">
-              <div>
-                <div className="super-regdiv" >
+        <div className="super-regright22" >
+          <h2 className="super-rheading">Add Super Admin </h2>
+          <div className="super-regright-1">
+            <form className="super-regfrom" onSubmit={handleSubmit}>
+              <div className="superflex-high" >
+                <div className="super-flex">
                   <label>
                     <input
                       className="input1_rp"
@@ -70,8 +70,8 @@ const RegisterPage = () => {
                     />
                     <span>Full Name</span>
                   </label>
-                </div>
-                <div className="super-regdiv" >
+
+
                   <label>
                     <input
                       className="input1_rp"
@@ -82,10 +82,10 @@ const RegisterPage = () => {
                       placeholder=""
                       required
                     />
-                    <span>userId</span>
+                    <span>UserId</span>
                   </label>
-                </div>
-                <div className="super-regdiv" >
+
+          
                   <label>
                     <input
                       className="input1_rp"
@@ -98,8 +98,7 @@ const RegisterPage = () => {
                     />
                     <span>Email</span>
                   </label>
-                </div>
-                <div className="super-regdiv" >
+
                   <label>
                     <input
                       className="input1_rp"
@@ -112,11 +111,13 @@ const RegisterPage = () => {
                     />
                     <span>Phone Number</span>
                   </label>
+
                 </div>
-              </div>
-              {/* .......................................... */}
-              <div className="super-flex1">
-                <div className="super-regdiv" >
+
+                {/* .......................................... */}
+
+                <div className="super-flex">
+
                   <label>
                     <input
                       className="input1_rp"
@@ -124,13 +125,28 @@ const RegisterPage = () => {
                       name="dateOfBirth"
                       value={formData.dateOfBirth}
                       onChange={handleChange}
-                      placeholder=""
+                      placeholder="date of birth"
                       required
                     />
                     <span>Date of Birth</span>
                   </label>
-                </div>
-                <div className="super-regdiv" >
+
+
+                  <label>
+                    <select
+                      className="input1_rp"
+                      name="gender"
+                      value={formData.gender}
+                      onChange={handleChange}
+                      required
+                    >
+                      <option value="">Select Gender</option>
+                      <option value="male">Male</option>
+                      <option value="female">Female</option>
+                      <option value="other">Other</option>
+                    </select>
+                    <span>Gender</span>
+                  </label>
                   <label>
                     <input
                       className="input1_rp"
@@ -143,8 +159,9 @@ const RegisterPage = () => {
                     />
                     <span>Password</span>
                   </label>
-                </div>
-                <div className="super-regdiv" >
+
+
+
                   <label>
                     <input
                       className="input1_rp"
@@ -157,30 +174,19 @@ const RegisterPage = () => {
                     />
                     <span>Confirm Password</span>
                   </label>
+
+
+                
                 </div>
-                <div className="super-regdiv" >
-                  <label>
-                  <select
-                    className="input2_rp"
-                    name="gender"
-                    value={formData.gender}
-                    onChange={handleChange}
-                    required
-                  >
-                    <option value="">Select Gender</option>
-                    <option value="male">Male</option>
-                    <option value="female">Female</option>
-                    <option value="other">Other</option>
-                  </select>
-                  </label>
-                </div>
+               
               </div>
-            </div>
-            <button className="submit_rp" type="submit">Register</button>
-          </form>
-          <div style={{ marginTop: '10%' }}><MasterUserT /></div>
+              <button className="submit_rp" type="submit">Register</button>
+            </form>
+          </div>
         </div>
+        <div className="below-table-admins"><MasterUserT /></div>
       </div>
+
     </div>
   );
 };

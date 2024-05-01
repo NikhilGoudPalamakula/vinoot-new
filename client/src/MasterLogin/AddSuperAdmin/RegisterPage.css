@@ -1,111 +1,94 @@
-
-
-
-
 .super-regtoatl{
   display: flex;
 }
 .super-regright{
-  margin-left: 18%; 
-
-  .super-rheading{
-    color: #0AA506;
-    margin-top: 0.5%;
-    text-align: center;
-  }
+  margin-left: 20%;
 }
-
 .super-regright-1{
-    border: 2px solid #0AA506;
-    height: 44vh;
-    padding: 20px 10px 20px 20px;
-    margin: 1% 5% 0% 5%;
-    border-radius: 15px;
-    background-color: white;
-    text-align: center;
-    justify-content: center;
-    align-items: center;
+  margin-left: 10%;
+}
+.superflex-high{
+display: flex;
+flex-direction: row;
+  max-width: 500px;
+  padding: 20px;
+  border-radius: 20px;
+  position: relative;
+  /* background-color: #1a1a1a; */
+  color: #0000;
+  border: 1px solid #333;
+  gap: 50px;
 }
 .super-flex{
   display: flex;
+  flex-direction: column;
+  /* gap: 10px; */
 }
-.super-regdiv{
-    /* display: flex; */
-    /* width: 100%; */
-    /* gap: 6px; */
-    /* margin-top: 0.2vh; */
-  }
 
 
-  .super-regfrom label {
-    position: relative;
-  }
-  
-  .super-regfrom label .input1_rp {
-    /* background-color: #f8f7f7; */
-    color: #0AA506;
-    height: 7vh;
-    width: 23vw;
-    padding: 20px 5px 5px 20px;
-    outline: 0;
-    border: 1px solid #0AA506;
-    border-radius: 10px;
-  }
-  .input2_rp {
-    /* background-color: #f8f7f7; */
-    color: #0AA506;
-    /* height: 30%; */
-    height: 7vh;
-    width: 23vw;
-    padding: 20px 05px 05px 10px;
-    outline: 0;
-    border: 1px solid #0AA506;
-    border-radius: 10px;
-  }
-  .super-regfrom label .input1_rp + span {
-    color: #0AA506;
-    position: absolute;
-    left: 10px;
-    top: 0px;
-    font-size: 0.5em;
-    font-weight: bold;
-    cursor: text;
-    transition: 0.3s ease;
-  }
-  
-  .super-regfrom label .input1_rp:placeholder-shown + span {
-    top: 12.5px;
-    font-size: 0.7em;
-  }
-  
-  .super-regfrom label .input1_rp:focus + span,
-  .super-regfrom label .input1_rp:valid + span {
-    color: #0AA506;
-    top: 0px;
-    font-size: 0.5em;
-    font-weight: 600;
+
+.super-flex label {
+  position: relative;
+}
+
+.super-flex label .input1_rp {
+  /* background-color: #333; */
+  color: black;
+  /* width: 100%; */
+  padding: 20px 05px 05px 10px;
+  outline: 0;
+  border: 1px solid rgba(105, 105, 105, 0.397);
+  border-radius: 10px;
+}
+
+.super-flex label .input1_rp + span {
+  color: #0AA506;
+  font-weight: 500;
+  position: absolute;
+  left: 10px;
+  top: 0px;
+  font-size: 0.5em;
+  cursor: text;
+  transition: 0.3s ease;
+}
+/* .input2_rp{
+  color: #0AA506;
+  font-weight: bold;
+  position: absolute;
+  left: 10px;
+  top: 0px;
+  font-size: 0.5em;
+  cursor: text;
+  transition: 0.3s ease;
+} */
+
+.super-flex label .input1_rp:placeholder-shown + span {
+  top: 12.5px;
+  font-size: 0.9em;
+}
+
+.super-flex label .input1_rp:focus + span,
+.super-flex label .input1_rp:valid + span {
+  color: #0AA506;
+  top: 0px;
+  font-size: 0.7em;
+  font-weight: 600;
+}
+
+.input1_rp {
+  font-size: medium;
+}
+
+
+
+@keyframes pulse {
+  from {
+    transsuper-flex: scale(0.9);
+    opacity: 1;
   }
 
-  .super-flex1{
-    margin-left: 20vw;
+  to {
+    transsuper-flex: scale(1.8);
+    opacity: 0;
   }
-
-  .submit_rp{
-    position: absolute;
-    border: 0 solid red;
-    height: 8%;
-    width: 15%;
-    background-color: #0AA506;
-    border-radius: 10px;
-    margin-left: -7%;
-    margin-top: 1%;
-    margin-bottom: 10%;
-    color: #f8f7f7;
-    font-size: 1rem;
-    transition: 1s;
-  }
-
-  .submit_rp:hover{
-    background-color: black;
-    color: azure;
-  }
+}

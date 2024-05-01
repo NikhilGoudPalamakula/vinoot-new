@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-
+import './MasterUserT.css'
 const MasterUserT = () => {
     const [users, setUsers] = useState([]);
 
@@ -31,7 +31,7 @@ const MasterUserT = () => {
     <>
       <div>
       <h2>Master User List</h2>
-      <table>
+      <table  className='masterusers-table'>
         <thead>
           <tr>
             <th>Full Name</th>

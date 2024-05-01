@@ -50,7 +50,7 @@ function App() {
           <Route path="/FrSidebar" element={<FranchiseAdmintable />} />
           <Route path="/Sidebar" element={<Sidebar />} />
           <Route path="/MasterUsert" element={<MasterUserT />} />
-          <Route path="/reg" element={<RegisterPage />} />
+          {/* <Route path="/reg" element={<RegisterPage />} /> */}
           <Route path="/fr" element={<FranchiseReg />} />
           <Route path="/fsr" element={<FranchiseStaffReg />} />
 

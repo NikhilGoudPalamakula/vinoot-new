@@ -88,12 +88,12 @@ const TreatmentCategory = () => {
   };
 
   return (
-    <div className="total-tcategory" style={{display:'flex'}}>
+    <div className="total-tcategory" >
     <div>
       <Sidebar/>
     </div>
-    <div style={{alignItems:'center',justifyItems:'center',justifyContent:'center',marginLeft:'30%',marginTop:'4%'}}>
-      <h1>Treatment Category Master</h1>
+    <div >
+      <h1  className="h1111">Treatment Category Master</h1>
       <form action="" onSubmit={handleSubmit} className="cat-form">
         <label htmlFor="tar">Category</label>
         <input

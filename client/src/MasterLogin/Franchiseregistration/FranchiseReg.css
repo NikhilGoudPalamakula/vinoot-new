@@ -1,8 +1,4 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+
 .addfr-total {
   margin: 5vh 6vw 0px 6vw;
   border: 2px solid #0aa506;
@@ -29,11 +25,10 @@
   margin-top: 2.5vh;
 }
 .addfr-input {
-  border: none;
+  /* border: none; */
   outline: none;
   height: 7.5vh;
   width: 30vw;
-  border-radius: 12px;
 }
 .addfr-input-wrap label {
   font-size: 14px;

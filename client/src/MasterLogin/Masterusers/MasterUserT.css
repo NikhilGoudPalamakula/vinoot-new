@@ -1,0 +1,12 @@
+.masterusers-table{
+   width: 70vw;
+   margin-top: 2vh;
+}
+.masterusers-table th{
+    font-size: 0.7rem;
+    background-color: #0AA506;
+    color: white;
+}
+.masterusers-table td{
+    font-size: 0.7rem;
+}

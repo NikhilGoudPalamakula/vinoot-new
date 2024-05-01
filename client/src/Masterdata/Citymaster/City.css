@@ -1,14 +1,14 @@
-/* Sidebar */
+/* 
 .Sidebar {
     width: 25%;
     background-color: #f4f4f4;
     padding: 20px;
   }
   
-  /* Main Content */
+
  
   
-  /* Form */
+
   form {
     margin-bottom: 20px;
   }
@@ -40,7 +40,6 @@
     background-color: #0056b3;
   }
   
-  /* Table */
   table {
     width: 100%;
     border-collapse: collapse;
@@ -55,7 +54,6 @@
     background-color: #f2f2f2;
   }
   
-  /* Responsive */
   @media screen and (max-width: 768px) {
     .Sidebar {
       width: 100%;
@@ -65,4 +63,4 @@
       margin-top: 20px;
     }
   }
-  
+   */

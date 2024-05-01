@@ -7,8 +7,8 @@ import FranchiseadminSidebar from "../Franchiseadminsidebar/Franchiseadminsideba
 const FranchiseStaffReg = () => {
   const navigate = useNavigate();
   const [adminData, setAdminData] = useState({
-    username: "",
-    Adminid: "",
+    fullname: "",
+    userId: "",
     franchisename: "",
     FranchiseID: "",
     designation: "",
@@ -20,7 +20,7 @@ const FranchiseStaffReg = () => {
     e.preventDefault();
     try {
       // Update adminData and franchiseData with the current values from state and localStorage
-      const createdBy = localStorage.getItem("username");
+      const createdBy = localStorage.getItem("userId");
       const franchiseName = localStorage.getItem("franchisename");
       const FranchiseiD = localStorage.getItem("FranchiseID");
       // Update adminData
@@ -61,28 +61,28 @@ const FranchiseStaffReg = () => {
             <input
               className="addfr-inputs"
               type="text"
-              name="username"
-              value={adminData.username}
+              name="fullname"
+              value={adminData.fullname}
               onChange={handleAdminInputChange}
               placeholder=""
               required
             />
             <label>
-              <span>Username </span>
+              <span>fullname </span>
             </label>
           </div>
           <div className="addfr-inputs-wraps">
             <input
               className="addfr-inputs"
               type="text"
-              name="Adminid"
-              value={adminData.Adminid}
+              name="userId"
+              value={adminData.userId}
               onChange={handleAdminInputChange}
               placeholder=""
               required
             />
             <label>
-              <span>UserId </span>
+              <span>userId </span>
             </label>
           </div>
           <div className="addfr-inputs-wraps">

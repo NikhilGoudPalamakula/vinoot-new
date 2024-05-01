@@ -1,15 +1,15 @@
 const mongoose = require('mongoose');
 
 const franchiseSchema = new mongoose.Schema({
-  franchisename: { type: String, required: true, unique: true },
-  FranchiseID: { type: String, required: true, unique: true },
-  mobileNumber:  { type: String, required: true },
-  country:  { type: String },
+  franchisename: String,
+  FranchiseID: String,
+  mobileNumber: String,
+  country: String,
   state: String,
   city: String,
   area: String,
   address: String,
-  pincode:  { type: String},
+  pincode: String,
   modifiedBy: String,
   modifiedAt:  { type: Date, default: Date.now },
   createdAt: { type: Date, default: Date.now }, 

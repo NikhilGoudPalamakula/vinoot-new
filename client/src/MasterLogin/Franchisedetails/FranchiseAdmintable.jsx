@@ -3,7 +3,7 @@ import './FranchiseAdmintable.css';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import Sidebar from '../../Masterdata/Sidebar/Sidebar';
-
+import './FranchiseAdmintable.css'
 const FranchiseAdmintable = () => {
     const [admins, setAdmins] = useState([]);
 
@@ -35,11 +35,11 @@ const FranchiseAdmintable = () => {
 
 
     return (
-      <div style={{display:'flex'}}>
+      <div className='franchise-details'>
         <div>
           <Sidebar/>
           </div>
-        <div style={{marginLeft:'20%'}}>
+        <div className='franchise-admin-rights'>
           <table className='tabf'>
             <thead>
               <tr>
@@ -71,7 +71,7 @@ const FranchiseAdmintable = () => {
                   <td>{admin.isActive ? 'Active' : 'Inactive'}</td>
                   <td>
 
-  <button onClick={() => toggleActiveState(admin._id, admin.isActive)}>
+  <button className='farnchiseadmin-activebtn' onClick={() => toggleActiveState(admin._id, admin.isActive)}>
     {admin.isActive ? 'Deactivate' : 'Activate'}
   </button>
   </td>

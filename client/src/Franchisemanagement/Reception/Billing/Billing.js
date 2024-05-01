@@ -227,7 +227,7 @@ const Billing = () => {
             <p>Remaining amount: Rs.{remainingAmount}</p>
           </div>
         </div>
-        <button onClick={saveData}>Save</button>
+        <button className='btnbilling' onClick={saveData}>Save</button>
       </div>
     </div>
   );

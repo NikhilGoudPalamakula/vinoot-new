@@ -64,4 +64,13 @@ display: flex;
     padding: 10px;
     border-radius: 5px;
   }
+
+  .btnbilling{
+    padding: 10px 20px;
+    background-color: #0AA506;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
   

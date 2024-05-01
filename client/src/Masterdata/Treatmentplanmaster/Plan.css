@@ -1,88 +1,144 @@
 .totalplan {
-    display: flex;
+  display: flex;
+}
+
+.tplan-above-table1 {
+  margin-left: 20%;
+  h1{
+    font-size: 25px;
   }
-  
+}
 
-  
+.tplan-above-table {
+  margin-left: 30%;
+}
 
-  .tplan-total{
-    display: flex;
-    flex-direction: row;
-      max-width: 450px;
-      padding: 20px 30px 20px 20px;
-      border-radius: 20px;
-      position: relative;
-      /* background-color: #1a1a1a; */
-      color: #0000;
-      border: 1px solid #0AA506;
-      gap: 50px;
-    }
-    .tplan-flex{
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-    
-    .tplan-flex label {
-      position: relative;
-    }
-    
-    .tplan-flex label .tplan-input {
-      /* background-color: #333; */
-      color: black;
-      width: 100%;
-      padding: 20px 05px 05px 10px;
-      outline: 0;
-      border: 1px solid rgba(105, 105, 105, 0.397);
-      border-radius: 10px;
-    }
-    
-    .tplan-flex label .tplan-input + span {
-      color: #0AA506;
-      font-weight: 500;
-      position: absolute;
-      left: 10px;
-      top: 0px;
-      font-size: 0.5em;
-      cursor: text;
-      transition: 0.3s ease;
-    }
+.tplan-below-table {
+  margin-left: 10%;
+}
 
-    
-    .tplan-flex label .tplan-input:placeholder-shown + span {
-      top: 12.5px;
-      font-size: 0.9em;
-    }
-    
-    .tplan-flex label .tplan-input:focus + span,
-    .tplan-flex label .tplan-input:valid + span {
-      color: #0AA506;
-      top: 0px;
-      font-size: 0.7em;
-      font-weight: 600;
-    }
-    
-    .tplan-input {
-      font-size: medium;
-    }
-    .tplan-inbetween{
-      display: flex;
-      gap: 30px;
-    }
-    
-    .submit_tplan {
-      margin-left: 30%;
-      margin-top: 2vh;
+
+.tplan-total {
+  display: flex;
+  flex-direction: row;
+  max-width: 450px;
+  padding: 20px 30px 20px 20px;
+  border-radius: 20px;
+  position: relative;
+  /* background-color: #1a1a1a; */
+  color: #0000;
+  border: 1px solid #0AA506;
+  gap: 50px;
+}
+
+.tplan-flex {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.tplan-flex label {
+  position: relative;
+}
+
+.tplan-flex label .tplan-input {
+  /* background-color: #333; */
+  color: black;
+  width: 100%;
+  padding: 20px 05px 05px 10px;
+  outline: 0;
+  border: 1px solid rgba(105, 105, 105, 0.397);
+  border-radius: 10px;
+}
+
+.tplan-flex label .tplan-input+span {
+  color: #0AA506;
+  font-weight: 500;
+  position: absolute;
+  left: 10px;
+  top: 0px;
+  font-size: 0.5em;
+  cursor: text;
+  transition: 0.3s ease;
+}
+
+
+.tplan-flex label .tplan-input:placeholder-shown+span {
+  top: 12.5px;
+  font-size: 0.9em;
+}
+
+.tplan-flex label .tplan-input:focus+span,
+.tplan-flex label .tplan-input:valid+span {
+  color: #0AA506;
+  top: 0px;
+  font-size: 0.7em;
+  font-weight: 600;
+}
+
+.tplan-input {
+  font-size: medium;
+}
+
+.tplan-inbetween {
+  display: flex;
+  gap: 30px;
+}
+
+.submit_tplan {
+  margin-left: 30%;
+  margin-top: 1vh;
+  border: none;
+  outline: none;
+  padding: 10px 25px 10px 25px;
+  border-radius: 10px;
+  color: #fff;
+  font-size: 16px;
+  transform: .3s ease;
+  background-color: #0AA506;
+}
+
+.submit_tplan:hover {
+  background-color: #0d390c;
+}
+
+.tabp {
+  border-collapse: collapse;
+  width: 70vw;
+
+  th {
+    background-color: #0AA506;
+    color: white;
+    padding: 8px;
+    font-size: 0.9rem;
+  }
+
+  td {
+    padding: 8px;
+    font-size: 0.9rem;
+
+    button {
       border: none;
       outline: none;
-      padding: 10px 25px 10px 25px;
+      padding: 7px 7px 7px 7px;
       border-radius: 10px;
       color: #fff;
-      font-size: 16px;
+      font-size: 0.7rem;
       transform: .3s ease;
       background-color: #0AA506;
     }
+  }
+}
+.pagination{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .pagenation-btn{
+    background-color: #0AA506;
+    border: none;
+    color: white;
+    margin: 2% 0;
+    margin-left: 1%;
     
-    .submit_tplan:hover {
-      background-color: #0d390c;
-    }
+  }
+}

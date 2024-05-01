@@ -64,20 +64,20 @@
   .category_submit-btn:hover{
     background-color: #0d390c;
   }
-  .tabc {
+  .tab-cat {
     width: 100%;
     border-collapse: collapse;
   }
   
   
-  .tabc th {
+  .tab-cat th {
     text-align: center;
     padding: 8px;
     font-size: 0.7rem;
     color: white;
     background-color: #0AA506;
   }
-  .tabc td{
+  .tab-cat td{
     text-align: center;
     padding: 8px;
     font-size: 0.7rem;

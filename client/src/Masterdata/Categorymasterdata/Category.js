@@ -108,7 +108,7 @@ const TreatmentCategory = () => {
       </form>
 
       <h2 className="category_list_heading">Categories List</h2>
-      <table className="tabc">
+      <table className="tab-cat">
         <thead>
           <tr>
             <th>Category Name</th>

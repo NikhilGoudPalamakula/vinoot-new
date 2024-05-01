@@ -155,183 +155,126 @@ const TreatmentPlan = () => {
         <div>
           <Sidebar />
         </div>
-        <div style={{ marginLeft: "30%" }}>
-          <h1>Treatment Plan Master</h1>
-          {/* <form action="" onSubmit={handleSubmitPlan} className="form23">
+        <div  className="tplan-above-table1">
+          <div className="tplan-above-table">
+            <h1>Treatment Plan Master</h1>
             <div>
-              <label>Select Category:</label>
-              <select
-                value={selectedCategory}
-                onChange={handleCategoryChange}
-                className="select"
-                required
-              >
-                <option value="">Select </option>
-                {categories.map((item) => (
-                  <option key={item._id} value={item.category_name}>
-                    {item.category_name}
-                  </option>
-                ))}
-              </select>
-            </div>
-            <div>
-              <label htmlFor="plan">treatment plan:</label>
-              <input
-                type="text"
-                id="plan"
-                value={plan}
-                onChange={handlePlanChange}
-                required
-              />
-            </div>
-            <div class="inline-fields">
-              <div>
-                <label>GST:</label>
-                <input
-                  type="number"
-                  value={GST}
-                  onChange={handleGSTChange}
-                  required
-                />
-              </div>
-              <div>
-                <label>No of days:</label>
-                <input
-                  type="number"
-                  value={days}
-                  onChange={handleDaysChange}
-                  required
-                />
-              </div>
-            </div>
-            <div>
-              <label>Price:</label>
-              <input
-                type="number"
-                value={price}
-                onChange={handlePriceChange}
-                required
-              />
-            </div>
-            <button className="paln_submit-btn">Submit Plan</button>
-          </form> */}
-
-          {/* ------------- */}
-          <div>
-            <form className="super-regfrom" onSubmit={handleSubmitPlan}>
-              <div className="tplan-total" >
-                <div className="tplan-flex">
-                  <label>
-                    <select
-                      className='tplan-input'
-                      value={selectedCategory}
-                      onChange={handleCategoryChange}
-                      placeholder=""
-                      required
-                    >
-                      <option value="">Select </option>
-                      {categories.map((item) => (
-                        <option key={item._id} value={item.category_name}>
-                          {item.category_name}
-                        </option>
-                      ))}
-                    </select>
-                    <span>Select Category</span>
-                  </label>
-
-                  <label>
-                    <input
-                      className="tplan-input"
-                      type="text"
-                      // id="plan"
-                      value={plan}
-                      onChange={handlePlanChange}
-                      placeholder=""
-                      required
-                    />
-                    <span>Treatement Plan</span>
-                  </label>
-
-                  <div  className="tplan-inbetween">
+              <form className="super-regfrom" onSubmit={handleSubmitPlan}>
+                <div className="tplan-total" >
+                  <div className="tplan-flex">
                     <label>
-                      <input
-                        className="tplan-input"
-                        type="number"
-                        value={GST}
-                        onChange={handleGSTChange}
+                      <select
+                        className='tplan-input'
+                        value={selectedCategory}
+                        onChange={handleCategoryChange}
                         placeholder=""
                         required
-                      />
-                      <span>GST</span>
+                      >
+                        <option value="">Select </option>
+                        {categories.map((item) => (
+                          <option key={item._id} value={item.category_name}>
+                            {item.category_name}
+                          </option>
+                        ))}
+                      </select>
+                      <span>Select Category</span>
                     </label>
 
                     <label>
                       <input
                         className="tplan-input"
-                        type="number"
-                        value={days}
-                        onChange={handleDaysChange}
+                        type="text"
+                        // id="plan"
+                        value={plan}
+                        onChange={handlePlanChange}
                         placeholder=""
                         required
                       />
-                      <span>No of Days</span>
+                      <span>Treatement Plan</span>
                     </label>
-                  </div>
 
-                  <label>
+                    <div className="tplan-inbetween">
+                      <label>
+                        <input
+                          className="tplan-input"
+                          type="number"
+                          value={GST}
+                          onChange={handleGSTChange}
+                          placeholder=""
+                          required
+                        />
+                        <span>GST</span>
+                      </label>
+
+                      <label>
+                        <input
+                          className="tplan-input"
+                          type="number"
+                          value={days}
+                          onChange={handleDaysChange}
+                          placeholder=""
+                          required
+                        />
+                        <span>No of Days</span>
+                      </label>
+                    </div>
+
+                    <label>
                       <input
                         className="tplan-input"
                         type="number"
-                value={price}
-                onChange={handlePriceChange}
-                required
+                        value={price}
+                        onChange={handlePriceChange}
+                        required
                         placeholder=""
-                   
+
                       />
                       <span>Price</span>
                     </label>
+                  </div>
+
                 </div>
-
-              </div>
-              <button className="submit_tplan" type="submit">Submit Plan</button>
-            </form>
+                <button className="submit_tplan" type="submit">Submit Plan</button>
+              </form>
+            </div>
           </div>
-
-      
-          <h2 className="plan_list_heading">Plans List</h2>
-          <table className="tabp">
-            <thead>
-              <tr>
-                <th>Plan Name</th>
-                <th>UpdatedTime</th>
-                <th>Status</th>
-                <th>Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              {currentItems.map((plan) => (
-                <tr key={plan.plan_id}>
-                  <td>{plan.plan_name}</td>
-                  <td>{plan.updatedAt}</td>
-                  <td>{plan.status}</td>
-                  <td>
-                    <button onClick={() => toggleStatus(plan.plan_id, plan.status)}>
-                      {plan.status === "active" ? "Set Inactive" : "Set Active"}
-                    </button>
-                  </td>
+          <div  className="tplan-below-table">
+            <h2 className="plan_list_heading">Plans List</h2>
+            <table className="tabp">
+              <thead>
+                <tr>
+                  <th>Plan Name</th>
+                  <th>UpdatedTime</th>
+                  <th>Status</th>
+                  <th>Action</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {currentItems.map((plan) => (
+                  <tr key={plan.plan_id}>
+                    <td>{plan.plan_name}</td>
+                    <td>{plan.updatedAt}</td>
+                    <td>{plan.status}</td>
+                    <td>
+                      <button onClick={() => toggleStatus(plan.plan_id, plan.status)}>
+                        {plan.status === "active" ? "Set Inactive" : "Set Active"}
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
 
-          {/* Pagination */}
-          <div className="pagination">
-            <button className="pagenation-btn" onClick={() => paginate(currentPage - 1)} disabled={currentPage === 1}>
-              {"<"} {/* Previous */}
-            </button>
-            <button className="pagenation-btn" onClick={() => paginate(currentPage + 1)} disabled={currentItems.length < itemsPerPage}>
-              {">"} {/* Next */}
-            </button>
+            {/* Pagination */}
+            <div className="pagination">
+              <button className="pagenation-btn" onClick={() => paginate(currentPage - 1)} disabled={currentPage === 1}>
+                {"<"} {/* Previous */}
+              </button>
+              <button className="pagenation-btn" onClick={() => paginate(currentPage + 1)} disabled={currentItems.length < itemsPerPage}>
+                {">"} {/* Next */}
+              </button>
+            </div>
+
           </div>
         </div>
       </div>

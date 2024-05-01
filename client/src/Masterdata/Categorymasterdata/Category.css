@@ -23,6 +23,10 @@
   
   .cat-form {
     margin-bottom: 20px;
+    padding: 20px;
+  border-radius: 10px;
+  border: 1px solid #333;
+  width: 50vw;
   }
   
   .cat-form label {

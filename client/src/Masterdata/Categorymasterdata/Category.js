@@ -92,7 +92,7 @@ const TreatmentCategory = () => {
     <div>
       <Sidebar/>
     </div>
-    <div style={{alignItems:'center',justifyItems:'center',justifyContent:'center',marginLeft:'40%',marginTop:'10%'}}>
+    <div style={{alignItems:'center',justifyItems:'center',justifyContent:'center',marginLeft:'30%',marginTop:'10%'}}>
       <h1>Treatment Category Master</h1>
       <form action="" onSubmit={handleSubmit} className="cat-form">
         <label htmlFor="tar">Category</label>

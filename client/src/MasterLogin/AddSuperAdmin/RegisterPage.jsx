@@ -10,12 +10,12 @@ import MasterUserT from "../Masterusers/MasterUserT";
 
 
 const RegisterPage = () => {
-  const createdby =localStorage.getItem("username")
+  const createdby =localStorage.getItem("userId")
 
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     fullName: "",
-    username: "",
+    userId: "",
     email: "",
     phoneNumber: "",
     dateOfBirth: "",
@@ -74,13 +74,13 @@ const RegisterPage = () => {
                     <input
                       className="input1_rp"
                       type="text"
-                        name="username"
-                        value={formData.username}
+                        name="userId"
+                        value={formData.userId}
                         onChange={handleChange}
                       placeholder=""
                       required
                     />
-                    <span>Username</span>
+                    <span>userId</span>
                   </label>
                 </div>
                 <div className="flex1_rp" >

@@ -4,8 +4,8 @@ import { Outlet,Navigate } from "react-router-dom";
 
 const PrivateRoute = () => {
 
-  const username =  localStorage.getItem("username")
-    return username ? <Outlet /> : <Navigate to="/" />;
+  const userId =  localStorage.getItem("userId")
+    return userId ? <Outlet /> : <Navigate to="/" />;
 
 };
 

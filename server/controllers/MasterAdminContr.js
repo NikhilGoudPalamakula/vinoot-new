@@ -12,11 +12,14 @@ exports.registerUser = async (req, res) => {
 };
 
 exports.loginUser = async (req, res) => {
-  const { username, password } = req.body;
+  const { userId, password } = req.body;
   try {
-    const user = await User.findOne({ username, password });
+    const user = await User.findOne({ userId, password });
     if (!user) {
       return res.status(400).json({ error: 'Invalid credentials' });
+    }
+    if (!user.isActive) {
+      return res.status(400).json({ error: 'User is not active' });
     }
     res.status(200).json(user);
   } catch (error) {
@@ -24,6 +27,7 @@ exports.loginUser = async (req, res) => {
     res.status(500).json({ error: 'Server Error' });
   }
 };
+
 
 
 exports.getAllUsers = async (req, res) => {

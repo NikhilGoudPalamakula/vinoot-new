@@ -15,6 +15,7 @@ const FranchiseReg = () => {
   const [filteredStates, setFilteredStates] = useState([]);
   const [filteredCities, setFilteredCities] = useState([]);
   const [filteredAreas, setFilteredAreas] = useState([]);
+
   const [franchiseData, setFranchiseData] = useState({
     franchisename: "",
     FranchiseID: "",
@@ -28,8 +29,8 @@ const FranchiseReg = () => {
   });
 
   const [adminData, setAdminData] = useState({
-    username: "",
-    Adminid: "",
+    fullname: "",
+    userId: "",
     franchisename: "",
     FranchiseID: "",
     designation: "FranchiseAdmin",
@@ -164,7 +165,7 @@ const FranchiseReg = () => {
     e.preventDefault();
     try {
       // Update adminData and franchiseData with the current values from state and localStorage
-      const createdBy = localStorage.getItem("username");
+      const createdBy = localStorage.getItem("userId");
 
       // Update adminData
       const updatedAdminData = {
@@ -398,28 +399,28 @@ const FranchiseReg = () => {
                     <input
                       className="addfr-input"
                       type="text"
-                      name="username"
-                      value={adminData.username}
+                      name="fullname"
+                      value={adminData.fullname}
                       onChange={handleAdminInputChange}
                       placeholder=""
                       required
                     />
                     <label>
-                      <span>Username </span>
+                      <span>fullname </span>
                     </label>
                   </div>
                   <div className="addfr-input-wrap">
                     <input
                       className="addfr-input"
                       type="text"
-                      name="Adminid"
-                      value={adminData.Adminid}
+                      name="userId"
+                      value={adminData.userId}
                       onChange={handleAdminInputChange}
                       placeholder=""
                       required
                     />
                     <label>
-                      <span>Admin ID</span>
+                      <span>userId</span>
                     </label>
                   </div>
                   {/* <input

@@ -1,54 +1,13 @@
-// const mongoose = require('mongoose');
-
-// const adminSchema = new mongoose.Schema({
-//   username: String,
-//   Adminid: String,
-//   franchisename: String,
-//   FranchiseID: String,
-//   designation: String,
-//   email: String,
-//   password: String,
-//   isActive: { type: Boolean, default: true },
-//   modifiedBy: { type: String },
-//   modifiedAt: { type: Date, default: Date.now },
-//   createdAt: { type: Date, default: Date.now }, 
-//   createdBy: { type:  String,}
-// });
-
-// module.exports = mongoose.model('FranchiseAdmin', adminSchema);
-
-
-
-// const mongoose = require('mongoose');
-
-// const adminSchema = new mongoose.Schema({
-//   username: String,
-//   Adminid: String,
-//   franchisename: String,
-//   FranchiseID: String,
-//   designation: String,
-//   email: String,
-//   password: String,
-//   isActive: { type: Boolean, default: true },
-//   modifiedBy: { type: String },
-//   modifiedAt: { type: Date, default: Date.now },
-//   createdAt: { type: Date, default: Date.now }, 
-//   createdBy: { type:  String,}
-// });
-
-// module.exports = mongoose.model('FranchiseAdmin', adminSchema);
-
-
 const mongoose = require('mongoose');
 
 const franchiseAdminSchema = new mongoose.Schema({
-    username: String,
-    Adminid: String,
-    franchisename: String,
-    FranchiseID: String,
-    designation: String,
-    email: String,
-    password: String,
+    fullname:  { type: String, required: true},
+    userId: { type: String, required: true, unique: true },
+    franchisename:  { type: String},
+    FranchiseID:  { type: String},
+    designation:  { type: String, required: true},
+    email:  { type: String, required: true},
+    password:  { type: String, required: true},
     isActive: { type: Boolean, default: true },
     modifiedBy: { type: String },
     modifiedAt: { type: Date, default: Date.now },

@@ -8,6 +8,8 @@ const Sidebar = () => {
     localStorage.clear();
     navigate('/');
   };
+
+  
   return (
     <div>
 

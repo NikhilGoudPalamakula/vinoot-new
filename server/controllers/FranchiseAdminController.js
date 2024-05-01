@@ -35,12 +35,13 @@ exports.getExceptAllFranchiseAmins = async (req, res) => {
 
 
 exports.loginfranchiseUser = async (req, res) => {
-  const { Adminid, password } = req.body;
+  const { userId, password } = req.body;
   try {
-    const user = await Admin.findOne({ Adminid, password }).select('franchisename FranchiseID username designation');
+    const user = await Admin.findOne({ userId, password }).select('franchisename FranchiseID userId designation');
     if (!user) {
       return res.status(400).json({ error: 'Invalid credentials' });
     }
+    
     res.status(200).json(user);
   } catch (error) {
     console.error(error);

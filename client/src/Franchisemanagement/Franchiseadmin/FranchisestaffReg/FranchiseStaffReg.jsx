@@ -7,21 +7,20 @@ import FranchiseadminSidebar from "../Franchiseadminsidebar/Franchiseadminsideba
 const FranchiseStaffReg = () => {
   const navigate = useNavigate();
   const [adminData, setAdminData] = useState({
-    fullname: "",
-    userId: "",
+    username: "",
+    Adminid: "",
     franchisename: "",
     FranchiseID: "",
     designation: "",
     email: "",
     password: "",
-    
   });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       // Update adminData and franchiseData with the current values from state and localStorage
-      const createdBy = localStorage.getItem("userId");
+      const createdBy = localStorage.getItem("username");
       const franchiseName = localStorage.getItem("franchisename");
       const FranchiseiD = localStorage.getItem("FranchiseID");
       // Update adminData
@@ -128,56 +127,9 @@ const FranchiseStaffReg = () => {
             </label>
           </div>
 
-<<<<<<< HEAD
           <button type="submit">Submit</button>
         </form>
       </div>
-=======
-        <h2>Admin Form</h2>
-        <input
-          type="text"
-          name="fullname"
-          value={adminData.fullname}
-          onChange={handleAdminInputChange}
-          placeholder="fullname"
-        />
-        <input
-          type="text"
-          name="userId"
-          value={adminData.userId}
-          onChange={handleAdminInputChange}
-          placeholder="userId"
-        />
-        <select
-          name="designation"
-          value={adminData.designation}
-          onChange={handleAdminInputChange}
-        >
-          <option value="">Select designation</option>
-          <option value="Doctor">Doctor</option>
-          <option value="Reception">Reception</option>
-          <option value="Thearpy">Therapy</option>
-          <option value="FranchiseAdmin">FrAdmin</option>
-        </select>
-        <input
-          type="text"
-          name="email"
-          value={adminData.email}
-          onChange={handleAdminInputChange}
-          placeholder="Email"
-        />
-        <input
-          type="text"
-          name="password"
-          value={adminData.password}
-          onChange={handleAdminInputChange}
-          placeholder="Password"
-        />
-
-        <button type="submit">Submit</button>
-      </form>
-    </div>
->>>>>>> 25531b804b455ac4404de9dc3834d04ecae4af48
     </div>
   );
 };

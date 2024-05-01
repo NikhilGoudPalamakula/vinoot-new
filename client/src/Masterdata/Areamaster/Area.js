@@ -222,10 +222,12 @@ const Area = () => {
   };
 
   return (
-    <div style={{ display: 'flex' }}>
+    <div className="area-total">
       <div><Sidebar /></div>
-      <div className="Appa" style={{marginLeft:'45%',marginTop:'3%'}}>
-        <form onSubmit={handleSubmit}>
+      <div className="area-right" >
+      <h1 >Area Master</h1>
+
+        <form className="area-form" onSubmit={handleSubmit}>
           <div>
             <label>
               Select City:
@@ -251,11 +253,14 @@ const Area = () => {
           </div>
           <button type="submit">Submit</button>
         </form>
+
+      <h2 className="area_list_heading">Areas List</h2>
+
         <div>
           {isLoading ? (
             <p>Loading cities...</p>
           ) : (
-              <table className="table">
+              <table className="area-table">
                 <thead>
                   <tr>
                     <th>Area Name</th>

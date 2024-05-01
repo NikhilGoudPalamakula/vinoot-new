@@ -1,66 +1,87 @@
-/* 
-.Sidebar {
-    width: 25%;
-    background-color: #f4f4f4;
-    padding: 20px;
-  }
-  
 
- 
-  
 
-  form {
+.city-total{
+  display: flex;
+}
+   .city-right{
+    margin-left: 28%;
+    h1{
+      margin-bottom: 20px;
+    }
+
+   }
+
+   .city-form{
     margin-bottom: 20px;
+    padding: 20px;
+  border-radius: 10px;
+  border: 1px solid #333;
+  width: 50vw;
   }
-  
-  label {
+
+  .city-form label {
     display: block;
-    margin-bottom: 10px;
+    margin-bottom: 5px;
   }
   
-  input[type="text"],
-  select {
-    width: 100%;
+  .city-form input[type="text"] {
+    width: 90%;
     padding: 10px;
     margin-bottom: 10px;
     border: 1px solid #ccc;
-    border-radius: 4px;
+    border-radius: 5px;
   }
-  
-  button[type="submit"] {
-    padding: 10px 20px;
-    background-color: #0AA506;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
+  .city-form select {
+    width: 93%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
   }
-  
-  button[type="submit"]:hover {
-    background-color: #0056b3;
+
+
+  .city-form{
+
+    button {
+      border: none;
+      outline: none;
+      padding: 10px 20px 10px 20px;
+      border-radius: 10px;
+      color: #fff;
+      font-size: 0.8rem;
+      transform: .3s ease;
+      background-color: #0AA506;
+    }
+    button:hover{
+      background-color: #0d390c;
+    }
   }
-  
-  table {
+  .cities_list_heading{
+    margin: 2.5% 0;
+  }
+  .cities-table{
     width: 100%;
     border-collapse: collapse;
-  }
-  
-  th, td {
-    padding: 10px;
-    border-bottom: 1px solid #ddd;
-  }
-  
-  th {
-    background-color: #f2f2f2;
-  }
-  
-  @media screen and (max-width: 768px) {
-    .Sidebar {
-      width: 100%;
+    th{
+      text-align: center;
+      padding: 8px;
+      font-size: 0.7rem;
+      color: white;
+      background-color: #0AA506;
     }
-    .Appc {
-      width: 100%;
-      margin-top: 20px;
-    }
+     td{
+      text-align: center;
+      padding: 8px;
+      font-size: 0.7rem;
+     }
+     button{
+      border: none;
+      outline: none;
+      padding: 7px 7px 7px 7px;
+      border-radius: 10px;
+      color: #fff;
+      font-size: 0.7rem;
+      transform: .3s ease;
+      background-color: #0AA506;
+     }
   }
-   */

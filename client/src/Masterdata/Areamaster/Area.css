@@ -1,32 +1,86 @@
-/* 
-  
-  form {
-    margin-bottom: 20px; 
+
+.area-total{
+  display: flex;
+}
+   .area-right{
+    margin-left: 28%;
+    h1{
+      margin-bottom: 20px;
+    }
+
+   }
+
+   .area-form{
+    margin-bottom: 20px;
+    padding: 20px;
+  border-radius: 10px;
+  border: 1px solid #333;
+  width: 50vw;
+  }
+
+  .area-form label {
+    display: block;
+    margin-bottom: 5px;
   }
   
-  table {
+  .area-form input[type="text"] {
+    width: 90%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  .area-form select {
+    width: 93%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+
+
+  .area-form{
+
+    button {
+      border: none;
+      outline: none;
+      padding: 10px 20px 10px 20px;
+      border-radius: 10px;
+      color: #fff;
+      font-size: 0.8rem;
+      transform: .3s ease;
+      background-color: #0AA506;
+    }
+    button:hover{
+      background-color: #0d390c;
+    }
+  }
+  .area_list_heading{
+    margin: 2.5% 0;
+  }
+  .area-table{
     width: 100%;
     border-collapse: collapse;
+    th{
+      text-align: center;
+      padding: 8px;
+      font-size: 0.7rem;
+      color: white;
+      background-color: #0AA506;
+    }
+     td{
+      text-align: center;
+      padding: 8px;
+      font-size: 0.7rem;
+     }
+     button{
+      border: none;
+      outline: none;
+      padding: 7px 7px 7px 7px;
+      border-radius: 10px;
+      color: #fff;
+      font-size: 0.7rem;
+      transform: .3s ease;
+      background-color: #0AA506;
+     }
   }
-  
-  th, td {
-    border: 1px solid #ddd;
-    padding: 8px;
-  }
-  
-  th {
-    background-color: #f2f2f2;
-  }
-  
-  button {
-    padding: 5px 10px;
-    cursor: pointer;
-    border: none;
-    background-color: #007bff;
-    color: #fff;
-  }
-  
-  button:hover {
-    background-color: #0056b3;
-  }
-   */

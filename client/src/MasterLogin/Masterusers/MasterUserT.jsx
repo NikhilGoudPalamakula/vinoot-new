@@ -60,7 +60,7 @@ const MasterUserT = () => {
               <td>{user.modifiedBy}</td> 
               <td>
 
-                <button onClick={() => toggleActiveState(user._id, user.isActive)}>
+                <button className='admin-activeinactive' onClick={() => toggleActiveState(user._id, user.isActive)}>
                   {user.isActive ? 'Deactivate' : 'Activate'}
                 </button>
               

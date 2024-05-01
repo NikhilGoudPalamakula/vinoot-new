@@ -85,7 +85,7 @@ const RegisterPage = () => {
                     <span>UserId</span>
                   </label>
 
-          
+
                   <label>
                     <input
                       className="input1_rp"
@@ -176,9 +176,9 @@ const RegisterPage = () => {
                   </label>
 
 
-                
+
                 </div>
-               
+
               </div>
               <button className="submit_rp" type="submit">Register</button>
             </form>

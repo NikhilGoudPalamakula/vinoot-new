@@ -214,8 +214,6 @@ const PatientForm = () => {
   const [filteredAreas, setFilteredAreas] = useState([]);
   const [formData, setFormData] = useState({
     patient_id: "",
-    franchise_name: "",
-    franchise_id: "",
     patient_name: "",
     gender: "",
     dob: "",
@@ -359,16 +357,22 @@ const PatientForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      const createdBy = localStorage.getItem("userId");
+      const franchiseName = localStorage.getItem("franchisename");
+      const FranchiseID = localStorage.getItem("FranchiseID");
+  
       const response = await axios.post("http://localhost:5001/api/patient", {
         ...formData,
+        createdBy: createdBy,
+        franchiseName: franchiseName,
+        FranchiseID: FranchiseID,
         dob: formData.dob.substring(0, 10), // Extract only the date part
       });
+  
       console.log(response.data); // Assuming response.data contains the newly created patient data
       // Reset form data after successful submission
       setFormData({
         patient_id: "",
-        franchise_name: "",
-        franchise_id: "",
         patient_name: "",
         gender: "",
         dob: "",
@@ -382,13 +386,13 @@ const PatientForm = () => {
       setStateInput(""); // Clear the state input
       setCity(""); // Clear the city input
       setArea(""); // Clear the area input
-
-      localStorage.setItem("franchisename", formData.franchise_name);
-      localStorage.setItem("FranchiseID", formData.franchise_id);
+  
+     
     } catch (error) {
       console.error("Failed to submit data", error);
     }
   };
+  
 
   return (
     <div  className="addpa-total">

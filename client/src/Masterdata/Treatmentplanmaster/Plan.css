@@ -41,18 +41,6 @@
     box-sizing: border-box; /* Include padding in width */
   }
   
-  button {
-    background-color: #4caf50; /* Blue color */
-    color: #fff; /* White text */
-    padding: 10px 20px; /* Adjust padding */
-    border: none; /* No border */
-    border-radius: 4px; /* Add border-radius */
-    cursor: pointer; /* Pointer cursor */
-  }
-  
-  button:hover {
-    background-color: #0056b3; /* Darker blue on hover */
-  }
   
   
   .tabp {

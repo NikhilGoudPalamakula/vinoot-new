@@ -16,8 +16,13 @@
     flex: 1;
     padding: 20px;
   }
-  
-  h1 {
+  .cat-total-con{
+    align-items: center;
+    justify-content: center;
+    margin-top: 4%;
+    margin-left: 30%;
+  }
+  .h111 {
     margin-bottom: 20px;
   }
   

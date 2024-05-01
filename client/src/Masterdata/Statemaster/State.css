@@ -1,6 +1,4 @@
-/* State.css */
-
-/* Sidebar Styles */
+/* 
 .Sidebar {
     width: 200px;
     background-color: #333;
@@ -8,10 +6,6 @@
     padding: 20px;
   }
   
-  /* Main Content Styles */
-  
-  
-  /* Form Styles */
   form {
     margin-bottom: 20px;
   }
@@ -39,7 +33,7 @@
     font-size: 16px;
   }
   
-  /* Table Styles */
+
   .tabss {
     width: 100%;
     border-collapse: collapse;
@@ -59,7 +53,6 @@
     background-color: #f2f2f2;
   }
   
-  /* Button Styles */
   button {
     padding: 8px 12px;
     background-color: #007bff;
@@ -70,10 +63,10 @@
     font-size: 14px;
   }
   
-  /* Responsive Styles */
+
   @media only screen and (max-width: 768px) {
     .Appss {
       margin-left: 0;
     }
   }
-  
+  */

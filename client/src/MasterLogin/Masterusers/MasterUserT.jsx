@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-
+import './MasterUserT.css'
 const MasterUserT = () => {
     const [users, setUsers] = useState([]);
 
@@ -31,7 +31,7 @@ const MasterUserT = () => {
     <>
       <div>
       <h2>Master User List</h2>
-      <table>
+      <table  className='masterusers-table'>
         <thead>
           <tr>
             <th>Full Name</th>
@@ -60,7 +60,7 @@ const MasterUserT = () => {
               <td>{user.modifiedBy}</td> 
               <td>
 
-                <button onClick={() => toggleActiveState(user._id, user.isActive)}>
+                <button className='admin-activeinactive' onClick={() => toggleActiveState(user._id, user.isActive)}>
                   {user.isActive ? 'Deactivate' : 'Activate'}
                 </button>
               

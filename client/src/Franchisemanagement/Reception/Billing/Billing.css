@@ -14,12 +14,12 @@ display: flex;
   }
   
   /* Style for the input field */
-  input[type="text"] {
+  /* input[type="text"] {
     width: 100%;
     padding: 10px;
     margin-bottom: 10px;
   }
-  
+   */
   /* Style for the suggestions dropdown */
   .overflow-scroll {
     max-height: 150px;

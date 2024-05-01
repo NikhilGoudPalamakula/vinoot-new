@@ -49,8 +49,8 @@ const FranchiseAdmin = () => {
         <table  className='franchisestaff-table'>
           <thead>
             <tr>
-              <th>fullnmae</th>
-              <th>userId</th>
+              <th>Fullnmae</th>
+              <th>UserId</th>
               <th>Franchise Name</th>
               <th>Franchise ID</th>
               <th>Designation</th>

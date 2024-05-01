@@ -92,7 +92,7 @@ const TreatmentCategory = () => {
     <div>
       <Sidebar/>
     </div>
-    <div style={{alignItems:'center',justifyItems:'center',justifyContent:'center',marginLeft:'40%',marginTop:'10%'}}>
+    <div style={{alignItems:'center',justifyItems:'center',justifyContent:'center',marginLeft:'30%',marginTop:'4%'}}>
       <h1>Treatment Category Master</h1>
       <form action="" onSubmit={handleSubmit} className="cat-form">
         <label htmlFor="tar">Category</label>
@@ -104,10 +104,10 @@ const TreatmentCategory = () => {
           required
         />
         <br />
-        <button>Submit</button>
+        <button className="category_submit-btn">Submit</button>
       </form>
 
-      <h2>Categories List</h2>
+      <h2 className="category_list_heading">Categories List</h2>
       <table className="tabc">
         <thead>
           <tr>

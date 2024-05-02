@@ -92,9 +92,11 @@ const FranchiseStaffReg = () => {
       </div>
 
       <div className="fradmin-right">
-        <h2 className="addfr-franchise-from-Name">Franchise Form</h2>
+        {/* <h2 className="addfr-franchise-from-Name">Franchise Form</h2> */}
         <form onSubmit={handleSubmit} className="fr-admin-form">
-          <h2>Admin Form</h2>
+          <h2>Add Staff</h2>
+          <div  className="fr-for-flex">
+          <div>
           <div className="addfr-inputs-wraps">
             <input
               className="addfr-inputs"
@@ -125,21 +127,29 @@ const FranchiseStaffReg = () => {
           </div>
           <div className="addfr-inputs-wraps">
             <select
-              name="designation"
+              className="addfr-inputs"
               value={adminData.designation}
               onChange={handleAdminInputChange}
+              placeholder="Select Designation"
+              required
             >
-              <option value="">Select designation</option>
+              <option value=""></option>
               <option value="Doctor">Doctor</option>
               <option value="Reception">Reception</option>
               <option value="Thearpy">Therapy</option>
               <option value="FranchiseAdmin">FrAdmin</option>
             </select>
+            <label>
+              <span> Select designation</span>
+            </label>
           </div>
+          </div>
+   
+           <div>
           <div className="addfr-inputs-wraps">
             <input
               className="addfr-inputs"
-              type="text"
+              type="number"
               name="email"
               value={adminData.email}
               onChange={handleAdminInputChange}
@@ -147,10 +157,10 @@ const FranchiseStaffReg = () => {
               required
             />
             <label>
-              <span>Email </span>
+              <span>Mobile Number </span>
             </label>
           </div>
-          <div className="addfr-inputs-wraps" style={{ marginBottom: "2vh" }}>
+          <div className="addfr-inputs-wraps">
             <input
               className="addfr-inputs"
               type="text"
@@ -164,11 +174,15 @@ const FranchiseStaffReg = () => {
               <span>Password </span>
             </label>
           </div>
-
-          <button type="submit">Submit</button>
+          </div>
+          </div>
+          <button className="franchisereg-staff" type="submit">Submit</button>
         </form>
 
-        <table  className='franchisestaff-table'>
+
+<div  className='franchisestaff-table'>
+  <h1>Staff Details</h1>
+        <table >
           <thead>
             <tr>
               <th>Fullnmae</th>
@@ -211,7 +225,7 @@ const FranchiseStaffReg = () => {
             ))}
           </tbody>
         </table>
-        
+        </div>
       </div>
     </div>
   );

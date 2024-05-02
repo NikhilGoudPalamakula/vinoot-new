@@ -462,7 +462,9 @@ const Billing = () => {
                           position: "absolute",
                           backgroundColor: "white",
                           border: "1px solid #ccc",
-                          width: "15%",
+                          width: "25%",
+                          height: "13vh",
+                           overflowY: "auto",
                         }}>
                         {filteredSuggestions.map((suggestion) => (
                           <p

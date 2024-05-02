@@ -107,7 +107,7 @@ const TreatmentCategory = () => {
         <button className="category_submit-btn">Submit</button>
       </form>
 
-      <h2 className="category_list_heading">Categories List</h2>
+      <h2 className="category_list">Categories List</h2>
       <table className="tabc">
         <thead>
           <tr>

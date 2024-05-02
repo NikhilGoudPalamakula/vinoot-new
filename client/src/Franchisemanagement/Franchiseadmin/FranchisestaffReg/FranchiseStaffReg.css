@@ -40,11 +40,12 @@
   margin-top: 2.5vh;
 }
 .addfr-inputs {
-  border: none;
+  border: 1px solid #ccc;
   outline: none;
   height: 7.5vh;
   width: 30vw;
   border-radius: 12px;
+  
 }
 .addfr-inputs-wraps label {
   font-size: 14px;

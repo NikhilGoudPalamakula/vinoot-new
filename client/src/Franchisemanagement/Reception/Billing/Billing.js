@@ -119,6 +119,7 @@ const Billing = () => {
   const [patient_id, setPatient_id] = useState(false); // Loading indicator
   const [patient_name, setPatient_name] = useState(false); // Loading indicator
   const [address, setAddress] = useState(false); // Loading indicator
+  const [bill_number, setBill_number] = useState(false); // Loading indicator
 
   // Fetch suggestions when the planName changes
   useEffect(() => {
@@ -201,8 +202,10 @@ const Billing = () => {
       const FranchiseID = localStorage.getItem("FranchiseID");
 
       const remaining = price - amountPaid;
+      const currentDate = new Date().toISOString().split('T')[0];
       // Send the data to your backend API endpoint for saving
       await axios.post('http://localhost:5001/api/billing', {
+        bill_number:bill_number,
         doctor: selectedDoctor,
         plan_name: selectedPlan ? selectedPlan.plan_name : '', // Use selectedPlan.planName
         paymentType: paymentType,
@@ -218,7 +221,8 @@ const Billing = () => {
         mobile_number: selectedNumber ? selectedNumber.mobile_number : '',
         patient_id: selectedNumber ? selectedNumber.patient_id : '',
         patient_name: selectedNumber ? selectedNumber.patient_name : '',
-        address: selectedNumber ? selectedNumber.address : ''
+        address: selectedNumber ? selectedNumber.address : '',
+        currentDate: currentDate
 
       });
 
@@ -231,6 +235,20 @@ const Billing = () => {
     }
   };
 
+
+  // --------------------
+
+    // State for the current date
+    const [currentDate, setCurrentDate] = useState("");
+
+    // Function to fetch the current date
+    useEffect(() => {
+      const fetchCurrentDate = () => {
+        const date = new Date();
+        setCurrentDate(date.toLocaleDateString());
+      };
+      fetchCurrentDate();
+    }, []);
   return (
 
     <div className='billing-total'>
@@ -240,6 +258,11 @@ const Billing = () => {
       <div className='billing-right'>
 
         <div className="container-fetch-mbl">
+
+          <label  > <input type= "text"
+          name= "bill_number"
+          value={bill_number}
+          placeholder='Bill Number' />  <span>Bill Number</span> </label>
           <input
             type="text"
             name="planName"
@@ -289,6 +312,22 @@ const Billing = () => {
             />
           </div>
         </div>
+
+
+        <label>
+          <input type="text" value={currentDate} disabled />
+          <span>Date</span>
+        </label>
+
+        <label>
+          <input type="text" value={localStorage.getItem("franchisename")} disabled />
+          Franchise Name
+        </label>
+        <label>
+          <input type="text" value={localStorage.getItem("FranchiseID")} disabled />
+          Franchise ID
+        </label>
+
 
 
         {/* ----------------------doctor selection ------------------ */}
@@ -398,6 +437,8 @@ const Billing = () => {
             <p>Remaining amount: Rs.{remainingAmount}</p>
           </div>
         </div>
+
+
         <button className='btnbilling' onClick={saveData}>Save</button>
       </div>
     </div>

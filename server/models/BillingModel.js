@@ -1,6 +1,8 @@
 const mongoose = require("mongoose");
 
 const billingSchema = new mongoose.Schema({
+  currentDate: {type:String},
+  bill_number: { type: String},
   doctor: { type: String, required: true },
   plan_name: { type: String ,required: true},
   paymentType: { type: String, required: true },
@@ -20,6 +22,16 @@ const billingSchema = new mongoose.Schema({
   patient_id:{ type: String, required: true },
   patient_name:{ type: String, required: true },
   address:{ type: String, required: true },
+});
+
+
+billingSchema.pre('save', function(next) {
+  const currentDate = new Date();
+  this.modifiedAt = currentDate;
+  if (!this.createdAt) {
+    this.createdAt = currentDate;
+  }
+  next();
 });
 
 module.exports = mongoose.model("Billing", billingSchema);

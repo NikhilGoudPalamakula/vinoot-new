@@ -7,6 +7,78 @@ import './Billing.css'
 
 
 const Billing = () => {
+
+  const [phoneInput, setPhoneInput] = useState(""); // User input
+  const [selectedNumber, setSelectedNumber] = useState(null); // Selected plan object
+  const [suggestions1, setSuggestions1] = useState([]); // Autosuggest options
+  const [filteredSuggestions1, setFilteredSuggestions1] = useState([]); // Filtered suggestions based on input
+  const [focusedInput1, setFocusedInput1] = useState(null);
+  const [isLoading1, setIsLoading1] = useState(false); // Loading indicator
+
+  // Fetch suggestions when the component mounts
+  const [patients, setPatients] = useState([]);
+  useEffect(() => {
+    const fetchNumbers = async () => {
+      setIsLoading(true);
+      try {
+        const frid = localStorage.getItem("FranchiseID");
+        if (frid) {
+          const response = await axios.get(
+            `http://localhost:5001/api/patients${frid}`
+          );
+          setPatients(response.data);
+          setSuggestions1(response.data);
+          setFilteredSuggestions1(response.data);
+          setIsLoading1(false);
+        } else {
+          console.error("FranchiseID not found in localStorage");
+        }
+      } catch (error) {
+        console.error("Failed to fetch details", error);
+        setIsLoading1(false);
+      }
+    };
+    fetchNumbers();
+  }, []);
+  
+
+  // Filter suggestions based on input value
+  useEffect(() => {
+    const filterSuggestions = () => {
+      if (typeof phoneInput !== "string" || phoneInput.trim() === "") {
+        setFilteredSuggestions1(suggestions1); // Show all suggestions if input is empty or not a string
+      } else {
+        const filteredDetails = suggestions1.filter((details) =>
+          details.mobile_number.includes(phoneInput)
+        );
+        setFilteredSuggestions1(filteredDetails);
+      }
+    };
+    filterSuggestions();
+  }, [phoneInput, suggestions1]);
+
+  const handlePlanChange1 = (e) => {
+    const PhoneInput = e.target.value;
+    setPhoneInput(PhoneInput); // Update selected plan
+    setFocusedInput1("number");
+  };
+
+  const handlePlanSelection1 = (suggestion) => {
+    const selectedNumber = suggestions1.find(
+      (plan) => plan.mobile_number === suggestion
+    );
+
+    if (selectedNumber) {
+      setSelectedNumber(selectedNumber); // Set the entire selected plan object
+      setPhoneInput(selectedNumber.mobile_number); // Set the plan_name property of the selected suggestion
+      setFocusedInput1(null); // Hide suggestion list when a suggestion is clicked
+    }
+  };
+
+
+
+
+  // -----------------------------
   const [doctors, setDoctors] = useState([]);
   const [paymentType, setPaymentType] = useState(""); // State for payment type
   const [amountPaid, setAmountPaid] = useState(0); // State for amount paid
@@ -155,6 +227,39 @@ const Billing = () => {
         <ReceptionSidebar />
       </div>
       <div className='billing-right'>
+
+      <div className="container-fetch-mbl">
+      <input
+        type="text"
+        name="planName"
+        value={phoneInput}
+        onChange={handlePlanChange1} // Update the planName
+        onFocus={() => setFocusedInput1("plan")}
+        placeholder="Enter mobile number"
+      />
+      {isLoading && <div className="loading-fetch-mbl">Loading...</div>}
+      {focusedInput1 === "number" && filteredSuggestions1.length > 0 && (
+        <div className="suggestions-fetch-mbl">
+          {filteredSuggestions1.map((suggestion) => (
+            <p
+              key={suggestion._id}
+              className="suggestion-item-fetch-mbl"
+              onClick={() => handlePlanSelection1(suggestion.mobile_number)}>
+              {suggestion.mobile_number}
+            </p>
+          ))}
+        </div>
+      )}
+      {selectedNumber && (
+        <div className="details-fetch-mbl">
+          <h3>Details of: {selectedNumber.mobile_number}</h3>
+          <p>PatientID: {selectedNumber.patient_id}</p>
+          <p>Patient Name: {selectedNumber.patient_name}</p>
+          <p>Address: {selectedNumber.address}</p>
+        </div>
+      )}
+    </div>
+
         <h1>Select Doctor:</h1>
         <select value={selectedDoctor} onChange={handleDoctorChange}>
           <option>Select Doctor</option>

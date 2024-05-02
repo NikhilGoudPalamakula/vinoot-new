@@ -25,6 +25,7 @@ import Doctor from './Franchisemanagement/Doctor';
 import Recepttion from './Franchisemanagement/Reception/Recepttion';
 import Billing from './Franchisemanagement/Reception/Billing/Billing';
 import FranchiseAdmin from './Franchisemanagement/Franchiseadmin/Franchisestaff/FranchiseAdmin';
+import Franchisepatients from './MasterLogin/Franchisepatients/Franchisepatients';
 
 function App() {
   return (
@@ -66,13 +67,16 @@ function App() {
           <Route path="/Recepttion" element={<Recepttion />} />
 
 
+          <Route path="/Franchisepatients" element={<Franchisepatients />} />
+          <Route path="/Patientdetails" element={<PatientForm />} />
 
+          <Route path="/Billing" element={<Billing />} />
 
         </Route>
 
-        <Route path="/Patientdetails" element={<PatientForm />} />
-        <Route path="/Billing" element={<Billing />} />
         <Route path="/SuperSidebar" element={<SuperSidebar />} />
+
+
         
     
       </Routes>

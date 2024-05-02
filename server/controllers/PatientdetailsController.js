@@ -23,3 +23,26 @@ exports.getAllPatients = async (req, res) => {
     res.status(500).json({ error: 'Failed to fetch patients' });
   }
 };
+
+
+exports.getAllPatients = async (req, res) => {
+  try {
+    const frid = req.params.frid;
+    const patients = await Patient.find({ FranchiseID: frid });
+    res.json(patients);
+  } catch (error) {
+    console.error('Error fetching patients:', error);
+    res.status(500).json({ error: 'Failed to fetch patients' });
+  }
+};
+
+
+exports.getpatinetsallfranchise = async (req, res) => {
+  try {
+    const patients = await Patient.find();
+    res.json(patients);
+  } catch (error) {
+    console.error('Error fetching patients:', error);
+    res.status(500).json({ error: 'Failed to fetch patients' });
+  }
+};

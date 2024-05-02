@@ -15,7 +15,8 @@ exports.createPatient = async (req, res) => {
 
 exports.getAllPatients = async (req, res) => {
   try {
-    const patients = await Patient.find();
+    const frid = req.params.frid;
+    const patients = await Patient.find({ FranchiseID: frid });
     res.json(patients);
   } catch (error) {
     console.error('Error fetching patients:', error);

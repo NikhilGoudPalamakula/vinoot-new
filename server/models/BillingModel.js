@@ -6,9 +6,9 @@ const billingSchema = new mongoose.Schema({
     paymentType: { type: String, required: true },
     amountPaid: { type: Number, required: true },
     status: { type: String, required: true },
-    gst: { type: Number, required: true },
-    price: { type: Number, required: true },
-    remainingAmount: { type: Number, required: true },
+    gst: { type: Number },
+    price: { type: Number },
+    remainingAmount: { type: Number },
     
 });
 

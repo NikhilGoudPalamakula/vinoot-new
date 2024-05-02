@@ -4,6 +4,8 @@ import { VINOOTNEW } from '../../../Helper/Helper';
 import axios from "axios";
 import ReceptionSidebar from '../ReceptionSidebar/ReceptionSidebar';
 import './Billing.css'
+
+
 const Billing = () => {
   const [doctors, setDoctors] = useState([]);
   const [paymentType, setPaymentType] = useState(""); // State for payment type
@@ -155,57 +157,57 @@ const Billing = () => {
         </select>
 
         <div>
-  <input
-    type="text"
-    name="planName"
-    value={planName}
-    onChange={handlePlanChange} // Update the planName
-    onFocus={() => setFocusedInput("plan")}
-    placeholder="enter the plan"
-  />
-  {isLoading && <div>Loading...</div>}
-  {focusedInput === "plan" && filteredSuggestions.length > 0 && (
-    <div
-      className="overflow-scroll"
-      style={{
-        position: "absolute",
-        backgroundColor: "white",
-        border: "1px solid #ccc",
-        width: "100%",
-      }}>
-      {filteredSuggestions.map((suggestion) => (
-        <p
-          key={suggestion._id}
-          className="suggestion"
-          onClick={() => handlePlanSelection(suggestion.plan_name)}
-          // Event handler for clicks
-          style={{ cursor: "pointer", padding: "5px" }}>
-          {suggestion.plan_name}
-        </p>
-      ))}
-    </div>
-  )}
-  {selectedPlan && (
-    <table className="plan-table">
-      <thead>
-        <tr>
-          <th>Plan Name</th>
-          <th>GST</th>
-          <th>Days</th>
-          <th>Price</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>{selectedPlan.plan_name}</td>
-          <td>{selectedPlan.GST}</td>
-          <td>{selectedPlan.days}</td>
-          <td>{selectedPlan.price}</td>
-        </tr>
-      </tbody>
-    </table>
-  )}
-</div>
+          <input
+            type="text"
+            name="planName"
+            value={planName}
+            onChange={handlePlanChange} // Update the planName
+            onFocus={() => setFocusedInput("plan")}
+            placeholder="enter the plan"
+          />
+          {isLoading && <div>Loading...</div>}
+          {focusedInput === "plan" && filteredSuggestions.length > 0 && (
+            <div
+              className="overflow-scroll"
+              style={{
+                position: "absolute",
+                backgroundColor: "white",
+                border: "1px solid #ccc",
+                width: "100%",
+              }}>
+              {filteredSuggestions.map((suggestion) => (
+                <p
+                  key={suggestion._id}
+                  className="suggestion"
+                  onClick={() => handlePlanSelection(suggestion.plan_name)}
+                  // Event handler for clicks
+                  style={{ cursor: "pointer", padding: "5px" }}>
+                  {suggestion.plan_name}
+                </p>
+              ))}
+            </div>
+          )}
+          {selectedPlan && (
+            <table className="plan-table">
+              <thead>
+                <tr>
+                  <th>Plan Name</th>
+                  <th>GST</th>
+                  <th>Days</th>
+                  <th>Price</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>{selectedPlan.plan_name}</td>
+                  <td>{selectedPlan.GST}</td>
+                  <td>{selectedPlan.days}</td>
+                  <td>{selectedPlan.price}</td>
+                </tr>
+              </tbody>
+            </table>
+          )}
+        </div>
 
         <div>
           <div>

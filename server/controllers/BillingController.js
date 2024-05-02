@@ -27,10 +27,10 @@ exports.fetchBillingData = async (req, res) => {
   };
 
 
-  exports.fetchBillingDatafrosuperadmin = async (req, res) => {
+  exports.fetchAllBillingData = async (req, res) => {
     try {
-      const billingData = await Billing.find();
-      res.json(billingData);
+      const allBillingData = await Billing.find();
+      res.json(allBillingData);
     } catch (error) {
       console.error('Error fetching billing data:', error);
       res.status(500).json({ error: 'An error occurred while fetching billing data' });

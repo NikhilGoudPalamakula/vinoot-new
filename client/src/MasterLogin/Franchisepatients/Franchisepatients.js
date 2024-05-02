@@ -22,29 +22,15 @@ const Franchisepatients = () => {
 
     // -------------------------
 
-    const [billingData, setBillingData] = useState([]);
-
-    useEffect(() => {
-        const fetchBillingData = async () => {
-          try {
-            const response = await axios.get("http://localhost:5001/api/billingdatasuperadmin");
-            setBillingData(response.data);
-          } catch (error) {
-            console.error("Error fetching billing data:", error);
-          }
-        };
-      
-        fetchBillingData();
-      }, []);
-
+ 
     return (
-        <div  className="allfr-pattotal">
+        <div className="allfr-pattotal">
             <div>
-                  <SuperSidebar/>
+                <SuperSidebar />
             </div>
             <div className="allfr-right" >
                 <h2>All franchises Patients Information</h2>
-                {/* <table>
+                <table>
                     <thead>
                         <tr>
                             <th>Patient ID</th>
@@ -81,42 +67,7 @@ const Franchisepatients = () => {
                             </tr>
                         ))}
                     </tbody>
-                </table> */}
-
-<table>
-          <thead>
-            <tr> 
-              {/* <th>Date</th> */}
-              {/* <th>Bill Number</th> */}
-              <th>Patient Name</th>
-              <th>Patient MobileNumber</th>
-              <th>Doctor</th>
-              <th>Plan Type</th>
-              <th>Days</th>
-              {/* <th>Price</th> */}
-              {/* <th>Amount Paid</th> */}
-              {/* <th>Remaining Amount</th> */}
-              {/* <th>Remaining Amount</th> */}
-            </tr>
-          </thead>
-          <tbody>
-            {billingData.map((billing) => (
-              <tr key={billing._id}>
-                  {/* <td>{billing.currentDate}</td> */}
-                  {/* <td>{billing.bill_number}</td> */}
-                  <td>{billing.patient_name}</td>
-                  <td>{billing.mobile_number}</td>
-                  <td>{billing.doctor}</td>
-                <td>{billing.plan_name}</td>
-                <td>{billing.days}</td>
-                  {/* <td>{billing.price}</td> */}
-                  {/* <td>{billing.amountPaid}</td> */}
-                {/* <td>{billing.remainingAmount}</td> */}
-                {/* <td>{billing.remainingAmount}</td> */}
-              </tr>
-            ))}
-          </tbody>
-        </table>
+                </table>
             </div>
         </div>
     )

@@ -26,6 +26,7 @@ import Recepttion from './Franchisemanagement/Reception/Recepttion';
 import Billing from './Franchisemanagement/Reception/Billing/Billing';
 import FranchiseAdmin from './Franchisemanagement/Franchiseadmin/Franchisestaff/FranchiseAdmin';
 import Franchisepatients from './MasterLogin/Franchisepatients/Franchisepatients';
+import Franchisepatientbilling from './MasterLogin/Franchisepatientbilling/Franchisepatientbilling';
 
 function App() {
   return (
@@ -71,6 +72,8 @@ function App() {
           <Route path="/Patientdetails" element={<PatientForm />} />
 
           <Route path="/Billing" element={<Billing />} />
+          <Route path="/Franchisepatientbilling" element={<Franchisepatientbilling />} />
+          
 
         </Route>
 

@@ -8,6 +8,8 @@ import './Billing.css'
 
 const Billing = () => {
 
+  // --------------patient details fetch---------------
+
   const [phoneInput, setPhoneInput] = useState(""); // User input
   const [selectedNumber, setSelectedNumber] = useState(null); // Selected plan object
   const [suggestions1, setSuggestions1] = useState([]); // Autosuggest options
@@ -40,7 +42,7 @@ const Billing = () => {
     };
     fetchNumbers();
   }, []);
-  
+
 
   // Filter suggestions based on input value
   useEffect(() => {
@@ -76,9 +78,7 @@ const Billing = () => {
   };
 
 
-
-
-  // -----------------------------
+  // -------------------Doctor details fetch ---------------
   const [doctors, setDoctors] = useState([]);
   const [paymentType, setPaymentType] = useState(""); // State for payment type
   const [amountPaid, setAmountPaid] = useState(0); // State for amount paid
@@ -90,19 +90,17 @@ const Billing = () => {
     setSelectedDoctor(e.target.value); // Update selected doctor
   };
 
-
-
-
   useEffect(() => {
-    // Fetch doctors from the server when the component mounts
     fetch(`${VINOOTNEW}/api/doctors`)
       .then(response => response.json())
-      .then(doctorsData => setDoctors(doctorsData))
+      .then(doctorsData => {
+        console.log('Fetched doctors:', doctorsData);
+        setDoctors(doctorsData);
+      })
       .catch(error => console.error('Error fetching doctors:', error));
   }, []);
 
-  // ---------------------------
-
+  // -------------------posting of all data ----------------
 
 
   const [gst, setGST] = useState(""); // State for GST
@@ -117,6 +115,10 @@ const Billing = () => {
   const [filteredSuggestions, setFilteredSuggestions] = useState([]); // Filtered suggestions based on input
   const [focusedInput, setFocusedInput] = useState(null);
   const [isLoading, setIsLoading] = useState(false); // Loading indicator
+  const [mobile_number, setMobile_number] = useState(false); // Loading indicator
+  const [patient_id, setPatient_id] = useState(false); // Loading indicator
+  const [patient_name, setPatient_name] = useState(false); // Loading indicator
+  const [address, setAddress] = useState(false); // Loading indicator
 
   // Fetch suggestions when the planName changes
   useEffect(() => {
@@ -169,22 +171,25 @@ const Billing = () => {
 
     if (selectedPlan) {
       setSelectedPlan(selectedPlan); // Set the entire selected plan object
-      setPlanName(selectedPlan.plan_name); // Set the plan_name property of the selected suggestion
+      setPlanName(selectedPlan.plan_name); // Set the planName
       setFocusedInput(null); // Hide suggestion list when a suggestion is clicked
     }
   };
 
   // Update status based on the amount paid
   useEffect(() => {
-    if (amountPaid >= price) {
-      setStatus("Paid");
-    } else {
-      setStatus("Unpaid");
+    if (selectedPlan) {
+      const { price } = selectedPlan;
+      if (amountPaid >= price) {
+        setStatus("Paid");
+      } else {
+        setStatus("Unpaid");
+      }
+      // Calculate remaining amount
+      const remaining = price - amountPaid;
+      setRemainingAmount(remaining >= 0 ? remaining : 0); // Ensure remaining amount is non-negative
     }
-    // Calculate remaining amount
-    const remaining = price - amountPaid;
-    setRemainingAmount(remaining > 0 ? remaining : 0);
-  }, [amountPaid, price]);
+  }, [amountPaid, selectedPlan]);
 
 
 
@@ -199,16 +204,22 @@ const Billing = () => {
       // Send the data to your backend API endpoint for saving
       await axios.post('http://localhost:5001/api/billing', {
         doctor: selectedDoctor,
-        planName: planName,
+        plan_name: selectedPlan ? selectedPlan.plan_name : '', // Use selectedPlan.planName
         paymentType: paymentType,
         amountPaid: amountPaid,
         status: status,
-        gst: gst, // Include GST in the data sent to the backend
-        price: price, // Include price in the data sent to the backend
+        GST: selectedPlan ? selectedPlan.GST : '',
+        price: selectedPlan ? selectedPlan.price : '',
+        days: selectedPlan ? selectedPlan.days : '',
         createdBy: createdBy,
         franchiseName: franchiseName,
         FranchiseID: FranchiseID,
-        remainingAmount: remaining  // Include remaining amount
+        remainingAmount: remaining,
+        mobile_number: selectedNumber ? selectedNumber.mobile_number : '',
+        patient_id: selectedNumber ? selectedNumber.patient_id : '',
+        patient_name: selectedNumber ? selectedNumber.patient_name : '',
+        address: selectedNumber ? selectedNumber.address : ''
+
       });
 
       // Optionally, you can reset the form fields after successful save
@@ -228,45 +239,68 @@ const Billing = () => {
       </div>
       <div className='billing-right'>
 
-      <div className="container-fetch-mbl">
-      <input
-        type="text"
-        name="planName"
-        value={phoneInput}
-        onChange={handlePlanChange1} // Update the planName
-        onFocus={() => setFocusedInput1("plan")}
-        placeholder="Enter mobile number"
-      />
-      {isLoading && <div className="loading-fetch-mbl">Loading...</div>}
-      {focusedInput1 === "number" && filteredSuggestions1.length > 0 && (
-        <div className="suggestions-fetch-mbl">
-          {filteredSuggestions1.map((suggestion) => (
-            <p
-              key={suggestion._id}
-              className="suggestion-item-fetch-mbl"
-              onClick={() => handlePlanSelection1(suggestion.mobile_number)}>
-              {suggestion.mobile_number}
-            </p>
-          ))}
+        <div className="container-fetch-mbl">
+          <input
+            type="text"
+            name="planName"
+            value={phoneInput}
+            onChange={handlePlanChange1}
+            onFocus={() => setFocusedInput1("plan")}
+            placeholder="Enter mobile number"
+          />
+          {isLoading && <div className="loading-fetch-mbl">Loading...</div>}
+          {focusedInput1 === "number" && filteredSuggestions1.length > 0 && (
+            <div className="suggestions-fetch-mbl">
+              {filteredSuggestions1.map((suggestion) => (
+                <p
+                  key={suggestion._id}
+                  className="suggestion-item-fetch-mbl"
+                  onClick={() => handlePlanSelection1(suggestion.mobile_number)}
+                >
+                  {suggestion.mobile_number}
+                </p>
+              ))}
+            </div>
+          )}
+          <div className="details-fetch-mbl">
+            <label>Mobile Number:</label>
+            <input
+              type="text"
+              value={selectedNumber ? selectedNumber.mobile_number : ''}
+              disabled
+            />
+            <label>Patient ID:</label>
+            <input
+              type="text"
+              value={selectedNumber ? selectedNumber.patient_id : ''}
+              disabled
+            />
+            <label>Patient Name:</label>
+            <input
+              type="text"
+              value={selectedNumber ? selectedNumber.patient_name : ''}
+              disabled
+            />
+            <label>Address:</label>
+            <input
+              type="text"
+              value={selectedNumber ? selectedNumber.address : ''}
+              disabled
+            />
+          </div>
         </div>
-      )}
-      {selectedNumber && (
-        <div className="details-fetch-mbl">
-          <h3>Details of: {selectedNumber.mobile_number}</h3>
-          <p>PatientID: {selectedNumber.patient_id}</p>
-          <p>Patient Name: {selectedNumber.patient_name}</p>
-          <p>Address: {selectedNumber.address}</p>
-        </div>
-      )}
-    </div>
 
+
+        {/* ----------------------doctor selection ------------------ */}
         <h1>Select Doctor:</h1>
+
         <select value={selectedDoctor} onChange={handleDoctorChange}>
           <option>Select Doctor</option>
           {doctors.map(doctor => (
             <option key={doctor._id} value={doctor._id}>{doctor.username}</option>
           ))}
         </select>
+
 
         <div>
           <input
@@ -299,27 +333,50 @@ const Billing = () => {
               ))}
             </div>
           )}
-          {selectedPlan && (
-            <table className="plan-table">
-              <thead>
-                <tr>
-                  <th>Plan Name</th>
-                  <th>GST</th>
-                  <th>Days</th>
-                  <th>Price</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>{selectedPlan.plan_name}</td>
-                  <td>{selectedPlan.GST}</td>
-                  <td>{selectedPlan.days}</td>
-                  <td>{selectedPlan.price}</td>
-                </tr>
-              </tbody>
-            </table>
-          )}
+          <table className="plan-table">
+            <thead>
+              <tr>
+                <th>Plan Name</th>
+                <th>GST</th>
+                <th>Days</th>
+                <th>Price</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <input
+                    type="text"
+                    value={selectedPlan ? selectedPlan.plan_name : ''}
+                    disabled
+                  />
+                </td>
+                <td>
+                  <input
+                    type="text"
+                    value={selectedPlan ? selectedPlan.GST : ''}
+                    disabled
+                  />
+                </td>
+                <td>
+                  <input
+                    type="text"
+                    value={selectedPlan ? selectedPlan.days : ''}
+                    disabled
+                  />
+                </td>
+                <td>
+                  <input
+                    type="text"
+                    value={selectedPlan ? selectedPlan.price : ''}
+                    disabled
+                  />
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
+
 
         <div>
           <div>

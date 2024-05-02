@@ -4,40 +4,29 @@ import { Link } from 'react-router-dom';
 import FranchiseadminSidebar from '../Franchiseadminsidebar/Franchiseadminsidebar';
 import './FranchiseAdmin.css'
 const FranchiseAdmin = () => {
-  const [admins, setAdmins] = useState([]);
+ 
+
+  const [billingData, setBillingData] = useState([]);
 
   useEffect(() => {
-    fetchAdmins();
-  }, []);
-
-
-
-  const fetchAdmins = async () => {
-    try {
-      const frid = localStorage.getItem('FranchiseID'); // Corrected localStorage key
-      if (frid) {
-        const response = await axios.get(`http://localhost:5001/api/franchisefetchusers/${frid}`);
-        setAdmins(response.data);
-      } else {
-        console.error('FranchiseID not found in localStorage');
+    const fetchBillingData = async () => {
+      try {
+        const frid = localStorage.getItem("FranchiseID");
+        if (frid) {
+          const response = await axios.get(
+            `http://localhost:5001/api/billing${frid}`
+          );
+          setBillingData(response.data);
+        } else {
+          console.error("FranchiseID not found in localStorage");
+        }
+      } catch (error) {
+        console.error('Error fetching billing data:', error);
       }
-    } catch (error) {
-      console.error('Error fetching admins:', error);
-    }
-  };
-
-
-  const toggleActiveState = async (id, isActive) => {
-    try {
-      const updatedBy = localStorage.getItem('username'); // Get username from localStorage
-      await axios.patch(`http://localhost:5001/api/franchisestateupdate/${id}`, { isActive: !isActive, updatedBy });
-      // Refresh user list after updating active state
-      fetchAdmins();
-    } catch (error) {
-      console.error('Error updating active state:', error);
-    }
-  };
-
+    };
+  
+    fetchBillingData();
+  }, []);
 
   return (
     <div className='franchise-admin-total'>
@@ -45,46 +34,37 @@ const FranchiseAdmin = () => {
         <FranchiseadminSidebar />
       </div>
       <div className='fradmin-staffri'>
-        {/* <Link to='/fsr'><button>franchise staff Registration</button></Link> */}
-        <table  className='franchisestaff-table'>
+        <h1>Patients Billing Details</h1>
+        <table>
           <thead>
-            <tr>
-              <th>Fullnmae</th>
-              <th>UserId</th>
-              <th>Franchise Name</th>
-              <th>Franchise ID</th>
-              <th>Designation</th>
-              <th>Email</th>
-              <th>Password</th>
-              <th>Is Active</th>
-              <th>Action</th>
-              <th>Modified By</th>
-              <th>Modified At</th>
-              <th>Created At</th>
-              <th>Created By</th>
+            <tr> 
+              <th>Date</th>
+              <th>Bill Number</th>
+              <th>Patient Name</th>
+              <th>Patient MobileNumber</th>
+              <th>Doctor</th>
+              <th>Plan Type</th>
+              <th>Days</th>
+              <th>Price</th>
+              <th>Amount Paid</th>
+              <th>Remaining Amount</th>
+              {/* <th>Remaining Amount</th> */}
             </tr>
           </thead>
           <tbody>
-            {admins.map(admin => (
-              <tr key={admin._id}>
-                <td>{admin.fullname}</td>
-                <td>{admin.userId}</td>
-                <td>{admin.franchisename}</td>
-                <td>{admin.FranchiseID}</td>
-                <td>{admin.designation}</td>
-                <td>{admin.email}</td>
-                <td>{admin.password}</td>
-                <td>{admin.isActive ? 'Active' : 'Inactive'}</td>
-                <td>
-
-                  <button onClick={() => toggleActiveState(admin._id, admin.isActive)}>
-                    {admin.isActive ? 'Deactivate' : 'Activate'}
-                  </button>
-                </td>
-                <td>{admin.modifiedBy}</td>
-                <td>{admin.modifiedAt}</td>
-                <td>{admin.createdAt}</td>
-                <td>{admin.createdBy}</td>
+            {billingData.map((billing) => (
+              <tr key={billing._id}>
+                  <td>{billing.currentDate}</td>
+                  <td>{billing.bill_number}</td>
+                  <td>{billing.patient_name}</td>
+                  <td>{billing.mobile_number}</td>
+                  <td>{billing.doctor}</td>
+                <td>{billing.plan_name}</td>
+                <td>{billing.days}</td>
+                  <td>{billing.price}</td>
+                  <td>{billing.amountPaid}</td>
+                <td>{billing.remainingAmount}</td>
+                {/* <td>{billing.remainingAmount}</td> */}
               </tr>
             ))}
           </tbody>

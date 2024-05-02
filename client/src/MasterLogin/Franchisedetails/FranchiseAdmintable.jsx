@@ -40,6 +40,7 @@ const FranchiseAdmintable = () => {
           <Sidebar/>
           </div>
         <div className='franchise-admin-rights'>
+          <h1>Franchise Details</h1>
           <table className='tabf'>
             <thead>
               <tr>

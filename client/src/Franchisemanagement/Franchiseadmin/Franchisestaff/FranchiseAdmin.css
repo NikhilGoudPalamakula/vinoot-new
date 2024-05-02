@@ -4,31 +4,21 @@
 
 .fradmin-staffri{
     margin-left: 18.2%;
-    margin-top: 5%;
-}
-.franchisestaff-table{
-    border-collapse: collapse;
-    width: 80%;
-   th{
-    text-align: center;
-    padding: 8px;
-    font-size: 0.69rem;
-    color: white;
-    background-color: #0AA506;
-   }
-   td{
-    text-align: center;
-    padding: 8px;
-    font-size: 0.69rem;
-   }
-   button{
-    border: none;
-    outline: none;
-    padding: 7px 7px 7px 7px;
-    border-radius: 10px;
-    color: #fff;
-    font-size: 0.7rem;
-    transform: .3s ease;
-    background-color: #0AA506;
-   }
+    margin-top: 2%;
+    table{
+        border-collapse: collapse;
+        text-align: center;
+    }
+    th{
+        text-align: center;
+        padding: 8px;
+        font-size: 0.9rem;
+        color: white;
+        background-color: #0AA506;
+      }
+       td{
+        text-align: center;
+        padding: 8px;
+        font-size: 0.9rem;
+    }
 }

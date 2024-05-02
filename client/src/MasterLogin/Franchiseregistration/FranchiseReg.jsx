@@ -258,6 +258,7 @@ const FranchiseReg = () => {
                       value={adminData.designation}
                       onChange={handleAdminInputChange}
                       placeholder=""
+                      readOnly
                     />
                     <label>
                       <span>Designation</span>

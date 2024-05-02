@@ -33,8 +33,8 @@ function App() {
       <Routes>
 
         {/* Mastar data */}
-        <Route path="/Login" element={<LoginForm />} />
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<LoginForm />} />
+        <Route path="/login" element={<Home />} />
 
 
         <Route path="*" element={<NotFound />} />

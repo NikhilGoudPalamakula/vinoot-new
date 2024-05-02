@@ -119,6 +119,10 @@ const Billing = () => {
   const saveData = async () => {
     try {
 
+      const createdBy = localStorage.getItem("userId");
+      const franchiseName = localStorage.getItem("franchisename");
+      const FranchiseID = localStorage.getItem("FranchiseID");
+
       const remaining = price - amountPaid;
       // Send the data to your backend API endpoint for saving
       await axios.post('http://localhost:5001/api/billing', {
@@ -129,6 +133,9 @@ const Billing = () => {
         status: status,
         gst: gst, // Include GST in the data sent to the backend
         price: price, // Include price in the data sent to the backend
+        createdBy: createdBy,
+        franchiseName: franchiseName,
+        FranchiseID: FranchiseID,
         remainingAmount: remaining  // Include remaining amount
       });
 

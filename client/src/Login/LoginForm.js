@@ -19,14 +19,17 @@ const LoginForm = () => {
 
   const navigate = useNavigate();
 
+
+
   const [formData, setFormData] = useState({
-    Adminid: "",
+    userId: "",
     password: "",
   });
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -35,11 +38,11 @@ const LoginForm = () => {
         "http://localhost:5001/api/franchiselogin",
         formData
       );
-      const { franchisename, FranchiseID, username, designation } = res.data;
+      const { franchisename, FranchiseID, userId, designation } = res.data;
 
       localStorage.setItem("franchisename", franchisename);
       localStorage.setItem("FranchiseID", FranchiseID);
-      localStorage.setItem("username", username);
+      localStorage.setItem("userId", userId);
       localStorage.setItem("designation", designation); // Save the designation
 
       switch (designation) {
@@ -64,25 +67,24 @@ const LoginForm = () => {
       // Optionally, you can display an error message to the user
     }
   };
-  // ---------------------------------------------------------------
-  // ----------------Super-admin-login------------\
+  
 
 
   const [formData1, setFormData1] = useState({
-    username: '',
+    userId: '',
     password: '',
   });
 
   const handleChange12 = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    setFormData1({ ...formData1, [e.target.name]: e.target.value });
   };
 
   const handleSubmit1 = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post('http://localhost:5001/api/login', formData);
+      const res = await axios.post('http://localhost:5001/api/login', formData1);
       console.log('User logged in:', res.data);
-      localStorage.setItem('username', res.data.username);
+      localStorage.setItem('userId', res.data.userId);
       navigate("/FrSidebar");
       // Optionally, you can redirect the user to another page after successful login
     } catch (error) {
@@ -97,38 +99,16 @@ const LoginForm = () => {
     <div className='total'>
       <div className={`container ${isSignInActive ? 'right-panel-active' : ''}`}>
         <div className="container-form signUp">
-          {/* -----------SuperAdmin---------- */}
-          {/* <form className="form">
-          <h2 className="title">Super Admin</h2>
-          <input 
-           className="input" 
-           type="text"
-           name="username"
-           value={formData1.username}
-           onChange={handleChange1}
-           placeholder="Username"
-           required />
-
-          <input  
-          className="input" 
-          type="password"
-          name="password"
-          value={formData1.password}
-          onChange={handleChange1}
-          placeholder="Password"
-          required />
-          <button className="btn" type='submit' onClick={handleSubmit1}>Login</button>
-        </form> */}
-
+         
           <form className="form">
             <h2 className="title">Super Admin</h2>
             <input
               className="input"
               type="text"
-              name="username"
-              value={formData1.username}
+              name="userId"
+              value={formData1.userId}
               onChange={handleChange12} 
-              placeholder="Username"
+              placeholder="userId"
               required
             />
 
@@ -153,10 +133,10 @@ const LoginForm = () => {
             <input
               className="input"
               type="text"
-              name="Adminid"
-              value={formData.Adminid}
+              name="userId"
+              value={formData.userId}
               onChange={handleChange}
-              placeholder="Username"
+              placeholder="userId"
               required />
 
             <input

@@ -160,6 +160,8 @@ const PatientForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+
+      const dobDateOnly = formData.dob.split('T')[0];
       const createdBy = localStorage.getItem("userId");
       const franchiseName = localStorage.getItem("franchisename");
       const FranchiseID = localStorage.getItem("FranchiseID");
@@ -169,7 +171,7 @@ const PatientForm = () => {
         createdBy: createdBy,
         franchiseName: franchiseName,
         FranchiseID: FranchiseID,
-        dob: formData.dob.substring(0, 10), // Extract only the date part
+        dob: dobDateOnly, // Extract only the date part
       });
 
       console.log(response.data); // Assuming response.data contains the newly created patient data
@@ -297,9 +299,6 @@ const PatientForm = () => {
                     required
                   />
                 </div>
-              </div>
-
-              <div className="column">
                 <div className="input-wrapper">
                   <label htmlFor="mobile_number">Mobile Number:</label>
                   <input
@@ -314,6 +313,9 @@ const PatientForm = () => {
                     required
                   />
                 </div>
+              </div>
+
+              <div className="column">
                 <div className="input-wrapper">
                   <label htmlFor="genderSelect">Gender:</label>
                   <select
@@ -419,7 +421,7 @@ const PatientForm = () => {
           </form>
         </div>
 
-        <div>
+        <div  className="patientdetail-fetch">
           <h2>Patients</h2>
           <table>
             <thead>
@@ -435,8 +437,8 @@ const PatientForm = () => {
                 <th>Area</th>
                 <th>Address</th>
                 <th>Created By</th>
-                <th>Franchise Name</th>
-                <th>Franchise ID</th>
+                {/* <th>Franchise Name</th>
+                <th>Franchise ID</th> */}
               </tr>
             </thead>
             <tbody>
@@ -453,8 +455,8 @@ const PatientForm = () => {
                   <td>{patient.area}</td>
                   <td>{patient.address}</td>
                   <td>{patient.createdBy}</td>
-                  <td>{patient.franchiseName}</td>
-                  <td>{patient.FranchiseID}</td>
+                  {/* <td>{patient.franchiseName}</td>
+                  <td>{patient.FranchiseID}</td> */}
                 </tr>
               ))}
             </tbody>

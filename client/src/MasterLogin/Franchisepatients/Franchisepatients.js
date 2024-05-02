@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import SuperSidebar from "../../Masterdata/Sidebar/Sidebar";
 
 const Franchisepatients = () => {
 
@@ -21,7 +22,7 @@ const Franchisepatients = () => {
     return (
         <div>
             <div>
-                  
+                  <SuperSidebar/>
             </div>
             <div>
                 <h2>All franchises Patients Information</h2>

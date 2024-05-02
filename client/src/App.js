@@ -42,8 +42,7 @@ function App() {
         <Route path="/superadminlogin" element={<LoginPage />} />
         <Route path="/fl" element={<FranchiseLogin />} />
 
-        <Route path="/reg" element={<RegisterPage />} />
-      
+        <Route path="/fr" element={<FranchiseReg />} />
 
         <Route element={<PrivateRoute />}>
 
@@ -51,7 +50,7 @@ function App() {
           <Route path="/Sidebar" element={<Sidebar />} />
           <Route path="/MasterUsert" element={<MasterUserT />} />
           {/* <Route path="/reg" element={<RegisterPage />} /> */}
-          <Route path="/fr" element={<FranchiseReg />} />
+          <Route path="/reg" element={<RegisterPage />} />
           <Route path="/fsr" element={<FranchiseStaffReg />} />
 
           <Route path="/States" element={<States />} />

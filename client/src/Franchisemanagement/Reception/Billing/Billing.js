@@ -205,7 +205,7 @@ const Billing = () => {
       const currentDate = new Date().toISOString().split('T')[0];
       // Send the data to your backend API endpoint for saving
       await axios.post('http://localhost:5001/api/billing', {
-        bill_number:bill_number,
+        bill_number: bill_number,
         doctor: selectedDoctor,
         plan_name: selectedPlan ? selectedPlan.plan_name : '', // Use selectedPlan.planName
         paymentType: paymentType,
@@ -238,17 +238,17 @@ const Billing = () => {
 
   // --------------------
 
-    // State for the current date
-    const [currentDate, setCurrentDate] = useState("");
+  // State for the current date
+  const [currentDate, setCurrentDate] = useState("");
 
-    // Function to fetch the current date
-    useEffect(() => {
-      const fetchCurrentDate = () => {
-        const date = new Date();
-        setCurrentDate(date.toLocaleDateString());
-      };
-      fetchCurrentDate();
-    }, []);
+  // Function to fetch the current date
+  useEffect(() => {
+    const fetchCurrentDate = () => {
+      const date = new Date();
+      setCurrentDate(date.toLocaleDateString());
+    };
+    fetchCurrentDate();
+  }, []);
   return (
 
     <div className='billing-total'>
@@ -256,93 +256,145 @@ const Billing = () => {
         <ReceptionSidebar />
       </div>
       <div className='billing-right'>
-
+        <article>Billing</article>
         <div className="container-fetch-mbl">
 
-          <label  > <input type= "text"
-          name= "bill_number"
-          value={bill_number}
-          placeholder='Bill Number' />  <span>Bill Number</span> </label>
-          <input
-            type="text"
-            name="planName"
-            value={phoneInput}
-            onChange={handlePlanChange1}
-            onFocus={() => setFocusedInput1("plan")}
-            placeholder="Enter mobile number"
-          />
-          {isLoading && <div className="loading-fetch-mbl">Loading...</div>}
-          {focusedInput1 === "number" && filteredSuggestions1.length > 0 && (
-            <div className="suggestions-fetch-mbl">
-              {filteredSuggestions1.map((suggestion) => (
-                <p
-                  key={suggestion._id}
-                  className="suggestion-item-fetch-mbl"
-                  onClick={() => handlePlanSelection1(suggestion.mobile_number)}
+          <div>
+
+            <label>
+              <span>Date</span>
+              <input type="text" value={currentDate} disabled />
+
+            </label>
+            <label>
+              <span>Bill Number</span>
+              <input type="text"
+                name="bill_number"
+                value={bill_number}
+                placeholder='Bill Number'
+              />
+
+            </label>
+            {/* <label>
+            <span>Enter Mobile Number</span>
+            <input
+              type="text"
+              name="planName"
+              value={phoneInput}
+              onChange={handlePlanChange1}
+              onFocus={() => setFocusedInput1("plan")}
+              placeholder="Enter mobile number"
+            />
+            {isLoading && <div className="loading-fetch-mbl">Loading...</div>}
+            {focusedInput1 === "number" && filteredSuggestions1.length > 0 && (
+              <div className="suggestions-fetch-mbl">
+                {filteredSuggestions1.map((suggestion) => (
+                  <p
+                    key={suggestion._id}
+                    className="suggestion-item-fetch-mbl"
+                    onClick={() => handlePlanSelection1(suggestion.mobile_number)}
+                  >
+                    {suggestion.mobile_number}
+                  </p>
+                ))}
+              </div>
+            )}
+          </label> */}
+
+
+            <label>
+              <span>Enter Mobile Number</span>
+              <input
+                type="text"
+                name="planName"
+                value={phoneInput}
+                onChange={handlePlanChange1}
+                onFocus={() => setFocusedInput1("plan")}
+                placeholder="Enter mobile number"
+              />
+              {isLoading && <div className="loading-fetch-mbl">Loading...</div>}
+              {focusedInput1 === "number" && filteredSuggestions1.length > 0 && (
+                <div className="suggestions-fetch-mbl"
+                  style={{
+                    position: "absolute",
+                    backgroundColor: "white",
+                    border: "1px solid #ccc",
+                    width: "15%",
+                    marginTop: "55px",
+                    height: "13vh",
+                    overflowY: "auto",
+
+                  }}
+
                 >
-                  {suggestion.mobile_number}
-                </p>
-              ))}
-            </div>
-          )}
-          <div className="details-fetch-mbl">
-            <label>Mobile Number:</label>
-            <input
-              type="text"
-              value={selectedNumber ? selectedNumber.mobile_number : ''}
-              disabled
-            />
-            <label>Patient ID:</label>
-            <input
-              type="text"
-              value={selectedNumber ? selectedNumber.patient_id : ''}
-              disabled
-            />
-            <label>Patient Name:</label>
-            <input
-              type="text"
-              value={selectedNumber ? selectedNumber.patient_name : ''}
-              disabled
-            />
-            <label>Address:</label>
-            <input
-              type="text"
-              value={selectedNumber ? selectedNumber.address : ''}
-              disabled
-            />
+                  {filteredSuggestions1.map((suggestion) => (
+                    <p
+                      key={suggestion._id}
+                      className="suggestion-item-fetch-mbl"
+                      onClick={() => handlePlanSelection1(suggestion.mobile_number)}
+                    >
+                      {suggestion.mobile_number}
+                    </p>
+                  ))}
+                </div>
+              )}
+            </label>
+
+            <label>
+              <span>Patient ID</span>
+              <input
+                type="text"
+                value={selectedNumber ? selectedNumber.patient_id : ''}
+                disabled
+              />
+            </label>
+            <label>
+              <span>Patient Name</span>
+              <input
+                type="text"
+                value={selectedNumber ? selectedNumber.patient_name : ''}
+                disabled
+              />
+            </label>
+            <label>
+              <span>Address</span>
+              <input
+                type="text"
+                value={selectedNumber ? selectedNumber.address : ''}
+                disabled
+              />
+            </label>
+
           </div>
+
+          <div>
+            <label>
+              <span>Franchise Name</span>
+              <input type="text" value={localStorage.getItem("franchisename")} disabled />
+
+            </label>
+            <label>
+              <span> Franchise ID</span>
+              <input type="text" value={localStorage.getItem("FranchiseID")} disabled />
+
+            </label>
+          </div>
+
         </div>
 
 
-        <label>
-          <input type="text" value={currentDate} disabled />
-          <span>Date</span>
-        </label>
 
-        <label>
-          <input type="text" value={localStorage.getItem("franchisename")} disabled />
-          Franchise Name
-        </label>
-        <label>
-          <input type="text" value={localStorage.getItem("FranchiseID")} disabled />
-          Franchise ID
-        </label>
+
+        <div className='billig-below'>
+
+          {/* ----------------------doctor selection ------------------ */}
+          {/* <h1>Select Doctor:</h1> */}
 
 
 
-        {/* ----------------------doctor selection ------------------ */}
-        <h1>Select Doctor:</h1>
 
-        <select value={selectedDoctor} onChange={handleDoctorChange}>
-          <option>Select Doctor</option>
-          {doctors.map(doctor => (
-            <option key={doctor._id} value={doctor._id}>{doctor.username}</option>
-          ))}
-        </select>
-
-
-        <div>
-          <input
+          <div>
+            {/* <input
             type="text"
             name="planName"
             value={planName}
@@ -358,7 +410,7 @@ const Billing = () => {
                 position: "absolute",
                 backgroundColor: "white",
                 border: "1px solid #ccc",
-                width: "100%",
+                width: "15%",
               }}>
               {filteredSuggestions.map((suggestion) => (
                 <p
@@ -371,75 +423,149 @@ const Billing = () => {
                 </p>
               ))}
             </div>
-          )}
-          <table className="plan-table">
-            <thead>
-              <tr>
-                <th>Plan Name</th>
-                <th>GST</th>
-                <th>Days</th>
-                <th>Price</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>
-                  <input
+          )} */}
+            <table className="plan-table">
+              <thead>
+                <tr>
+                  <th>Select Doctor</th>
+                  <th>Plan Name</th>
+                  <th>GST</th>
+                  <th>Days</th>
+                  <th>Price</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <select value={selectedDoctor} onChange={handleDoctorChange}>
+                      <option>Select Doctor</option>
+                      {doctors.map(doctor => (
+                        <option key={doctor._id} value={doctor._id}>{doctor.username}</option>
+                      ))}
+                    </select>
+                  </td>
+                  <td>
+                    <input
+                      className='bill-tplanselecet'
+                      type="text"
+                      name="planName"
+                      value={planName}
+                      onChange={handlePlanChange} // Update the planName
+                      onFocus={() => setFocusedInput("plan")}
+                      placeholder="enter the plan"
+                    />
+                    {isLoading && <div>Loading...</div>}
+                    {focusedInput === "plan" && filteredSuggestions.length > 0 && (
+                      <div
+                        className="overflow-scroll"
+                        style={{
+                          position: "absolute",
+                          backgroundColor: "white",
+                          border: "1px solid #ccc",
+                          width: "15%",
+                        }}>
+                        {filteredSuggestions.map((suggestion) => (
+                          <p
+                            key={suggestion._id}
+                            className="suggestion"
+                            onClick={() => handlePlanSelection(suggestion.plan_name)}
+                            // Event handler for clicks
+                            style={{ cursor: "pointer", padding: "5px" }}>
+                            {suggestion.plan_name}
+                          </p>
+                        ))}
+                      </div>
+                    )}
+
+                    {/* <input
                     type="text"
                     value={selectedPlan ? selectedPlan.plan_name : ''}
                     disabled
-                  />
-                </td>
+                  /> */}
+                  </td>
+                  <td>
+                    <input
+                      type="text"
+                      value={selectedPlan ? selectedPlan.GST : ''}
+                      disabled
+                    />
+                  </td>
+                  <td>
+                    <input
+                      type="text"
+                      value={selectedPlan ? selectedPlan.days : ''}
+                      disabled
+                    />
+                  </td>
+                  <td>
+                    <input
+                      type="text"
+                      value={selectedPlan ? selectedPlan.price : ''}
+                      disabled
+                    />
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+
+          <div className='billin-below-1' >
+
+            <table className='billing-last-table'>
+              <thead>
+                <tr>
+                  <th>Payment type</th>
+                  <th>Amount paid</th>
+                  <th>Payment Status</th>
+                  <th>Remaining Amount: Rs.</th>
+                </tr>
+              </thead>
+              <tbody>
                 <td>
-                  <input
-                    type="text"
-                    value={selectedPlan ? selectedPlan.GST : ''}
-                    disabled
-                  />
-                </td>
+                  <select value={paymentType} onChange={(e) => setPaymentType(e.target.value)}>
+                <option value="">Select Payment Type</option>
+                <option value="Cash">Cash</option>
+                <option value="Card">Card</option>
+              </select></td>
                 <td>
-                  <input
-                    type="text"
-                    value={selectedPlan ? selectedPlan.days : ''}
-                    disabled
-                  />
+                <input type="number" value={amountPaid} onChange={(e) => setAmountPaid(e.target.value)} />
                 </td>
-                <td>
-                  <input
-                    type="text"
-                    value={selectedPlan ? selectedPlan.price : ''}
-                    disabled
-                  />
-                </td>
-              </tr>
-            </tbody>
-          </table>
+                <td> <input value={status} /></td>
+                <td>   <input value={remainingAmount} /></td>
+              </tbody>
+            </table>
+
+            {/* <label>
+              <span>Payment type</span>
+              <select value={paymentType} onChange={(e) => setPaymentType(e.target.value)}>
+                <option value="">Select Payment Type</option>
+                <option value="Cash">Cash</option>
+                <option value="Card">Card</option>
+              </select>
+            </label>
+            <label>
+              <span>Amount paid</span>
+              <input type="number" value={amountPaid} onChange={(e) => setAmountPaid(e.target.value)} />
+            </label>
+
+            <label>
+              <span>Payment Status</span>
+              <input value={status} />
+            </label>
+
+            <label>
+              <span>Remaining Amount: Rs.</span>
+              <input value={remainingAmount} />
+            </label> */}
+
+          </div>
+
+
+
+          <button className='btnbilling' onClick={saveData}>Save</button>
+
         </div>
-
-
-        <div>
-          <div>
-            <p>Payment type</p>
-            <select value={paymentType} onChange={(e) => setPaymentType(e.target.value)}>
-              <option value="">Select Payment Type</option>
-              <option value="Cash">Cash</option>
-              <option value="Card">Card</option>
-            </select>
-          </div>
-          <div>
-            <p>Amount paid</p>
-            <input type="number" value={amountPaid} onChange={(e) => setAmountPaid(e.target.value)} />
-          </div>
-          <div>
-            <p>Status: {status}</p>
-          </div>
-          <div>
-            <p>Remaining amount: Rs.{remainingAmount}</p>
-          </div>
-        </div>
-
-
-        <button className='btnbilling' onClick={saveData}>Save</button>
       </div>
     </div>
   );

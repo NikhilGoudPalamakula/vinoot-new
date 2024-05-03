@@ -71,9 +71,29 @@ const FranchiseStaffReg = () => {
     }
   };
 
+  // const handleAdminInputChange = (e) => {
+  //   setAdminData({ ...adminData, [e.target.name]: e.target.value });
+  //   setErrors({ ...errors, [e.target.name]: "" });
+  // };
   const handleAdminInputChange = (e) => {
-    setAdminData({ ...adminData, [e.target.name]: e.target.value });
-    setErrors({ ...errors, [e.target.name]: "" });
+    const { name, value } = e.target;
+
+    // Update adminData with the new input value
+    setAdminData({ ...adminData, [name]: value });
+
+    // Validate the input field dynamically
+    const validationErrors = validateInputs({ ...adminData, [name]: value });
+
+    // Update the errors state with the validation result
+    setErrors((prevErrors) => {
+      // Remove the error message if the input is valid
+      if (!validationErrors[name]) {
+        const { [name]: removedError, ...rest } = prevErrors;
+        return rest;
+      }
+      // Add or update the error message if the input is invalid
+      return { ...prevErrors, [name]: validationErrors[name] };
+    });
   };
 
   // ---------------------fetching of staff---------------

@@ -14,7 +14,7 @@ const validateInputs = (data) => {
     errors.password = "Password should be between 8 and 16 characters";
   }
   if (!/^\d{10}$/.test(data.email)) {
-    errors.email = "Mobile number should consist only 10 numbers";
+    errors.email = "Mobile number must be 10 digits";
   }
   return errors;
 };
@@ -44,7 +44,7 @@ const FranchiseStaffReg = () => {
     const validationErrors = validateInputs(adminData); // Validate inputs
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors); // Set errors if validation fails
-      alert("Please enter valid inputs."); // Alert message
+      alert("Please enter valid Details."); // Alert message
       return;
     }
     try {

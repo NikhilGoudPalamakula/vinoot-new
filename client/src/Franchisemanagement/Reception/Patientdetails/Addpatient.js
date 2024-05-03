@@ -112,6 +112,24 @@ const PatientForm = () => {
     }
   }, [area, areas]);
 
+  const generatePatientID = (patients) => {
+    if (patients.length === 0) {
+      // If there are no existing patients, start with the first ID
+      return "PAT001";
+    } else {
+      // Extract the numeric part of the last patient ID
+      const lastIDNumeric = parseInt(
+        patients[patients.length - 1].patient_id.substr(3),
+        10
+      );
+      // Increment the numeric part by 1
+      const nextIDNumeric = lastIDNumeric + 1;
+      // Pad the numeric part with zeros to maintain the format "PAT001"
+      const nextID = "PAT" + nextIDNumeric.toString().padStart(3, "0");
+      return nextID;
+    }
+  };
+
   const handleStateChange = (event) => {
     const value = event.target.value;
     setStateInput(value);
@@ -195,11 +213,17 @@ const PatientForm = () => {
         const dobDate = new Date(value);
         const presentDate = new Date();
         const minDobDate = new Date();
+        const selectedDate = new Date(value);
         minDobDate.setFullYear(presentDate.getFullYear() - 140);
         if (dobDate < minDobDate) {
           setErrors((prevErrors) => ({
             ...prevErrors,
             [name]: "Date of birth should be at less than 140 years ago",
+          }));
+        } else if (selectedDate > presentDate) {
+          setErrors((prevErrors) => ({
+            ...prevErrors,
+            [name]: "Date of birth cannot be a future date",
           }));
         } else {
           setErrors((prevErrors) => ({
@@ -244,6 +268,13 @@ const PatientForm = () => {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
+    // Generate the patient ID
+    const newPatientID = generatePatientID(patients);
+    // Update the form data with the generated patient ID
+    setFormData({
+      ...formData,
+      patient_id: newPatientID,
+    });
     // Check if there are any errors before submitting the form
     const formValid = Object.values(errors).every((error) => error === "");
     if (formValid) {
@@ -311,6 +342,28 @@ const PatientForm = () => {
       console.error("Error fetching patients:", error);
     }
   };
+
+  // useEffect(() => {
+  //   // Fetch patients data when component mounts
+  //   const fetchPatients = async () => {
+  //     try {
+  //       const response = await axios.get("http://localhost:5001/api/patients");
+  //       setPatients(response.data);
+  //     } catch (error) {
+  //       console.error("Failed to fetch patients", error);
+  //     }
+  //   };
+  //   fetchPatients();
+  // }, []);
+
+  // Initialize form data including the patient ID
+  useEffect(() => {
+    const newPatientID = generatePatientID(patients);
+    setFormData({
+      ...formData,
+      patient_id: newPatientID,
+    });
+  }, [patients]);
 
   return (
     <div className="addpa-total">
@@ -502,7 +555,7 @@ const PatientForm = () => {
                 </div>
                 <div className="input-wrapper">
                   <label htmlFor="address">Address:</label>
-                  <input
+                  <textarea
                     id="address"
                     type="text"
                     name="address"

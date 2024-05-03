@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./Addpatient.css";
@@ -25,6 +24,13 @@ const PatientForm = () => {
     state: "",
     city: "",
     area: "",
+    address: "",
+  });
+  const [errors, setErrors] = useState({
+    patient_name: "",
+    mobile_number: "",
+    dob: "",
+    email: "",
     address: "",
   });
 
@@ -156,43 +162,128 @@ const PatientForm = () => {
       ...formData,
       [name]: value,
     });
+
+    // Validate input values
+    switch (name) {
+      case "patient_name":
+        if (value.length < 3 || value.length > 50) {
+          setErrors((prevErrors) => ({
+            ...prevErrors,
+            [name]: "Patient name should be between 3 and 50 characters",
+          }));
+        } else {
+          setErrors((prevErrors) => ({
+            ...prevErrors,
+            [name]: "",
+          }));
+        }
+        break;
+      case "mobile_number":
+        if (!/^\d{10}$/.test(value)) {
+          setErrors((prevErrors) => ({
+            ...prevErrors,
+            [name]: "Please enter a valid 10-digit mobile number",
+          }));
+        } else {
+          setErrors((prevErrors) => ({
+            ...prevErrors,
+            [name]: "",
+          }));
+        }
+        break;
+      case "dob":
+        const dobDate = new Date(value);
+        const presentDate = new Date();
+        const minDobDate = new Date();
+        minDobDate.setFullYear(presentDate.getFullYear() - 140);
+        if (dobDate < minDobDate) {
+          setErrors((prevErrors) => ({
+            ...prevErrors,
+            [name]: "Date of birth should be at less than 140 years ago",
+          }));
+        } else {
+          setErrors((prevErrors) => ({
+            ...prevErrors,
+            [name]: "",
+          }));
+        }
+        break;
+      case "email":
+        if (
+          value.length < 10 ||
+          value.length > 60 ||
+          !/\S+@\S+\.\S+/.test(value)
+        ) {
+          setErrors((prevErrors) => ({
+            ...prevErrors,
+            [name]: "Please enter a valid email address (10-60 characters)",
+          }));
+        } else {
+          setErrors((prevErrors) => ({
+            ...prevErrors,
+            [name]: "",
+          }));
+        }
+        break;
+      case "address":
+        if (value.length < 10 || value.length > 250) {
+          setErrors((prevErrors) => ({
+            ...prevErrors,
+            [name]: "Address should be between 10 and 250 characters",
+          }));
+        } else {
+          setErrors((prevErrors) => ({
+            ...prevErrors,
+            [name]: "",
+          }));
+        }
+        break;
+      default:
+        break;
+    }
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
+    // Check if there are any errors before submitting the form
+    const formValid = Object.values(errors).every((error) => error === "");
+    if (formValid) {
+      try {
+        const dobDateOnly = formData.dob.split("T")[0];
+        const createdBy = localStorage.getItem("userId");
+        const franchiseName = localStorage.getItem("franchisename");
+        const FranchiseID = localStorage.getItem("FranchiseID");
 
-      const dobDateOnly = formData.dob.split('T')[0];
-      const createdBy = localStorage.getItem("userId");
-      const franchiseName = localStorage.getItem("franchisename");
-      const FranchiseID = localStorage.getItem("FranchiseID");
+        const response = await axios.post("http://localhost:5001/api/patient", {
+          ...formData,
+          createdBy: createdBy,
+          franchiseName: franchiseName,
+          FranchiseID: FranchiseID,
+          dob: dobDateOnly, // Extract only the date part
+        });
 
-      const response = await axios.post("http://localhost:5001/api/patient", {
-        ...formData,
-        createdBy: createdBy,
-        franchiseName: franchiseName,
-        FranchiseID: FranchiseID,
-        dob: dobDateOnly, // Extract only the date part
-      });
-
-      console.log(response.data); // Assuming response.data contains the newly created patient data
-      // Reset form data after successful submission
-      setFormData({
-        patient_id: "",
-        patient_name: "",
-        gender: "",
-        dob: "",
-        email: "",
-        mobile_number: "",
-        address: "",
-        state: "",
-        city: "",
-        area: "",
-      });
-      setStateInput(""); // Clear the state input
-      setCity(""); // Clear the city input
-      setArea(""); // Clear the area input
-    } catch (error) {
-      console.error("Failed to submit data", error);
+        console.log(response.data); // Assuming response.data contains the newly created patient data
+        // Reset form data after successful submission
+        setFormData({
+          patient_id: "",
+          patient_name: "",
+          gender: "",
+          dob: "",
+          email: "",
+          mobile_number: "",
+          address: "",
+          state: "",
+          city: "",
+          area: "",
+        });
+        setStateInput(""); // Clear the state input
+        setCity(""); // Clear the city input
+        setArea(""); // Clear the area input
+        alert("patient added successfully!");
+      } catch (error) {
+        console.error("Failed to submit data", error);
+      }
+    } else {
+      alert("Form has errors. Please fix them before submitting.");
     }
   };
 
@@ -244,6 +335,7 @@ const PatientForm = () => {
                     required
                   />
                 </div>
+
                 {/* <div className="input-wrapper">
                 <label htmlFor="franchise_name">Franchise Name:</label>
                 <input
@@ -277,6 +369,9 @@ const PatientForm = () => {
                     required
                   />
                 </div>
+                {errors.patient_name && (
+                  <span className="error">{errors.patient_name}</span>
+                )}
                 <div className="input-wrapper">
                   <label htmlFor="dob">Date of Birth:</label>
                   <input
@@ -288,6 +383,7 @@ const PatientForm = () => {
                     required
                   />
                 </div>
+                {errors.dob && <span className="error">{errors.dob}</span>}
                 <div className="input-wrapper">
                   <label htmlFor="email">Email:</label>
                   <input
@@ -299,6 +395,7 @@ const PatientForm = () => {
                     required
                   />
                 </div>
+                {errors.email && <span className="error">{errors.email}</span>}
                 <div className="input-wrapper">
                   <label htmlFor="mobile_number">Mobile Number:</label>
                   <input
@@ -313,6 +410,9 @@ const PatientForm = () => {
                     required
                   />
                 </div>
+                {errors.mobile_number && (
+                  <span className="error">{errors.mobile_number}</span>
+                )}
               </div>
 
               <div className="column">
@@ -411,6 +511,9 @@ const PatientForm = () => {
                     required
                   />
                 </div>
+                {errors.address && (
+                  <span className="error">{errors.address}</span>
+                )}
               </div>
             </div>
             <div>
@@ -421,7 +524,7 @@ const PatientForm = () => {
           </form>
         </div>
 
-        <div  className="patientdetail-fetch">
+        <div className="patientdetail-fetch">
           <h2>Patients</h2>
           <table>
             <thead>

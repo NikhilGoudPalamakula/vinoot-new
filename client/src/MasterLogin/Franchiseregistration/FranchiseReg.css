@@ -1,8 +1,4 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+
 .addfr-total {
   margin: 5vh 6vw 0px 6vw;
   border: 2px solid #0aa506;
@@ -29,11 +25,10 @@
   margin-top: 2.5vh;
 }
 .addfr-input {
-  border: none;
+  /* border: none; */
   outline: none;
   height: 7.5vh;
   width: 30vw;
-  border-radius: 12px;
 }
 .addfr-input-wrap label {
   font-size: 14px;
@@ -151,7 +146,7 @@
   .addfr-input-wrap {
     width: 35vw;
   }
-  .addfr-submit-button{
+  .addfr-submit-button {
     margin-left: 22vw;
     width: 30vw;
   }
@@ -165,7 +160,7 @@
     height: 6vh;
     width: 8vw;
   }
-  .addfr-submit-button{
+  .addfr-submit-button {
     margin-left: 20vw;
     width: 30vw;
   }
@@ -179,14 +174,14 @@
     height: 6vh;
     width: 15vw;
   }
-  .addfr-franchise-detail-columns{
+  .addfr-franchise-detail-columns {
     display: flex;
     flex-direction: column;
   }
   .addfr-input-wrap {
     width: 60vw;
   }
-  .addfr-submit-button{
+  .addfr-submit-button {
     margin-left: 19vw;
     width: 30vw;
   }

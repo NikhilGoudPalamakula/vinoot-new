@@ -2,5 +2,75 @@
 display: flex;
 }
 .billing-right{
-    margin-left: 19%;
+    margin-left: 45%;
 }
+
+
+
+/* Style for the container div */
+.container {
+    margin: 20px; /* Adjust margin as needed */
+    position: relative;
+  }
+  
+  /* Style for the input field */
+  /* input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+  }
+   */
+  /* Style for the suggestions dropdown */
+  .overflow-scroll {
+    max-height: 150px;
+    overflow-y: auto;
+  }
+  
+  /* Style for the suggestion items */
+  .suggestion {
+    cursor: pointer;
+    padding: 5px;
+  }
+  
+  /* Style for the table */
+  .plan-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px; /* Adjust margin as needed */
+  }
+  
+  /* Style for table headers */
+  .plan-table th {
+    background-color: #36bb32;
+    border: 1px solid #dddddd;
+    padding: 8px;
+    text-align: center;
+  }
+  
+  /* Style for table cells */
+  .plan-table td {
+    background-color: lightgray;
+    border: 1px solid #dddddd;
+    padding: 8px;
+  }
+  
+  /* Style for loading message */
+  .loading {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 10px;
+    border-radius: 5px;
+  }
+
+  .btnbilling{
+    padding: 10px 20px;
+    background-color: #0AA506;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  

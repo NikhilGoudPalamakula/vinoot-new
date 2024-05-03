@@ -1,15 +1,13 @@
 import React, { useState } from 'react';
 // import './Sidebar.css';
 import { MdDashboard } from "react-icons/md";
-import { FaBoxArchive } from "react-icons/fa6";
-import { FaStoreAlt } from "react-icons/fa";
 import { IoIosPeople } from "react-icons/io";
-import { FaBell } from "react-icons/fa";
-import { IoPerson } from "react-icons/io5";
-import { FaQuestionCircle } from "react-icons/fa";
 import { Link } from 'react-router-dom'; 
 import { useNavigate } from "react-router-dom";
 
+
+import { FaUsers } from "react-icons/fa";
+import { MdLogout } from "react-icons/md";
 const FranchiseadminSidebar = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [activeItem, setActiveItem] = useState(null);
@@ -38,14 +36,14 @@ const FranchiseadminSidebar = () => {
                 <div className='sidebar-list-items'>
                     <ul className='first-lists'>
                        <Link to="/FranchiseAdmin" className='sidebar-links' ><li className={activeItem === 'dashboard' ? 'active' : ''} onClick={() => handleItemClick('dashboard')}><MdDashboard className='icon' />Dashboard</li></Link> 
-                       <Link to="/fsr" className='sidebar-links' ><li className={activeItem === 'staff' ? 'active' : ''} onClick={() => handleItemClick('staff')}><FaBoxArchive className='icon' />Add Staff </li></Link> 
+                       <Link to="/fsr" className='sidebar-links' ><li className={activeItem === 'staff' ? 'active' : ''} onClick={() => handleItemClick('staff')}><FaUsers className='icon' />Add Staff </li></Link> 
                        {/* <Link to="/Billing" className='sidebar-links' > <li className={activeItem === 'Billng' ? 'active' : ''} onClick={() => handleItemClick('Billng')}><FaStoreAlt className='icon' />Billing</li> </Link> */}
                        {/* <Link to="/TreatmentCategory" className='sidebar-links' > <li className={activeItem === 'treatmentcat' ? 'active' : ''} onClick={() => handleItemClick('treatmentcat')}><IoIosPeople className='icon' />Treatment Category</li></Link>
                        <Link to="/TreatmentPlan" className='sidebar-links' > <li className={activeItem === 'treatmentplan' ? 'active' : ''} onClick={() => handleItemClick('treatmentplan')}><IoIosPeople className='icon' />Treatment Plan</li></Link>
                        <Link to="/States" className='sidebar-links' > <li className={activeItem === 'states' ? 'active' : ''} onClick={() => handleItemClick('states')}><IoIosPeople className='icon' />States</li></Link>
                        <Link to="/Cities" className='sidebar-links' > <li className={activeItem === 'cities' ? 'active' : ''} onClick={() => handleItemClick('cities')}><IoIosPeople className='icon' />Cities</li></Link>
                        <Link to="/Area" className='sidebar-links' ><li className={activeItem === 'areas' ? 'active' : ''} onClick={() => handleItemClick('areas')}><IoIosPeople className='icon' />Areas</li></Link> */}
-                       <Link to="/" className='sidebar-links' > <li className={activeItem === 'logout' ? 'active' : ''} onClick={() =>  handleLogOut() &&  handleItemClick('logout')  }><IoIosPeople className='icon' />Logout</li></Link>
+                       <Link to="/" className='sidebar-links' > <li className={activeItem === 'logout' ? 'active' : ''} onClick={() =>  handleLogOut() &&  handleItemClick('logout')  }><MdLogout className='icon' />Logout</li></Link>
                     </ul>
                     {/* <div className='side-bar-second-lists'>
                         <h5>Accounts Pages</h5>

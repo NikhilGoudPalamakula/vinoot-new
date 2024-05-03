@@ -2,8 +2,6 @@ const mongoose = require('mongoose');
 
 const patientSchema = new mongoose.Schema({
   patient_id: String,
-  franchise_name: String,
-  franchise_id: String,
   patient_name: String,
   gender: String,
   dob: Date,
@@ -13,6 +11,10 @@ const patientSchema = new mongoose.Schema({
   city: String,
   area: String,
   address: String,
+  createdBy: String,
+  franchiseName: String,
+  FranchiseID: String,
+
 });
 
 const Patient = mongoose.model("Patientdetails", patientSchema);

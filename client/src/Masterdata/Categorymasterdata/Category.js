@@ -88,12 +88,12 @@ const TreatmentCategory = () => {
   };
 
   return (
-    <div className="total-tcategory" style={{display:'flex'}}>
+    <div className="total-tcategory" >
     <div>
       <Sidebar/>
     </div>
-    <div style={{alignItems:'center',justifyItems:'center',justifyContent:'center',marginLeft:'30%',marginTop:'4%'}}>
-      <h1>Treatment Category Master</h1>
+    <div className="treat-cat-right" >
+      <h1  className="h1111">Treatment Category Master</h1>
       <form action="" onSubmit={handleSubmit} className="cat-form">
         <label htmlFor="tar">Category</label>
         <input
@@ -107,7 +107,7 @@ const TreatmentCategory = () => {
         <button className="category_submit-btn">Submit</button>
       </form>
 
-      <h2 className="category_list">Categories List</h2>
+      <h2 className="category_list_heading">Categories List</h2>
       <table className="tabc">
         <thead>
           <tr>
@@ -124,7 +124,7 @@ const TreatmentCategory = () => {
               <td>{category.time}</td>
               <td>{category.status}</td>
               <td>
-                <button
+                <button className="treatcat-btn"
                   onClick={() =>
                     toggleStatus(category.category_id, category.status)
                   }>

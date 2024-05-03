@@ -53,12 +53,13 @@ const FranchiseReg = () => {
         "http://localhost:5001/api/franchise",
         updatedFranchiseData
       );
+
+      
       console.log("Franchise Data:", updatedFranchiseData);
 
       alert("Data submitted successfully.");
     } catch (error) {
-      console.error("Failed to submit data", error);
-      alert("Failed to submit data. Please try again.");
+      console.error("Registration failed:", error.response.data.error);
     }
   };
 

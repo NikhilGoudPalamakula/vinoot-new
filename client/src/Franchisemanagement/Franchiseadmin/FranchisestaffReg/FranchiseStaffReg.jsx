@@ -38,9 +38,9 @@ const FranchiseStaffReg = () => {
 
       alert("Data submitted successfully.");
       navigate("/FranchiseAdmin");
+
     } catch (error) {
-      console.error("Failed to submit data", error);
-      alert("Failed to submit data. Please try again.");
+      console.error("Registration failed:", error.response.data.error);
     }
   };
 
@@ -128,12 +128,13 @@ const FranchiseStaffReg = () => {
           <div className="addfr-inputs-wraps">
             <select
               className="addfr-inputs"
+              name="designation"
               value={adminData.designation}
               onChange={handleAdminInputChange}
               placeholder="Select Designation"
               required
             >
-              <option value=""></option>
+              <option value="">Select</option>
               <option value="Doctor">Doctor</option>
               <option value="Reception">Reception</option>
               <option value="Thearpy">Therapy</option>
@@ -149,7 +150,7 @@ const FranchiseStaffReg = () => {
           <div className="addfr-inputs-wraps">
             <input
               className="addfr-inputs"
-              type="number"
+              type="text"
               name="email"
               value={adminData.email}
               onChange={handleAdminInputChange}

@@ -2,7 +2,19 @@ const Admin = require('../models/FranchiseAdminmodel');
 
 exports.createAdmin = async (req, res) => {
   try {
-    const admin = new Admin(req.body); // This line may cause issues
+    const admin = new Admin(req.body);
+
+    // Check for unique userId and email
+    const existingAdmin = await Admin.findOne({ $or: [{ userId: req.body.userId }, { email: req.body.email }] });
+
+    if (existingAdmin) {
+      if (existingAdmin.userId === req.body.userId) {
+        return res.status(400).json({ error: 'Admin with this User ID already exists' });
+      } else if (existingAdmin.email === req.body.email) {
+        return res.status(400).json({ error: 'Admin with this email already exists' });
+      }
+    }
+
     await admin.save();
     res.status(201).json({ success: true, message: 'Admin created successfully.' });
   } catch (error) {

@@ -27,6 +27,8 @@ import Billing from './Franchisemanagement/Reception/Billing/Billing';
 import FranchiseAdmin from './Franchisemanagement/Franchiseadmin/Franchisestaff/FranchiseAdmin';
 import Franchisepatients from './MasterLogin/Franchisepatients/Franchisepatients';
 import Franchisepatientbilling from './MasterLogin/Franchisepatientbilling/Franchisepatientbilling';
+import Franchisestaffdetails from './Franchisemanagement/Franchiseadmin/FranchisestaffReg/Franchisestaffdetails';
+import Franchisetogglebutton from './Franchisemanagement/Franchiseadmin/Franchise-s/Togglebutton';
 
 function App() {
   return (
@@ -78,6 +80,8 @@ function App() {
         </Route>
 
         <Route path="/SuperSidebar" element={<SuperSidebar />} />
+        <Route path="/Franchisestaffdetails" element={<Franchisestaffdetails />} />
+        <Route path="/Franchisetogglebutton" element={<Franchisetogglebutton />} />
 
       </Routes>
     </Router>

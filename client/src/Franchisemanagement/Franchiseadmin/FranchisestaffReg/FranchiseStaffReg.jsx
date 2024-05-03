@@ -130,9 +130,9 @@ const FranchiseStaffReg = () => {
 
   return (
     <div className="fraddstaff-total">
-      <div>
+      {/* <div>
         <FranchiseadminSidebar />
-      </div>
+      </div> */}
 
       <div className="fradmin-right">
         {/* <h2 className="addfr-franchise-from-Name">Franchise Form</h2> */}

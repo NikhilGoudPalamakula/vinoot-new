@@ -25,6 +25,8 @@ import Doctor from './Franchisemanagement/Doctor';
 import Recepttion from './Franchisemanagement/Reception/Recepttion';
 import Billing from './Franchisemanagement/Reception/Billing/Billing';
 import FranchiseAdmin from './Franchisemanagement/Franchiseadmin/Franchisestaff/FranchiseAdmin';
+import Franchisepatients from './MasterLogin/Franchisepatients/Franchisepatients';
+import Franchisepatientbilling from './MasterLogin/Franchisepatientbilling/Franchisepatientbilling';
 
 function App() {
   return (
@@ -33,8 +35,8 @@ function App() {
       <Routes>
 
         {/* Mastar data */}
-        <Route path="/Login" element={<LoginForm />} />
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<LoginForm />} />
+        <Route path="/login" element={<Home />} />
 
 
         <Route path="*" element={<NotFound />} />
@@ -66,15 +68,17 @@ function App() {
           <Route path="/Recepttion" element={<Recepttion />} />
 
 
+          <Route path="/Franchisepatients" element={<Franchisepatients />} />
+          <Route path="/Patientdetails" element={<PatientForm />} />
 
+          <Route path="/Billing" element={<Billing />} />
+          <Route path="/Franchisepatientbilling" element={<Franchisepatientbilling />} />
+          
 
         </Route>
 
-        <Route path="/Patientdetails" element={<PatientForm />} />
-        <Route path="/Billing" element={<Billing />} />
         <Route path="/SuperSidebar" element={<SuperSidebar />} />
-        
-    
+
       </Routes>
     </Router>
 

@@ -1,204 +1,7 @@
-// import React, { useState,useEffect } from 'react';
-// // import './PatientForm.css';
-// import axios from 'axios';
-// import { VINOOTNEW } from '../../Helper/Helper';
-// function PatientForm() {
-//     const [states, setStates] = useState("");
-//     const [suggestions, setSuggestions] = useState([]);
-//     const [isLoading, setIsLoading] = useState(false);
-//   const [formData, setFormData] = useState({
-//     name: '',
-//     email: '',
-//     dob: '',
-//     gender: '',
-//     mobileNumber: '',
-//     state: '',
-//     city: '',
-//     area: '',
-//     address: ''
-//   });
-
-
-
-//   const handleChange = (e) => {
-//     const { name, value } = e.target;
-//     setFormData({ ...formData, [name]: value });
-//   };
-
-//   const [submitting, setSubmitting] = useState(false);
-
-//   const handleSubmit = async (e) => {
-//     e.preventDefault();
-//     setSubmitting(true); // Set submitting state to true
-//     try {
-//       const response = await axios.post('/api/patients', formData);
-//       console.log(response.data);
-//       alert('Form submitted successfully'); // Show success alert
-//     } catch (error) {
-//       console.error('Error submitting form:', error);
-//       alert('Form submission failed'); // Show error alert
-//     } finally {
-//       setSubmitting(false); // Reset submitting state after form submission
-//     }
-//   };
-
-//   const handleStateChange = (e) => {
-//     const selectedState = e.target.value;
-//     setFormData({ ...formData, state: selectedState, city: '' });
-//   };
-
-// //   -----------------
-
-// // Inside the useEffect hook in PatientForm component
-// // useEffect(() => {
-// //     const fetchSuggestions = async () => {
-// //       if (states !== "") { // Check if state is not empty
-// //         setIsLoading(true);
-// //         try {
-// //           const response = await axios.get(
-// //             // `${VINOOTNEW}/api/suggeststates`,
-// //             `http://127.0.0.1:5001/api/suggeststates`,
-// //             {
-// //               params: { query: states }, // Send query parameter
-// //             }
-// //           );
-// //           setSuggestions(response.data); // Store the suggestions
-// //         } catch (error) {
-// //           console.error('Error fetching state suggestions:', error);
-// //           // Handle error if needed
-// //         } finally {
-// //           setIsLoading(false);
-// //         }
-// //       } else {
-// //         setSuggestions([]); // Clear suggestions if states is empty
-// //       }
-// //     };
-
-// //     const timeoutId = setTimeout(fetchSuggestions, 300); // Debounce
-
-// //     return () => clearTimeout(timeoutId);
-// //   }, [states]);
-
-// // Inside the useEffect hook in PatientForm component
-
-// useEffect(() => {
-//     const fetchSuggestions = async () => {
-//       try {
-//         setIsLoading(true);
-//         const response = await axios.get(`${VINOOTNEW}/api/suggeststates`, {
-//           params: { query: states },
-//         });
-//         setSuggestions(response.data);
-//       } catch (error) {
-//         console.error('Error fetching state suggestions:', error);
-//         // Handle error if needed
-//       } finally {
-//         setIsLoading(false);
-//       }
-//     };
-  
-//     if (states.trim() !== '') {
-//       fetchSuggestions();
-//     } else {
-//       setSuggestions([]); // Clear suggestions if states is empty
-//     }
-//   }, [states]);
-  
-
-
-//   const handleSuggestionClick = (suggestion) => {
-//     setStates(suggestion.state_name); // Update states state variable
-//     setSuggestions([]); // Clear suggestions after selecting one
-// };
-
-//   return (
-//     <form className="patient-form" onSubmit={handleSubmit}>
-//         <h2>ADD PATIENT</h2>
-//         <div className='total2'>
-//         <div className='inp'>
-//       <label>
-//         Patient Name:
-//         <input type="text" name="name" value={formData.name} onChange={handleChange} />
-//       </label>
-//       <label>
-//         Email:
-//         <input type="email" name="email" value={formData.email} onChange={handleChange} />
-//       </label>
-//       <label>
-//         Date of Birth:
-//         <input type="date" name="dob" value={formData.dob} onChange={handleChange} />
-//       </label>
-//       <label>
-//         Gender:
-//         <select name="gender" value={formData.gender} onChange={handleChange}>
-//           <option value="">Select</option>
-//           <option value="male">Male</option>
-//           <option value="female">Female</option>
-//           <option value="other">Other</option>
-//         </select>
-//       </label>
-//       <label>
-//         Mobile Number:
-//         <input type="tel" name="mobileNumber" value={formData.mobileNumber} onChange={handleChange} />
-//       </label>
-//       </div>
-//       <div className='inp2'>
-//         <p>State</p>
-
-//     {/* {isLoading && <div>Loading...</div>}
-//       {suggestions.length > 0 && (
-//         <div  className='statesfetch'>
-//           {suggestions.map((suggestion) => (
-//             <p
-//               value={states}
-//               key={suggestion._id}
-//               onClick={() => handleSuggestionClick(suggestion)} // Event handler for clicks
-//               style={{ cursor: "pointer", padding: "15px" }}>
-//               {suggestion.state_name}
-//             </p>
-//           ))}
-//         </div>
-//       )} */}
-//         {/* <p>City</p> */}
-//         {/* <p>Area</p> */}
-
-//         {isLoading && <div>Loading...</div>}
-// {!isLoading && suggestions.length > 0 && (
-//   <div className="suggestion-container">
-//     {suggestions.map((suggestion) => (
-//       <div
-//         key={suggestion._id} // Assuming _id is the unique identifier for a state
-//         onClick={() => handleSuggestionClick(suggestion)}
-//         className="suggestion-item">
-//         {suggestion.name} {/* Assuming name is the field to display */}
-//       </div>
-//     ))}
-//   </div>
-// )}
-
-
-
-
-//       <label>
-//         Address:
-//         <textarea name="address" value={formData.address} onChange={handleChange} />
-//       </label>
-//       </div>
-//       </div>
-//       <button className='btn2' type="submit" disabled={submitting}>
-//         {submitting ? 'Submitting...' : 'Submit'}
-//       </button>
-//     </form>
-//   );
-// }
-
-// export default PatientForm;
-
-
 
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import "./Addpatient.css"; 
+import "./Addpatient.css";
 import ReceptionSidebar from "../ReceptionSidebar/ReceptionSidebar";
 
 const PatientForm = () => {
@@ -357,18 +160,20 @@ const PatientForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+
+      const dobDateOnly = formData.dob.split('T')[0];
       const createdBy = localStorage.getItem("userId");
       const franchiseName = localStorage.getItem("franchisename");
       const FranchiseID = localStorage.getItem("FranchiseID");
-  
+
       const response = await axios.post("http://localhost:5001/api/patient", {
         ...formData,
         createdBy: createdBy,
         franchiseName: franchiseName,
         FranchiseID: FranchiseID,
-        dob: formData.dob.substring(0, 10), // Extract only the date part
+        dob: dobDateOnly, // Extract only the date part
       });
-  
+
       console.log(response.data); // Assuming response.data contains the newly created patient data
       // Reset form data after successful submission
       setFormData({
@@ -386,8 +191,6 @@ const PatientForm = () => {
       setStateInput(""); // Clear the state input
       setCity(""); // Clear the city input
       setArea(""); // Clear the area input
-  
-     
     } catch (error) {
       console.error("Failed to submit data", error);
     }
@@ -398,43 +201,50 @@ const PatientForm = () => {
   const [patients, setPatients] = useState([]);
 
   useEffect(() => {
-    const fetchPatients = async () => {
-      try {
-        const response = await axios.get('http://localhost:5001/api/patients'); // Assuming your server exposes a route '/api/patients' to fetch patients
-        setPatients(response.data);
-      } catch (error) {
-        console.error('Error fetching patients:', error);
-      }
-    };
-
     fetchPatients();
   }, []);
-  
+
+  const fetchPatients = async () => {
+    try {
+      const frid = localStorage.getItem("FranchiseID");
+
+      if (frid) {
+        const response = await axios.get(
+          `http://localhost:5001/api/patients${frid}`
+        );
+        setPatients(response.data);
+      } else {
+        console.error("FranchiseID not found in localStorage");
+      }
+    } catch (error) {
+      console.error("Error fetching patients:", error);
+    }
+  };
 
   return (
-    <div  className="addpa-total">
+    <div className="addpa-total">
       <div>
-        <ReceptionSidebar/>
+        <ReceptionSidebar />
       </div>
-  
-    <div  className="addp-right">
-      <h1 className="h1-head">Patient Form</h1>
-      <div className="input-container">
-        <form action="" onSubmit={handleSubmit}>
-          <div className="column-wrapper">
-            <div className="column">
-              <div className="input-wrapper">
-                <label htmlFor="patient_id">Patient ID:</label>
-                <input
-                  id="patient_id"
-                  type="text"
-                  name="patient_id"
-                  value={formData.patient_id}
-                  onChange={handleInputChange}
-                  required
-                />
-              </div>
-              {/* <div className="input-wrapper">
+
+      <div className="addp-right">
+        <h1 className="h1-head">Patient Form</h1>
+        <div className="input-container">
+          <form action="" onSubmit={handleSubmit}>
+            <div className="column-wrapper">
+              <div className="column">
+                <div className="input-wrapper">
+                  <label htmlFor="patient_id">Patient ID:</label>
+                  <input
+                    id="patient_id"
+                    type="text"
+                    name="patient_id"
+                    value={formData.patient_id}
+                    onChange={handleInputChange}
+                    required
+                  />
+                </div>
+                {/* <div className="input-wrapper">
                 <label htmlFor="franchise_name">Franchise Name:</label>
                 <input
                   id="franchise_name"
@@ -456,197 +266,203 @@ const PatientForm = () => {
                   required
                 />
               </div> */}
-              <div className="input-wrapper">
-                <label htmlFor="patient_name">Patient Name:</label>
-                <input
-                  id="patient_name"
-                  type="text"
-                  name="patient_name"
-                  value={formData.patient_name}
-                  onChange={handleInputChange}
-                  required
-                />
+                <div className="input-wrapper">
+                  <label htmlFor="patient_name">Patient Name:</label>
+                  <input
+                    id="patient_name"
+                    type="text"
+                    name="patient_name"
+                    value={formData.patient_name}
+                    onChange={handleInputChange}
+                    required
+                  />
+                </div>
+                <div className="input-wrapper">
+                  <label htmlFor="dob">Date of Birth:</label>
+                  <input
+                    id="dob"
+                    type="date"
+                    name="dob"
+                    value={formData.dob}
+                    onChange={handleInputChange}
+                    required
+                  />
+                </div>
+                <div className="input-wrapper">
+                  <label htmlFor="email">Email:</label>
+                  <input
+                    id="email"
+                    type="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleInputChange}
+                    required
+                  />
+                </div>
+                <div className="input-wrapper">
+                  <label htmlFor="mobile_number">Mobile Number:</label>
+                  <input
+                    id="mobile_number"
+                    type="number"
+                    placeholder="888 888 8888"
+                    pattern="[0-9]{10}"
+                    title="Ten digits code"
+                    name="mobile_number"
+                    value={formData.mobile_number}
+                    onChange={handleInputChange}
+                    required
+                  />
+                </div>
               </div>
-              <div className="input-wrapper">
-                <label htmlFor="dob">Date of Birth:</label>
-                <input
-                  id="dob"
-                  type="date"
-                  name="dob"
-                  value={formData.dob}
-                  onChange={handleInputChange}
-                  required
-                />
-              </div>
-              <div className="input-wrapper">
-                <label htmlFor="email">Email:</label>
-                <input
-                  id="email"
-                  type="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleInputChange}
-                  required
-                />
-              </div>
-            </div>
 
-            <div className="column">
-              <div className="input-wrapper">
-                <label htmlFor="mobile_number">Mobile Number:</label>
-                <input
-                  id="mobile_number"
-                  type="number"
-                  placeholder="888 888 8888"
-                  pattern="[0-9]{10}"
-                  title="Ten digits code"
-                  name="mobile_number"
-                  value={formData.mobile_number}
-                  onChange={handleInputChange}
-                  required
-                />
-              </div>
-              <div className="input-wrapper">
-                <label htmlFor="genderSelect">Gender:</label>
-                <select
-                  id="genderSelect"
-                  name="gender"
-                  value={formData.gender}
-                  onChange={handleInputChange}
-                  required>
-                  <option value="">select the gender</option>
-                  <option value="Male">Male</option>
-                  <option value="Female">Female</option>
-                  <option value="Others">Others</option>
-                </select>
-              </div>
-              <div className="input-wrapper">
-                <label htmlFor="stateInput">State:</label>
-                <input
-                  id="stateInput"
-                  type="text"
-                  value={stateInput}
-                  onChange={handleStateChange}
-                  onFocus={() => setFocusedInput("state")}
-                  required
-                />
-                {focusedInput === "state" && (
-                  <ul className="suggestion-list">
-                    {filteredStates.map((state) => (
-                      <li
-                        key={state._id}
-                        onClick={() => handleStateSelection(state.name)}>
-                        {state.name}
-                      </li>
-                    ))}
-                  </ul>
-                )}
-              </div>
-              <div className="input-wrapper">
-                <label htmlFor="cityInput">City:</label>
-                <input
-                  id="cityInput"
-                  type="text"
-                  value={city}
-                  onChange={handleCityChange}
-                  onFocus={() => setFocusedInput("city")}
-                  required
-                />
-                {focusedInput === "city" && (
-                  <ul className="suggestion-list">
-                    {filteredCities.map((city) => (
-                      <li
-                        key={city._id}
-                        onClick={() => handleCitySelection(city.name)}>
-                        {city.name}
-                      </li>
-                    ))}
-                  </ul>
-                )}
-              </div>
-              <div className="input-wrapper">
-                <label htmlFor="areaInput">Area:</label>
-                <input
-                  id="areaInput"
-                  type="text"
-                  value={area}
-                  onChange={handleAreaChange}
-                  onFocus={() => setFocusedInput("area")}
-                  required
-                />
-                {focusedInput === "area" && (
-                  <ul className="suggestion-list">
-                    {filteredAreas.map((area) => (
-                      <li
-                        key={area._id}
-                        onClick={() => handleAreaSelection(area.name)}>
-                        {area.name}
-                      </li>
-                    ))}
-                  </ul>
-                )}
-              </div>
-              <div className="input-wrapper">
-                <label htmlFor="address">Address:</label>
-                <input
-                  id="address"
-                  type="text"
-                  name="address"
-                  value={formData.address}
-                  onChange={handleInputChange}
-                  required
-                />
+              <div className="column">
+                <div className="input-wrapper">
+                  <label htmlFor="genderSelect">Gender:</label>
+                  <select
+                    id="genderSelect"
+                    name="gender"
+                    value={formData.gender}
+                    onChange={handleInputChange}
+                    required
+                  >
+                    <option value="">select the gender</option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                    <option value="Others">Others</option>
+                  </select>
+                </div>
+                <div className="input-wrapper">
+                  <label htmlFor="stateInput">State:</label>
+                  <input
+                    id="stateInput"
+                    type="text"
+                    value={stateInput}
+                    onChange={handleStateChange}
+                    onFocus={() => setFocusedInput("state")}
+                    required
+                  />
+                  {focusedInput === "state" && (
+                    <ul className="suggestion-list">
+                      {filteredStates.map((state) => (
+                        <li
+                          key={state._id}
+                          onClick={() => handleStateSelection(state.name)}
+                        >
+                          {state.name}
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </div>
+                <div className="input-wrapper">
+                  <label htmlFor="cityInput">City:</label>
+                  <input
+                    id="cityInput"
+                    type="text"
+                    value={city}
+                    onChange={handleCityChange}
+                    onFocus={() => setFocusedInput("city")}
+                    required
+                  />
+                  {focusedInput === "city" && (
+                    <ul className="suggestion-list">
+                      {filteredCities.map((city) => (
+                        <li
+                          key={city._id}
+                          onClick={() => handleCitySelection(city.name)}
+                        >
+                          {city.name}
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </div>
+                <div className="input-wrapper">
+                  <label htmlFor="areaInput">Area:</label>
+                  <input
+                    id="areaInput"
+                    type="text"
+                    value={area}
+                    onChange={handleAreaChange}
+                    onFocus={() => setFocusedInput("area")}
+                    required
+                  />
+                  {focusedInput === "area" && (
+                    <ul className="suggestion-list">
+                      {filteredAreas.map((area) => (
+                        <li
+                          key={area._id}
+                          onClick={() => handleAreaSelection(area.name)}
+                        >
+                          {area.name}
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </div>
+                <div className="input-wrapper">
+                  <label htmlFor="address">Address:</label>
+                  <input
+                    id="address"
+                    type="text"
+                    name="address"
+                    value={formData.address}
+                    onChange={handleInputChange}
+                    required
+                  />
+                </div>
               </div>
             </div>
-          </div>
-          <div>
-            <button className="patsubmit-btn" type="submit">Submit</button>
-          </div>
-        </form>
+            <div>
+              <button className="patsubmit-btn" type="submit">
+                Submit
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <div  className="patientdetail-fetch">
+          <h2>Patients</h2>
+          <table>
+            <thead>
+              <tr>
+                <th>Patient ID</th>
+                <th>Name</th>
+                <th>Gender</th>
+                <th>Date of Birth</th>
+                <th>Email</th>
+                <th>Mobile Number</th>
+                <th>State</th>
+                <th>City</th>
+                <th>Area</th>
+                <th>Address</th>
+                <th>Created By</th>
+                {/* <th>Franchise Name</th>
+                <th>Franchise ID</th> */}
+              </tr>
+            </thead>
+            <tbody>
+              {patients.map((patient) => (
+                <tr key={patient._id}>
+                  <td>{patient.patient_id}</td>
+                  <td>{patient.patient_name}</td>
+                  <td>{patient.gender}</td>
+                  <td>{patient.dob}</td>
+                  <td>{patient.email}</td>
+                  <td>{patient.mobile_number}</td>
+                  <td>{patient.state}</td>
+                  <td>{patient.city}</td>
+                  <td>{patient.area}</td>
+                  <td>{patient.address}</td>
+                  <td>{patient.createdBy}</td>
+                  {/* <td>{patient.franchiseName}</td>
+                  <td>{patient.FranchiseID}</td> */}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
-
-      <div>
-      <h2>Patients</h2>
-      <table>
-        <thead>
-          <tr>
-            <th>Patient ID</th>
-            <th>Name</th>
-            <th>Gender</th>
-            <th>Date of Birth</th>
-            <th>Email</th>
-            <th>Mobile Number</th>
-            <th>State</th>
-            <th>City</th>
-            <th>Area</th>
-            <th>Address</th>
-            <th>Created By</th>
-            <th>Franchise Name</th>
-            <th>Franchise ID</th>
-          </tr>
-        </thead>
-        <tbody>
-          {patients.map(patient => (
-            <tr key={patient._id}>
-              <td>{patient.patient_id}</td>
-              <td>{patient.patient_name}</td>
-              <td>{patient.gender}</td>
-              <td>{patient.dob}</td>
-              <td>{patient.email}</td>
-              <td>{patient.mobile_number}</td>
-              <td>{patient.state}</td>
-              <td>{patient.city}</td>
-              <td>{patient.area}</td>
-              <td>{patient.address}</td>
-              <td>{patient.createdBy}</td>
-              <td>{patient.franchiseName}</td>
-              <td>{patient.FranchiseID}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
-    </div>
     </div>
   );
 };

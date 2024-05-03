@@ -11,9 +11,12 @@ const patientSchema = new mongoose.Schema({
   city: String,
   area: String,
   address: String,
-  createdBy: String,
   franchiseName: String,
   FranchiseID: String,
+  createdBy: String,
+  modifiedBy: { type: String },
+  modifiedAt: { type: Date, default: Date.now },
+  createdAt: { type: Date, default: Date.now }, 
 
 });
 

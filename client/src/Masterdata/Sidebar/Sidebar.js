@@ -12,6 +12,8 @@ import { BsGlobeCentralSouthAsia } from "react-icons/bs";
 import { FaCity } from "react-icons/fa";
 import { SiGooglestreetview } from "react-icons/si";
 import { MdLogout } from "react-icons/md";
+import { PiUsersFourFill } from "react-icons/pi";
+
 
 const SuperSidebar = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -44,9 +46,10 @@ const SuperSidebar = () => {
                 </div>
                 <div className='sidebar-list-items'>
                     <ul className='first-lists'>
-                       <Link to="/FrSidebar" className='sidebar-links' ><li className={activeItem === 'dashboard' ? 'active' : ''} onClick={() => handleItemClick('dashboard')}><MdDashboard className='icon' />Dashboard</li></Link> 
+                       {/* <Link to="/FrSidebar" className='sidebar-links' ><li className={activeItem === 'dashboard' ? 'active' : ''} onClick={() => handleItemClick('dashboard')}><MdDashboard className='icon' />Dashboard</li></Link>  */}
                        <Link to="/reg" className='sidebar-links' ><li className={activeItem === 'superadmins' ? 'active' : ''} onClick={() => handleItemClick('superadmins')}><RiAdminFill className='icon' />Super Admin's</li></Link> 
                        <Link to="/FrSidebar" className='sidebar-links' > <li className={activeItem === 'franchise' ? 'active' : ''} onClick={() => handleItemClick('franchise')}><FaCodeBranch className='icon' />Frachises</li> </Link>
+                       <Link to="/Franchisepatients" className='sidebar-links' > <li className={activeItem === 'franchise' ? 'active' : ''} onClick={() => handleItemClick('patients')}><PiUsersFourFill className='icon' />Patients</li> </Link>
                        <Link to="/TreatmentCategory" className='sidebar-links' > <li className={activeItem === 'treatmentcat' ? 'active' : ''} onClick={() => handleItemClick('treatmentcat')}><BiSolidCategory className='icon' />Treatment Category</li></Link>
                        <Link to="/TreatmentPlan" className='sidebar-links' > <li className={activeItem === 'treatmentplan' ? 'active' : ''} onClick={() => handleItemClick('treatmentplan')}><MdCategory className='icon' />Treatment Plan</li></Link>
                        <Link to="/States" className='sidebar-links' > <li className={activeItem === 'states' ? 'active' : ''} onClick={() => handleItemClick('states')}><BsGlobeCentralSouthAsia className='icon' />States</li></Link>

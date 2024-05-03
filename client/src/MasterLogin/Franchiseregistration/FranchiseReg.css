@@ -1,9 +1,8 @@
-
 .addfr-total {
   margin: 5vh 6vw 0px 6vw;
   border: 2px solid #0aa506;
   border-radius: 10px;
-  padding: 10px 20px 10px 20px;
+  padding: 4px 20px 4px 20px;
 }
 .addfr-franchise-Reg {
   height: 100vh;
@@ -11,7 +10,7 @@
 }
 .addfr-franchise-Logo {
   display: flex;
-  padding: 5vh 6vw 0px 6vw;
+  padding: 2vh 6vw 0px 6vw;
   align-items: center;
 }
 .addfr-franchise-column {
@@ -22,7 +21,7 @@
 }
 .addfr-input-wrap {
   display: flex;
-  margin-top: 2.5vh;
+  margin-top: 1.5vh;
 }
 .addfr-input {
   /* border: none; */
@@ -56,14 +55,14 @@
 }
 .addfr-franchise-detail-columns {
   display: flex;
-  gap: 2vw;
+  gap: 1.5vw;
 }
 .addfr-franchise-admin {
   display: flex;
   gap: 6vw;
 }
 .addfr-franchise-details {
-  padding: 2vh 0 1vh 6vw;
+  padding: 2vh 0 0vh 6vw;
   color: #0aa506;
 }
 .addfr-franchise-details-admin {
@@ -74,11 +73,19 @@
 .addfr-submit-button {
   margin-left: 33vw;
   margin-top: 5vh;
+  margin-bottom: 1vh;
   width: 15vw;
   height: 6.5vh;
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: #0aa506;
+  color: white;
+  font-size: large;
+  letter-spacing: 0.5px;
+  border: none;
+  outline: none;
+  border-radius: 6px;
 }
 .addfr-image img {
   height: 10vh;
@@ -180,6 +187,9 @@
   }
   .addfr-input-wrap {
     width: 60vw;
+  }
+  .addfr-input {
+    width: 80vw;
   }
   .addfr-submit-button {
     margin-left: 19vw;

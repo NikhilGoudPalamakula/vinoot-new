@@ -6,8 +6,14 @@ exports.registerUser = async (req, res) => {
     const user = await User.create(req.body);
     res.status(201).json(user);
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: 'Server Error' });
+    if (error.code === 11000 && error.keyPattern.userId) {
+      res.status(400).json({ error: 'User ID already exists' });
+    } else if (error.code === 11000 && error.keyPattern.phoneNumber) {
+      res.status(400).json({ error: 'Phone number already exists' });
+    } else {
+      console.error(error);
+      res.status(500).json({ error: 'Server Error' });
+    }
   }
 };
 

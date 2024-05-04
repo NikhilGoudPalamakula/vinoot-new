@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-
+import './Franchisestaffdetails.css'
 const Franchisestaffdetails = () => {
     const [admins, setAdmins] = useState([]);
 
@@ -39,8 +39,8 @@ const Franchisestaffdetails = () => {
 
     return (
         <div>
-            <div>
-                <h1>Franchise Staff Details</h1>
+            <div  className="franchisestaffdetail">
+                {/* <h1>Franchise Staff Details</h1> */}
                 <table>
                     <thead>
                         <tr>

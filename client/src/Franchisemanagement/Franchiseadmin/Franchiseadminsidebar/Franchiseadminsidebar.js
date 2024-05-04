@@ -36,8 +36,8 @@ const FranchiseadminSidebar = () => {
                 <div className='sidebar-list-items'>
                     <ul className='first-lists'>
                        <Link to="/FranchiseAdmin" className='sidebar-links' ><li className={activeItem === 'dashboard' ? 'active' : ''} onClick={() => handleItemClick('dashboard')}><MdDashboard className='icon' />Dashboard</li></Link> 
-                       <Link to="/fsr" className='sidebar-links' ><li className={activeItem === 'staff' ? 'active' : ''} onClick={() => handleItemClick('staff')}><FaUsers className='icon' />Add Staff </li></Link> 
-                       <Link to="/Franchisestaffdetails" className='sidebar-links' ><li className={activeItem === 'staff' ? 'active' : ''} onClick={() => handleItemClick('staff')}><FaUsers className='icon' />Staff detsils </li></Link> 
+                       {/* <Link to="/fsr" className='sidebar-links' ><li className={activeItem === 'staff' ? 'active' : ''} onClick={() => handleItemClick('staff')}><FaUsers className='icon' />Add Staff </li></Link>  */}
+                       <Link to="/Franchisetogglebutton" className='sidebar-links' ><li className={activeItem === 'staff' ? 'active' : ''} onClick={() => handleItemClick('staff')}><FaUsers className='icon' />Staff details </li></Link> 
                        {/* <Link to="/Billing" className='sidebar-links' > <li className={activeItem === 'Billng' ? 'active' : ''} onClick={() => handleItemClick('Billng')}><FaStoreAlt className='icon' />Billing</li> </Link> */}
                        {/* <Link to="/TreatmentCategory" className='sidebar-links' > <li className={activeItem === 'treatmentcat' ? 'active' : ''} onClick={() => handleItemClick('treatmentcat')}><IoIosPeople className='icon' />Treatment Category</li></Link>
                        <Link to="/TreatmentPlan" className='sidebar-links' > <li className={activeItem === 'treatmentplan' ? 'active' : ''} onClick={() => handleItemClick('treatmentplan')}><IoIosPeople className='icon' />Treatment Plan</li></Link>

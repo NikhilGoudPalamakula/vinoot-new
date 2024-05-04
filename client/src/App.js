@@ -75,13 +75,14 @@ function App() {
 
           <Route path="/Billing" element={<Billing />} />
           <Route path="/Franchisepatientbilling" element={<Franchisepatientbilling />} />
+          <Route path="/SuperSidebar" element={<SuperSidebar />} />
+        <Route path="/Franchisestaffdetails" element={<Franchisestaffdetails />} />
+        <Route path="/Franchisetogglebutton" element={<Franchisetogglebutton />} />
           
 
         </Route>
 
-        <Route path="/SuperSidebar" element={<SuperSidebar />} />
-        <Route path="/Franchisestaffdetails" element={<Franchisestaffdetails />} />
-        <Route path="/Franchisetogglebutton" element={<Franchisetogglebutton />} />
+       
 
       </Routes>
     </Router>

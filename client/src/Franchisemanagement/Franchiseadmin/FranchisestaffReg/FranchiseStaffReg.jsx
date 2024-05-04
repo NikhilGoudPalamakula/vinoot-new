@@ -137,7 +137,7 @@ const FranchiseStaffReg = () => {
       <div className="fradmin-right">
         {/* <h2 className="addfr-franchise-from-Name">Franchise Form</h2> */}
         <form onSubmit={handleSubmit} className="fr-admin-form">
-          <h2>Add Staff</h2>
+          {/* <h2>Add Staff</h2> */}
           <div className="fr-for-flex">
             <div>
               <div className="addfr-inputs-wraps">
@@ -181,7 +181,7 @@ const FranchiseStaffReg = () => {
                   placeholder="Select Designation"
                   required
                 >
-                  <option value="">Select</option>
+                  <option value=""></option>
                   <option value="Doctor">Doctor</option>
                   <option value="Reception">Reception</option>
                   <option value="Thearpy">Therapy</option>
@@ -236,7 +236,7 @@ const FranchiseStaffReg = () => {
           </button>
         </form>
 
-        <div className="franchisestaff-table">
+        {/* <div className="franchisestaff-table">
           <h1>Staff Details</h1>
           <table>
             <thead>
@@ -284,7 +284,7 @@ const FranchiseStaffReg = () => {
               ))}
             </tbody>
           </table>
-        </div>
+        </div> */}
       </div>
     </div>
   );

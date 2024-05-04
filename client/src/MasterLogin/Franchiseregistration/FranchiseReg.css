@@ -198,7 +198,7 @@
 
 
 .addfr-total {
-  margin: 5vh 6vw 0px 6vw;
+  margin: 1vh 6vw 0px 6vw;
   border: 2px solid #0aa506;
   border-radius: 10px;
   padding: 4px 20px 4px 20px;
@@ -209,7 +209,8 @@
 }
 .addfr-franchise-Logo {
   display: flex;
-  padding: 2vh 6vw 0px 6vw;
+  margin-left: 7vw;
+  /* padding: 2vh 6vw 0px 6vw; */
   align-items: center;
 }
 .addfr-franchise-column {

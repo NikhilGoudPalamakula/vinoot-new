@@ -1,16 +1,14 @@
 // // RegisterPage.js
 
-
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import './RegisterPage.css'
-import Sidebar from "../../Masterdata/Sidebar/Sidebar";
-import MasterUserT from "../Masterusers/MasterUserT";
-
+import "./RegisterPage.css";
+// import Sidebar from "../../Masterdata/Sidebar/Sidebar";
+// import MasterUserT from "../Masterusers/MasterUserT";
 
 const RegisterPage = () => {
-  const createdby = localStorage.getItem("userId")
+  const createdby = localStorage.getItem("userId");
 
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
@@ -26,7 +24,6 @@ const RegisterPage = () => {
     activeChangedBy: "none",
     createdBy: createdby,
   });
-
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -48,15 +45,15 @@ const RegisterPage = () => {
 
   return (
     <div className="super-regtoatl">
-      <div>
+      {/* <div>
         <Sidebar />
-      </div>
+      </div> */}
       <div className="super-regright">
-        <div className="super-regright22" >
+        <div className="super-regright22">
           <h2 className="super-rheading">Add Super Admin </h2>
           <div className="super-regright-1">
             <form className="super-regfrom" onSubmit={handleSubmit}>
-              <div className="superflex-high" >
+              <div className="superflex-high">
                 <div className="super-flex">
                   <label>
                     <input
@@ -71,7 +68,6 @@ const RegisterPage = () => {
                     <span>Full Name</span>
                   </label>
 
-
                   <label>
                     <input
                       className="input1_rp"
@@ -84,7 +80,6 @@ const RegisterPage = () => {
                     />
                     <span>UserId</span>
                   </label>
-
 
                   <label>
                     <input
@@ -111,13 +106,11 @@ const RegisterPage = () => {
                     />
                     <span>Phone Number</span>
                   </label>
-
                 </div>
 
                 {/* .......................................... */}
 
                 <div className="super-flex">
-
                   <label>
                     <input
                       className="input1_rp"
@@ -130,7 +123,6 @@ const RegisterPage = () => {
                     />
                     <span>Date of Birth</span>
                   </label>
-
 
                   <label>
                     <select
@@ -160,8 +152,6 @@ const RegisterPage = () => {
                     <span>Password</span>
                   </label>
 
-
-
                   <label>
                     <input
                       className="input1_rp"
@@ -174,19 +164,16 @@ const RegisterPage = () => {
                     />
                     <span>Confirm Password</span>
                   </label>
-
-
-
                 </div>
-
               </div>
-              <button className="submit_rp" type="submit">Register</button>
+              <button className="submit_rp" type="submit">
+                Register
+              </button>
             </form>
           </div>
         </div>
-        <div className="below-table-admins"><MasterUserT /></div>
+        <div className="below-table-admins">{/* <MasterUserT /> */}</div>
       </div>
-
     </div>
   );
 };

@@ -625,11 +625,11 @@
 
 // export default PatientForm;
 
-
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./Addpatient.css";
-import ReceptionSidebar from "../ReceptionSidebar/ReceptionSidebar";
+// import ReceptionSidebar from "../ReceptionSidebar/ReceptionSidebar";
+import Patientdetails1 from "./Patientdetails1";
 
 const PatientForm = () => {
   const [states, setStates] = useState([]);
@@ -982,9 +982,9 @@ const PatientForm = () => {
 
   return (
     <div className="addpa-total">
-      <div>
+      {/* <div>
         <ReceptionSidebar />
-      </div>
+      </div> */}
 
       <div className="addp-right">
         <h1 className="h1-head">Patient Form</h1>
@@ -1091,7 +1091,8 @@ const PatientForm = () => {
                     name="gender"
                     value={formData.gender}
                     onChange={handleInputChange}
-                    required>
+                    required
+                  >
                     <option value="">select the gender</option>
                     <option value="Male">Male</option>
                     <option value="Female">Female</option>
@@ -1113,7 +1114,8 @@ const PatientForm = () => {
                       {filteredStates.map((state) => (
                         <li
                           key={state._id}
-                          onClick={() => handleStateSelection(state.name)}>
+                          onClick={() => handleStateSelection(state.name)}
+                        >
                           {state.name}
                         </li>
                       ))}
@@ -1135,7 +1137,8 @@ const PatientForm = () => {
                       {filteredCities.map((city) => (
                         <li
                           key={city._id}
-                          onClick={() => handleCitySelection(city.name)}>
+                          onClick={() => handleCitySelection(city.name)}
+                        >
                           {city.name}
                         </li>
                       ))}
@@ -1157,7 +1160,8 @@ const PatientForm = () => {
                       {filteredAreas.map((area) => (
                         <li
                           key={area._id}
-                          onClick={() => handleAreaSelection(area.name)}>
+                          onClick={() => handleAreaSelection(area.name)}
+                        >
                           {area.name}
                         </li>
                       ))}
@@ -1186,48 +1190,6 @@ const PatientForm = () => {
               </button>
             </div>
           </form>
-        </div>
-
-        <div className="patientdetail-fetch">
-          <h2>Patients</h2>
-          <table>
-            <thead>
-              <tr>
-                <th>Patient ID</th>
-                <th>Name</th>
-                <th>Gender</th>
-                <th>Date of Birth</th>
-                <th>Email</th>
-                <th>Mobile Number</th>
-                <th>State</th>
-                <th>City</th>
-                <th>Area</th>
-                <th>Address</th>
-                <th>Created By</th>
-                {/* <th>Franchise Name</th>
-                <th>Franchise ID</th> */}
-              </tr>
-            </thead>
-            <tbody>
-              {patients.map((patient) => (
-                <tr key={patient._id}>
-                  <td>{patient.patient_id}</td>
-                  <td>{patient.patient_name}</td>
-                  <td>{patient.gender}</td>
-                  <td>{patient.dob}</td>
-                  <td>{patient.email}</td>
-                  <td>{patient.mobile_number}</td>
-                  <td>{patient.state}</td>
-                  <td>{patient.city}</td>
-                  <td>{patient.area}</td>
-                  <td>{patient.address}</td>
-                  <td>{patient.createdBy}</td>
-                  {/* <td>{patient.franchiseName}</td>
-                  <td>{patient.FranchiseID}</td> */}
-                </tr>
-              ))}
-            </tbody>
-          </table>
         </div>
       </div>
     </div>

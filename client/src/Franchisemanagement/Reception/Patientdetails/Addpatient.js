@@ -987,7 +987,7 @@ const PatientForm = () => {
       </div> */}
 
       <div className="addp-right">
-        <h1 className="h1-head">Patient Form</h1>
+        {/* <h1 className="h1-head">Patient Form</h1> */}
         <div className="input-container">
           <form action="" onSubmit={handleSubmit}>
             <div className="column-wrapper">

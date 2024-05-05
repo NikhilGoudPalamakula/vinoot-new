@@ -50,7 +50,7 @@ const RegisterPage = () => {
       </div> */}
       <div className="super-regright">
         <div className="super-regright22">
-          <h2 className="super-rheading">Add Super Admin </h2>
+          {/* <h2 className="super-rheading">Add Super Admin </h2> */}
           <div className="super-regright-1">
             <form className="super-regfrom" onSubmit={handleSubmit}>
               <div className="superflex-high">

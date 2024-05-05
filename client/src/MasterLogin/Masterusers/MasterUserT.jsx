@@ -33,7 +33,7 @@ const MasterUserT = () => {
   return (
     <>
       <div>
-        <h2>Master User List</h2>
+        {/* <h2>Master User List</h2> */}
         <table className="masterusers-table">
           <thead>
             <tr>

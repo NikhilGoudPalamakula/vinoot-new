@@ -28,7 +28,7 @@ const Patientdetails1 = () => {
   return (
     <div>
       <div className="patientdetail-fetch">
-        <h2>Patients</h2>
+        {/* <h2>Patients</h2> */}
         <table>
           <thead>
             <tr>

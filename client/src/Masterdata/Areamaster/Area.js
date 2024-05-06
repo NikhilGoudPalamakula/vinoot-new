@@ -1,5 +1,3 @@
-
-
 // import React, { useState, useEffect } from "react";
 // import axios from "axios"; // Import Axios
 // import './Area.css';
@@ -187,14 +185,17 @@
 
 // export default Area;
 
-
-
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import './Area.css';
+import "./Area.css";
 import { useNavigate } from "react-router-dom";
 import { VINOOTNEW } from "../../Helper/Helper";
 import Sidebar from "../Sidebar/Sidebar";
+
+import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
+import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
+import KeyboardDoubleArrowLeftIcon from "@mui/icons-material/KeyboardDoubleArrowLeft";
+import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArrowRight";
 
 const Area = () => {
   const [cityName, setCityName] = useState("");
@@ -205,6 +206,10 @@ const Area = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [cityError, setCityError] = useState("");
   const [areaError, setAreaError] = useState("");
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage] = useState(3);
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -228,7 +233,9 @@ const Area = () => {
     try {
       const response = await axios.get(`${VINOOTNEW}/api/cities`);
 
-      const activeCities = response.data.filter(city => city.status === "active");
+      const activeCities = response.data.filter(
+        (city) => city.status === "active"
+      );
       setCities(activeCities);
       // setCities(response.data);
     } catch (error) {
@@ -332,15 +339,30 @@ const Area = () => {
     return id;
   };
 
+  // Pagination handlers
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
+
+  // Get current plans
+  const indexOfLastPlan = currentPage * itemsPerPage;
+  const indexOfFirstPlan = indexOfLastPlan - itemsPerPage;
+  const currentPlans = areas.slice(indexOfFirstPlan, indexOfLastPlan);
+
+  // Calculate total pages
+  const totalPages = Math.ceil(areas.length / itemsPerPage);
+
   return (
     <div className="area-total">
-      <div><Sidebar /></div>
+      <div>
+        <Sidebar />
+      </div>
       <div className="area-right">
         <h1>Area Master</h1>
         <form className="area-form" onSubmit={handleSubmit}>
           <div>
             <label>
-              Select City: <span style={{color:'red'}}>*</span>
+              Select City: <span style={{ color: "red" }}>*</span>
               <select value={cityName} onChange={handleCityChange}>
                 <option value="">Select a city</option>
                 {cities.map((city) => (
@@ -354,12 +376,8 @@ const Area = () => {
           </div>
           <div>
             <label>
-              Area Name: <span style={{color:'red'}}>*</span>
-              <input
-                type="text"
-                value={areaName}
-                onChange={handleAreaChange}
-              />
+              Area Name: <span style={{ color: "red" }}>*</span>
+              <input type="text" value={areaName} onChange={handleAreaChange} />
             </label>
             {areaError && <div className="error-message">{areaError}</div>}
           </div>
@@ -380,12 +398,14 @@ const Area = () => {
                 </tr>
               </thead>
               <tbody>
-                {areas.map((area) => (
+                {currentPlans.map((area) => (
                   <tr key={area._id}>
                     <td>{area.name}</td>
                     <td>{area.status}</td>
                     <td>
-                      <button onClick={() => toggleStatus(area._id, area.status)}>
+                      <button
+                        onClick={() => toggleStatus(area._id, area.status)}
+                      >
                         {area.status === "active" ? "Inactive" : "Active"}
                       </button>
                     </td>
@@ -394,6 +414,29 @@ const Area = () => {
               </tbody>
             </table>
           )}
+          <div className="paginationss">
+            <span onClick={() => handlePageChange(1)}>
+              <KeyboardDoubleArrowLeftIcon />
+            </span>
+            <span onClick={() => handlePageChange(currentPage - 1)}>
+              <KeyboardArrowLeftIcon />
+            </span>
+            {[...Array(totalPages)].map((_, index) => (
+              <span
+                key={index}
+                onClick={() => handlePageChange(index + 1)}
+                className={currentPage === index + 1 ? "pageactive-page" : ""}
+              >
+                {index + 1}
+              </span>
+            ))}
+            <span onClick={() => handlePageChange(currentPage + 1)}>
+              <KeyboardArrowRightIcon />
+            </span>
+            <span onClick={() => handlePageChange(totalPages)}>
+              <KeyboardDoubleArrowRightIcon />
+            </span>
+          </div>
         </div>
       </div>
     </div>
@@ -401,4 +444,3 @@ const Area = () => {
 };
 
 export default Area;
-

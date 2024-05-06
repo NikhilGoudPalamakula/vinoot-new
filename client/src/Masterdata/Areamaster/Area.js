@@ -1,28 +1,47 @@
+
+
 // import React, { useState, useEffect } from "react";
 // import axios from "axios"; // Import Axios
+// import './Area.css';
 // import Cities from "../Citymaster/City";
 // import { useNavigate } from "react-router-dom";
 // import { VINOOTNEW } from "../../Helper/Helper";
+// import Sidebar from "../Sidebar/Sidebar";
 
 // const Area = () => {
 //   const [CityName, setCityName] = useState("");
 //   const [cityId, setCityId] = useState("");
 //   const [areaName, setAreaName] = useState("");
 //   const [cities, setCities] = useState([]);
+//   const [areas, setAreas] = useState([]);
+//   const [isLoading, setIsLoading] = useState(false);
 //   const navigate = useNavigate();
 
 //   useEffect(() => {
-//     // Fetch states data when component mounts
-//     const fetchCities = async () => {
-//       try {
-//         const response = await axios.get(`${VINOOTNEW}/api/cities`);
-//         setCities(response.data);
-//       } catch (error) {
-//         console.error("Failed to fetch cities", error);
-//       }
-//     };
 //     fetchCities();
+//     fetchAreas();
 //   }, []);
+
+//   const fetchAreas = async () => {
+//     try {
+//       setIsLoading(true);
+//       const response = await axios.get(`${VINOOTNEW}/api/areas`);
+//       setAreas(response.data);
+//     } catch (error) {
+//       console.error("Failed to fetch areas", error);
+//     } finally {
+//       setIsLoading(false);
+//     }
+//   };
+
+//   const fetchCities = async () => {
+//     try {
+//       const response = await axios.get(`${VINOOTNEW}/api/cities`);
+//       setCities(response.data);
+//     } catch (error) {
+//       console.error("Failed to fetch cities", error);
+//     }
+//   };
 
 //   const handleStateChange = (e) => {
 //     const selectedState = cities.find((city) => city.name === e.target.value);
@@ -37,88 +56,155 @@
 //     e.preventDefault();
 //     try {
 //       const selectedCity = cities.find((city) => city.name === CityName);
+//       if (!selectedCity) {
+//         console.error("Selected state not found");
+//         return;
+//       }
+//       // Generate unique ID
 //       const existingAreas = await axios.get(`${VINOOTNEW}/api/areas`);
 //       const count = existingAreas.data.length;
-//       // Generate unique ID
 //       const area_id = generateUniqueId(areaName, count + 0);
-//       const response = await axios.post(`${VINOOTNEW}/api/area`, {
+
+//       const response = await axios.post(`${VINOOTNEW}/api/areas`, {
 //         cityId: selectedCity._id,
 //         areaName: areaName,
-//         city_id: selectedCity.city_id, // Include city_id in the request body
+//         city_id: selectedCity.city_id,
 //         area_id: area_id,
 //       });
 
 //       if (response.status === 201) {
-//         console.log("City added successfully");
-//         alert("area added successfully");
+//         console.log("Area added successfully");
+//         alert("Area added successfully");
 //         navigate("/");
 //       } else {
-//         console.error("Failed to add city");
+//         console.error("Failed to add area");
 //       }
 //     } catch (error) {
-//       console.error("Failed to add city", error);
+//       console.error("Failed to add area", error);
 //       if (error.response && error.response.status === 400) {
-//         // If the state already exists, show an alert to the user
 //         alert("Area already exists in this city");
 //       }
 //     }
 //   };
+
+//   const toggleStatus = async (areaId, currentStatus) => {
+//     try {
+//       const newStatus = currentStatus === "active" ? "inactive" : "active";
+
+//       const response = await axios.post(
+//         `${VINOOTNEW}/api/areas/${areaId}/toggle`,
+//         {
+//           status: newStatus,
+//         }
+//       );
+
+//       if (response.status === 200) {
+//         console.log("Area status updated successfully");
+//         fetchAreas();
+//       } else {
+//         console.error("Failed to toggle area status");
+//       }
+//     } catch (error) {
+//       console.error("Failed to toggle area status", error);
+//       alert("Failed to toggle area status");
+//     }
+//   };
+
 //   const generateUniqueId = (name, count) => {
-//     const abbreviation = name.substring(0, 3).toUpperCase(); // Get first three letters and convert to uppercase
-//     const paddedCount = (count + 1).toString().padStart(3, "0"); // Increment count and pad with zeros
-//     const id = abbreviation + paddedCount; // Generate unique ID
+//     const abbreviation = name.substring(0, 3).toUpperCase();
+//     const paddedCount = (count + 1).toString().padStart(3, "0");
+//     const id = abbreviation + paddedCount;
 //     return id;
 //   };
 
 //   return (
-//     <div className="App">
-//       <form onSubmit={handleSubmit}>
+//     <div className="area-total">
+//       <div><Sidebar /></div>
+//       <div className="area-right" >
+//       <h1 >Area Master</h1>
+
+//         <form className="area-form" onSubmit={handleSubmit}>
+//           <div>
+//             <label>
+//               Select City:
+//               <select value={CityName} onChange={handleStateChange}>
+//                 <option value="">Select a city</option>
+//                 {cities.map((city) => (
+//                   <option key={city._id} value={city.name}>
+//                     {city.name}
+//                   </option>
+//                 ))}
+//               </select>
+//             </label>
+//           </div>
+//           <div>
+//             <label>
+//               Area Name:
+//               <input
+//                 type="text"
+//                 value={areaName}
+//                 onChange={(e) => setAreaName(e.target.value)}
+//               />
+//             </label>
+//           </div>
+//           <button type="submit">Submit</button>
+//         </form>
+
+//       <h2 className="area_list_heading">Areas List</h2>
+
 //         <div>
-//           <label>
-//             Select City:
-//             <select value={CityName} onChange={handleStateChange}>
-//               <option value="">Select a city</option>
-//               {cities.map((city) => (
-//                 <option key={city._id} value={city.name}>
-//                   {city.name}
-//                 </option>
-//               ))}
-//             </select>
-//           </label>
+//           {isLoading ? (
+//             <p>Loading cities...</p>
+//           ) : (
+//               <table className="area-table">
+//                 <thead>
+//                   <tr>
+//                     <th>Area Name</th>
+//                     <th>Status</th>
+//                     <th>Action</th>
+//                   </tr>
+//                 </thead>
+//                 <tbody>
+//                   {areas.map((area) => (
+//                     <tr key={area._id}>
+//                       <td>{area.name}</td>
+//                       <td>{area.status}</td>
+//                       <td>
+//                         <button onClick={() => toggleStatus(area._id, area.status)}>
+//                           {area.status === "active" ? "Inactive" : "Active"}
+//                         </button>
+//                       </td>
+//                     </tr>
+//                   ))}
+//                 </tbody>
+//               </table>
+//             )}
 //         </div>
-//         <div>
-//           <label>
-//             Area Name:
-//             <input
-//               type="text"
-//               value={areaName}
-//               onChange={(e) => setAreaName(e.target.value)}
-//             />
-//           </label>
-//         </div>
-//         <button type="submit">Submit</button>
-//       </form>
+//       </div>
 //     </div>
 //   );
 // };
 
 // export default Area;
 
+
+
 import React, { useState, useEffect } from "react";
-import axios from "axios"; // Import Axios
+import axios from "axios";
 import './Area.css';
-import Cities from "../Citymaster/City";
 import { useNavigate } from "react-router-dom";
 import { VINOOTNEW } from "../../Helper/Helper";
 import Sidebar from "../Sidebar/Sidebar";
 
 const Area = () => {
-  const [CityName, setCityName] = useState("");
+  const [cityName, setCityName] = useState("");
   const [cityId, setCityId] = useState("");
   const [areaName, setAreaName] = useState("");
   const [cities, setCities] = useState([]);
   const [areas, setAreas] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [cityError, setCityError] = useState("");
+  const [areaError, setAreaError] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -141,30 +227,57 @@ const Area = () => {
   const fetchCities = async () => {
     try {
       const response = await axios.get(`${VINOOTNEW}/api/cities`);
-      setCities(response.data);
+
+      const activeCities = response.data.filter(city => city.status === "active");
+      setCities(activeCities);
+      // setCities(response.data);
     } catch (error) {
       console.error("Failed to fetch cities", error);
     }
   };
 
-  const handleStateChange = (e) => {
-    const selectedState = cities.find((city) => city.name === e.target.value);
-    if (selectedState) {
-      setCityName(selectedState.name);
-      setCityId(selectedState._id);
-      setCityId(selectedState.city_id);
+  const handleCityChange = (e) => {
+    const selectedCity = cities.find((city) => city.name === e.target.value);
+    if (selectedCity) {
+      setCityName(selectedCity.name);
+      setCityId(selectedCity._id);
+    }
+    validateCityName(e.target.value);
+  };
+
+  const handleAreaChange = (e) => {
+    setAreaName(e.target.value);
+    validateAreaName(e.target.value);
+  };
+
+  const validateCityName = (value) => {
+    if (value.length < 4 || value.length > 100) {
+      setCityError("City name must be between 4 and 100 characters.");
+    } else {
+      setCityError("");
+    }
+  };
+
+  const validateAreaName = (value) => {
+    if (value.length < 3 || value.length > 60) {
+      setAreaError("Area name must be between 3 and 60 characters.");
+    } else {
+      setAreaError("");
     }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (cityError || areaError) {
+      alert("Please fix the errors before submitting.");
+      return;
+    }
     try {
-      const selectedCity = cities.find((city) => city.name === CityName);
+      const selectedCity = cities.find((city) => city.name === cityName);
       if (!selectedCity) {
-        console.error("Selected state not found");
+        console.error("Selected city not found");
         return;
       }
-      // Generate unique ID
       const existingAreas = await axios.get(`${VINOOTNEW}/api/areas`);
       const count = existingAreas.data.length;
       const area_id = generateUniqueId(areaName, count + 0);
@@ -194,14 +307,12 @@ const Area = () => {
   const toggleStatus = async (areaId, currentStatus) => {
     try {
       const newStatus = currentStatus === "active" ? "inactive" : "active";
-
       const response = await axios.post(
         `${VINOOTNEW}/api/areas/${areaId}/toggle`,
         {
           status: newStatus,
         }
       );
-
       if (response.status === 200) {
         console.log("Area status updated successfully");
         fetchAreas();
@@ -224,14 +335,13 @@ const Area = () => {
   return (
     <div className="area-total">
       <div><Sidebar /></div>
-      <div className="area-right" >
-      <h1 >Area Master</h1>
-
+      <div className="area-right">
+        <h1>Area Master</h1>
         <form className="area-form" onSubmit={handleSubmit}>
           <div>
             <label>
-              Select City:
-              <select value={CityName} onChange={handleStateChange}>
+              Select City: <span style={{color:'red'}}>*</span>
+              <select value={cityName} onChange={handleCityChange}>
                 <option value="">Select a city</option>
                 {cities.map((city) => (
                   <option key={city._id} value={city.name}>
@@ -240,49 +350,50 @@ const Area = () => {
                 ))}
               </select>
             </label>
+            {cityError && <div className="error-message">{cityError}</div>}
           </div>
           <div>
             <label>
-              Area Name:
+              Area Name: <span style={{color:'red'}}>*</span>
               <input
                 type="text"
                 value={areaName}
-                onChange={(e) => setAreaName(e.target.value)}
+                onChange={handleAreaChange}
               />
             </label>
+            {areaError && <div className="error-message">{areaError}</div>}
           </div>
           <button type="submit">Submit</button>
         </form>
 
-      <h2 className="area_list_heading">Areas List</h2>
-
+        <h2 className="area_list_heading">Areas List</h2>
         <div>
           {isLoading ? (
-            <p>Loading cities...</p>
+            <p>Loading areas...</p>
           ) : (
-              <table className="area-table">
-                <thead>
-                  <tr>
-                    <th>Area Name</th>
-                    <th>Status</th>
-                    <th>Action</th>
+            <table className="area-table">
+              <thead>
+                <tr>
+                  <th>Area Name</th>
+                  <th>Status</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                {areas.map((area) => (
+                  <tr key={area._id}>
+                    <td>{area.name}</td>
+                    <td>{area.status}</td>
+                    <td>
+                      <button onClick={() => toggleStatus(area._id, area.status)}>
+                        {area.status === "active" ? "Inactive" : "Active"}
+                      </button>
+                    </td>
                   </tr>
-                </thead>
-                <tbody>
-                  {areas.map((area) => (
-                    <tr key={area._id}>
-                      <td>{area.name}</td>
-                      <td>{area.status}</td>
-                      <td>
-                        <button onClick={() => toggleStatus(area._id, area.status)}>
-                          {area.status === "active" ? "Inactive" : "Active"}
-                        </button>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            )}
+                ))}
+              </tbody>
+            </table>
+          )}
         </div>
       </div>
     </div>

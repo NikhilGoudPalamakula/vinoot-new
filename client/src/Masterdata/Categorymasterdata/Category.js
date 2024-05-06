@@ -178,8 +178,8 @@ const TreatmentCategory = () => {
   const handleSelect = (event) => {
     const inputValue = event.target.value;
     setValue(inputValue);
-    if (inputValue.length < 4 || inputValue.length > 100) {
-      setError("Text length must be between 4 and 100 characters.");
+    if (inputValue.length < 3 || inputValue.length > 100) {
+      setError("Text length must be between 3 and 100 characters.");
     } else {
       setError("");
     }
@@ -249,7 +249,7 @@ const TreatmentCategory = () => {
       <div className="treat-cat-right">
         <h1 className="h1111">Treatment Category Master</h1>
         <form action="" onSubmit={handleSubmit} className="cat-form">
-          <label htmlFor="tar">Category</label>
+          <label htmlFor="tar">Category <span style={{color:'red'}}>*</span></label>
           <input
             type="text"
             id="tar"

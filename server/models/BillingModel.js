@@ -10,6 +10,8 @@ const billingSchema = new mongoose.Schema({
   status: { type: String, required: true },
   GST: { type: Number, required: true },
   price: { type: Number, required: true },
+  TotalAmount: { type: Number, required: true },
+  GSTamount: { type: Number, required: true },
   days: { type: Number, required: true },
   remainingAmount: { type: Number, required: true },
   franchiseName: String,

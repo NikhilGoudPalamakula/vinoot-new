@@ -117,13 +117,15 @@ const Billing = () => {
 
   // -------------------posting of all data ----------------
 
-  const [gst, setGST] = useState(""); // State for GST
-  const [price, setPrice] = useState(""); // State for price
-  const [days, setDays] = useState(0); // State for price
-  const [status, setStatus] = useState(""); // State for payment status
+  const [gst, setGST] = useState(""); 
+  const [price, setPrice] = useState(""); 
+  const [days, setDays] = useState(0); 
+  const [GSTamount, setGSTamount] = useState("");
+  const [TotalAmount, setTotalAmount] = useState("");
+  const [status, setStatus] = useState(""); 
   const [remaining, setRemainingAmount] = useState(0);
-  const [planName, setPlanName] = useState(""); // User input
-  const [selectedPlan, setSelectedPlan] = useState(null); // Selected plan object
+  const [planName, setPlanName] = useState(""); 
+  const [selectedPlan, setSelectedPlan] = useState(null); 
   const [suggestions, setSuggestions] = useState([]); // Autosuggest options
   const [filteredSuggestions, setFilteredSuggestions] = useState([]); // Filtered suggestions based on input
   const [focusedInput, setFocusedInput] = useState(null);
@@ -190,31 +192,29 @@ const Billing = () => {
     }
   };
 
-  // Update status based on the amount paid
   // useEffect(() => {
   //   if (selectedPlan) {
-  //     const { price } = selectedPlan;
-  //     if (amountPaid >= price) {
+  //     const TotalAmount = parseFloat(selectedPlan.TotalAmount);
+  //     const amountPaidValue = parseFloat(amountPaid);
+  //     const remaining = TotalAmount - amountPaidValue;
+  //     setRemainingAmount(remaining);
+
+  //     // Determine payment status
+  //     if (amountPaidValue >= price) {
   //       setStatus("Paid");
   //     } else {
   //       setStatus("Unpaid");
   //     }
-  //     // Calculate remaining amount
-  //     const remaining = price - amountPaid;
-  //     setRemainingAmount(remaining >= 0 ? remaining : 0); // Ensure remaining amount is non-negative
   //   }
   // }, [amountPaid, selectedPlan]);
 
-
-  // const [status, setStatus] = useState(""); // State to hold payment status
-
   useEffect(() => {
     if (selectedPlan) {
-      const price = parseFloat(selectedPlan.price);
+      const TotalAmount = parseFloat(selectedPlan.TotalAmount);
       const amountPaidValue = parseFloat(amountPaid);
-      const remaining = price - amountPaidValue;
+      const remaining = TotalAmount - amountPaidValue;
       setRemainingAmount(remaining);
-
+  
       // Determine payment status
       if (amountPaidValue >= price) {
         setStatus("Paid");
@@ -223,8 +223,7 @@ const Billing = () => {
       }
     }
   }, [amountPaid, selectedPlan]);
-
-
+  
 
   //-------------------Bill Numbers Fetching ----------------
   const [billingNumber, setBillingNumber] = useState("");
@@ -254,7 +253,7 @@ const Billing = () => {
       const createdBy = localStorage.getItem("userId");
       const franchiseName = localStorage.getItem("franchisename");
       const FranchiseID = localStorage.getItem("FranchiseID");
-      const remaining = selectedPlan ? parseFloat(selectedPlan.price) - parseFloat(amountPaid) : 0; // Calculate remaining
+      const remaining = selectedPlan ? parseFloat(selectedPlan.TotalAmount) - parseFloat(amountPaid) : 0; // Calculate remaining
       const currentDate = new Date().toISOString().split("T")[0];
 
       // Send the data to the backend API endpoint for saving
@@ -264,14 +263,16 @@ const Billing = () => {
         plan_name: selectedPlan ? selectedPlan.plan_name : "",
         paymentType: paymentType,
         amountPaid: amountPaid,
-        status: amountPaid >= selectedPlan.price ? "Paid" : "Unpaid", // Determine payment status directly here
+        status: amountPaid >= selectedPlan.price ? "Paid" : "Unpaid", 
         GST: selectedPlan ? selectedPlan.GST : "",
         price: selectedPlan ? selectedPlan.price : "",
         days: selectedPlan ? selectedPlan.days : "",
+        GSTamount: selectedPlan ? selectedPlan.GSTamount : "",
+        TotalAmount: selectedPlan ? selectedPlan.TotalAmount : "",
         createdBy: createdBy,
         franchiseName: franchiseName,
         FranchiseID: FranchiseID,
-        remainingAmount: remaining, // Ensure remaining is sent correctly
+        remainingAmount: remaining, 
         mobile_number: selectedNumber ? selectedNumber.mobile_number : "",
         patient_id: selectedNumber ? selectedNumber.patient_id : "",
         patient_name: selectedNumber ? selectedNumber.patient_name : "",
@@ -476,31 +477,7 @@ const Billing = () => {
               // placeholder="Bill Number"
               />
             </label>
-            {/* <label>
-            <span>Enter Mobile Number</span>
-            <input
-              type="text"
-              name="planName"
-              value={phoneInput}
-              onChange={handlePlanChange1}
-              onFocus={() => setFocusedInput1("plan")}
-              placeholder="Enter mobile number"
-            />
-            {isLoading && <div className="loading-fetch-mbl">Loading...</div>}
-            {focusedInput1 === "number" && filteredSuggestions1.length > 0 && (
-              <div className="suggestions-fetch-mbl">
-                {filteredSuggestions1.map((suggestion) => (
-                  <p
-                    key={suggestion._id}
-                    className="suggestion-item-fetch-mbl"
-                    onClick={() => handlePlanSelection1(suggestion.mobile_number)}
-                  >
-                    {suggestion.mobile_number}
-                  </p>
-                ))}
-              </div>
-            )}
-          </label> */}
+           
 
             <label>
               <span>Enter Mobile Number</span>
@@ -591,51 +568,22 @@ const Billing = () => {
           {/* <h1>Select Doctor:</h1> */}
 
           <div>
-            {/* <input
-            type="text"
-            name="planName"
-            value={planName}
-            onChange={handlePlanChange} // Update the planName
-            onFocus={() => setFocusedInput("plan")}
-            placeholder="enter the plan"
-          />
-          {isLoading && <div>Loading...</div>}
-          {focusedInput === "plan" && filteredSuggestions.length > 0 && (
-            <div
-              className="overflow-scroll"
-              style={{
-                position: "absolute",
-                backgroundColor: "white",
-                border: "1px solid #ccc",
-                width: "15%",
-              }}>
-              {filteredSuggestions.map((suggestion) => (
-                <p
-                  key={suggestion._id}
-                  className="suggestion"
-                  onClick={() => handlePlanSelection(suggestion.plan_name)}
-                  // Event handler for clicks
-                  style={{ cursor: "pointer", padding: "5px" }}>
-                  {suggestion.plan_name}
-                </p>
-              ))}
-            </div>
-          )} */}
+           
             <table className="plan-table">
               <thead>
                 <tr>
                   <th>Select Doctor</th>
                   <th>Plan Name</th>
                   <th>GST</th>
+                  <th>GST Amount</th>
                   <th>Days</th>
                   <th>Price</th>
+                  <th>Total Amount</th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
                   <td>
-
-
                     <select value={selectedDoctor} onChange={handleDoctorChange}>
                       <option value="">Select Doctor</option>
                       {doctors.map((doctor) => (
@@ -683,16 +631,19 @@ const Billing = () => {
                         </div>
                       )}
 
-                    {/* <input
-                    type="text"
-                    value={selectedPlan ? selectedPlan.plan_name : ''}
-                    disabled
-                  /> */}
+                  
                   </td>
                   <td>
                     <input
                       type="text"
                       value={selectedPlan ? selectedPlan.GST : ""}
+                      disabled
+                    />
+                  </td>
+                  <td>
+                    <input
+                      type="text"
+                      value={selectedPlan ? selectedPlan.GSTamount : ""}
                       disabled
                     />
                   </td>
@@ -707,6 +658,13 @@ const Billing = () => {
                     <input
                       type="text"
                       value={selectedPlan ? selectedPlan.price : ""}
+                      disabled
+                    />
+                  </td>
+                  <td>
+                    <input
+                      type="text"
+                      value={selectedPlan ? selectedPlan.TotalAmount : ""}
                       disabled
                     />
                   </td>

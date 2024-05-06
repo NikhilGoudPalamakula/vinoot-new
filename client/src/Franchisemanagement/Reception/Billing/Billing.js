@@ -10,7 +10,7 @@ const Billing = () => {
   const [amountPaid, setAmountPaid] = useState(0); // State for amount paid
 
   const [selectedDoctor, setSelectedDoctor] = useState(""); // State for selected doctor
-  const [remainingAmount, setRemainingAmount] = useState(0);
+  const [remainingAmount, setRemainingAmount] = useState("");
   // Function to handle doctor selection
   const handleDoctorChange = (e) => {
     setSelectedDoctor(e.target.value); // Update selected doctor

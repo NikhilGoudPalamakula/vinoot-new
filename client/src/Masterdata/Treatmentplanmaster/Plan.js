@@ -511,7 +511,7 @@ const TreatmentPlan = () => {
                           </option>
                         ))}
                       </select>
-                      <span>Select Category</span>
+                      <span>Select Category  <span style={{color:'red'}}>*</span></span>
                     </label>
 
                     <label>
@@ -524,7 +524,7 @@ const TreatmentPlan = () => {
                         placeholder=""
                         required
                       />
-                      <span>Treatement Plan</span>
+                      <span>Treatement Plan <span style={{color:'red'}}>*</span></span>
                     </label>
                     {errors.plan && (
                       <div style={{ color: "red" }}>{errors.plan}</div>
@@ -540,7 +540,7 @@ const TreatmentPlan = () => {
                           placeholder=""
                           required
                         />
-                        <span>GST</span>
+                        <span>GST <span style={{color:'red'}}>*</span></span>
                       </label>
                       {errors.gst && (
                         <div style={{ color: "red" }}>{errors.gst}</div>
@@ -555,7 +555,7 @@ const TreatmentPlan = () => {
                           placeholder=""
                           required
                         />
-                        <span>No of Days</span>
+                        <span>No of Days <span style={{color:'red'}}>*</span></span>
                       </label>
                       {errors.days && (
                         <div style={{ color: "red" }}>{errors.days}</div>
@@ -571,7 +571,7 @@ const TreatmentPlan = () => {
                         required
                         placeholder=""
                       />
-                      <span>Price</span>
+                      <span>Price <span style={{color:'red'}}>*</span></span>
                     </label>
                     {errors.price && (
                       <div style={{ color: "red" }}>{errors.price}</div>

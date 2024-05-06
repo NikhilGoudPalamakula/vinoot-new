@@ -101,5 +101,14 @@
   .category_list_heading{
     margin: 2.5% 0;
   }
+
+  .paginationpha {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+.custom-pagination-arrow{
+  color: #0AA506;
+}
   
   

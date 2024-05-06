@@ -153,11 +153,19 @@ import { VINOOTNEW } from "../../Helper/Helper";
 import "./Category.css";
 import Sidebar from "../../Masterdata/Sidebar/Sidebar";
 
+import ReactJsPagination from "react-js-pagination";
+import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
+import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
+import KeyboardDoubleArrowLeftIcon from "@mui/icons-material/KeyboardDoubleArrowLeft";
+import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArrowRight";
+
 const TreatmentCategory = () => {
   const navigate = useNavigate();
 
   const [value, setValue] = useState("");
   const [categories, setCategories] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [categoriesPerPage] = useState(5); // Number of categories per page
   const presentTime = new Date().toLocaleString();
   const [error, setError] = useState("");
 
@@ -195,7 +203,7 @@ const TreatmentCategory = () => {
 
     try {
       const noOfCategories = await axios.get(
-       ` ${VINOOTNEW}/api/treatment-category`
+        `${VINOOTNEW}/api/treatment-category`
       );
       const count = noOfCategories.data.length;
 
@@ -241,6 +249,19 @@ const TreatmentCategory = () => {
     }
   };
 
+  // Pagination handlers
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
+
+  // Get current categories
+  const indexOfLastCategory = currentPage * categoriesPerPage;
+  const indexOfFirstCategory = indexOfLastCategory - categoriesPerPage;
+  const currentCategories = categories.slice(
+    indexOfFirstCategory,
+    indexOfLastCategory
+  );
+
   return (
     <div className="total-tcategory">
       <div>
@@ -273,7 +294,7 @@ const TreatmentCategory = () => {
             </tr>
           </thead>
           <tbody>
-            {categories.map((category) => (
+            {currentCategories.map((category) => (
               <tr key={category.category_id}>
                 <td>{category.category_name}</td>
                 <td>{category.time}</td>
@@ -293,6 +314,36 @@ const TreatmentCategory = () => {
             ))}
           </tbody>
         </table>
+
+        <div className="paginationpha">
+          <ReactJsPagination
+            activePage={currentPage}
+            categoriesCountPerPage={categoriesPerPage}
+            totalcategoriesCount={categories.length}
+            pageRangeDisplayed={5}
+            onChange={handlePageChange}
+            prevPageText={
+              <span className="custom-pagination-arrow">
+                <KeyboardArrowLeftIcon />
+              </span>
+            }
+            nextPageText={
+              <span className="custom-pagination-arrow">
+                <KeyboardArrowRightIcon />
+              </span>
+            }
+            firstPageText={
+              <span className="custom-pagination-arrow">
+                <KeyboardDoubleArrowLeftIcon />
+              </span>
+            }
+            lastPageText={
+              <span className="custom-pagination-arrow">
+                <KeyboardDoubleArrowRightIcon />
+              </span>
+            }
+          />
+        </div>
       </div>
     </div>
   );

@@ -10,4 +10,13 @@ exports.createFranchise = async (req, res) => {
   }
 };
 
+exports.getAllFranchises = async (req, res) => {
+  try {
+    const franchises = await Franchise.find();
+    res.status(200).json({ success: true, franchises });
+  } catch (error) {
+    res.status(500).json({ success: false, message: 'Failed to fetch franchises.', error: error.message });
+  }
+};
+
 // Similarly, you can have methods for updating, deleting, and fetching franchises

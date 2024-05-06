@@ -32,6 +32,7 @@ import Franchisetogglebutton from './Franchisemanagement/Franchiseadmin/Franchis
 import AdminTogglebutton from './MasterLogin/FranchiseAdmin-s/AdminTogglebutton';
 import Togglepatients from './Franchisemanagement/Reception/Patientdetails/FranchiseToggledetails/Togglepatients';
 import FranchiseLoginDetailsIcon from './Franchisemanagement/Franchiseadmin/FranchiseLoginDetailsIcon';
+import FranchiseDetails from './MasterLogin/Franchiseregistration/Franchisedetails';
 
 function App() {
   return (
@@ -89,6 +90,7 @@ function App() {
 
         </Route>
         <Route path="/FranchiseLoginDetailsIcon" element={<FranchiseLoginDetailsIcon />} />
+        <Route path="/FranchiseDetails" element={<FranchiseDetails />} />
 
 
        {/* <FranchiseLoginDetailsIcon/> */}

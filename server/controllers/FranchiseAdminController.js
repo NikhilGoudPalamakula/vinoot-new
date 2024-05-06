@@ -1,6 +1,7 @@
 const Admin = require('../models/FranchiseAdminmodel');
 const franchiseActive = require('../models/FranchiseAdminmodel');
 
+
 exports.createAdmin = async (req, res) => {
   try {
     const admin = new Admin(req.body);

@@ -751,14 +751,14 @@ const TreatmentPlan = () => {
                 onClick={() => paginate(currentPage - 1)}
                 disabled={currentPage === 1}
               >
-                {"<"} {/* Previous */}
+                {"<"} 
               </button>
               <button
                 className="pagenation-btn"
                 onClick={() => paginate(currentPage + 1)}
                 disabled={currentItems.length < itemsPerPage}
               >
-                {">"} {/* Next */}
+                {">"}
               </button>
             </div>
           </div>

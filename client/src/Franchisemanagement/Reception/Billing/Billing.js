@@ -326,6 +326,53 @@ const Billing = () => {
     };
     fetchCurrentDate();
   }, []);
+
+  const printDetails = () => {
+    // Open a new window for printing
+    const printWindow = window.open("", "_blank");
+  
+    // Construct the HTML content to be printed
+    const htmlContent = `
+      <html>
+        <head>
+          <title>Billing Details</title>
+          <!-- Add any CSS styles for printing -->
+          <style>
+            /* Define your print styles here */
+            /* For example, hide unnecessary elements */
+            .no-print {
+              display: none;
+            }
+          </style>
+        </head>
+        <body>
+          <h1>Billing Details</h1>
+          <p>Date: ${currentDate}</p>
+          <p>Bill Number: ${billingNumber}</p>
+          <p>Mobile Number: ${selectedNumber ? selectedNumber.mobile_number : ""}</p>
+          <p>Patient ID: ${selectedNumber ? selectedNumber.patient_id : ""}</p>
+          <p>Patient Name: ${selectedNumber ? selectedNumber.patient_name : ""}</p>
+          <p>Address: ${selectedNumber ? selectedNumber.address : ""}</p>
+          <p>Franchise Name: ${localStorage.getItem("franchisename")}</p>
+          <p>Franchise ID: ${localStorage.getItem("FranchiseID")}</p>
+          <!-- Add any other details you want to include -->
+        </body>
+      </html>
+    `;
+  
+    // Write the HTML content to the new window
+    printWindow.document.open();
+    printWindow.document.write(htmlContent);
+    printWindow.document.close();
+  
+    // Print the window
+    printWindow.print();
+  
+    // Close the print window after printing
+    printWindow.close();
+  };
+  
+
   return (
     <div className="billing-total">
       <div>
@@ -629,7 +676,7 @@ const Billing = () => {
           </div>
 
           <button className="btnbilling" onClick={saveData}>
-            Save
+          Save & Print
           </button>
         </div>
       </div>

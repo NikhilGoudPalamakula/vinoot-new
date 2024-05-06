@@ -81,7 +81,7 @@ const Billing = () => {
 
   const [selectedDoctor, setSelectedDoctor] = useState(""); // State for selected doctor
 
- 
+
   // Function to handle doctor selection
   const handleDoctorChange = (e) => {
     const selectedDoctorId = e.target.value; // Get the selected doctor's ID
@@ -121,7 +121,7 @@ const Billing = () => {
   const [price, setPrice] = useState(""); // State for price
   const [days, setDays] = useState(0); // State for price
   const [status, setStatus] = useState(""); // State for payment status
- const [remaining, setRemainingAmount] = useState(0);
+  const [remaining, setRemainingAmount] = useState(0);
   const [planName, setPlanName] = useState(""); // User input
   const [selectedPlan, setSelectedPlan] = useState(null); // Selected plan object
   const [suggestions, setSuggestions] = useState([]); // Autosuggest options
@@ -212,9 +212,9 @@ const Billing = () => {
     if (selectedPlan) {
       const price = parseFloat(selectedPlan.price);
       const amountPaidValue = parseFloat(amountPaid);
-      const remaining= price - amountPaidValue;
+      const remaining = price - amountPaidValue;
       setRemainingAmount(remaining);
-  
+
       // Determine payment status
       if (amountPaidValue >= price) {
         setStatus("Paid");
@@ -222,10 +222,10 @@ const Billing = () => {
         setStatus("Unpaid");
       }
     }
-  }, [amountPaid, selectedPlan]); 
-  
-  
-  
+  }, [amountPaid, selectedPlan]);
+
+
+
   //-------------------Bill Numbers Fetching ----------------
   const [billingNumber, setBillingNumber] = useState("");
   const generateBillNumber = (bill_numbers) => {
@@ -256,11 +256,11 @@ const Billing = () => {
       const FranchiseID = localStorage.getItem("FranchiseID");
       const remaining = selectedPlan ? parseFloat(selectedPlan.price) - parseFloat(amountPaid) : 0; // Calculate remaining
       const currentDate = new Date().toISOString().split("T")[0];
-  
+
       // Send the data to the backend API endpoint for saving
       await axios.post("http://localhost:5001/api/billing", {
         bill_number: newBillNumber, // Use the newly generated bill number
-        doctor: selectedDoctor, 
+        doctor: selectedDoctor,
         plan_name: selectedPlan ? selectedPlan.plan_name : "",
         paymentType: paymentType,
         amountPaid: amountPaid,
@@ -278,7 +278,7 @@ const Billing = () => {
         address: selectedNumber ? selectedNumber.address : "",
         currentDate: currentDate,
       });
-  
+
       // Reset form fields after successful save
       setPlanName("");
       setPaymentType("");
@@ -287,7 +287,7 @@ const Billing = () => {
       console.error("Error saving data:", error);
     }
   };
-  
+
   useEffect(() => {
     fetchBillNumbers();
   }, []);
@@ -332,7 +332,7 @@ const Billing = () => {
   const printDetails = () => {
     // Open a new window for printing
     const printWindow = window.open("", "_blank");
-  
+
     // Construct the HTML content to be printed
     const htmlContent = `
       <html>
@@ -357,23 +357,65 @@ const Billing = () => {
           <p>Address: ${selectedNumber ? selectedNumber.address : ""}</p>
           <p>Franchise Name: ${localStorage.getItem("franchisename")}</p>
           <p>Franchise ID: ${localStorage.getItem("FranchiseID")}</p>
+
           <!-- Add any other details you want to include -->
+          <table>
+          <tr>
+            <td><b>Selected Doctor</b></td>
+            <td>${selectedDoctor}</td>
+          </tr>
+          <tr>
+            <td><b>Plan Name</b></td>
+            <td>${planName}</td>
+          </tr>
+          <tr>
+            <td><b>GST</b></td>
+            <td>${selectedPlan?.GST || 'N/A'}</td>
+          </tr>
+          <tr>
+            <td><b>Days</b></td>
+            <td>${selectedPlan?.days || 'N/A'}</td>
+          </tr>
+          <tr>
+            <td><b>Price</b></td>
+            <td>${selectedPlan?.price || 'N/A'}</td>
+          </tr>
+          <tr>
+            <td><b>Payment Type</b></td>
+            <td>${paymentType || 'N/A'}</td>
+          </tr>
+          <tr>
+            <td><b>Amount Paid</b></td>
+            <td>${amountPaid || 'N/A'}</td>
+          </tr>
+          <tr>
+            <td><b>Payment Status</b></td>
+            <td>${status || 'N/A'}</td>
+          </tr>
+          <tr>
+            <td><b>Remaining Amount</b></td>
+            <td>Rs. ${remaining || 'N/A'}</td>
+          </tr>
+        </table>
         </body>
       </html>
     `;
-  
+
     // Write the HTML content to the new window
     printWindow.document.open();
     printWindow.document.write(htmlContent);
     printWindow.document.close();
-  
+
     // Print the window
     printWindow.print();
-  
+
     // Close the print window after printing
     printWindow.close();
   };
-  
+  const handleSaveAndPrint = () => {
+    saveData(); // Call the saveData function to save the data
+    printDetails(); // Call the printDetails function to print the data
+  };
 
   return (
     <div className="billing-total">
@@ -557,14 +599,14 @@ const Billing = () => {
                   <td>
 
 
-                  <select value={selectedDoctor} onChange={handleDoctorChange}>
-  <option value="">Select Doctor</option>
-  {doctors.map((doctor) => (
-    <option key={doctor._id} value={doctor.fullname}>
-      {doctor.fullname}
-    </option>
-  ))}
-</select>
+                    <select value={selectedDoctor} onChange={handleDoctorChange}>
+                      <option value="">Select Doctor</option>
+                      {doctors.map((doctor) => (
+                        <option key={doctor._id} value={doctor.fullname}>
+                          {doctor.fullname}
+                        </option>
+                      ))}
+                    </select>
                   </td>
                   <td>
                     <input
@@ -669,16 +711,16 @@ const Billing = () => {
                     <input value={status} readOnly />
                   </td>
                   <td>
-  <input value={remaining} readOnly />
-</td> 
+                    <input value={remaining} readOnly />
+                  </td>
                 </tr>
               </tbody>
             </table>
-          
+
           </div>
 
-          <button className="btnbilling" onClick={saveData}>
-          Save & Print
+          <button className="btnbilling" onClick={handleSaveAndPrint}>
+            Save & Print
           </button>
         </div>
       </div>

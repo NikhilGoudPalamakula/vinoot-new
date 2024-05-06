@@ -1,7 +1,7 @@
 const TreatmentPlan = require("../models/Treatmentplanmodel");
 
 exports.createTreatmentPlan = async (req, res) => {
-  const { plan_id, category_name, plan_name, GST, days, price, updatedAt } =
+  const { plan_id, category_name, plan_name, GST,GSTamount,TotalAmount, days, price, updatedAt } =
     req.body;
 
   try {
@@ -10,6 +10,8 @@ exports.createTreatmentPlan = async (req, res) => {
       category_name,
       plan_name,
       GST,
+      GSTamount,
+      TotalAmount,
       days,
       price,
       updatedAt,

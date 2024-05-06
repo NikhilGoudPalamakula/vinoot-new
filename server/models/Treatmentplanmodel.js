@@ -6,6 +6,8 @@ const treatmentPlanSchema = new mongoose.Schema({
   plan_name: String,
   GST: Number,
   days: Number,
+  GSTamount: Number,
+  TotalAmount: Number,
   price: Number,
   updatedAt: String,
   status: {

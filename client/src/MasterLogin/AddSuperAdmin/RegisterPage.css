@@ -1,31 +1,36 @@
-.super-regtoatl{
+.super-regtoatl {
   display: flex;
 }
-.super-regright{
-  margin-left: 20%;
+.super-regright {
+  margin-top: 5vh;
+  margin-left: 0%;
 }
-.super-regright-1{
-  margin-left: 22%;
+.super-regright-1 {
+  margin-left: 25%;
 }
-.superflex-high{
-display: flex;
-flex-direction: row;
-  max-width: 500px;
+.superflex-high {
+  display: flex;
+  flex-direction: row;
+  width: 500px;
   padding: 20px;
   border-radius: 20px;
   position: relative;
   /* background-color: #1a1a1a; */
   color: #0000;
-  border: 1px solid #0AA506;
+  border: 1px solid #0aa506;
   gap: 50px;
 }
-.super-flex{
+.super-regright22 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.super-flex {
   display: flex;
   flex-direction: column;
   gap: 10px;
 }
-
-
 
 .super-flex label {
   position: relative;
@@ -42,7 +47,7 @@ flex-direction: row;
 }
 
 .super-flex label .input1_rp + span {
-  color: #0AA506;
+  color: #0aa506;
   font-weight: 500;
   position: absolute;
   left: 10px;
@@ -69,7 +74,7 @@ flex-direction: row;
 
 .super-flex label .input1_rp:focus + span,
 .super-flex label .input1_rp:valid + span {
-  color: #0AA506;
+  color: #0aa506;
   top: 0px;
   font-size: 0.7em;
   font-weight: 600;
@@ -88,8 +93,8 @@ flex-direction: row;
   border-radius: 10px;
   color: #fff;
   font-size: 16px;
-  transform: .3s ease;
-  background-color: #0AA506;
+  transform: 0.3s ease;
+  background-color: #0aa506;
 }
 
 .submit_rp:hover {

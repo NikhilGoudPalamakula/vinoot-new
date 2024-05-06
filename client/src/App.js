@@ -29,6 +29,9 @@ import Franchisepatients from './MasterLogin/Franchisepatients/Franchisepatients
 import Franchisepatientbilling from './MasterLogin/Franchisepatientbilling/Franchisepatientbilling';
 import Franchisestaffdetails from './Franchisemanagement/Franchiseadmin/FranchisestaffReg/Franchisestaffdetails';
 import Franchisetogglebutton from './Franchisemanagement/Franchiseadmin/Franchise-s/Togglebutton';
+import AdminTogglebutton from './MasterLogin/FranchiseAdmin-s/AdminTogglebutton';
+import Togglepatients from './Franchisemanagement/Reception/Patientdetails/FranchiseToggledetails/Togglepatients';
+import FranchiseLoginDetailsIcon from './Franchisemanagement/Franchiseadmin/FranchiseLoginDetailsIcon';
 
 function App() {
   return (
@@ -78,11 +81,17 @@ function App() {
           <Route path="/SuperSidebar" element={<SuperSidebar />} />
         <Route path="/Franchisestaffdetails" element={<Franchisestaffdetails />} />
         <Route path="/Franchisetogglebutton" element={<Franchisetogglebutton />} />
+        <Route path="/Franchiseadmintogglebutton" element={<AdminTogglebutton />} />
+        <Route path="/Franchisetogglepatients" element={<Togglepatients />} />
+
+
           
 
         </Route>
+        <Route path="/FranchiseLoginDetailsIcon" element={<FranchiseLoginDetailsIcon />} />
 
-       
+
+       {/* <FranchiseLoginDetailsIcon/> */}
 
       </Routes>
     </Router>

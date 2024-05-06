@@ -8,6 +8,9 @@ import { useNavigate } from "react-router-dom";
 
 import { FaUsers } from "react-icons/fa";
 import { MdLogout } from "react-icons/md";
+import FranchiseLoginDetailsIcon from '../FranchiseLoginDetailsIcon';
+
+
 const FranchiseadminSidebar = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [activeItem, setActiveItem] = useState(null);
@@ -29,6 +32,9 @@ const FranchiseadminSidebar = () => {
 
     return (
         <div>
+
+<FranchiseLoginDetailsIcon/>
+
             <div className={`side-bar-container ${isOpen ? 'open' : ''}`}>
                 <div className='v-logo'>
                     <img src='https://vinootherbal.com/wp-content/uploads/2024/02/grrb-1-1536x804.png' alt='logo' />

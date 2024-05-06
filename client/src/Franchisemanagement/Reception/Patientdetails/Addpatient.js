@@ -625,11 +625,11 @@
 
 // export default PatientForm;
 
-
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./Addpatient.css";
-import ReceptionSidebar from "../ReceptionSidebar/ReceptionSidebar";
+// import ReceptionSidebar from "../ReceptionSidebar/ReceptionSidebar";
+import Patientdetails1 from "./Patientdetails1";
 
 const PatientForm = () => {
   const [states, setStates] = useState([]);
@@ -982,12 +982,12 @@ const PatientForm = () => {
 
   return (
     <div className="addpa-total">
-      <div>
+      {/* <div>
         <ReceptionSidebar />
-      </div>
+      </div> */}
 
       <div className="addp-right">
-        <h1 className="h1-head">Patient Form</h1>
+        {/* <h1 className="h1-head">Patient Form</h1> */}
         <div className="input-container">
           <form action="" onSubmit={handleSubmit}>
             <div className="column-wrapper">
@@ -1091,7 +1091,8 @@ const PatientForm = () => {
                     name="gender"
                     value={formData.gender}
                     onChange={handleInputChange}
-                    required>
+                    required
+                  >
                     <option value="">select the gender</option>
                     <option value="Male">Male</option>
                     <option value="Female">Female</option>
@@ -1113,7 +1114,8 @@ const PatientForm = () => {
                       {filteredStates.map((state) => (
                         <li
                           key={state._id}
-                          onClick={() => handleStateSelection(state.name)}>
+                          onClick={() => handleStateSelection(state.name)}
+                        >
                           {state.name}
                         </li>
                       ))}
@@ -1135,7 +1137,8 @@ const PatientForm = () => {
                       {filteredCities.map((city) => (
                         <li
                           key={city._id}
-                          onClick={() => handleCitySelection(city.name)}>
+                          onClick={() => handleCitySelection(city.name)}
+                        >
                           {city.name}
                         </li>
                       ))}
@@ -1157,7 +1160,8 @@ const PatientForm = () => {
                       {filteredAreas.map((area) => (
                         <li
                           key={area._id}
-                          onClick={() => handleAreaSelection(area.name)}>
+                          onClick={() => handleAreaSelection(area.name)}
+                        >
                           {area.name}
                         </li>
                       ))}
@@ -1190,8 +1194,7 @@ const PatientForm = () => {
 
         <div className="patientdetail-fetch">
           <h2>Patients</h2>
-          <div className="patientform_table_container">
-          <table className="patientform_table">
+          <table>
             <thead>
               <tr>
                 <th>Patient ID</th>
@@ -1228,7 +1231,7 @@ const PatientForm = () => {
                 </tr>
               ))}
             </tbody>
-          </table></div>
+          </table>
         </div>
       </div>
     </div>

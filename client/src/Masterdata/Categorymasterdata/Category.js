@@ -145,7 +145,6 @@
 
 
 
-
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -153,7 +152,6 @@ import { VINOOTNEW } from "../../Helper/Helper";
 import "./Category.css";
 import Sidebar from "../../Masterdata/Sidebar/Sidebar";
 
-import ReactJsPagination from "react-js-pagination";
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import KeyboardDoubleArrowLeftIcon from "@mui/icons-material/KeyboardDoubleArrowLeft";
@@ -165,7 +163,7 @@ const TreatmentCategory = () => {
   const [value, setValue] = useState("");
   const [categories, setCategories] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [categoriesPerPage] = useState(5); // Number of categories per page
+  const [categoriesPerPage] = useState(2); // Number of categories per page
   const presentTime = new Date().toLocaleString();
   const [error, setError] = useState("");
 
@@ -262,6 +260,9 @@ const TreatmentCategory = () => {
     indexOfLastCategory
   );
 
+  // Calculate total pages
+  const totalPages = Math.ceil(categories.length / categoriesPerPage);
+
   return (
     <div className="total-tcategory">
       <div>
@@ -270,7 +271,9 @@ const TreatmentCategory = () => {
       <div className="treat-cat-right">
         <h1 className="h1111">Treatment Category Master</h1>
         <form action="" onSubmit={handleSubmit} className="cat-form">
-          <label htmlFor="tar">Category <span style={{color:'red'}}>*</span></label>
+          <label htmlFor="tar">
+            Category <span style={{ color: "red" }}>*</span>
+          </label>
           <input
             type="text"
             id="tar"
@@ -304,7 +307,8 @@ const TreatmentCategory = () => {
                     className="treatcat-btn"
                     onClick={() =>
                       toggleStatus(category.category_id, category.status)
-                    }>
+                    }
+                  >
                     {category.status === "active"
                       ? "Set Inactive"
                       : "Set Active"}
@@ -314,35 +318,28 @@ const TreatmentCategory = () => {
             ))}
           </tbody>
         </table>
-
-        <div className="paginationpha">
-          <ReactJsPagination
-            activePage={currentPage}
-            categoriesCountPerPage={categoriesPerPage}
-            totalcategoriesCount={categories.length}
-            pageRangeDisplayed={5}
-            onChange={handlePageChange}
-            prevPageText={
-              <span className="custom-pagination-arrow">
-                <KeyboardArrowLeftIcon />
-              </span>
-            }
-            nextPageText={
-              <span className="custom-pagination-arrow">
-                <KeyboardArrowRightIcon />
-              </span>
-            }
-            firstPageText={
-              <span className="custom-pagination-arrow">
-                <KeyboardDoubleArrowLeftIcon />
-              </span>
-            }
-            lastPageText={
-              <span className="custom-pagination-arrow">
-                <KeyboardDoubleArrowRightIcon />
-              </span>
-            }
-          />
+        <div className="paginationss">
+          <span onClick={() => handlePageChange(1)}>
+            <KeyboardDoubleArrowLeftIcon />
+          </span>
+          <span onClick={() => handlePageChange(currentPage - 1)}>
+            <KeyboardArrowLeftIcon />
+          </span>
+          {[...Array(totalPages)].map((_, index) => (
+            <span
+              key={index}
+              onClick={() => handlePageChange(index + 1)}
+              className={currentPage === index + 1 ? 'pageactive-page' : ''}
+            >
+              {index + 1}
+            </span>
+          ))}
+          <span onClick={() => handlePageChange(currentPage + 1)}>
+            <KeyboardArrowRightIcon />
+          </span>
+          <span onClick={() => handlePageChange(totalPages)}>
+            <KeyboardDoubleArrowRightIcon />
+          </span>
         </div>
       </div>
     </div>
@@ -350,3 +347,4 @@ const TreatmentCategory = () => {
 };
 
 export default TreatmentCategory;
+

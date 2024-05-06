@@ -1192,7 +1192,7 @@ const PatientForm = () => {
           </form>
         </div>
 
-        <div className="patientdetail-fetch">
+        {/* <div className="patientdetail-fetch">
           <h2>Patients</h2>
           <table>
             <thead>
@@ -1208,8 +1208,7 @@ const PatientForm = () => {
                 <th>Area</th>
                 <th>Address</th>
                 <th>Created By</th>
-                {/* <th>Franchise Name</th>
-                <th>Franchise ID</th> */}
+  
               </tr>
             </thead>
             <tbody>
@@ -1226,13 +1225,12 @@ const PatientForm = () => {
                   <td>{patient.area}</td>
                   <td>{patient.address}</td>
                   <td>{patient.createdBy}</td>
-                  {/* <td>{patient.franchiseName}</td>
-                  <td>{patient.FranchiseID}</td> */}
+    
                 </tr>
               ))}
             </tbody>
           </table>
-        </div>
+        </div> */}
       </div>
     </div>
   );

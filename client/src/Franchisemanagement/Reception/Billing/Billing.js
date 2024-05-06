@@ -192,21 +192,7 @@ const Billing = () => {
     }
   };
 
-  // useEffect(() => {
-  //   if (selectedPlan) {
-  //     const TotalAmount = parseFloat(selectedPlan.TotalAmount);
-  //     const amountPaidValue = parseFloat(amountPaid);
-  //     const remaining = TotalAmount - amountPaidValue;
-  //     setRemainingAmount(remaining);
 
-  //     // Determine payment status
-  //     if (amountPaidValue >= price) {
-  //       setStatus("Paid");
-  //     } else {
-  //       setStatus("Unpaid");
-  //     }
-  //   }
-  // }, [amountPaid, selectedPlan]);
 
   useEffect(() => {
     if (selectedPlan) {
@@ -406,16 +392,24 @@ const Billing = () => {
             <td>${planName}</td>
           </tr>
           <tr>
-            <td>GST</td>
-            <td>${selectedPlan?.GST || 'N/A'}</td>
-          </tr>
-          <tr>
             <td>Days</td>
             <td>${selectedPlan?.days || 'N/A'}</td>
           </tr>
           <tr>
             <td>Price</td>
             <td>${selectedPlan?.price || 'N/A'}</td>
+          </tr>
+          <tr>
+          <td>GST</td>
+          <td>${selectedPlan?.GST || 'N/A'}</td>
+        </tr>
+        <tr>
+        <td>GST</td>
+        <td>${selectedPlan?.GSTamount || 'N/A'}</td>
+      </tr>
+          <tr>
+            <td>Price</td>
+            <td>${selectedPlan?.TotalAmount || 'N/A'}</td>
           </tr>
           <tr>
             <td>Payment Type</td>

@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const franchiseSchema = new mongoose.Schema({
   franchisename: String,
-  FranchiseID: String,
+  franchiseID: String,
   mobileNumber: String,
   country: String,
   state: String,
@@ -13,7 +13,8 @@ const franchiseSchema = new mongoose.Schema({
   modifiedBy: String,
   modifiedAt:  { type: Date, default: Date.now },
   createdAt: { type: Date, default: Date.now }, 
-  createdBy: { type:  String,}
+  createdBy: { type:  String,},
+  isActive:{type : Boolean ,default : false}
 });
 
 module.exports = mongoose.model('Franchiseregmodel', franchiseSchema);

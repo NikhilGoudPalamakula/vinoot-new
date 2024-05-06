@@ -2,10 +2,11 @@
   display: flex;
 }
 .super-regright {
-  margin-left: 20%;
+  margin-top: 5vh;
+  margin-left: 0%;
 }
 .super-regright-1 {
-  margin-left: 22%;
+  margin-left: 25%;
 }
 .superflex-high {
   display: flex;

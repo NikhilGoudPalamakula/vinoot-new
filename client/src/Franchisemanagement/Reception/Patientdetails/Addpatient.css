@@ -107,3 +107,11 @@
     font-size: 0.9rem;
   }
 }
+.mandatory {
+  color: red; /* Set color to red */
+  margin-left: 5px; /* Add some space between the label and the star */
+}
+.patientform_table {
+  width: 50vw;
+  overflow-x: scroll;
+}

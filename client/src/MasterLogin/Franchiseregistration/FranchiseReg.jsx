@@ -613,9 +613,9 @@ const FranchiseReg = () => {
     <div className="addfr-franchise-Reg">
       <div className="addfr-franchise-Logo">
         <div className="addfr-image">
-          <img
-            src="https://tse4.mm.bing.net/th?id=OIP.m4FmOjk0Bx-N4JaBzsBoTgHaEP&pid=Api&P=0&h=180"
-            alt="Loading...!"
+        <img
+            src="https://vinootherbal.com/wp-content/uploads/2024/02/grrb-1-1536x804.png"
+            alt="logo"
           />
         </div>
         <div className="addfr-Registration">
@@ -630,7 +630,7 @@ const FranchiseReg = () => {
               <div className="addfr-franchise-detail-columns">
                 <div className="addfr-column">
                   <div className="addfr-input-wrap">
-                    <input
+                  <input
                       className="addfr-input"
                       type="text"
                       name="franchisename"
@@ -640,7 +640,7 @@ const FranchiseReg = () => {
                       required
                     />
                     <label>
-                      <span>Franchise Name</span>
+                      <span>Franchise Name <span style={{color:'red'}}>*</span></span>
                     </label>
                   </div>
                   {errors.franchisename && (
@@ -649,7 +649,7 @@ const FranchiseReg = () => {
                     </div>
                   )}
                   <div className="addfr-input-wrap">
-                    <input
+                  <input
                       className="addfr-input"
                       type="text"
                       name="FranchiseID"
@@ -659,11 +659,11 @@ const FranchiseReg = () => {
                       required
                     />
                     <label>
-                      <span>Franchise ID</span>
+                      <span>Franchise ID <span style={{color:'red'}}>*</span></span>
                     </label>
                   </div>
                   <div className="addfr-input-wrap">
-                    <input
+                  <input
                       className="addfr-input"
                       type="number"
                       name="mobileNumber"
@@ -673,7 +673,7 @@ const FranchiseReg = () => {
                       required
                     />
                     <label>
-                      <span>Mobile Number</span>
+                      <span>Mobile Number <span style={{color:'red'}}>*</span></span>
                     </label>
                   </div>
                   {errors.mobileNumber && (
@@ -681,7 +681,7 @@ const FranchiseReg = () => {
                       {errors.mobileNumber}
                     </div>
                   )}
-                  <div className="addfr-input-wrap">
+                  {/* <div className="addfr-input-wrap">
                     <input
                       className="addfr-input"
                       type="text"
@@ -692,9 +692,9 @@ const FranchiseReg = () => {
                       required
                     />
                     <label>
-                      <span>Country</span>
+                      <span>Country <span style={{color:'red'}}>*</span></span>
                     </label>
-                  </div>
+                  </div> */}
                   <div className="addfr-input-wrap">
                     <input
                       id="stateInput"
@@ -717,7 +717,7 @@ const FranchiseReg = () => {
                       </ul>
                     )}
                     <label>
-                      <span>State</span>
+                      <span>State <span style={{color:'red'}}>*</span></span>
                     </label>
                   </div>
                 </div>
@@ -744,7 +744,7 @@ const FranchiseReg = () => {
                       </ul>
                     )}
                     <label>
-                      <span>City</span>
+                      <span>City <span style={{color:'red'}}>*</span></span>
                     </label>
                   </div>
                   <div className="addfr-column">
@@ -770,7 +770,7 @@ const FranchiseReg = () => {
                         </ul>
                       )}
                       <label>
-                        <span>Area</span>
+                        <span>Area <span style={{color:'red'}}>*</span></span>
                       </label>
                     </div>
                     <div className="addfr-input-wrap">
@@ -784,7 +784,7 @@ const FranchiseReg = () => {
                         required
                       />
                       <label>
-                        <span>Address</span>
+                        <span>Address <span style={{color:'red'}}>*</span></span>
                       </label>
                     </div>
                     {errors.address && (
@@ -803,7 +803,7 @@ const FranchiseReg = () => {
                         required
                       />
                       <label>
-                        <span>Pincode</span>
+                        <span>Pincode <span style={{color:'red'}}>*</span></span>
                       </label>
                     </div>
                     {errors.pincode && (
@@ -825,9 +825,10 @@ const FranchiseReg = () => {
                       value={adminData.fullname}
                       onChange={handleAdminInputChange}
                       placeholder=""
+                      required
                     />
                     <label>
-                      <span>fullname</span>
+                      <span>fullname <span style={{color:'red'}}>*</span></span>
                     </label>
                   </div>
                   {errors.fullname && (
@@ -843,9 +844,10 @@ const FranchiseReg = () => {
                       value={adminData.userId}
                       onChange={handleAdminInputChange}
                       placeholder=""
+                      required
                     />
                     <label>
-                      <span>userId</span>
+                      <span>userId <span style={{color:'red'}}>*</span></span>
                     </label>
                   </div>
                   {errors.userId && (
@@ -853,7 +855,7 @@ const FranchiseReg = () => {
                       {errors.userId}
                     </div>
                   )}
-                  <div className="addfr-input-wrap">
+                  {/* <div className="addfr-input-wrap">
                     <input
                       className="addfr-input"
                       type="text"
@@ -862,11 +864,12 @@ const FranchiseReg = () => {
                       onChange={handleAdminInputChange}
                       placeholder=""
                       readOnly
+                      required
                     />
                     <label>
-                      <span>Designation</span>
+                      <span>Designation <span style={{color:'red'}}>*</span></span>
                     </label>
-                  </div>
+                  </div> */}
                   <div className="addfr-input-wrap">
                     <input
                       className="addfr-input"
@@ -875,9 +878,10 @@ const FranchiseReg = () => {
                       value={adminData.email}
                       onChange={handleAdminInputChange}
                       placeholder=""
+                      required
                     />
                     <label>
-                      <span>Email</span>
+                      <span>Email <span style={{color:'red'}}>*</span></span>
                     </label>
                   </div>
                   {errors.email && (
@@ -893,9 +897,10 @@ const FranchiseReg = () => {
                       value={adminData.password}
                       onChange={handleAdminInputChange}
                       placeholder=""
+                      required
                     />
                     <label>
-                      <span>Password</span>
+                      <span>Password <span style={{color:'red'}}>*</span></span>
                     </label>
                   </div>
                   {errors.password && (

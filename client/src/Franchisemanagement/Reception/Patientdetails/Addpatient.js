@@ -993,7 +993,7 @@ const PatientForm = () => {
             <div className="column-wrapper">
               <div className="column">
                 <div className="input-wrapper">
-                  <label htmlFor="patient_id">Patient ID:</label>
+                  <label htmlFor="patient_id">Patient ID:<span className="mandatory">*</span></label>
                   <input
                     id="patient_id"
                     type="text"
@@ -1027,7 +1027,7 @@ const PatientForm = () => {
                 />
               </div> */}
                 <div className="input-wrapper">
-                  <label htmlFor="patient_name">Patient Name:</label>
+                  <label htmlFor="patient_name">Patient Name:<span className="mandatory">*</span></label>
                   <input
                     id="patient_name"
                     type="text"
@@ -1041,7 +1041,7 @@ const PatientForm = () => {
                   <span className="error">{errors.patient_name}</span>
                 )}
                 <div className="input-wrapper">
-                  <label htmlFor="dob">Date of Birth:</label>
+                  <label htmlFor="dob">Date of Birth:<span className="mandatory">*</span></label>
                   <input
                     id="dob"
                     type="date"
@@ -1065,7 +1065,7 @@ const PatientForm = () => {
                 </div>
                 {errors.email && <span className="error">{errors.email}</span>}
                 <div className="input-wrapper">
-                  <label htmlFor="mobile_number">Mobile Number:</label>
+                  <label htmlFor="mobile_number">Mobile Number:<span className="mandatory">*</span></label>
                   <input
                     id="mobile_number"
                     type="number"
@@ -1085,7 +1085,7 @@ const PatientForm = () => {
 
               <div className="column">
                 <div className="input-wrapper">
-                  <label htmlFor="genderSelect">Gender:</label>
+                  <label htmlFor="genderSelect">Gender:<span className="mandatory">*</span></label>
                   <select
                     id="genderSelect"
                     name="gender"
@@ -1099,7 +1099,7 @@ const PatientForm = () => {
                   </select>
                 </div>
                 <div className="input-wrapper">
-                  <label htmlFor="stateInput">State:</label>
+                  <label htmlFor="stateInput">State:<span className="mandatory">*</span></label>
                   <input
                     id="stateInput"
                     type="text"
@@ -1121,7 +1121,7 @@ const PatientForm = () => {
                   )}
                 </div>
                 <div className="input-wrapper">
-                  <label htmlFor="cityInput">City:</label>
+                  <label htmlFor="cityInput">City:<span className="mandatory">*</span></label>
                   <input
                     id="cityInput"
                     type="text"
@@ -1143,7 +1143,7 @@ const PatientForm = () => {
                   )}
                 </div>
                 <div className="input-wrapper">
-                  <label htmlFor="areaInput">Area:</label>
+                  <label htmlFor="areaInput">Area:<span className="mandatory">*</span></label>
                   <input
                     id="areaInput"
                     type="text"
@@ -1165,7 +1165,7 @@ const PatientForm = () => {
                   )}
                 </div>
                 <div className="input-wrapper">
-                  <label htmlFor="address">Address:</label>
+                  <label htmlFor="address">Address:<span className="mandatory">*</span> </label>
                   <textarea
                     id="address"
                     type="text"
@@ -1190,7 +1190,8 @@ const PatientForm = () => {
 
         <div className="patientdetail-fetch">
           <h2>Patients</h2>
-          <table>
+          <div className="patientform_table_container">
+          <table className="patientform_table">
             <thead>
               <tr>
                 <th>Patient ID</th>
@@ -1227,7 +1228,7 @@ const PatientForm = () => {
                 </tr>
               ))}
             </tbody>
-          </table>
+          </table></div>
         </div>
       </div>
     </div>

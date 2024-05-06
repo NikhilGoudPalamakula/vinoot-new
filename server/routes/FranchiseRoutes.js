@@ -5,7 +5,7 @@ const adminController = require('../controllers/FranchiseAdminController');
 
 router.post('/franchise', franchiseController.createFranchise);
 router.get('/franchise', franchiseController.getAllFranchises);
-router.put('/franchise/:id/toggle', franchiseController.toggleFranchiseStatus);
+router.put('/franchise/:id/toggle', franchiseController.toggleFranchiseStatus); 
 router.post('/admin', adminController.createAdmin);
 router.post('/franchiselogin', adminController.loginfranchiseUser);
 router.get('/franchisefetchAdmin', adminController.getAllFranchiseAmins);

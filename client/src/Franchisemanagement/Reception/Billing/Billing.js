@@ -80,7 +80,7 @@ const Billing = () => {
   const [amountPaid, setAmountPaid] = useState(0); // State for amount paid
 
   const [selectedDoctor, setSelectedDoctor] = useState(""); // State for selected doctor
-  const [remainingAmount, setRemainingAmount] = useState("");
+  const [remaining, setRemainingAmount] = useState(0);
   // Function to handle doctor selection
   const handleDoctorChange = (e) => {
     const selectedDoctorId = e.target.value; // Get the selected doctor's ID
@@ -190,20 +190,39 @@ const Billing = () => {
   };
 
   // Update status based on the amount paid
+  // useEffect(() => {
+  //   if (selectedPlan) {
+  //     const { price } = selectedPlan;
+  //     if (amountPaid >= price) {
+  //       setStatus("Paid");
+  //     } else {
+  //       setStatus("Unpaid");
+  //     }
+  //     // Calculate remaining amount
+  //     const remaining = price - amountPaid;
+  //     setRemainingAmount(remaining >= 0 ? remaining : 0); // Ensure remaining amount is non-negative
+  //   }
+  // }, [amountPaid, selectedPlan]);
+
+
+  // const [status, setStatus] = useState(""); // State to hold payment status
   useEffect(() => {
     if (selectedPlan) {
-      const { price } = selectedPlan;
-      if (amountPaid >= price) {
+      const price = parseFloat(selectedPlan.price);
+      const amountPaidValue = parseFloat(amountPaid);
+      const remaining = price - amountPaidValue;
+      setRemainingAmount(remaining);
+      // Determine payment status
+      if (amountPaidValue >= price) {
         setStatus("Paid");
       } else {
         setStatus("Unpaid");
       }
-      // Calculate remaining amount
-      const remaining = price - amountPaid;
-      setRemainingAmount(remaining >= 0 ? remaining : 0); // Ensure remaining amount is non-negative
     }
   }, [amountPaid, selectedPlan]);
-
+  
+  
+  
   //-------------------Bill Numbers Fetching ----------------
   const [billingNumber, setBillingNumber] = useState("");
   const generateBillNumber = (bill_numbers) => {
@@ -233,7 +252,9 @@ const Billing = () => {
       const createdBy = localStorage.getItem("userId");
       const franchiseName = localStorage.getItem("franchisename");
       const FranchiseID = localStorage.getItem("FranchiseID");
-
+      const handleDoctorChange = (event) => {
+        setSelectedDoctor(event.target.value);
+      };
       const remaining = price - amountPaid;
       const currentDate = new Date().toISOString().split("T")[0];
       // Send the data to the backend API endpoint for saving
@@ -487,14 +508,14 @@ const Billing = () => {
                   <td>
 
 
-                    <select value={selectedDoctor} onChange={handleDoctorChange}>
-                      <option value="">Select Doctor</option>
-                      {doctors.map((doctor) => (
-                        <option key={doctor._id} value={doctor._id}>
-                          {doctor.fullname}
-                        </option>
-                      ))}
-                    </select>
+                  <select value={selectedDoctor} onChange={handleDoctorChange}>
+  <option value="">Select Doctor</option>
+  {doctors.map((doctor) => (
+    <option key={doctor._id} value={doctor.fullname}>
+      {doctor.fullname}
+    </option>
+  ))}
+</select>
                   </td>
                   <td>
                     <input
@@ -581,7 +602,8 @@ const Billing = () => {
                   <td>
                     <select
                       value={paymentType}
-                      onChange={(e) => setPaymentType(e.target.value)}>
+                      onChange={(e) => setPaymentType(e.target.value)}
+                    >
                       <option value="">Select Payment Type</option>
                       <option value="Cash">Cash</option>
                       <option value="Card">Card</option>
@@ -595,16 +617,15 @@ const Billing = () => {
                     />
                   </td>
                   <td>
-                    {" "}
-                    <input value={status} />
+                    <input value={status} readOnly />
                   </td>
                   <td>
-                    {" "}
-                    <input value={remainingAmount} />
+                    <input value={remaining} readOnly />
                   </td>
                 </tr>
               </tbody>
             </table>
+          
           </div>
 
           <button className="btnbilling" onClick={saveData}>

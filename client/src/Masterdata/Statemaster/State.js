@@ -1,4 +1,3 @@
-
 // // State.js
 // import React, { useState, useEffect } from "react";
 // import './State.css';
@@ -120,20 +119,26 @@
 
 // export default States;
 
-
-
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { VINOOTNEW } from "../../Helper/Helper";
 import Sidebar from "../Sidebar/Sidebar";
-import './State.css';
+import "./State.css";
+
+import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
+import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
+import KeyboardDoubleArrowLeftIcon from "@mui/icons-material/KeyboardDoubleArrowLeft";
+import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArrowRight";
 const States = () => {
   const navigate = useNavigate();
 
   const [stateName, setStateName] = useState("");
   const [states, setStates] = useState([]);
   const [error, setError] = useState("");
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage] = useState(3);
 
   useEffect(() => {
     fetchStates();
@@ -208,19 +213,30 @@ const States = () => {
     return id;
   };
 
+  // Pagination handlers
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
+
+  // Get current plans
+  const indexOfLastPlan = currentPage * itemsPerPage;
+  const indexOfFirstPlan = indexOfLastPlan - itemsPerPage;
+  const currentPlans = states.slice(indexOfFirstPlan, indexOfLastPlan);
+
+  // Calculate total pages
+  const totalPages = Math.ceil(states.length / itemsPerPage);
+
   return (
     <div className="states-total">
-      <div><Sidebar/></div>
-      <div className="staes-right" >
-        <h1 >State Master</h1>
+      <div>
+        <Sidebar />
+      </div>
+      <div className="staes-right">
+        <h1>State Master</h1>
         <form className="states-form" onSubmit={handleSubmit}>
           <label>
-            State Name: <span style={{color:'red'}}>*</span>
-            <input
-              type="text"
-              value={stateName}
-              onChange={handleSelect}
-            />
+            State Name: <span style={{ color: "red" }}>*</span>
+            <input type="text" value={stateName} onChange={handleSelect} />
           </label>
           {error && <div style={{ color: "red" }}>{error}</div>}
           <button type="submit">Submit</button>
@@ -237,7 +253,7 @@ const States = () => {
             </tr>
           </thead>
           <tbody>
-            {states.map((state) => (
+            {currentPlans.map((state) => (
               <tr key={state._id}>
                 <td>{state.name}</td>
                 <td>{state.status === "active" ? "Active" : "Inactive"}</td>
@@ -252,6 +268,30 @@ const States = () => {
             ))}
           </tbody>
         </table>
+
+        <div className="paginationss">
+          <span onClick={() => handlePageChange(1)}>
+            <KeyboardDoubleArrowLeftIcon />
+          </span>
+          <span onClick={() => handlePageChange(currentPage - 1)}>
+            <KeyboardArrowLeftIcon />
+          </span>
+          {[...Array(totalPages)].map((_, index) => (
+            <span
+              key={index}
+              onClick={() => handlePageChange(index + 1)}
+              className={currentPage === index + 1 ? "pageactive-page" : ""}
+            >
+              {index + 1}
+            </span>
+          ))}
+          <span onClick={() => handlePageChange(currentPage + 1)}>
+            <KeyboardArrowRightIcon />
+          </span>
+          <span onClick={() => handlePageChange(totalPages)}>
+            <KeyboardDoubleArrowRightIcon />
+          </span>
+        </div>
       </div>
     </div>
   );

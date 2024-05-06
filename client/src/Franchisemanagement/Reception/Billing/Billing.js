@@ -80,7 +80,8 @@ const Billing = () => {
   const [amountPaid, setAmountPaid] = useState(0); // State for amount paid
 
   const [selectedDoctor, setSelectedDoctor] = useState(""); // State for selected doctor
-  const [remaining, setRemainingAmount] = useState(0);
+
+ 
   // Function to handle doctor selection
   const handleDoctorChange = (e) => {
     const selectedDoctorId = e.target.value; // Get the selected doctor's ID
@@ -120,7 +121,7 @@ const Billing = () => {
   const [price, setPrice] = useState(""); // State for price
   const [days, setDays] = useState(0); // State for price
   const [status, setStatus] = useState(""); // State for payment status
-
+ const [remaining, setRemainingAmount] = useState(0);
   const [planName, setPlanName] = useState(""); // User input
   const [selectedPlan, setSelectedPlan] = useState(null); // Selected plan object
   const [suggestions, setSuggestions] = useState([]); // Autosuggest options
@@ -206,12 +207,14 @@ const Billing = () => {
 
 
   // const [status, setStatus] = useState(""); // State to hold payment status
+
   useEffect(() => {
     if (selectedPlan) {
       const price = parseFloat(selectedPlan.price);
       const amountPaidValue = parseFloat(amountPaid);
-      const remaining = price - amountPaidValue;
+      const remaining= price - amountPaidValue;
       setRemainingAmount(remaining);
+  
       // Determine payment status
       if (amountPaidValue >= price) {
         setStatus("Paid");
@@ -219,7 +222,7 @@ const Billing = () => {
         setStatus("Unpaid");
       }
     }
-  }, [amountPaid, selectedPlan]);
+  }, [amountPaid, selectedPlan]); 
   
   
   
@@ -244,7 +247,6 @@ const Billing = () => {
   };
 
 
-
   const saveData = async () => {
     const newBillNumber = generateBillNumber(bill_numbers);
     setBillingNumber(newBillNumber);
@@ -252,32 +254,31 @@ const Billing = () => {
       const createdBy = localStorage.getItem("userId");
       const franchiseName = localStorage.getItem("franchisename");
       const FranchiseID = localStorage.getItem("FranchiseID");
-      const handleDoctorChange = (event) => {
-        setSelectedDoctor(event.target.value);
-      };
-      const remaining = price - amountPaid;
+      const remaining = selectedPlan ? parseFloat(selectedPlan.price) - parseFloat(amountPaid) : 0; // Calculate remaining
       const currentDate = new Date().toISOString().split("T")[0];
+  
       // Send the data to the backend API endpoint for saving
       await axios.post("http://localhost:5001/api/billing", {
-        bill_number: billingNumber,
-        doctor: selectedDoctor, // Ensure selectedDoctor is sent, not doctor's _id
+        bill_number: newBillNumber, // Use the newly generated bill number
+        doctor: selectedDoctor, 
         plan_name: selectedPlan ? selectedPlan.plan_name : "",
         paymentType: paymentType,
         amountPaid: amountPaid,
-        status: status,
+        status: amountPaid >= selectedPlan.price ? "Paid" : "Unpaid", // Determine payment status directly here
         GST: selectedPlan ? selectedPlan.GST : "",
         price: selectedPlan ? selectedPlan.price : "",
         days: selectedPlan ? selectedPlan.days : "",
         createdBy: createdBy,
         franchiseName: franchiseName,
         FranchiseID: FranchiseID,
-        remainingAmount: remaining,
+        remainingAmount: remaining, // Ensure remaining is sent correctly
         mobile_number: selectedNumber ? selectedNumber.mobile_number : "",
         patient_id: selectedNumber ? selectedNumber.patient_id : "",
         patient_name: selectedNumber ? selectedNumber.patient_name : "",
         address: selectedNumber ? selectedNumber.address : "",
         currentDate: currentDate,
       });
+  
       // Reset form fields after successful save
       setPlanName("");
       setPaymentType("");
@@ -286,6 +287,7 @@ const Billing = () => {
       console.error("Error saving data:", error);
     }
   };
+  
   useEffect(() => {
     fetchBillNumbers();
   }, []);
@@ -667,8 +669,8 @@ const Billing = () => {
                     <input value={status} readOnly />
                   </td>
                   <td>
-                    <input value={remaining} readOnly />
-                  </td>
+  <input value={remaining} readOnly />
+</td> 
                 </tr>
               </tbody>
             </table>

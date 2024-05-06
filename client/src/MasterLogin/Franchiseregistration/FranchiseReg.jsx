@@ -681,7 +681,7 @@ const FranchiseReg = () => {
                       {errors.mobileNumber}
                     </div>
                   )}
-                  <div className="addfr-input-wrap">
+                  {/* <div className="addfr-input-wrap">
                     <input
                       className="addfr-input"
                       type="text"
@@ -694,7 +694,7 @@ const FranchiseReg = () => {
                     <label>
                       <span>Country <span style={{color:'red'}}>*</span></span>
                     </label>
-                  </div>
+                  </div> */}
                   <div className="addfr-input-wrap">
                     <input
                       id="stateInput"
@@ -855,7 +855,7 @@ const FranchiseReg = () => {
                       {errors.userId}
                     </div>
                   )}
-                  <div className="addfr-input-wrap">
+                  {/* <div className="addfr-input-wrap">
                     <input
                       className="addfr-input"
                       type="text"
@@ -869,7 +869,7 @@ const FranchiseReg = () => {
                     <label>
                       <span>Designation <span style={{color:'red'}}>*</span></span>
                     </label>
-                  </div>
+                  </div> */}
                   <div className="addfr-input-wrap">
                     <input
                       className="addfr-input"

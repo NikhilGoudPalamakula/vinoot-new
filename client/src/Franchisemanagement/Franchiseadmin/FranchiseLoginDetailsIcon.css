@@ -1,0 +1,25 @@
+.franchise-login-details-icon-container-vik {
+    position: fixed;
+    top: 10px; /* Adjust top position as needed */
+    right: 10px; /* Adjust right position as needed */
+    z-index: 999; /* Ensure it's above other content */
+
+
+.icon-container-vik {
+    cursor: pointer;
+}
+
+.dropdown-vik {
+    position: absolute;
+    top: 30px; /* Adjust dropdown position as needed */
+    right: 0;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    z-index: 1000; /* Ensure dropdown is above other content */
+    width:max-content; 
+}
+
+}

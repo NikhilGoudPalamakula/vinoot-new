@@ -1,83 +1,109 @@
-.addpa-total{
-display: flex;
+.addpa-total {
+  display: flex;
 }
-.addp-right{
-margin-left: 19%;
+.addp-right {
+  margin-left: 19%;
 }
 
 .input-container {
-    display: flex;
-    justify-content: center;
-    margin-top: 20px;
-  }
-  .column-wrapper {
-    display: flex;
-    gap: 5em;
-  }
-  .h1-head {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+.column-wrapper {
+  display: flex;
+  gap: 5em;
+}
+.h1-head {
+  text-align: center;
+}
+
+.form-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.column {
+  flex: 1 1 50%;
+  display: flex;
+  flex-direction: column;
+}
+
+.input-wrapper {
+  margin-bottom: 10px;
+  position: relative;
+}
+
+.input-wrapper input,
+.input-wrapper select {
+  width: calc(100% - 20px); /* Adjust width for padding */
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+.input-wrapper textarea,
+.input-wrapper select {
+  width: calc(100% - 20px); /* Adjust width for padding */
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.suggestion-list {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: calc(100% - 20px); /* Adjust width for padding */
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-top: none;
+  border-radius: 0 0 4px 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  z-index: 1;
+}
+
+.suggestion-list li {
+  padding: 8px;
+  cursor: pointer;
+}
+
+.suggestion-list li:hover {
+  background-color: #f0f0f0;
+}
+
+.patsubmit-btn {
+  padding: 10px 20px;
+  background-color: #0aa506;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.patsubmit-btn:hover {
+  background-color: #164115;
+}
+
+.patientdetail-fetch {
+  table {
+    border-collapse: collapse;
     text-align: center;
   }
-  
-  .form-wrapper {
-    display: flex;
-    flex-wrap: wrap;
-    width: 100%;
-  }
-  
-  .column {
-    flex: 1 1 50%;
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .input-wrapper {
-    margin-bottom: 10px;
-    position: relative;
-  }
-  
-  .input-wrapper input,
-  .input-wrapper select {
-    width: calc(100% - 20px); /* Adjust width for padding */
+  th {
+    text-align: center;
     padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+    font-size: 0.9rem;
+    color: white;
+    background-color: #0aa506;
   }
-  
-  .suggestion-list {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    width: calc(100% - 20px); /* Adjust width for padding */
-    padding: 0;
-    margin: 0;
-    list-style-type: none;
-    background-color: #fff;
-    border: 1px solid #ccc;
-    border-top: none;
-    border-radius: 0 0 4px 4px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    z-index: 1;
-  }
-  
-  .suggestion-list li {
+  td {
+    text-align: center;
     padding: 8px;
-    cursor: pointer;
+    font-size: 0.9rem;
   }
-  
-  .suggestion-list li:hover {
-    background-color: #f0f0f0;
-  }
-  
-  .patsubmit-btn {
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    margin-top: 10px;
-  }
-  
-  .patsubmit-btn:hover {
-    background-color: #0056b3;
-  }
+}

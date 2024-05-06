@@ -1,6 +1,206 @@
-.billing-total{
+/* .billing-total{
 display: flex;
 }
 .billing-right{
-    margin-left: 19%;
+    margin-left: 45%;
 }
+
+.container {
+    margin: 20px; 
+    position: relative;
+  }
+ 
+  .overflow-scroll {
+    max-height: 150px;
+    overflow-y: auto;
+  }
+  
+  .suggestion {
+    cursor: pointer;
+    padding: 5px;
+  }
+  
+  .plan-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px; 
+  }
+  
+  .plan-table th {
+    background-color: #36bb32;
+    border: 1px solid #dddddd;
+    padding: 8px;
+    text-align: center;
+  }
+
+  .plan-table td {
+    background-color: lightgray;
+    border: 1px solid #dddddd;
+    padding: 8px;
+  }
+  
+  .loading {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 10px;
+    border-radius: 5px;
+  }
+
+  .btnbilling{
+    padding: 10px 20px;
+    background-color: #0AA506;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+   */
+
+
+   .billing-total{
+    display: flex;
+   }
+   .billing-right{
+    margin-left: 20%;
+    margin-top: 1vh;
+    article{
+      font-weight: bold;
+      font-size: 25px;
+      text-align: center;
+    }
+   }
+   .bill-span{
+    margin-top: 10vh;
+  }
+   .container-fetch-mbl{
+    margin-left: 10vw;
+    display: flex;
+    flex-direction: row;
+    gap: 100px;
+
+    label{
+      display: flex;
+      flex-direction: column;
+      margin-top: 0.9vh;
+    }
+    input{
+      border-radius: 5px;
+      border: 1px solid black;
+      width: 20vw;
+      height: 4.5vh;
+    }
+    span{
+      color: #0AA506;
+      font-weight: 500;
+      font-size: 0.8rem;
+    }
+   }
+
+   .billig-below{
+    margin-left: 1vw;
+    margin-top: 2vh;
+    border-radius: 10px;
+    border: 1.5px solid #0AA506;
+    padding: 10px 25px;
+    table{
+      border-collapse: collapse;
+      width: 70vw;
+      border: 1px solid gray;
+    }
+    th{
+      background-color: #0AA506;
+      color: white;
+      font-size: 0.9rem;
+      padding: 6px;
+    }
+    td{
+      padding: 6px;
+      font-size: 0.9rem;
+      .bill-tplanselecet{
+         width: 25vw;
+         height: 5vh;
+      }
+      input{
+        width: 8vw;
+        height: 4.5vh;
+      }
+      select{
+        width: 13vw;
+        height: 5.5vh;
+      }
+    }
+   }
+
+   .billing-last-table{
+      border-collapse: collapse;
+      width: 90vw;
+      border: 1px solid gray;
+   
+     th{
+      background-color: #0AA506;
+      color: white;
+      font-size: 0.9rem;
+      padding: 6px;
+    }
+     td{
+      padding: 6px;
+      font-size: 0.9rem;
+   }
+  }
+   .billin-below-1{
+    margin-top: 2vh;
+    display: flex;
+    flex-direction: row;
+    gap: 7vw;
+    label{
+      display: flex;
+      flex-direction: column;
+      gap: 0.6vh;
+    }
+    input{
+      height: 4.5vh;
+      width: 8vw;
+    }
+    select{
+      height: 5.5vh;
+      width: 10w;
+    }
+   }
+   .btnbilling{
+    font-weight: bold;
+    margin-top: 1vh;
+    border: none;
+    outline: none;
+    padding: 10px 25px 10px 25px;
+    border-radius: 7px;
+    color: #fff;
+    font-size: 0.8rem;
+    transform: .3s ease;
+    background-color: #0AA506;
+   }
+/* 
+   .suggestions-fetch-mbl {
+    margin-left: 153px;
+    position: absolute;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    max-height: 100px; 
+    overflow-y: auto;
+    z-index: 999;
+    width: 10vw;
+  }
+  
+  .suggestion-item-fetch-mbl {
+    padding: 0px 0px;
+    cursor: pointer;
+  }
+  
+  .suggestion-item-fetch-mbl:hover {
+    background-color: #f0f0f0;
+  } */
+

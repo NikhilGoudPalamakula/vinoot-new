@@ -1,0 +1,31 @@
+.fra-togg-total{
+    display: flex;
+}
+.fra-togg-right{
+    margin-left: 19%;
+    margin-top: 1.7vh;
+    display: flex;
+    flex-direction: column;
+}
+.fra-togg-r1{
+    display: flex;
+}
+.toggle-button123{
+    margin-top: 4.7vh;
+    height: 35px;
+    width: 15vw;
+    margin-left: 30vw;
+    background-color: #0aa506;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    font-weight: 600;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+.tog-icon{
+    margin-left: 10px;
+    font-size: 20px;
+    align-items: center;
+}

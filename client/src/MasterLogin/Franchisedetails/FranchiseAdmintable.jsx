@@ -3,7 +3,7 @@ import './FranchiseAdmintable.css';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import Sidebar from '../../Masterdata/Sidebar/Sidebar';
-
+import './FranchiseAdmintable.css'
 const FranchiseAdmintable = () => {
     const [admins, setAdmins] = useState([]);
 
@@ -25,7 +25,7 @@ const FranchiseAdmintable = () => {
   
     const toggleActiveState = async (id, isActive) => {
         try {
-          const updatedBy = localStorage.getItem('username');
+          const updatedBy = localStorage.getItem('userId');
           await axios.patch(`http://localhost:5001/api/franchisestateupdate/${id}`, { isActive: !isActive, updatedBy });
           fetchAdmins();
         } catch (error) {
@@ -35,16 +35,17 @@ const FranchiseAdmintable = () => {
 
 
     return (
-      <div style={{display:'flex'}}>
+      <div className='franchise-details'>
         <div>
           <Sidebar/>
           </div>
-        <div style={{marginLeft:'20%'}}>
+        <div className='franchise-admin-rights'>
+          <h1>Franchise Details</h1>
           <table className='tabf'>
             <thead>
               <tr>
-                <th>Username</th>
-                <th>Admin ID</th>
+                <th>fullname</th>
+                <th>userId</th>
                 <th>Franchise Name</th>
                 <th>Franchise ID</th>
                 <th>Designation</th>
@@ -61,8 +62,8 @@ const FranchiseAdmintable = () => {
             <tbody>
               {admins.map(admin => (
                 <tr key={admin._id}>
-                  <td>{admin.username}</td>
-                  <td>{admin.Adminid}</td>
+                  <td>{admin.fullname}</td>
+                  <td>{admin.userId}</td>
                   <td>{admin.franchisename}</td>
                   <td>{admin.FranchiseID}</td>
                   <td>{admin.designation}</td>
@@ -71,7 +72,7 @@ const FranchiseAdmintable = () => {
                   <td>{admin.isActive ? 'Active' : 'Inactive'}</td>
                   <td>
 
-  <button onClick={() => toggleActiveState(admin._id, admin.isActive)}>
+  <button className='farnchiseadmin-activebtn' onClick={() => toggleActiveState(admin._id, admin.isActive)}>
     {admin.isActive ? 'Deactivate' : 'Activate'}
   </button>
   </td>

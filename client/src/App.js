@@ -25,6 +25,12 @@ import Doctor from './Franchisemanagement/Doctor';
 import Recepttion from './Franchisemanagement/Reception/Recepttion';
 import Billing from './Franchisemanagement/Reception/Billing/Billing';
 import FranchiseAdmin from './Franchisemanagement/Franchiseadmin/Franchisestaff/FranchiseAdmin';
+import Franchisepatients from './MasterLogin/Franchisepatients/Franchisepatients';
+import Franchisepatientbilling from './MasterLogin/Franchisepatientbilling/Franchisepatientbilling';
+import Franchisestaffdetails from './Franchisemanagement/Franchiseadmin/FranchisestaffReg/Franchisestaffdetails';
+import Franchisetogglebutton from './Franchisemanagement/Franchiseadmin/Franchise-s/Togglebutton';
+import AdminTogglebutton from './MasterLogin/FranchiseAdmin-s/AdminTogglebutton';
+import Togglepatients from './Franchisemanagement/Reception/Patientdetails/FranchiseToggledetails/Togglepatients';
 
 function App() {
   return (
@@ -33,8 +39,8 @@ function App() {
       <Routes>
 
         {/* Mastar data */}
-        <Route path="/Login" element={<LoginForm />} />
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<LoginForm />} />
+        <Route path="/login" element={<Home />} />
 
 
         <Route path="*" element={<NotFound />} />
@@ -42,15 +48,15 @@ function App() {
         <Route path="/superadminlogin" element={<LoginPage />} />
         <Route path="/fl" element={<FranchiseLogin />} />
 
-      
+        <Route path="/fr" element={<FranchiseReg />} />
 
         <Route element={<PrivateRoute />}>
 
           <Route path="/FrSidebar" element={<FranchiseAdmintable />} />
           <Route path="/Sidebar" element={<Sidebar />} />
           <Route path="/MasterUsert" element={<MasterUserT />} />
+          {/* <Route path="/reg" element={<RegisterPage />} /> */}
           <Route path="/reg" element={<RegisterPage />} />
-          <Route path="/fr" element={<FranchiseReg />} />
           <Route path="/fsr" element={<FranchiseStaffReg />} />
 
           <Route path="/States" element={<States />} />
@@ -66,15 +72,24 @@ function App() {
           <Route path="/Recepttion" element={<Recepttion />} />
 
 
+          <Route path="/Franchisepatients" element={<Franchisepatients />} />
+          <Route path="/Patientdetails" element={<PatientForm />} />
 
+          <Route path="/Billing" element={<Billing />} />
+          <Route path="/Franchisepatientbilling" element={<Franchisepatientbilling />} />
+          <Route path="/SuperSidebar" element={<SuperSidebar />} />
+        <Route path="/Franchisestaffdetails" element={<Franchisestaffdetails />} />
+        <Route path="/Franchisetogglebutton" element={<Franchisetogglebutton />} />
+        <Route path="/Franchiseadmintogglebutton" element={<AdminTogglebutton />} />
+        <Route path="/Franchisetogglepatients" element={<Togglepatients />} />
+
+
+          
 
         </Route>
 
-        <Route path="/Patientdetails" element={<PatientForm />} />
-        <Route path="/Billing" element={<Billing />} />
-        <Route path="/SuperSidebar" element={<SuperSidebar />} />
-        
-    
+       
+
       </Routes>
     </Router>
 

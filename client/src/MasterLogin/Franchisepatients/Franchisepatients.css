@@ -1,0 +1,24 @@
+.allfr-pattotal{
+    display: flex;
+}
+
+.allfr-right{
+    margin-left: 18.2%;
+    margin-top: 2%;
+    table{
+        border-collapse: collapse;
+        text-align: center;
+    }
+    th{
+        text-align: center;
+        padding: 8px;
+        font-size: 0.9rem;
+        color: white;
+        background-color: #0AA506;
+      }
+       td{
+        text-align: center;
+        padding: 8px;
+        font-size: 0.9rem;
+    }
+}

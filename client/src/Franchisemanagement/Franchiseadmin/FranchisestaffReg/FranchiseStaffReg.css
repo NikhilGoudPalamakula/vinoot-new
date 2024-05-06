@@ -1,6 +1,182 @@
-.fraddstaff-total{
-display: flex;
+.fraddstaff-total {
+  display: flex;
 }
-.fradmin-right{
-  margin-left: 19%;
+.fradmin-right {
+  position: absolute;
+  /* top: 100%; */
+  width: 50%;
+  /* transform: translateY(-50%); */
+  margin-top: 5vh;
+  margin-left: 13vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.addfr-franchise-from-Name {
+  font-size: 35px;
+  /* margin-top: -4vh; */
+  margin-left: 15vw;
+  padding-bottom: 2vh;
+}
+.fr-admin-form {
+  border: 2px solid #0aa506;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 60vw;
+  padding: 20px 20px 20px 20px;
+  border-radius: 12px;
+}
+.fr-for-flex {
+  display: flex;
+  gap: 0px 100px;
+}
+.addfr-inputs:focus + label,
+.addfr-inputs:valid + label {
+  top: 2px;
+  left: 1px;
+  padding: 0 5px 0 5px;
+  font-size: 10px;
+}
+.addfr-inputs-wraps {
+  display: flex;
+  margin-top: 4vh;
+}
+.addfr-inputs {
+  border: 1px solid #ccc;
+  outline: none;
+  height: 7vh;
+  width: 30vw;
+  border-radius: 12px;
+  padding: 0px 10px;
+}
+.addfr-inputs-wraps label {
+  font-size: 14px;
+  font-weight: bold;
+  letter-spacing: 0.5px;
+  padding: 14px;
+  position: absolute;
+  top: -0px;
+  left: 0;
+  pointer-events: none;
+  transition: 0.3s ease all;
+  color: #0aa506;
+}
+.addfr-inputs-wraps {
+  position: relative;
+  width: 22vw;
+  height: 8vh;
+}
+
+.franchisereg-staff {
+  padding: 10px 30px;
+  background-color: #0aa506;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin: 10px 0px;
+}
+
+.franchisereg-staff:hover {
+  background-color: #164115;
+}
+
+.error {
+  font-size: 16px;
+  color: red;
+}
+
+/* ------------- */
+
+.franchisestaff-table {
+  margin-left: 15%;
+  table {
+    border-collapse: collapse;
+    width: 80%;
+  }
+  th {
+    text-align: center;
+    padding: 8px;
+    font-size: 0.69rem;
+    color: white;
+    background-color: #0aa506;
+  }
+  td {
+    text-align: center;
+    padding: 8px;
+    font-size: 0.69rem;
+  }
+  button {
+    border: none;
+    outline: none;
+    padding: 7px 7px 7px 7px;
+    border-radius: 10px;
+    color: #fff;
+    font-size: 0.7rem;
+    transform: 0.3s ease;
+    background-color: #0aa506;
+  }
+}
+@media (max-width: 770px) {
+  .fradmin-right {
+    width: 40vw;
+  }
+  .fr-admin-form {
+    width: 50vw;
+  }
+  .addfr-inputs-wraps {
+    width: 40vw;
+  }
+}
+@media (max-width: 647px) {
+  .fradmin-right {
+    z-index: -1;
+    width: 43vw;
+  }
+  .fr-admin-form {
+    width: 45vw;
+  }
+  .addfr-inputs-wraps {
+    width: 40vw;
+    margin-top: 1.2vh;
+  }
+  .addfr-franchise-from-Name {
+    font-size: 30px;
+  }
+}
+@media (max-width: 593px) {
+  .fradmin-right {
+    width: 45vw;
+  }
+  .fr-admin-form {
+    width: 55vw;
+  }
+  .addfr-inputs-wraps {
+    width: 40vw;
+    margin-top: 1.2vh;
+  }
+  .addfr-franchise-from-Name {
+    font-size: 30px;
+  }
+}
+@media (max-width: 476px) {
+  .addfr-franchise-from-Name {
+    font-size: 26px;
+  }
+}
+@media (max-width: 413px) {
+  .addfr-franchise-from-Name {
+    font-size: 22px;
+  }
+}
+@media (max-width: 350px) {
+  .addfr-franchise-from-Name {
+    font-size: 20px;
+  }
+  .fr-admin-form {
+    width: 60vw;
+  }
 }

@@ -1,397 +1,444 @@
-/* .Frame{
-    border: 2px solid #0AA506;
-    height: 60%;
-    width: 80%;
-    padding: 5% 5% 1% 5%;
-    margin: 6% 5% 0% 5%;
-    border-radius: 15px;
-    background-color: white;
-    position: absolute;
-    
-    align-items: center;
-}
-.fr{
-    position: absolute;
-    margin-top: 2%;
-    color: #0AA506;
-    margin-left: 38%;
-}
-.h2{
-    position: absolute;
-    margin-top: -3.5%;
-    color: #0AA506;
-}
-.Admin{
-    
-    margin-top: -36%;
-    margin-left: 69%;
-    color: #0AA506;
-
-}
-.flex1{
-    display: flex;
-    
-    width: 100%;
-    gap: 6px;
-    margin-top: 2.75%;
-  }
-  
-  
-  .form label {
-    position: relative;
-  }
-  
-  .form label .input1 {
-    background-color: #f8f7f7;
-    color: #0AA506;
-    height: 30%;
-    width: 135%;
-    padding: 20px 05px 05px 10px;
-    outline: 0;
-    border: 1px solid #0AA506;
-    border-radius: 10px;
-  }
-  
-  .form label .input1 + span {
-    color: #0AA506;
-    position: absolute;
-    left: 10px;
-    top: 0px;
-    font-size: 0.9em;
-    cursor: text;
-    transition: 0.3s ease;
-  }
-  
-  .form label .input1:placeholder-shown + span {
-    top: 12.5px;
-    font-size: 0.9em;
-  }
-  
-  .form label .input1:focus + span,
-  .form label .input1:valid + span {
-    color: #0AA506;
-    top: 0px;
-    font-size: 0.7em;
-    font-weight: 600;
-  }
-
-  .flex2{
-    display: flex;
-    
-    width: 100%;
-    gap: 6px;
-    margin-top: 3.75%;
-    margin-left: 69%;
-  }
-  .flex3{
-    display: flex;
-    
-    width: 100%;
-    gap: 6px;
-    margin-top: 2.75%;
-    margin-left: 69%;
-  }
-  .flex4{
-    display: flex;
-    
-    width: 100%;
-    gap: 6px;
-    margin-top: 2.5%;
-    margin-left: 69%;
-  }
-  .flex5{
-    display: flex;
-    
-    width: 100%;
-    gap: 6px;
-    margin-top: 2.75%;
-    margin-left: 69%;
-  }
-  .flex6{
-    display: flex;
-    
-    width: 100%;
-    gap: 6px;
-    margin-top: 2.75%;
-    margin-left: 69%;
-  }
-  .flex1a{
-    display: flex;
-    
-    width: 100%;
-    gap: 6px;
-    margin-top: -30.5%;
-    margin-left: 35%;
-  }
-  .flex1b{
-    display: flex;
-    
-    width: 100%;
-    gap: 6px;
-    margin-top: 2.75%;
-    margin-left: 35%;
-  }
-  .flex1c{
-    display: flex;
-    
-    width: 100%;
-    gap: 6px;
-    margin-top: 2.75%;
-    margin-left: 35%;
-  }
-  .flex1d{
-    display: flex;
-    
-    width: 100%;
-    gap: 6px;
-    margin-top: 2.75%;
-    margin-left: 35%;
-  }
-
-  .submit1{
-    position: absolute;
-    border: 0 solid red;
-    height: 8%;
-    width: 15%;
-    background-color: #0AA506;
-    border-radius: 10px;
-    margin-left: 75%;
-    margin-top: 42%;
-    margin-bottom: 10%;
-    color: #f8f7f7;
-    font-size: 1rem;
-    transition: 1s;
-  }
-
-  .submit1:hover{
-    background-color: black;
-    color: azure;
-  } */
-
-
-
-  /* .Frame {
+/* .addfr-total {
+  margin: 5vh 6vw 0px 6vw;
   border: 2px solid #0aa506;
-  height: 60%;
-  width: 80%;
-  padding: 5% 5% 1% 5%;
-  margin: 6% 5% 0% 5%;
-  border-radius: 15px;
-  background-color: white;
-  position: absolute;
-
+  border-radius: 10px;
+  padding: 4px 20px 4px 20px;
+}
+.addfr-franchise-Reg {
+  height: 100vh;
+  width: 100vw;
+}
+.addfr-franchise-Logo {
+  display: flex;
+  padding: 2vh 6vw 0px 6vw;
   align-items: center;
 }
-.fr {
-  position: absolute;
-  margin-top: 2%;
-  color: #0aa506;
-  margin-left: 38%;
-}
-.h2 {
-  position: absolute;
-  margin-top: -3.5%;
-  color: #0aa506;
-}
-.Admin {
-  margin-top: -36%;
-  margin-left: 69%;
-  color: #0aa506;
-}
-.flex1 {
-  display: flex;
-
-  width: 100%;
-  gap: 6px;
-  margin-top: 2.75%;
-}
-
-.form label {
-  position: relative;
-}
-
-.form label .input1 {
-  background-color: #f8f7f7;
-  color: #0aa506;
-  height: 30%;
-  width: 135%;
-  padding: 20px 05px 05px 10px;
-  outline: 0;
-  border: 1px solid #0aa506;
-  border-radius: 10px;
-}
-
-.form label .input1 + span {
-  color: #0aa506;
-  position: absolute;
-  left: 10px;
-  top: 0px;
-  font-size: 0.9em;
-  cursor: text;
-  transition: 0.3s ease;
-}
-
-.form label .input1:placeholder-shown + span {
-  top: 12.5px;
-  font-size: 0.9em;
-}
-
-.form label .input1:focus + span,
-.form label .input1:valid + span {
-  color: #0aa506;
-  top: 0px;
-  font-size: 0.7em;
-  font-weight: 600;
-}
-
-.flex2 {
-  display: flex;
-
-  width: 100%;
-  gap: 6px;
-  margin-top: 3.75%;
-  margin-left: 69%;
-}
-.flex3 {
-  display: flex;
-
-  width: 100%;
-  gap: 6px;
-  margin-top: 2.75%;
-  margin-left: 69%;
-}
-.flex4 {
-  display: flex;
-
-  width: 100%;
-  gap: 6px;
-  margin-top: 2.5%;
-  margin-left: 69%;
-}
-.flex5 {
-  display: flex;
-
-  width: 100%;
-  gap: 6px;
-  margin-top: 2.75%;
-  margin-left: 69%;
-}
-.flex6 {
-  display: flex;
-
-  width: 100%;
-  gap: 6px;
-  margin-top: 2.75%;
-  margin-left: 69%;
-}
-.flex1a {
-  display: flex;
-
-  width: 100%;
-  gap: 6px;
-  margin-top: -30.5%;
-  margin-left: 35%;
-}
-.flex1b {
-  display: flex;
-
-  width: 100%;
-  gap: 6px;
-  margin-top: 2.75%;
-  margin-left: 35%;
-}
-.flex1c {
-  display: flex;
-
-  width: 100%;
-  gap: 6px;
-  margin-top: 2.75%;
-  margin-left: 35%;
-}
-.flex1d {
-  display: flex;
-
-  width: 100%;
-  gap: 6px;
-  margin-top: 2.75%;
-  margin-left: 35%;
-}
-
-.submit1 {
-  position: absolute;
-  border: 0 solid red;
-  height: 8%;
-  width: 15%;
-  background-color: #0aa506;
-  border-radius: 10px;
-  margin-left: 75%;
-  margin-top: 42%;
-  margin-bottom: 10%;
-  color: #f8f7f7;
-  font-size: 1rem;
-  transition: 1s;
-}
-
-.submit1:hover {
-  background-color: black;
-  color: azure;
-} */
-
-.franchise-header {
-  text-align: center;
-}
-
-.form-franchiseReg {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.franchise-column-wrapper {
+.addfr-franchise-column {
   display: flex;
   justify-content: space-around;
   width: 100%;
-  margin-top: 20px;
+  gap: 30px;
 }
-
-.column {
-  width: 30%;
-  position: relative;
+.addfr-input-wrap {
+  display: flex;
+  margin-top: 1.5vh;
 }
-
-.input-box-container {
-  margin-bottom: 10px;
+.addfr-input {
+  outline: none;
+  height: 7.5vh;
+  width: 30vw;
 }
-
-.suggestion-list {
-  list-style-type: none;
-  padding: 0;
-  background-color: #f9f9f9;
-  border: 1px solid #ccc;
-  max-height: 150px;
-  overflow-y: auto;
+.addfr-input-wrap label {
+  font-size: 14px;
+  font-weight: bold;
+  letter-spacing: 0.5px;
+  padding: 14px;
   position: absolute;
-  width: calc(100% - 2px); /* Match the width of the input box */
-  top: calc(100% + 5px);
+  top: -0px;
   left: 0;
-  z-index: 1000;
+  pointer-events: none;
+  transition: 0.3s ease all;
+  color: #0aa506;
 }
-
-.suggestion-list li {
-  padding: 5px;
-  cursor: pointer;
+.addfr-input-wrap {
+  position: relative;
+  width: 22vw;
+  height: 8vh;
 }
-
-.franchise-button {
-  margin-top: 20px;
-  padding: 10px 20px;
-  background-color: #007bff;
-  color: #fff;
+.addfr-input:focus + label,
+.addfr-input:valid + label {
+  top: 2px;
+  left: 1px;
+  padding: 0 5px 0 5px;
+  font-size: 10px;
+}
+.addfr-franchise-detail-columns {
+  display: flex;
+  gap: 1.5vw;
+}
+.addfr-franchise-admin {
+  display: flex;
+  gap: 6vw;
+}
+.addfr-franchise-details {
+  padding: 2vh 0 0vh 6vw;
+  color: #0aa506;
+}
+.addfr-franchise-details-admin {
+  padding: 2vh 0 3.3vh 0vw;
+  margin-top: -10vh;
+  color: #0aa506;
+}
+.addfr-submit-button {
+  margin-left: 33vw;
+  margin-top: 5vh;
+  margin-bottom: 1vh;
+  width: 15vw;
+  height: 6.5vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #0aa506;
+  color: white;
+  font-size: large;
+  letter-spacing: 0.5px;
   border: none;
-  border-radius: 5px;
-  cursor: pointer;
+  outline: none;
+  border-radius: 6px;
+}
+.addfr-image img {
+  height: 10vh;
+  width: 10vw;
+}
+.addfr-Registration h2 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: xx-large;
+  letter-spacing: 0.5px;
+  margin-left: 20.5vw;
+  color: #0aa506;
+}
+@media (max-width: 1264px) and (min-width: 700px) {
+  .addfr-franchise-details-admin {
+    padding-bottom: 2.5vh;
+  }
+}
+@media (max-width: 720px) {
+  .addfr-Registration h2 {
+    margin-left: 12vw;
+  }
+}
+@media (max-width: 640px) {
+  .addfr-franchise-details-admin {
+    padding-bottom: 2.5vh;
+  }
+  .addfr-franchise-details-admin {
+    margin-top: 0.1vh;
+    padding-top: 0.5vh;
+  }
+  .addfr-franchise-details {
+    display: flex;
+    justify-content: center;
+  }
+  .addfr-franchise-Reg {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    width: 95vw;
+  }
+  .addfr-image image {
+    height: 8vh;
+    width: 10vw;
+  }
+  .addfr-franchise-Logo {
+    padding: 10;
+    display: flex;
+    align-items: center;
+  }
+  .addfr-franchise-admin {
+    display: flex;
+    flex-direction: column;
+  }
+  .addfr-admin {
+    display: flex;
+    justify-content: center;
+  }
+  .addfr-Registration h2 {
+    font-size: xx-large;
+    margin-left: 7vw;
+  }
+  .addfr-input-wrap {
+    width: 35vw;
+  }
+  .addfr-submit-button {
+    margin-left: 22vw;
+    width: 30vw;
+  }
+}
+@media (max-width: 521px) {
+  .addfr-Registration h2 {
+    font-size: x-large;
+    margin-left: 5vw;
+  }
+  .addfr-image image {
+    height: 6vh;
+    width: 8vw;
+  }
+  .addfr-submit-button {
+    margin-left: 20vw;
+    width: 30vw;
+  }
+}
+@media (max-width: 400px) {
+  .addfr-Registration h2 {
+    font-size: large;
+    margin-left: 5vw;
+  }
+  .addfr-image image {
+    height: 6vh;
+    width: 15vw;
+  }
+  .addfr-franchise-detail-columns {
+    display: flex;
+    flex-direction: column;
+  }
+  .addfr-input-wrap {
+    width: 60vw;
+  }
+  .addfr-input {
+    width: 80vw;
+  }
+  .addfr-submit-button {
+    margin-left: 19vw;
+    width: 30vw;
+  }
+} */
+
+
+
+.addfr-total {
+  margin: 1vh 6vw 0px 6vw;
+  border: 2px solid #0aa506;
+  border-radius: 10px;
+  padding: 4px 20px 4px 20px;
+}
+.addfr-franchise-Reg {
+  height: 100vh;
+  width: 100vw;
+}
+.addfr-franchise-Logo {
+  display: flex;
+  margin-left: 7vw;
+  /* padding: 2vh 6vw 0px 6vw; */
+  align-items: center;
+}
+.addfr-franchise-column {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  gap: 30px;
+}
+.addfr-input-wrap {
+  display: flex;
+  margin-top: 1.5vh;
+}
+.addfr-input {
+  /* border: none; */
+  outline: none;
+  height: 7.5vh;
+  width: 30vw;
+}
+.suggestion-list1 {
+  height: 13vh;
+  overflow: auto;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: calc(100% - 20px); /* Adjust width for padding */
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-top: none;
+  border-radius: 0 0 4px 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  z-index: 1;
+  li {
+    padding: 8px;
+    cursor: pointer;
+  }
+  li:hover {
+    background-color: #f0f0f0;
+  }
+}
+.suggestion-list1::-webkit-scrollbar {
+  width: 5px;
+  background-color: #e0f7fa;
 }
 
-.franchise-button:hover {
-  background-color: #0056b3;
+.suggestion-list1::-webkit-scrollbar-track {
+  background: #e0f7fa;
+  border-radius: 10px;
+}
+
+.suggestion-list1::-webkit-scrollbar-thumb {
+  background-color: #0aa506;
+  border-radius: 20px;
+}
+
+.suggestion-list1::-webkit-scrollbar-thumb:hover {
+  background-color: #1ae313;
+}
+.addfr-input-wrap label {
+  font-size: 14px;
+  font-weight: bold;
+  letter-spacing: 0.5px;
+  padding: 14px;
+  position: absolute;
+  top: -0px;
+  left: 0;
+  pointer-events: none;
+  transition: 0.3s ease all;
+  color: #0aa506;
+}
+.addfr-input-wrap {
+  position: relative;
+  width: 22vw;
+  height: 8vh;
+}
+.addfr-input:focus + label,
+.addfr-input:valid + label {
+  top: 2px;
+  left: 1px;
+  padding: 0 5px 0 5px;
+  font-size: 10px;
+}
+.addfr-franchise-detail-columns {
+  display: flex;
+  gap: 1.5vw;
+}
+.addfr-franchise-admin {
+  display: flex;
+  gap: 6vw;
+}
+.addfr-franchise-details {
+  padding: 2vh 0 0vh 6vw;
+  color: #0aa506;
+}
+.addfr-franchise-details-admin {
+  padding: 2vh 0 3.3vh 0vw;
+  margin-top: -10vh;
+  color: #0aa506;
+}
+.addfr-submit-button {
+  margin-left: 33vw;
+  margin-top: 5vh;
+  margin-bottom: 1vh;
+  width: 15vw;
+  height: 6.5vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #0aa506;
+  color: white;
+  font-size: large;
+  letter-spacing: 0.5px;
+  border: none;
+  outline: none;
+  border-radius: 6px;
+}
+.addfr-image img {
+  height: 10vh;
+  width: 10vw;
+}
+.addfr-Registration h2 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: xx-large;
+  letter-spacing: 0.5px;
+  margin-left: 20.5vw;
+  color: #0aa506;
+}
+.font-size-error {
+  font-size: 12px;
+  font-weight: 500;
+}
+@media (max-width: 1264px) and (min-width: 700px) {
+  .addfr-franchise-details-admin {
+    padding-bottom: 2.5vh;
+  }
+}
+@media (max-width: 720px) {
+  .addfr-Registration h2 {
+    margin-left: 12vw;
+  }
+}
+@media (max-width: 640px) {
+  .addfr-franchise-details-admin {
+    padding-bottom: 2.5vh;
+  }
+  .addfr-franchise-details-admin {
+    margin-top: 0.1vh;
+    padding-top: 0.5vh;
+  }
+  .addfr-franchise-details {
+    display: flex;
+    justify-content: center;
+  }
+  .addfr-franchise-Reg {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    width: 95vw;
+  }
+  .addfr-image image {
+    height: 8vh;
+    width: 10vw;
+  }
+  .addfr-franchise-Logo {
+    padding: 10;
+    display: flex;
+    /* justify-content: center; */
+    align-items: center;
+  }
+  .addfr-franchise-admin {
+    display: flex;
+    flex-direction: column;
+  }
+  .addfr-admin {
+    display: flex;
+    justify-content: center;
+  }
+  .addfr-Registration h2 {
+    font-size: xx-large;
+    margin-left: 7vw;
+  }
+  .addfr-input-wrap {
+    width: 35vw;
+  }
+  .addfr-submit-button {
+    margin-left: 22vw;
+    width: 30vw;
+  }
+}
+@media (max-width: 521px) {
+  .addfr-Registration h2 {
+    font-size: x-large;
+    margin-left: 5vw;
+  }
+  .addfr-image image {
+    height: 6vh;
+    width: 8vw;
+  }
+  .addfr-submit-button {
+    margin-left: 20vw;
+    width: 30vw;
+  }
+}
+@media (max-width: 400px) {
+  .addfr-Registration h2 {
+    font-size: large;
+    margin-left: 5vw;
+  }
+  .addfr-image image {
+    height: 6vh;
+    width: 15vw;
+  }
+  .addfr-franchise-detail-columns {
+    display: flex;
+    flex-direction: column;
+  }
+  .addfr-input-wrap {
+    width: 60vw;
+  }
+  .addfr-input {
+    width: 80vw;
+  }
+  .addfr-submit-button {
+    margin-left: 19vw;
+    width: 30vw;
+  }
 }

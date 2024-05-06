@@ -1,0 +1,33 @@
+.masterusers-table{
+   width: 70vw;
+   margin-top: 1vh;
+   border-collapse: collapse;
+}
+.masterusers-table th{
+    font-size: 0.7rem;
+    background-color: #0AA506;
+    color: white;
+    padding: 8px;
+}
+.masterusers-table td{
+    font-size: 0.7rem;
+    padding: 7px;
+}
+.admin-activeinactive{
+    
+}
+
+.admin-activeinactive {
+    border: none;
+    outline: none;
+    padding: 7px 10px 7px 10px;
+    border-radius: 10px;
+    color: #fff;
+    font-size: 0.7rem;
+    transform: .3s ease;
+    background-color: #0AA506;
+  }
+  
+  .admin-activeinactive:hover {
+    background-color: #0d390c;
+  }

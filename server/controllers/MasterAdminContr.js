@@ -6,17 +6,26 @@ exports.registerUser = async (req, res) => {
     const user = await User.create(req.body);
     res.status(201).json(user);
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: 'Server Error' });
+    if (error.code === 11000 && error.keyPattern.userId) {
+      res.status(400).json({ error: 'User ID already exists' });
+    } else if (error.code === 11000 && error.keyPattern.phoneNumber) {
+      res.status(400).json({ error: 'Phone number already exists' });
+    } else {
+      console.error(error);
+      res.status(500).json({ error: 'Server Error' });
+    }
   }
 };
 
 exports.loginUser = async (req, res) => {
-  const { username, password } = req.body;
+  const { userId, password } = req.body;
   try {
-    const user = await User.findOne({ username, password });
+    const user = await User.findOne({ userId, password });
     if (!user) {
       return res.status(400).json({ error: 'Invalid credentials' });
+    }
+    if (!user.isActive) {
+      return res.status(400).json({ error: 'User is not active' });
     }
     res.status(200).json(user);
   } catch (error) {
@@ -24,6 +33,7 @@ exports.loginUser = async (req, res) => {
     res.status(500).json({ error: 'Server Error' });
   }
 };
+
 
 
 exports.getAllUsers = async (req, res) => {

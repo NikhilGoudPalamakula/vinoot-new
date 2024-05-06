@@ -11,7 +11,7 @@ const LoginPage = () => {
     const navigate = useNavigate();
 
     const [formData, setFormData] = useState({
-    username: '',
+      userId: '',
     password: '',
   });
 
@@ -24,7 +24,7 @@ const LoginPage = () => {
     try {
       const res = await axios.post('http://localhost:5001/api/login', formData);
       console.log('User logged in:', res.data);
-      localStorage.setItem('username', res.data.username);
+      localStorage.setItem('userId', res.data.userId);
         navigate("/FrSidebar");
       // Optionally, you can redirect the user to another page after successful login
     } catch (error) {
@@ -39,10 +39,10 @@ const LoginPage = () => {
       <form onSubmit={handleSubmit}>
         <input
           type="text"
-          name="username"
-          value={formData.username}
+          name="userId"
+          value={formData.userId}
           onChange={handleChange}
-          placeholder="Username"
+          placeholder="userId"
           required
         />
         <input

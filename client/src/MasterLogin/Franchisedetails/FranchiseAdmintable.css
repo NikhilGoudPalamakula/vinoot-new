@@ -1,40 +1,46 @@
 /* FranchiseAdmintable.css */
 
 /* Table styles */
+.franchise-details{
+  display: flex;
+}
+.franchise-admin-rights{
+  margin-left: 18.5%;
+  margin-top: 5%;
+}
 .tabf {
-    font-family: Arial, sans-serif;
     border-collapse: collapse;
-    width: 100%;
-  }
-  
-  .tabf th, .tabf td {
-    border: 1px solid #dddddd;
-    text-align: left;
-    padding: 8px;
+    width:80vw ;
+    border: 1px solid gray;
   }
   
   .tabf th {
-    background-color: #f2f2f2;
-  }
-  
-  /* Button style */
-  .btnf {
-    background-color: #4CAF50; /* Green */
-    border: none;
-    color: white;
-    padding: 10px 20px;
     text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 10px 0px;
-    cursor: pointer;
+    padding: 7px;
+    font-size: 0.7rem;
+    color: white;
+    background-color: #0AA506;
+  }
+  .tabf td{
+    text-align: center;
+    padding: 7px;
+    font-size: 0.7rem;
   }
   
-  .btnf:hover {
-    background-color: #45a049; /* Darker Green */
+  .farnchiseadmin-activebtn {
+    border: none;
+    outline: none;
+    padding: 10px 7px 10px 7px;
+    border-radius: 10px;
+    color: #fff;
+    font-size: 0.7rem;
+    transform: .3s ease;
+    background-color: #0AA506;
   }
   
+  .farnchiseadmin-activebtn:hover {
+    background-color: #0d390c;
+  }
   /* Sidebar styles */
   /* Assuming you have styling for the Sidebar component already */
   

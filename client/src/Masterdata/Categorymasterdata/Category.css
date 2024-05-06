@@ -4,25 +4,38 @@
     display: flex;
   }
   
+
+  .treat-cat-right{
+    margin-left: 28%;
+  }
   /* Sidebar styling */
-  .sidebar {
-    width: 200px; /* Adjust width as needed */
+  /* .sidebar {
+    width: 200px; 
     background-color: #f0f0f0;
     padding: 20px;
-  }
+  } */
   
   /* Main content styling */
   .main-content {
     flex: 1;
     padding: 20px;
   }
-  
-  h1 {
+  .cat-total-con{
+    align-items: center;
+    justify-content: center;
+    margin-top: 4%;
+    margin-left: 30%;
+  }
+  .h111 {
     margin-bottom: 20px;
   }
   
   .cat-form {
     margin-bottom: 20px;
+    padding: 20px;
+  border-radius: 10px;
+  border: 1px solid #333;
+  width: 50vw;
   }
   
   .cat-form label {
@@ -31,43 +44,62 @@
   }
   
   .cat-form input[type="text"] {
-    width: 100%;
+    width: 90%;
     padding: 10px;
     margin-bottom: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
   }
   
-  .cat-form button {
-    padding: 10px 20px;
-    background-color: #4CAF50;
-    color: #fff;
+  .category_submit-btn {
     border: none;
-    border-radius: 5px;
-    cursor: pointer;
+    outline: none;
+    padding: 10px 20px 10px 20px;
+    border-radius: 10px;
+    color: #fff;
+    font-size: 0.8rem;
+    transform: .3s ease;
+    background-color: #0AA506;
   }
-  
-  .tabc {
+  .category_submit-btn:hover{
+    background-color: #0d390c;
+  }
+  .tab-cat {
     width: 100%;
     border-collapse: collapse;
   }
   
-  .tabc th,
-  .tabc td {
-    border: 1px solid #ccc;
-    padding: 10px;
-  }
   
-  .tabc th {
-    background-color: #f0f0f0;
+  .tab-cat th {
+    text-align: center;
+    padding: 8px;
+    font-size: 0.7rem;
+    color: white;
+    background-color: #0AA506;
   }
-  
-  .tabc td button {
-    padding: 5px 10px;
-    background-color: #4CAF50;
-    color: #fff;
+  .tab-cat td{
+    text-align: center;
+    padding: 8px;
+    font-size: 0.7rem;
+  }
+
+
+  .treatcat-btn {
     border: none;
-    border-radius: 5px;
-    cursor: pointer;
+    outline: none;
+    padding: 7px 7px 7px 7px;
+    border-radius: 10px;
+    color: #fff;
+    font-size: 0.7rem;
+    transform: .3s ease;
+    background-color: #0AA506;
   }
+  .treatcat-btn:hover {
+    background-color: #0d390c;
+  }
+
+  .category_list_heading{
+    margin: 2.5% 0;
+  }
+  
   

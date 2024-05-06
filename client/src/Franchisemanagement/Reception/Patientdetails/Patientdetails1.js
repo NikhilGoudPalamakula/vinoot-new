@@ -2,8 +2,16 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./Addpatient.css";
 
+import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
+import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
+import KeyboardDoubleArrowLeftIcon from "@mui/icons-material/KeyboardDoubleArrowLeft";
+import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArrowRight";
+
 const Patientdetails1 = () => {
   const [patients, setPatients] = useState([]);
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage] = useState(3);
 
   useEffect(() => {
     fetchPatients();
@@ -25,6 +33,19 @@ const Patientdetails1 = () => {
       console.error("Error fetching patients:", error);
     }
   };
+
+  // Pagination handlers
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
+
+  // Get current plans
+  const indexOfLastPlan = currentPage * itemsPerPage;
+  const indexOfFirstPlan = indexOfLastPlan - itemsPerPage;
+  const currentPlans = patients.slice(indexOfFirstPlan, indexOfLastPlan);
+
+  // Calculate total pages
+  const totalPages = Math.ceil(patients.length / itemsPerPage);
   return (
     <div>
       <div className="patientdetail-fetch">
@@ -48,7 +69,7 @@ const Patientdetails1 = () => {
             </tr>
           </thead>
           <tbody>
-            {patients.map((patient) => (
+            {currentPlans.map((patient) => (
               <tr key={patient._id}>
                 <td>{patient.patient_id}</td>
                 <td>{patient.patient_name}</td>
@@ -67,6 +88,29 @@ const Patientdetails1 = () => {
             ))}
           </tbody>
         </table>
+        <div className="paginationss">
+          <span onClick={() => handlePageChange(1)}>
+            <KeyboardDoubleArrowLeftIcon />
+          </span>
+          <span onClick={() => handlePageChange(currentPage - 1)}>
+            <KeyboardArrowLeftIcon />
+          </span>
+          {[...Array(totalPages)].map((_, index) => (
+            <span
+              key={index}
+              onClick={() => handlePageChange(index + 1)}
+              className={currentPage === index + 1 ? "pageactive-page" : ""}
+            >
+              {index + 1}
+            </span>
+          ))}
+          <span onClick={() => handlePageChange(currentPage + 1)}>
+            <KeyboardArrowRightIcon />
+          </span>
+          <span onClick={() => handlePageChange(totalPages)}>
+            <KeyboardDoubleArrowRightIcon />
+          </span>
+        </div>
       </div>
     </div>
   );

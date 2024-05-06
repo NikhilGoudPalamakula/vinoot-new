@@ -1,5 +1,5 @@
 const Admin = require('../models/FranchiseAdminmodel');
-const franchiseActive = require('../models/FranchiseAdminmodel');
+const FranchiseRegModel = require('../models/FranchiseRegModel');
 
 
 exports.createAdmin = async (req, res) => {
@@ -51,11 +51,22 @@ exports.getExceptAllFranchiseAmins = async (req, res) => {
 exports.loginfranchiseUser = async (req, res) => {
   const { userId, password } = req.body;
   try {
-    const user = await Admin.findOne({ userId, password }).select('franchisename FranchiseID userId designation');
-    if (!user) {
+    // Check in FranchiseAdmin model
+    const franchiseAdminUser = await Admin.findOne({ userId, password }).select('franchisename FranchiseID userId designation isActive');
+    
+    // Check in FranchiseRegModel model if not found in FranchiseAdmin
+    const franchiseRegUser = franchiseAdminUser || await FranchiseRegModel.findOne({ userId, password }).select('isActive');
+
+    if (!franchiseAdminUser && !franchiseRegUser) {
       return res.status(400).json({ error: 'Invalid credentials' });
     }
     
+    const user = franchiseAdminUser || franchiseRegUser;
+
+    if (!user.isActive) {
+      return res.status(400).json({ error: 'User is not active' });
+    }
+
     res.status(200).json(user);
   } catch (error) {
     console.error(error);

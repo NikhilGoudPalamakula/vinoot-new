@@ -28,7 +28,9 @@ exports.toggleFranchiseStatus = async (req, res) => {
     }
 
     // Toggle the active/deactivate status
-    franchise.active = !franchise.active;
+    franchise.isActive
+    = !franchise.isActive
+    ;
     await franchise.save();
 
     res.status(200).json({ success: true, message: 'Franchise status updated successfully.', franchise });

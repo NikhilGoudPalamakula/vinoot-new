@@ -251,8 +251,17 @@ const Cities = () => {
 
     try {
       const selectedState = states.find((state) => state.name === stateName);
-      if (!selectedState) {
-        console.error("Selected state not found");
+      // if (!selectedState) {
+      //   console.error("Selected state not found");
+      //   return;
+      // }
+
+      if (!stateName) {
+        alert("Please select a state.");
+        return;
+      }
+      if (!cityName) {
+        alert("Please enter a city name.");
         return;
       }
 

@@ -1,4 +1,3 @@
-
 // import React, { useState, useEffect } from "react";
 // import './City.css';
 // import axios from "axios";
@@ -178,14 +177,17 @@
 
 // export default Cities;
 
-
-
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { VINOOTNEW } from "../../Helper/Helper";
 import Sidebar from "../Sidebar/Sidebar";
-import './City.css'
+import "./City.css";
+
+import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
+import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
+import KeyboardDoubleArrowLeftIcon from "@mui/icons-material/KeyboardDoubleArrowLeft";
+import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArrowRight";
 const Cities = () => {
   const navigate = useNavigate();
 
@@ -195,6 +197,9 @@ const Cities = () => {
   const [cities, setCities] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage] = useState(3);
 
   useEffect(() => {
     fetchCities();
@@ -218,8 +223,10 @@ const Cities = () => {
       const response = await axios.get(`${VINOOTNEW}/api/states`);
       // setStates(response.data);
 
-      const activeStates = response.data.filter(state => state.status === "active");
-    setStates(activeStates);
+      const activeStates = response.data.filter(
+        (state) => state.status === "active"
+      );
+      setStates(activeStates);
     } catch (error) {
       console.error("Failed to fetch states", error);
     }
@@ -317,15 +324,29 @@ const Cities = () => {
     return id;
   };
 
+  // Pagination handlers
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
+
+  // Get current plans
+  const indexOfLastPlan = currentPage * itemsPerPage;
+  const indexOfFirstPlan = indexOfLastPlan - itemsPerPage;
+  const currentPlans = cities.slice(indexOfFirstPlan, indexOfLastPlan);
+
+  // Calculate total pages
+  const totalPages = Math.ceil(cities.length / itemsPerPage);
   return (
     <div className="city-total">
-      <div><Sidebar/></div>
+      <div>
+        <Sidebar />
+      </div>
       <div className="city-right">
         <h1>City Master</h1>
         <form className="city-form" onSubmit={handleSubmit}>
           <div>
             <label>
-              Select State: <span style={{color:'red'}}>*</span>
+              Select State: <span style={{ color: "red" }}>*</span>
               <select value={stateName} onChange={handleStateChange}>
                 <option value="">Select a state</option>
                 {states.map((state) => (
@@ -338,12 +359,8 @@ const Cities = () => {
           </div>
           <div>
             <label>
-              City Name: <span style={{color:'red'}}>*</span>
-              <input
-                type="text"
-                value={cityName}
-                onChange={handleCityChange}
-              />
+              City Name: <span style={{ color: "red" }}>*</span>
+              <input type="text" value={cityName} onChange={handleCityChange} />
             </label>
           </div>
           {error && <div style={{ color: "red" }}>{error}</div>}
@@ -365,7 +382,7 @@ const Cities = () => {
                 </tr>
               </thead>
               <tbody>
-                {cities.map((city) => (
+                {currentPlans.map((city) => (
                   <tr key={city._id}>
                     <td>{city.name}</td>
                     <td>{city.status}</td>
@@ -381,6 +398,29 @@ const Cities = () => {
               </tbody>
             </table>
           )}
+          <div className="paginationss">
+            <span onClick={() => handlePageChange(1)}>
+              <KeyboardDoubleArrowLeftIcon />
+            </span>
+            <span onClick={() => handlePageChange(currentPage - 1)}>
+              <KeyboardArrowLeftIcon />
+            </span>
+            {[...Array(totalPages)].map((_, index) => (
+              <span
+                key={index}
+                onClick={() => handlePageChange(index + 1)}
+                className={currentPage === index + 1 ? "pageactive-page" : ""}
+              >
+                {index + 1}
+              </span>
+            ))}
+            <span onClick={() => handlePageChange(currentPage + 1)}>
+              <KeyboardArrowRightIcon />
+            </span>
+            <span onClick={() => handlePageChange(totalPages)}>
+              <KeyboardDoubleArrowRightIcon />
+            </span>
+          </div>
         </div>
       </div>
     </div>

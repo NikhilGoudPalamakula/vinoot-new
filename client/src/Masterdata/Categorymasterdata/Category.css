@@ -102,13 +102,19 @@
     margin: 2.5% 0;
   }
 
-  .paginationpha {
+  .paginationss {
     display: flex;
     justify-content: center;
     margin-top: 20px;
 }
-.custom-pagination-arrow{
+
+  
+.paginationss span {
+  padding: 5px 5px;
   color: #0AA506;
+
 }
-  
-  
+.pageactive-page {
+  background-color: #e0e0e0;
+  cursor: pointer;
+}

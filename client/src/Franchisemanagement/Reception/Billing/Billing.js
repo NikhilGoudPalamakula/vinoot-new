@@ -335,71 +335,108 @@ const Billing = () => {
 
     // Construct the HTML content to be printed
     const htmlContent = `
-      <html>
-        <head>
-          <title>Billing Details</title>
-          <!-- Add any CSS styles for printing -->
-          <style>
-            /* Define your print styles here */
-            /* For example, hide unnecessary elements */
-            .no-print {
-              display: none;
-            }
-          </style>
-        </head>
-        <body>
-          <h1>Billing Details</h1>
-          <p>Date: ${currentDate}</p>
-          <p>Bill Number: ${billingNumber}</p>
-          <p>Mobile Number: ${selectedNumber ? selectedNumber.mobile_number : ""}</p>
-          <p>Patient ID: ${selectedNumber ? selectedNumber.patient_id : ""}</p>
-          <p>Patient Name: ${selectedNumber ? selectedNumber.patient_name : ""}</p>
-          <p>Address: ${selectedNumber ? selectedNumber.address : ""}</p>
-          <p>Franchise Name: ${localStorage.getItem("franchisename")}</p>
-          <p>Franchise ID: ${localStorage.getItem("FranchiseID")}</p>
-
-          <!-- Add any other details you want to include -->
-          <table>
+    <html>
+      <head>
+        <title>Billing Details</title>
+        <!-- Add any CSS styles for printing -->
+        <style>
+          /* Define your print styles here */
+          /* For example, hide unnecessary elements */
+          .no-print {
+            display: none;
+          }
+          /* Define table styles */
+          table {
+            border-collapse: collapse;
+            width: 100%;
+          }
+          th, td {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+          }
+          th {
+            background-color: #f2f2f2;
+          }
+        </style>
+      </head>
+      <body>
+        <h1>Billing Details</h1>
+        <table>
+         
           <tr>
-            <td><b>Selected Doctor</b></td>
+            <td>Date</td>
+            <td>${currentDate}</td>
+          </tr>
+          <tr>
+            <td>Bill Number</td>
+            <td>${billingNumber}</td>
+          </tr>
+          <tr>
+            <td>Mobile Number</td>
+            <td>${selectedNumber ? selectedNumber.mobile_number : ""}</td>
+          </tr>
+          <tr>
+            <td>Patient ID</td>
+            <td>${selectedNumber ? selectedNumber.patient_id : ""}</td>
+          </tr>
+          <tr>
+            <td>Patient Name</td>
+            <td>${selectedNumber ? selectedNumber.patient_name : ""}</td>
+          </tr>
+          <tr>
+            <td>Address</td>
+            <td>${selectedNumber ? selectedNumber.address : ""}</td>
+          </tr>
+          <tr>
+            <td>Franchise Name</td>
+            <td>${localStorage.getItem("franchisename")}</td>
+          </tr>
+          <tr>
+            <td>Franchise ID</td>
+            <td>${localStorage.getItem("FranchiseID")}</td>
+          </tr>
+          <tr>
+            <td>Selected Doctor</td>
             <td>${selectedDoctor}</td>
           </tr>
           <tr>
-            <td><b>Plan Name</b></td>
+            <td>Plan Name</td>
             <td>${planName}</td>
           </tr>
           <tr>
-            <td><b>GST</b></td>
+            <td>GST</td>
             <td>${selectedPlan?.GST || 'N/A'}</td>
           </tr>
           <tr>
-            <td><b>Days</b></td>
+            <td>Days</td>
             <td>${selectedPlan?.days || 'N/A'}</td>
           </tr>
           <tr>
-            <td><b>Price</b></td>
+            <td>Price</td>
             <td>${selectedPlan?.price || 'N/A'}</td>
           </tr>
           <tr>
-            <td><b>Payment Type</b></td>
+            <td>Payment Type</td>
             <td>${paymentType || 'N/A'}</td>
           </tr>
           <tr>
-            <td><b>Amount Paid</b></td>
+            <td>Amount Paid</td>
             <td>${amountPaid || 'N/A'}</td>
           </tr>
           <tr>
-            <td><b>Payment Status</b></td>
+            <td>Payment Status</td>
             <td>${status || 'N/A'}</td>
           </tr>
           <tr>
-            <td><b>Remaining Amount</b></td>
+            <td>Remaining Amount</td>
             <td>Rs. ${remaining || 'N/A'}</td>
           </tr>
         </table>
-        </body>
-      </html>
-    `;
+      </body>
+    </html>
+  `;
+  
 
     // Write the HTML content to the new window
     printWindow.document.open();

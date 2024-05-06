@@ -390,7 +390,7 @@ const RegisterPage = () => {
                       placeholder=""
                       required
                     />
-                    <span>Full Name</span>
+                    <span>Full Name <span style={{color:'red'}}>*</span></span>
                   </label>
                   {errors.fullName && (
                     <div style={{ color: "red" }} className="font-size-error">
@@ -408,7 +408,7 @@ const RegisterPage = () => {
                       readOnly
                       required
                     />
-                    <span>UserId</span>
+                    <span>UserId <span style={{color:'red'}}>*</span></span>
                   </label>
 
                   <label>
@@ -421,7 +421,7 @@ const RegisterPage = () => {
                       placeholder=""
                       required
                     />
-                    <span>Email</span>
+                    <span>Email </span>
                   </label>
                   {errors.email && (
                     <div style={{ color: "red" }} className="font-size-error">
@@ -438,7 +438,7 @@ const RegisterPage = () => {
                       placeholder=""
                       required
                     />
-                    <span>Phone Number</span>
+                    <span>Phone Number  <span style={{color:'red'}}>*</span></span>
                   </label>
                   {errors.phoneNumber && (
                     <div style={{ color: "red" }} className="font-size-error">
@@ -479,7 +479,7 @@ const RegisterPage = () => {
                       <option value="female">Female</option>
                       <option value="other">Other</option>
                     </select>
-                    <span>Gender</span>
+                    <span>Gender  </span>
                   </label>
                   <label>
                     <input
@@ -491,7 +491,7 @@ const RegisterPage = () => {
                       placeholder=""
                       required
                     />
-                    <span>Password</span>
+                    <span>Password <span style={{color:'red'}}>*</span></span>
                   </label>
                   {errors.password && (
                     <div style={{ color: "red" }} className="font-size-error">
@@ -509,7 +509,7 @@ const RegisterPage = () => {
                       placeholder=""
                       required
                     />
-                    <span>Confirm Password</span>
+                    <span>Confirm Password <span style={{color:'red'}}>*</span></span>
                   </label>
                   {errors.confirmPassword && (
                     <div style={{ color: "red" }} className="font-size-error">

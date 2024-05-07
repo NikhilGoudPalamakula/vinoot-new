@@ -83,7 +83,7 @@ exports.loginfranchiseUser = async (req, res) => {
     const franchiseIDOne = user.franchiseID;
 
     // Find the corresponding franchise in the FranchiseRegModel
-    const franchise = await FranchiseRegModel.findOne({ franchiseIDOne });
+    const franchise = await FranchiseRegModel.findOne({ franchiseID:franchiseIDOne });
 
 
     if (!franchise) {

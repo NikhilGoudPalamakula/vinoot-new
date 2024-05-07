@@ -1,7 +1,5 @@
-// FranchiseComponent.js
-
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 
 const FranchiseDetails = () => {
   const [franchises, setFranchises] = useState([]);
@@ -9,10 +7,11 @@ const FranchiseDetails = () => {
   useEffect(() => {
     const fetchFranchises = async () => {
       try {
-        const response = await axios.get('http://localhost:5001/api/franchise');
+        const response = await axios.get("http://localhost:5001/api/franchise");
         setFranchises(response.data.franchises);
+        console.log(franchises);
       } catch (error) {
-        console.error('Error fetching franchises:', error);
+        console.error("Error fetching franchises:", error);
       }
     };
 
@@ -23,18 +22,23 @@ const FranchiseDetails = () => {
   const toggleStatus = async (franchiseId) => {
     try {
       // Make a PUT request to update the status in the backend
-      await axios.put(`http://localhost:5001/api/franchise/${franchiseId}/toggle`);
-      
+      await axios.put(
+        `http://localhost:5001/api/franchise/${franchiseId}/toggle`
+      );
+
       // Update the local state to reflect the change
-      setFranchises(franchises.map(franchise => {
-        if (franchise._id === franchiseId) {
-          // Toggle the status
-          return { ...franchise, active: !franchise.active };
-        }
-        return franchise;
-      }));
+      // Update the local state to reflect the change
+      setFranchises(
+        franchises.map((franchise) => {
+          if (franchise._id === franchiseId) {
+            // Toggle the status
+            return { ...franchise, isActive: !franchise.isActive };
+          }
+          return franchise;
+        })
+      );
     } catch (error) {
-      console.error('Error toggling status:', error);
+      console.error("Error toggling status:", error);
     }
   };
 
@@ -69,13 +73,12 @@ const FranchiseDetails = () => {
               <td>{franchise.area}</td>
               <td>{franchise.address}</td>
               <td>{franchise.pincode}</td>
-              <td>{franchise.active ? 'Active' : 'Inactive'}</td>
+              <td>{franchise.isActive ? "Active" : "Inactive"}</td>
               <td>
                 <button onClick={() => toggleStatus(franchise._id)}>
-                  {franchise.active ? 'Deactivate' : 'Activate'}
+                  {franchise.isActive ? "Deactivate" : "Activate"}
                 </button>
-              </td><th>Status</th>
-            <th>Action</th>
+              </td>
             </tr>
           ))}
         </tbody>

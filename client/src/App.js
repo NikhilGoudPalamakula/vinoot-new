@@ -43,7 +43,7 @@ function App() {
         {/* Mastar data */}
         {/* <Route path="/" element={<LoginForm />} /> */}
         <Route path="/" element={<Landingpage />} />
-        <Route path="/login" element={<Home />} />
+        {/* <Route path="/login" element={<Home />} /> */}
 
 
         <Route path="*" element={<NotFound />} />

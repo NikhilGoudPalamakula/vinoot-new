@@ -33,15 +33,16 @@ import AdminTogglebutton from './MasterLogin/FranchiseAdmin-s/AdminTogglebutton'
 import Togglepatients from './Franchisemanagement/Reception/Patientdetails/FranchiseToggledetails/Togglepatients';
 import FranchiseLoginDetailsIcon from './Franchisemanagement/Franchiseadmin/FranchiseLoginDetailsIcon';
 import FranchiseDetails from './MasterLogin/Franchiseregistration/Franchisedetails';
-
+import Landingpage from'./Landing/Landingpage'
 function App() {
   return (
 
     <Router>
       <Routes>
-
+          {/* <Landingpage/> */}
         {/* Mastar data */}
-        <Route path="/" element={<LoginForm />} />
+        {/* <Route path="/" element={<LoginForm />} /> */}
+        <Route path="/" element={<Landingpage />} />
         <Route path="/login" element={<Home />} />
 
 

@@ -1,0 +1,31 @@
+.login-link {
+    border: none;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1rem;
+    color: white;
+    /* background-color: blueviolet; */
+    background-color: #2A8201;
+    border-radius: 100px;
+    padding: 10px 30px 10px 30px;
+    transform-origin: center;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+  }
+  
+  .login-link::before {
+    content: " ";
+    position: absolute;
+    top: 0px;
+    width: 40px;
+    height: 40px;
+    transform: skewX(40deg) translateX(-90px);
+    background-color: rgba(255, 255, 255, 0.411);
+    z-index: 99;
+    transition: 0.8s cubic-bezier(0.97, 0.02, 0.44, 0.99);
+  }
+  
+  .login-link:hover::before {
+    transform: skewX(40deg) translateX(100px);
+    animation: btnshine 1s cubic-bezier(0.97, 0.02, 0.44, 0.99) infinite;
+  }

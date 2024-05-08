@@ -58,7 +58,7 @@ const Vnavbar = () => {
       <Link to='/Whatweoffer'> <button className='nav-btt'>What we offer</button></Link>
         <div class="home_underline"></div>
       </li>
-      <Link to="/LoginForm"><button className='btn543s'>Login</button></Link>
+      <Link to="/login"><button className='btn543s'>Login</button></Link>
 
     </ul>
     <label for="nav-toggle" class="icon-burger">

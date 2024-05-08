@@ -41,7 +41,7 @@ function App() {
       <Routes>
           {/* <Landingpage/> */}
         {/* Mastar data */}
-        {/* <Route path="/" element={<LoginForm />} /> */}
+        <Route path="/login" element={<LoginForm />} />
         <Route path="/" element={<Landingpage />} />
         {/* <Route path="/login" element={<Home />} /> */}
 

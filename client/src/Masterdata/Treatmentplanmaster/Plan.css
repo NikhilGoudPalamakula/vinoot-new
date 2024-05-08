@@ -4,7 +4,7 @@
 
 .tplan-above-table1 {
   margin-left: 20%;
-  h1{
+  h1 {
     font-size: 25px;
   }
 }
@@ -17,7 +17,6 @@
   margin-left: 10%;
 }
 
-
 .tplan-total {
   display: flex;
   flex-direction: row;
@@ -27,7 +26,7 @@
   position: relative;
   /* background-color: #1a1a1a; */
   color: #0000;
-  border: 1px solid #0AA506;
+  border: 1px solid #0aa506;
   gap: 50px;
 }
 
@@ -51,8 +50,8 @@
   border-radius: 10px;
 }
 
-.tplan-flex label .tplan-input+span {
-  color: #0AA506;
+.tplan-flex label .tplan-input + span {
+  color: #0aa506;
   font-weight: 500;
   position: absolute;
   left: 10px;
@@ -62,15 +61,14 @@
   transition: 0.3s ease;
 }
 
-
-.tplan-flex label .tplan-input:placeholder-shown+span {
+.tplan-flex label .tplan-input:placeholder-shown + span {
   top: 12.5px;
   font-size: 0.9em;
 }
 
-.tplan-flex label .tplan-input:focus+span,
-.tplan-flex label .tplan-input:valid+span {
-  color: #0AA506;
+.tplan-flex label .tplan-input:focus + span,
+.tplan-flex label .tplan-input:valid + span {
+  color: #0aa506;
   top: 0px;
   font-size: 0.7em;
   font-weight: 600;
@@ -94,11 +92,41 @@
   border-radius: 10px;
   color: #fff;
   font-size: 16px;
-  transform: .3s ease;
-  background-color: #0AA506;
+  transform: 0.3s ease;
+  background-color: #0aa506;
 }
 
 .submit_tplan:hover {
+  background-color: #0d390c;
+}
+.plan_cancel-btn {
+  margin-left: 2%;
+  margin-top: 1vh;
+  border: none;
+  outline: none;
+  padding: 10px 25px 10px 25px;
+  border-radius: 10px;
+  color: #fff;
+  font-size: 16px;
+  transform: 0.3s ease;
+  background-color: #0aa506;
+}
+.plan_cancel-btn:hover {
+  background-color: #0d390c;
+}
+.plan_save-btn {
+  /* margin-left: 30%; */
+  margin-top: 1vh;
+  border: none;
+  outline: none;
+  padding: 10px 25px 10px 25px;
+  border-radius: 10px;
+  color: #fff;
+  font-size: 16px;
+  transform: 0.3s ease;
+  background-color: #0aa506;
+}
+.plan_save-btn:hover {
   background-color: #0d390c;
 }
 
@@ -107,7 +135,7 @@
   width: 70vw;
 
   th {
-    background-color: #0AA506;
+    background-color: #0aa506;
     color: white;
     padding: 8px;
     font-size: 0.9rem;
@@ -125,21 +153,20 @@
       border-radius: 10px;
       color: #fff;
       font-size: 0.7rem;
-      transform: .3s ease;
-      background-color: #0AA506;
+      transform: 0.3s ease;
+      background-color: #0aa506;
     }
   }
 }
-.pagination{
+.pagination {
   display: flex;
   justify-content: center;
   align-items: center;
-  .pagenation-btn{
-    background-color: #0AA506;
+  .pagenation-btn {
+    background-color: #0aa506;
     border: none;
     color: white;
     margin: 2% 0;
     margin-left: 1%;
-    
   }
 }

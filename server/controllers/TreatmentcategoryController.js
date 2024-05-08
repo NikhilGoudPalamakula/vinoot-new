@@ -34,12 +34,12 @@ exports.getAllTreatmentCategories = async (req, res) => {
 
 exports.updateCategoryStatus = async (req, res) => {
   const { category_id } = req.params;
-  const { status, updatedTime } = req.body;
+  const { category_name, status, updatedTime } = req.body;
 
   try {
     const updatedCategory = await TreatmentCategory.findOneAndUpdate(
       { category_id },
-      { status, time: updatedTime },
+      { category_name, status, time: updatedTime },
       { new: true }
     );
 

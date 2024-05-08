@@ -41,7 +41,7 @@ const FranchiseadminSidebar = () => {
                 </div>
                 <div className='sidebar-list-items'>
                     <ul className='first-lists'>
-                       <Link to="/FranchiseAdmin" className='sidebar-links' ><li className={activeItem === 'dashboard' ? 'active' : ''} onClick={() => handleItemClick('dashboard')}><MdDashboard className='icon' />Dashboard</li></Link> 
+                       <Link to="/FranchiseAdmin" className='sidebar-links' ><li className={activeItem === 'dashboard' ? 'active' : ''} onClick={() => handleItemClick('dashboard')}><MdDashboard className='icon' />Billing Details</li></Link> 
                        {/* <Link to="/fsr" className='sidebar-links' ><li className={activeItem === 'staff' ? 'active' : ''} onClick={() => handleItemClick('staff')}><FaUsers className='icon' />Add Staff </li></Link>  */}
                        <Link to="/Franchisetogglebutton" className='sidebar-links' ><li className={activeItem === 'staff' ? 'active' : ''} onClick={() => handleItemClick('staff')}><FaUsers className='icon' />Staff details </li></Link> 
                        {/* <Link to="/Billing" className='sidebar-links' > <li className={activeItem === 'Billng' ? 'active' : ''} onClick={() => handleItemClick('Billng')}><FaStoreAlt className='icon' />Billing</li> </Link> */}

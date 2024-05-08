@@ -52,7 +52,7 @@ function App() {
 
         <Route path="/fr" element={<FranchiseReg />} />
 
-        {/* <Route element={<PrivateRoute />}> */}
+        <Route element={<PrivateRoute />}>
 
           <Route path="/FrSidebar" element={<FranchiseAdmintable />} />
           <Route path="/Sidebar" element={<Sidebar />} />
@@ -88,7 +88,7 @@ function App() {
 
           
 
-        {/* </Route> */}
+        </Route>
         <Route path="/FranchiseLoginDetailsIcon" element={<FranchiseLoginDetailsIcon />} />
         <Route path="/FranchiseDetails" element={<FranchiseDetails />} />
 

@@ -20,8 +20,8 @@ exports.getAllFranchises = async (req, res) => {
 };
 
 exports.toggleFranchiseStatus = async (req, res) => {
-  // const { id } = req.params;
-  console.log(id)
+  const { id } = req.params;
+  // console.log(id)
   try {
     const franchise = await Franchise.findById(id);
     if (!franchise) {

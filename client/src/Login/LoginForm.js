@@ -207,6 +207,55 @@ const LoginForm = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+  //   try {
+  //     const res = await axios.post(
+  //       "http://localhost:5001/api/franchiselogin",
+  //       formData
+  //     );
+  //     const { franchisename, FranchiseID, userId, designation } = res.data;
+
+  //     localStorage.setItem("franchisename", franchisename);
+  //     localStorage.setItem("FranchiseID", FranchiseID);
+  //     localStorage.setItem("userId", userId);
+  //     localStorage.setItem("designation", designation); // Save the designation
+
+  //     toast.success("Login successful!", {
+  //       position: "top-right",
+  //       autoClose: 1500,
+  //       onClose: () => {
+  //         // Navigate after the toast message closes
+  //         switch (designation) {
+  //           case "FranchiseAdmin":
+  //             navigate("/FranchiseAdmin");
+  //             break;
+  //           case "Doctor":
+  //             navigate("/Doctor");
+  //             break;
+  //           case "Reception":
+  //             navigate("/Recepttion");
+  //             break;
+  //           case "Thearpy":
+  //             navigate("/Thearpy");
+  //             break;
+  //           default:
+  //             navigate("/defaultDashboard");
+  //             break;
+  //         }
+  //       },
+  //     });
+  //   } catch (error) {
+  //     // console.error("Login failed:", error.response.data.error);
+  //     toast.error("Login failed. Please try again.", {
+  //       position: "top-right",
+  //       autoClose: 1500,
+  //     });
+  //   }
+  // };
+
+
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -221,44 +270,33 @@ const LoginForm = () => {
       localStorage.setItem("userId", userId);
       localStorage.setItem("designation", designation); // Save the designation
 
-      toast.success("Login successful!", {
-        position: "top-right",
-        autoClose: 1500,
-        onClose: () => {
-          // Navigate after the toast message closes
-          switch (designation) {
-            case "FranchiseAdmin":
-              navigate("/FranchiseAdmin");
-              break;
-            case "Doctor":
-              navigate("/Doctor");
-              break;
-            case "Reception":
-              navigate("/Recepttion");
-              break;
-            case "Thearpy":
-              navigate("/Thearpy");
-              break;
-            default:
-              navigate("/defaultDashboard");
-              break;
-          }
-        },
-      });
+      switch (designation) {
+        case "FranchiseAdmin":
+          navigate("/FranchiseAdmin");
+          break;
+        case "Doctor":
+          navigate("/Doctor");
+          break;
+        case "Reception":
+          navigate("/Recepttion");
+          break;
+        case "Thearpy":
+          navigate("/Thearpy");
+          break;
+        default:
+          navigate("/defaultDashboard");
+          break;
+      }
     } catch (error) {
-      // console.error("Login failed:", error.response.data.error);
-      toast.error("Login failed. Please try again.", {
-        position: "top-right",
-        autoClose: 1500,
-      });
+      console.error("Login failed:", error.response.data.error);
+      // Optionally, you can display an error message to the user
     }
   };
-
   const [formData1, setFormData1] = useState({
     userId: "",
     password: "",
   });
-
+// --------------------
   const handleChange12 = (e) => {
     setFormData1({ ...formData1, [e.target.name]: e.target.value });
   };

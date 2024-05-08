@@ -27,13 +27,11 @@ exports.createAdmin = async (req, res) => {
       .status(201)
       .json({ success: true, message: "Admin created successfully." });
   } catch (error) {
-    res
-      .status(500)
-      .json({
-        success: false,
-        message: "Failed to create admin.",
-        error: error.message,
-      });
+    res.status(500).json({
+      success: false,
+      message: "Failed to create admin.",
+      error: error.message,
+    });
   }
 };
 
@@ -63,7 +61,9 @@ exports.loginfranchiseUser = async (req, res) => {
   try {
     // Find the user in the FranchiseAdmin model
     const user = await Admin.findOne({ userId });
-    const userdata = await Admin.findOne({ userId, password }).select('franchisename FranchiseID userId designation');
+    const userdata = await Admin.findOne({ userId, password }).select(
+      "franchisename FranchiseID userId designation"
+    );
 
     if (!user) {
       return res.status(400).json({ error: "Invalid credentials" });
@@ -83,8 +83,9 @@ exports.loginfranchiseUser = async (req, res) => {
     const franchiseIDOne = user.franchiseID;
 
     // Find the corresponding franchise in the FranchiseRegModel
-    const franchise = await FranchiseRegModel.findOne({ franchiseID:franchiseIDOne });
-
+    const franchise = await FranchiseRegModel.findOne({
+      franchiseID: franchiseIDOne,
+    });
 
     if (!franchise) {
       return res.status(400).json({ error: "Franchise not found" });
@@ -102,10 +103,6 @@ exports.loginfranchiseUser = async (req, res) => {
     res.status(500).json({ error: "Server Error" });
   }
 };
-
-
-
-
 
 exports.updateFranchiseAdminActiveState = async (req, res) => {
   const { id } = req.params;
@@ -130,5 +127,21 @@ exports.getDoctors = async (req, res) => {
     res.json(doctors);
   } catch (error) {
     res.status(500).json({ error: "Internal Server Error" });
+  }
+};
+
+exports.getFranchiseAdminsByFranchiseName = async (req, res) => {
+  try {
+    const { franchisename } = req.params;
+    const franchise = await FranchiseRegModel.findOne({ franchisename });
+    if (!franchise) {
+      return res.status(404).json({ error: "Franchise not found" });
+    }
+    const franchiseID = franchise.franchiseID;
+    const users = await Admin.find({ FranchiseID: franchiseID });
+    res.status(200).json(users);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Server Error" });
   }
 };

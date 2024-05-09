@@ -83,7 +83,7 @@ const Patientdetails1 = () => {
                 <td>{patient.address}</td>
                 <td>{patient.createdBy}</td>
                 {/* <td>{patient.franchiseName}</td>
-                  <td>{patient.FranchiseID}</td> */}
+                  <td>{patient.franchiseID}</td> */}
               </tr>
             ))}
           </tbody>

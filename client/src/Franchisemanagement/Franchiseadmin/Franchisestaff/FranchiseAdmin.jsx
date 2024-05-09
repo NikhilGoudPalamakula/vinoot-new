@@ -17,7 +17,7 @@ const FranchiseAdmin = () => {
   useEffect(() => {
     const fetchBillingData = async () => {
       try {
-        const frid = localStorage.getItem("FranchiseID");
+        const frid = localStorage.getItem("franchiseID");
         if (frid) {
           const response = await axios.get(
             `http://localhost:5001/api/billing${frid}`

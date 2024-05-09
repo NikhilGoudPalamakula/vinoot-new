@@ -280,7 +280,7 @@ const Franchisestaffdetails = () => {
                 </td>
                 <td>{admin.userId}</td>
                 <td>{admin.franchisename}</td>
-                <td>{admin.FranchiseID}</td>
+                <td>{admin.franchiseID}</td>
                 <td>
                   {currentEditIndex === index ? (
                     <input

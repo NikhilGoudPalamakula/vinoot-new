@@ -65,7 +65,7 @@ const FranchiseStaffReg = () => {
       console.log("admin Data:", updatedAdminData);
 
       alert("Data submitted successfully.");
-      navigate("/FranchiseAdmin");
+      navigate("/Franchisetogglebutton");
     } catch (error) {
       console.error("Registration failed:", error.response.data.error);
     }
@@ -184,7 +184,7 @@ const FranchiseStaffReg = () => {
                   <option value=""></option>
                   <option value="Doctor">Doctor</option>
                   <option value="Reception">Reception</option>
-                  <option value="Thearpy">Therapist</option>
+                  <option value="Therapist">Therapist</option>
                   <option value="FranchiseAdmin">Franchise Admin</option>
                 </select>
                 <label>

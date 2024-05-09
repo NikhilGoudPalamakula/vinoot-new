@@ -3,7 +3,8 @@ const mongoose = require("mongoose");
 const billingSchema = new mongoose.Schema({
   currentDate: {type:String},
   bill_number: { type: String},
-  doctor: { type: String, required: true },
+  doctor: { type: String },
+  therapist: { type: String },
   plan_name: { type: String ,required: true},
   paymentType: { type: String, required: true },
   amountPaid: { type: Number, required: true },

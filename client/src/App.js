@@ -34,6 +34,7 @@ import FranchiseLoginDetailsIcon from "./Franchisemanagement/Franchiseadmin/Fran
 import FranchiseDetails from "./MasterLogin/Franchiseregistration/Franchisedetails";
 import Landingpage from "./Landing/Landingpage";
 import ShowFranchiseUsers from "./MasterLogin/Franchiseregistration/ShowFranchiseUsers";
+import ShowPatientDetails from "./Franchisemanagement/Reception/ShowPatientDetails/ShowPatientDetails";
 function App() {
   return (
     <Router>
@@ -98,10 +99,11 @@ function App() {
           element={<FranchiseLoginDetailsIcon />}
         />
         <Route path="/FranchiseDetails" element={<FranchiseDetails />} />
-        <Route path="/ShowFranchiseUsersdetails/franchise/:franchisename/users" element={<ShowFranchiseUsers />}
-        />
+        <Route path="/ShowFranchiseUsersdetails/franchise/:franchisename/users" element={<ShowFranchiseUsers />} />
+        <Route path="/ShowPatient/:patientId" element={<ShowPatientDetails />} />
 
         {/* <FranchiseLoginDetailsIcon/> */}
+        
       </Routes>
     </Router>
   );

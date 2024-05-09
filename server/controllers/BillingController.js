@@ -36,3 +36,20 @@ exports.fetchBillingData = async (req, res) => {
       res.status(500).json({ error: 'An error occurred while fetching billing data' });
     }
   };
+
+
+  exports.getPatientbillingById = async (req, res) => {
+    try {
+      const patientId = req.params.patientId;
+      const patient = await Billing.findOne({ patient_id: patientId });
+      if (!patient) {
+        return res.status(404).json({ error: "Patient not found" });
+      }
+      res.status(200).json(patient);
+    } catch (error) {
+      console.error("Error fetching patient by ID:", error);
+      res
+        .status(500)
+        .json({ error: "An error occurred while fetching patient details" });
+    }
+  };

@@ -203,7 +203,7 @@ const Reception = () => {
   };
 
   const handleDetailsClick = async (patientId) => {
-    navigate(`/showPatient/${patientId}`);
+    navigate(`/ShowPatient/${patientId}`);
   };
 
   const filteredData = billingData.filter(billing => {

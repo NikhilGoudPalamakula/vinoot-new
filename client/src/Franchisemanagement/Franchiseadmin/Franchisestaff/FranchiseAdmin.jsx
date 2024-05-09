@@ -13,6 +13,14 @@ const FranchiseAdmin = () => {
 
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(3);
+  const [filters, setFilters] = useState({
+    fromDate: "",
+    toDate: "",
+    mobileNumber: "",
+    planType: "",
+    patientname: "",
+    remainingAmount: ""
+  });
 
   useEffect(() => {
     const fetchBillingData = async () => {
@@ -39,6 +47,24 @@ const FranchiseAdmin = () => {
     setCurrentPage(pageNumber);
   };
 
+  const filteredData = billingData.filter(billing => {
+
+    const remainingAmount = parseFloat(billing.remainingAmount);
+    const filterValue = parseFloat(filters.remainingAmount);
+    const lowercaseName = filters.patientname.toLowerCase();
+    const lowercaseBillingName = billing.patient_name.toLowerCase();
+    return (
+      billing.currentDate.includes(filters.fromDate) &&
+      billing.currentDate.includes(filters.toDate) &&
+      billing.mobile_number.toString().includes(filters.mobileNumber) &&
+      billing.plan_name.includes(filters.planType) &&
+      lowercaseBillingName.includes(lowercaseName) &&
+      // billing.remainingAmount.toString().includes(filters.remainingAmount)
+      billing.plan_name.includes(filters.planType) &&
+      (isNaN(filterValue) || remainingAmount >= filterValue)
+    );
+  });
+
   // Get current plans
   const indexOfLastPlan = currentPage * itemsPerPage;
   const indexOfFirstPlan = indexOfLastPlan - itemsPerPage;
@@ -47,6 +73,11 @@ const FranchiseAdmin = () => {
   // Calculate total pages
   const totalPages = Math.ceil(billingData.length / itemsPerPage);
 
+  const handleFilterChange = (e) => {
+    const { name, value } = e.target;
+    setFilters({ ...filters, [name]: value });
+  };
+
   return (
     <div className="franchise-admin-total">
       <div>
@@ -54,6 +85,61 @@ const FranchiseAdmin = () => {
       </div>
       <div className="fradmin-staffri">
         <h1>Patients Billing Details</h1>
+        <label>
+          <span>From Date:</span>
+          <input
+            type="date"
+            name="fromDate"
+            value={filters.fromDate}
+            onChange={handleFilterChange}
+          />
+        </label>
+        <label>
+          <span>To Date:</span>
+          <input
+            type="date"
+            name="toDate"
+            value={filters.toDate}
+            onChange={handleFilterChange}
+          />
+        </label>
+        <label>
+          <span>Mobile Number:</span>
+          <input
+            type="text"
+            name="mobileNumber"
+            value={filters.mobileNumber}
+            onChange={handleFilterChange}
+          />
+        </label>
+        <label>
+          <span>Name:</span>
+          <input
+            type="text"
+            name="patientname"
+            value={filters.patientname}
+            onChange={handleFilterChange}
+          />
+        </label>
+        <label>
+          <span>Plan Type:</span>
+          <input
+            type="text"
+            name="planType"
+            value={filters.planType}
+            onChange={handleFilterChange}
+          />
+        </label>
+        <label>
+          <span>Remaining Amount:</span>
+          <input
+            type="text"
+            name="remainingAmount"
+            value={filters.remainingAmount}
+            onChange={handleFilterChange}
+          />
+        </label>
+
         <table>
           <thead>
             <tr>

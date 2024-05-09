@@ -19,7 +19,7 @@ const Patientdetails1 = () => {
 
   const fetchPatients = async () => {
     try {
-      const frid = localStorage.getItem("FranchiseID");
+      const frid = localStorage.getItem("franchiseID");
 
       if (frid) {
         const response = await axios.get(

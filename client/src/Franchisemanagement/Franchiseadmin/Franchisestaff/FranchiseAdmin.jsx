@@ -131,7 +131,7 @@ const FranchiseAdmin = () => {
           />
         </label>
         <label>
-          <span>Remaining Amount:</span>
+          <span>Remaining Amount above :</span>
           <input
             type="text"
             name="remainingAmount"

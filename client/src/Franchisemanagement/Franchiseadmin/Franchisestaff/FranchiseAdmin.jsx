@@ -68,9 +68,8 @@ const FranchiseAdmin = () => {
   // Get current plans
   const indexOfLastPlan = currentPage * itemsPerPage;
   const indexOfFirstPlan = indexOfLastPlan - itemsPerPage;
-  const currentPlans = billingData.slice(indexOfFirstPlan, indexOfLastPlan);
-
-  // Calculate total pages
+  // const currentPlans = billingData.slice(indexOfFirstPlan, indexOfLastPlan);
+  const currentPlans = filteredData.slice(indexOfFirstPlan, indexOfLastPlan);
   const totalPages = Math.ceil(billingData.length / itemsPerPage);
 
   const handleFilterChange = (e) => {

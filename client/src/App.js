@@ -98,9 +98,7 @@ function App() {
           element={<FranchiseLoginDetailsIcon />}
         />
         <Route path="/FranchiseDetails" element={<FranchiseDetails />} />
-        <Route
-          path="/ShowFranchiseUsersdetails"
-          element={<ShowFranchiseUsers />}
+        <Route path="/ShowFranchiseUsersdetails/franchise/:franchisename/users" element={<ShowFranchiseUsers />}
         />
 
         {/* <FranchiseLoginDetailsIcon/> */}

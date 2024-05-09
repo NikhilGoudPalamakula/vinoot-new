@@ -184,8 +184,8 @@ const FranchiseStaffReg = () => {
                   <option value=""></option>
                   <option value="Doctor">Doctor</option>
                   <option value="Reception">Reception</option>
-                  <option value="Thearpy">Therapy</option>
-                  <option value="FranchiseAdmin">FrAdmin</option>
+                  <option value="Thearpy">Therapist</option>
+                  <option value="FranchiseAdmin">Franchise Admin</option>
                 </select>
                 <label>
                   <span> Select designation</span>

@@ -142,7 +142,9 @@ const TreatmentPlan = () => {
     }
     // Check if the plan name already exists
     const isPlanExist = plans.some(
-      (plana) => plana.plan_name.toLowerCase() === plan.toLowerCase()
+      (plana) =>
+        plana.plan_name.toLowerCase() === plan.toLowerCase() &&
+        plana.plan_id !== editId // Compare with other plan IDs except the one being edited
     );
 
     if (isPlanExist) {

@@ -157,7 +157,7 @@ const Franchisestaffdetails = () => {
 
   const fetchAdmins = async () => {
     try {
-      const frid = localStorage.getItem("FranchiseID");
+      const frid = localStorage.getItem("franchiseID");
       if (frid) {
         const response = await axios.get(
           `http://localhost:5001/api/franchisefetchusers/${frid}`

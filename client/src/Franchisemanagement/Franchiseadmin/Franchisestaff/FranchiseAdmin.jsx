@@ -4,6 +4,9 @@ import { Link } from "react-router-dom";
 import FranchiseadminSidebar from "../Franchiseadminsidebar/Franchiseadminsidebar";
 import "./FranchiseAdmin.css";
 
+import { saveAs } from "file-saver";
+import * as XLSX from "xlsx";
+
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import KeyboardDoubleArrowLeftIcon from "@mui/icons-material/KeyboardDoubleArrowLeft";
@@ -77,6 +80,29 @@ const FranchiseAdmin = () => {
     setFilters({ ...filters, [name]: value });
   };
 
+  const exportToExcel = () => {
+    const header = ["Date", "Bill Number", "Patient Name", "Patient Mobile Number", "Doctor", "Plan Type", "Days", "Price", "Amount Paid", "Remaining Amount"];
+    const data = currentPlans.map(billing => [
+      billing.currentDate,
+      billing.bill_number,
+      billing.patient_name,
+      billing.mobile_number,
+      billing.doctor,
+      billing.plan_name,
+      billing.days,
+      billing.TotalAmount,
+      billing.amountPaid,
+      billing.remainingAmount
+    ]);
+
+    const ws = XLSX.utils.aoa_to_sheet([header, ...data]);
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, "Billing Data");
+    const excelBuffer = XLSX.write(wb, { bookType: "xlsx", type: "array" });
+    const excelBlob = new Blob([excelBuffer], { type: "application/octet-stream" });
+    saveAs(excelBlob, "Billing_data.xlsx");
+  };
+
   return (
     <div className="franchise-admin-total">
       <div>
@@ -84,6 +110,7 @@ const FranchiseAdmin = () => {
       </div>
       <div className="fradmin-staffri">
         <h1>Patients Billing Details</h1>
+        <button onClick={exportToExcel}>Export to Excel</button>
         <label>
           <span>From Date:</span>
           <input

@@ -162,6 +162,8 @@ import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import KeyboardDoubleArrowLeftIcon from "@mui/icons-material/KeyboardDoubleArrowLeft";
 import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArrowRight";
 
+import { saveAs } from "file-saver";
+import * as XLSX from "xlsx";
 const Reception = () => {
   const [billingData, setBillingData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -232,6 +234,30 @@ const Reception = () => {
     setFilters({ ...filters, [name]: value });
   };
 
+  const exportToExcel = () => {
+    const header = ["Date", "Bill Number", "Patient Name", "Patient Mobile Number", "Doctor", "Plan Type", "Days", "Price", "Amount Paid", "Remaining Amount"];
+    const data = currentPlans.map(billing => [
+      billing.currentDate,
+      billing.bill_number,
+      billing.patient_name,
+      billing.mobile_number,
+      billing.doctor,
+      billing.plan_name,
+      billing.days,
+      billing.TotalAmount,
+      billing.amountPaid,
+      billing.remainingAmount
+    ]);
+
+    const ws = XLSX.utils.aoa_to_sheet([header, ...data]);
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, "Billing Data");
+    const excelBuffer = XLSX.write(wb, { bookType: "xlsx", type: "array" });
+    const excelBlob = new Blob([excelBuffer], { type: "application/octet-stream" });
+    saveAs(excelBlob, "Billing_data.xlsx");
+  };
+
+
   return (
     <div className="recp-total">
       <div>
@@ -239,6 +265,7 @@ const Reception = () => {
       </div>
       <div className="recp-dash-table">
         <h1>Patients Billing Details</h1>
+        <button onClick={exportToExcel}>Export to Excel</button>
         <label>
           <span>From Date:</span>
           <input

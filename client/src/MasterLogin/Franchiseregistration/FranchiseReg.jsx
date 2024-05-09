@@ -6,7 +6,7 @@
 // const FranchiseReg = () => {
 //   const [franchiseData, setFranchiseData] = useState({
 //     franchisename: "",
-//     FranchiseID: "",
+//     franchiseID: "",
 //     mobileNumber: "",
 //     country: "",
 //     state: "",
@@ -20,7 +20,7 @@
 //     fullname: "",
 //     userId: "",
 //     franchisename: "",
-//     FranchiseID: "",
+//     franchiseID: "",
 //     designation: "FranchiseAdmin",
 //     email: "",
 //     password: "",
@@ -36,7 +36,7 @@
 //       const updatedAdminData = {
 //         ...adminData,
 //         franchisename: franchiseData.franchisename,
-//         FranchiseID: franchiseData.FranchiseID,
+//         franchiseID: franchiseData.franchiseID,
 //         createdBy: createdBy, // Add CreatedBy from localStorage
 //       };
 
@@ -108,8 +108,8 @@
 //                     <input
 //                       className="addfr-input"
 //                       type="text"
-//                       name="FranchiseID"
-//                       value={franchiseData.FranchiseID}
+//                       name="franchiseID"
+//                       value={franchiseData.franchiseID}
 //                       onChange={handleFranchiseInputChange}
 //                       placeholder=""
 //                       required
@@ -328,7 +328,7 @@ const FranchiseReg = () => {
   const [filteredAreas, setFilteredAreas] = useState([]);
   const [franchiseData, setFranchiseData] = useState({
     franchisename: "",
-    FranchiseID: "",
+    franchiseID: "",
     mobileNumber: "",
     country: "",
     state: "",
@@ -342,13 +342,14 @@ const FranchiseReg = () => {
     fullname: "",
     userId: "",
     franchisename: "",
-    FranchiseID: "",
+    franchiseID: "",
     designation: "FranchiseAdmin",
     email: "",
     password: "",
   });
   const [errors, setErrors] = useState({
     franchisename: "",
+    franchiseID:"",
     mobileNumber: "",
     address: "",
     pincode: "",
@@ -489,7 +490,7 @@ const FranchiseReg = () => {
       const updatedAdminData = {
         ...adminData,
         franchisename: franchiseData.franchisename,
-        FranchiseID: franchiseData.FranchiseID,
+        franchiseID: franchiseData.franchiseID,
         createdBy: createdBy, // Add CreatedBy from localStorage
       };
 
@@ -652,8 +653,8 @@ const FranchiseReg = () => {
                   <input
                       className="addfr-input"
                       type="text"
-                      name="FranchiseID"
-                      value={franchiseData.FranchiseID}
+                      name="franchiseID"
+                      value={franchiseData.franchiseID}
                       onChange={handleFranchiseInputChange}
                       placeholder=""
                       required

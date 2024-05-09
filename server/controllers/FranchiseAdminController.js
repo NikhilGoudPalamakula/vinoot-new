@@ -196,7 +196,7 @@ exports.getAllFranchiseAmins = async (req, res) => {
 exports.getExceptAllFranchiseAmins = async (req, res) => {
   try {
     const frid = req.params.frid;
-    const users = await Admin.find({ FranchiseID: frid });
+    const users = await Admin.find({ franchiseID: frid });
     res.status(200).json(users);
   } catch (error) {
     console.error(error);
@@ -210,7 +210,7 @@ exports.loginfranchiseUser = async (req, res) => {
     // Find the user in the FranchiseAdmin model
     const user = await Admin.findOne({ userId });
     const userdata = await Admin.findOne({ userId, password }).select(
-      "franchisename FranchiseID userId designation"
+      "franchisename franchiseID userId designation"
     );
 
     if (!user) {
@@ -298,7 +298,7 @@ exports.getFranchiseAdminsByFranchiseName = async (req, res) => {
       return res.status(404).json({ error: "Franchise not found" });
     }
     const franchiseID = franchise.franchiseID;
-    const users = await Admin.find({ FranchiseID: franchiseID });
+    const users = await Admin.find({ franchiseID: franchiseID });
     res.status(200).json(users);
   } catch (error) {
     console.error(error);

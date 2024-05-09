@@ -51,12 +51,12 @@ const FranchiseStaffReg = () => {
       // Update adminData and franchiseData with the current values from state and localStorage
       const createdBy = localStorage.getItem("userId");
       const franchiseName = localStorage.getItem("franchisename");
-      const franchiseiD = localStorage.getItem("franchiseID");
+      const franchiseID = localStorage.getItem("franchiseID");
       // Update adminData
       const updatedAdminData = {
         ...adminData,
         franchisename: franchiseName,
-        franchiseID: franchiseiD,
+        franchiseID: franchiseID,
         createdBy: createdBy, // Add CreatedBy from localStorage
       };
 

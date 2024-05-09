@@ -42,10 +42,10 @@ const LoginForm = () => {
         "http://localhost:5001/api/franchiselogin",
         formData
       );
-      const { franchisename, FranchiseID, userId, designation } = res.data;
+      const { franchisename, franchiseID, userId, designation } = res.data;
 
       localStorage.setItem("franchisename", franchisename);
-      localStorage.setItem("FranchiseID", FranchiseID);
+      localStorage.setItem("franchiseID", franchiseID);
       localStorage.setItem("userId", userId);
       localStorage.setItem("designation", designation); // Save the designation
       toast.success("Login successful!", {

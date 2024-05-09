@@ -1,5 +1,3 @@
-
-
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify"; // Import ToastContainer and toast from react-toastify
@@ -30,12 +28,15 @@ const LoginForm = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  
-
-
-
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!formData.userId.trim() || !formData.password.trim()) {
+      toast.error("Please fill in all fields.", {
+        position: "top-right",
+        autoClose: 1500,
+      });
+      return; // Exit the function if fields are empty
+    }
     try {
       const res = await axios.post(
         "http://localhost:5001/api/franchiselogin",
@@ -47,40 +48,57 @@ const LoginForm = () => {
       localStorage.setItem("FranchiseID", FranchiseID);
       localStorage.setItem("userId", userId);
       localStorage.setItem("designation", designation); // Save the designation
-
-      switch (designation) {
-        case "FranchiseAdmin":
-          navigate("/FranchiseAdmin");
-          break;
-        // case "Doctor":
-        //   navigate("/Doctor");
-        //   break;
-        case "Reception":
-          navigate("/Recepttion");
-          break;
-        case "Thearpy":
-        //   navigate("/Thearpy");
-        //   break;
-        // default:
-          navigate("/defaultDashboard");
-          break;
-      }
+      toast.success("Login successful!", {
+        position: "top-right",
+        autoClose: 1500,
+        onClose: () => {
+          // Navigate after the toast message closes
+          switch (designation) {
+            case "FranchiseAdmin":
+              navigate("/FranchiseAdmin");
+              break;
+            // case "Doctor":
+            //   navigate("/Doctor");
+            //   break;
+            case "Reception":
+              navigate("/Recepttion");
+              break;
+            case "Thearpy":
+              //   navigate("/Thearpy");
+              //   break;
+              // default:
+              navigate("/defaultDashboard");
+              break;
+          }
+        },
+      });
     } catch (error) {
-      console.error("Login failed:", error.response.data.error);
+      // console.error("Login failed:", error.response.data.error);
       // Optionally, you can display an error message to the user
+      toast.error("Invalid Credentials!", {
+        position: "top-right",
+        autoClose: 1500,
+      });
     }
   };
   const [formData1, setFormData1] = useState({
     userId: "",
     password: "",
   });
-// --------------------
+  // --------------------
   const handleChange12 = (e) => {
     setFormData1({ ...formData1, [e.target.name]: e.target.value });
   };
 
   const handleSubmit1 = async (e) => {
     e.preventDefault();
+    if (!formData1.userId.trim() || !formData1.password.trim()) {
+      toast.error("Please fill in all fields.", {
+        position: "top-right",
+        autoClose: 1500,
+      });
+      return; // Exit the function if fields are empty
+    }
     try {
       const res = await axios.post(
         "http://localhost:5001/api/login",
@@ -197,8 +215,6 @@ const LoginForm = () => {
 };
 
 export default LoginForm;
-
-
 
 // import React, { useState } from "react";
 // import { useNavigate } from "react-router-dom";

@@ -80,7 +80,7 @@ const FranchiseAdmin = () => {
                 <td>{billing.doctor}</td>
                 <td>{billing.plan_name}</td>
                 <td>{billing.days}</td>
-                <td>{billing.price}</td>
+                <td>{billing.TotalAmount}</td>
                 <td>{billing.amountPaid}</td>
                 <td>{billing.remainingAmount}</td>
                 {/* <td>{billing.remainingAmount}</td> */}
@@ -99,8 +99,7 @@ const FranchiseAdmin = () => {
             <span
               key={index}
               onClick={() => handlePageChange(index + 1)}
-              className={currentPage === index + 1 ? "pageactive-page" : ""}
-            >
+              className={currentPage === index + 1 ? "pageactive-page" : ""}>
               {index + 1}
             </span>
           ))}

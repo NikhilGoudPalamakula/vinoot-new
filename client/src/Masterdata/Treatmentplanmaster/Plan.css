@@ -94,6 +94,7 @@
   font-size: 16px;
   transform: 0.3s ease;
   background-color: #0aa506;
+  cursor: pointer;
 }
 
 .submit_tplan:hover {
@@ -110,6 +111,7 @@
   font-size: 16px;
   transform: 0.3s ease;
   background-color: #0aa506;
+  cursor: pointer;
 }
 .plan_cancel-btn:hover {
   background-color: #0d390c;
@@ -125,6 +127,7 @@
   font-size: 16px;
   transform: 0.3s ease;
   background-color: #0aa506;
+  cursor: pointer;
 }
 .plan_save-btn:hover {
   background-color: #0d390c;
@@ -155,6 +158,11 @@
       font-size: 0.7rem;
       transform: 0.3s ease;
       background-color: #0aa506;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #0d390c;
+      transition: all 0.5s;
     }
   }
 }
@@ -168,5 +176,6 @@
     color: white;
     margin: 2% 0;
     margin-left: 1%;
+    cursor: pointer;
   }
 }

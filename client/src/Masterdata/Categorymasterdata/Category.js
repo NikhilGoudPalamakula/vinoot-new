@@ -39,7 +39,8 @@ const TreatmentCategory = () => {
 
   const handleSelect = (event) => {
     const inputValue = event.target.value;
-    setValue(inputValue);
+    const trimmedValue = inputValue.trim(); // Trim the input value
+    setValue(trimmedValue); // Set the original input value
     if (inputValue.length < 3 || inputValue.length > 100) {
       setError("Text length must be between 3 and 100 characters.");
     } else {

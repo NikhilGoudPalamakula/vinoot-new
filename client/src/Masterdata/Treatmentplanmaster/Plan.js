@@ -27,7 +27,7 @@ const TreatmentPlan = () => {
   const [errors, setErrors] = useState({
     plan: "",
     price: "",
-    gst: "",
+    GST: "",
     // gstamount: "",
     // totalamount: "",
     days: "",

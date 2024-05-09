@@ -100,7 +100,7 @@ const FranchiseStaffReg = () => {
 
   const fetchAdmins = async () => {
     try {
-      const frid = localStorage.getItem("FranchiseID"); // Corrected localStorage key
+      const frid = localStorage.getItem("franchiseID"); // Corrected localStorage key
       if (frid) {
         const response = await axios.get(
           `http://localhost:5001/api/franchisefetchusers/${frid}`

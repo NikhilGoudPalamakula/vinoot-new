@@ -15,7 +15,7 @@ const billingSchema = new mongoose.Schema({
   days: { type: Number, required: true },
   remainingAmount: { type: Number, required: true },
   franchiseName: String,
-  FranchiseID: String,
+  franchiseID: String,
   createdBy: String,
   modifiedBy: { type: String },
   modifiedAt: { type: Date, default: Date.now },

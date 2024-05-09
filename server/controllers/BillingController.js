@@ -17,7 +17,7 @@ exports.fetchBillingData = async (req, res) => {
     try {
 
       const frid = req.params.frid;
-      const billingData = await Billing.find({ FranchiseID: frid });
+      const billingData = await Billing.find({ franchiseID: frid });
       res.json(billingData);
 
     } catch (error) {

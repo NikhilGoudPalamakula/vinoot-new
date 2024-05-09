@@ -21,7 +21,7 @@ const Billing = () => {
     const fetchNumbers = async () => {
       setIsLoading(true);
       try {
-        const frid = localStorage.getItem("FranchiseID");
+        const frid = localStorage.getItem("franchiseID");
         if (frid) {
           const response = await axios.get(
             `http://localhost:5001/api/patients${frid}`
@@ -94,7 +94,7 @@ const Billing = () => {
   useEffect(() => {
     const fetchDoctors = async () => {
       try {
-        const frid = localStorage.getItem("FranchiseID");
+        const frid = localStorage.getItem("franchiseID");
         if (frid) {
           const response = await axios.get(
             `http://localhost:5001/api/franchisefetchusers/${frid}`
@@ -238,7 +238,7 @@ const Billing = () => {
     try {
       const createdBy = localStorage.getItem("userId");
       const franchiseName = localStorage.getItem("franchisename");
-      const FranchiseID = localStorage.getItem("FranchiseID");
+      const franchiseID = localStorage.getItem("franchiseID");
       const remaining = selectedPlan ? parseFloat(selectedPlan.TotalAmount) - parseFloat(amountPaid) : 0; // Calculate remaining
       const currentDate = new Date().toISOString().split("T")[0];
 
@@ -257,7 +257,7 @@ const Billing = () => {
         TotalAmount: selectedPlan ? selectedPlan.TotalAmount : "",
         createdBy: createdBy,
         franchiseName: franchiseName,
-        FranchiseID: FranchiseID,
+        franchiseID: franchiseID,
         remainingAmount: remaining, 
         mobile_number: selectedNumber ? selectedNumber.mobile_number : "",
         patient_id: selectedNumber ? selectedNumber.patient_id : "",
@@ -281,7 +281,7 @@ const Billing = () => {
 
   const fetchBillNumbers = async () => {
     try {
-      const frid = localStorage.getItem("FranchiseID");
+      const frid = localStorage.getItem("franchiseID");
 
       if (frid) {
         const response = await axios.get(
@@ -381,7 +381,7 @@ const Billing = () => {
           </tr>
           <tr>
             <td>Franchise ID</td>
-            <td>${localStorage.getItem("FranchiseID")}</td>
+            <td>${localStorage.getItem("franchiseID")}</td>
           </tr>
           <tr>
             <td>Selected Doctor</td>
@@ -550,7 +550,7 @@ const Billing = () => {
               <span> Franchise ID</span>
               <input
                 type="text"
-                value={localStorage.getItem("FranchiseID")}
+                value={localStorage.getItem("franchiseID")}
                 disabled
               />
             </label>

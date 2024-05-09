@@ -25,7 +25,7 @@ const FranchiseStaffReg = () => {
     fullname: "",
     userId: "",
     franchisename: "",
-    FranchiseID: "",
+    franchiseID: "",
     designation: "",
     email: "",
     password: "",
@@ -51,12 +51,12 @@ const FranchiseStaffReg = () => {
       // Update adminData and franchiseData with the current values from state and localStorage
       const createdBy = localStorage.getItem("userId");
       const franchiseName = localStorage.getItem("franchisename");
-      const FranchiseiD = localStorage.getItem("FranchiseID");
+      const franchiseiD = localStorage.getItem("franchiseID");
       // Update adminData
       const updatedAdminData = {
         ...adminData,
         franchisename: franchiseName,
-        FranchiseID: FranchiseiD,
+        franchiseID: franchiseiD,
         createdBy: createdBy, // Add CreatedBy from localStorage
       };
 

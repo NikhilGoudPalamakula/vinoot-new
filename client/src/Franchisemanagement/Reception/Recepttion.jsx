@@ -66,7 +66,7 @@ const Reception = () => {
               <th>Price</th>
               <th>Amount Paid</th>
               <th>Remaining Amount</th>
-              {/* <th>Remaining Amount</th> */}
+              <th>Details</th>
             </tr>
           </thead>
           <tbody>
@@ -82,7 +82,7 @@ const Reception = () => {
                 <td>{billing.price}</td>
                 <td>{billing.amountPaid}</td>
                 <td>{billing.remainingAmount}</td>
-                {/* <td>{billing.remainingAmount}</td> */}
+                <td><button>Details</button></td>
               </tr>
             ))}
           </tbody>

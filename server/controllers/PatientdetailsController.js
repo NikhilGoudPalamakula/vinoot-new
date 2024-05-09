@@ -16,7 +16,7 @@ exports.createPatient = async (req, res) => {
 exports.getAllPatients = async (req, res) => {
   try {
     const frid = req.params.frid;
-    const patients = await Patient.find({ FranchiseID: frid });
+    const patients = await Patient.find({ franchiseID: frid });
     res.json(patients);
   } catch (error) {
     console.error('Error fetching patients:', error);
@@ -28,7 +28,7 @@ exports.getAllPatients = async (req, res) => {
 exports.getAllPatients = async (req, res) => {
   try {
     const frid = req.params.frid;
-    const patients = await Patient.find({ FranchiseID: frid });
+    const patients = await Patient.find({ franchiseID: frid });
     res.json(patients);
   } catch (error) {
     console.error('Error fetching patients:', error);

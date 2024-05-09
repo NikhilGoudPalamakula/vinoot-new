@@ -12,7 +12,7 @@ const patientSchema = new mongoose.Schema({
   area: String,
   address: String,
   franchiseName: String,
-  FranchiseID: String,
+  franchiseID: String,
   createdBy: String,
   modifiedBy: { type: String },
   modifiedAt: { type: Date, default: Date.now },

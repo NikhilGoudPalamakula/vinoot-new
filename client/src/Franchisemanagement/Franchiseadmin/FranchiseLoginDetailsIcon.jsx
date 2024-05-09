@@ -9,7 +9,7 @@ const FranchiseLoginDetailsIcon = () => {
     const [showDropdown, setShowDropdown] = useState(false);
     const createdBy = localStorage.getItem("userId");
     const franchiseName = localStorage.getItem("franchisename");
-    const FranchiseiD = localStorage.getItem("FranchiseID");
+    const franchiseiD = localStorage.getItem("franchiseID");
 
     const toggleDropdown = () => {
         setShowDropdown(!showDropdown);
@@ -25,7 +25,7 @@ const FranchiseLoginDetailsIcon = () => {
     {showDropdown && (
         <div className="dropdown-vik">
           <p>Franchise Name: {franchiseName}</p>
-          <p>Franchise ID: {FranchiseiD}</p>
+          <p>Franchise ID: {franchiseiD}</p>
         </div>
       )}
     </div>

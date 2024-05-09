@@ -248,7 +248,7 @@ const Billing = () => {
       setRemainingAmount(remaining);
 
       // Determine payment status
-      if (amountPaidValue >= price) {
+      if (amountPaidValue >= TotalAmount) {
         setStatus("Paid");
       } else {
         setStatus("Unpaid");
@@ -277,7 +277,7 @@ const Billing = () => {
     }
   };
 
-
+  const [installments, setInstallments] = useState([]);
   const saveData = async () => {
     const newBillNumber = generateBillNumber(bill_numbers);
     setBillingNumber(newBillNumber);
@@ -287,6 +287,12 @@ const Billing = () => {
       const franchiseID = localStorage.getItem("franchiseID");
       const remaining = selectedPlan ? parseFloat(selectedPlan.TotalAmount) - parseFloat(amountPaid) : 0; // Calculate remaining
       const currentDate = new Date().toISOString().split("T")[0];
+
+
+
+      // Determine payment status
+      const paymentStatus = amountPaid >= price ? "Paid" : "Unpaid";
+
 
       // Send the data to the backend API endpoint for saving
       await axios.post("http://localhost:5001/api/billing", {
@@ -312,6 +318,17 @@ const Billing = () => {
         address: selectedNumber ? selectedNumber.address : "",
         currentDate: currentDate,
       });
+
+      if (paymentStatus === "Unpaid") {
+        await axios.post("http://localhost:5001/api/installments", {
+          // patient_id: selectedNumber ? selectedNumber.patient_id : "",
+          mobile_number: selectedNumber ? selectedNumber.mobile_number : "",
+          patient_id: selectedNumber ? selectedNumber.patient_id : "",
+          patient_name: selectedNumber ? selectedNumber.patient_name : "",
+          remaining_amount: remaining,
+          bill_number: newBillNumber,
+        });
+      }
 
       // Reset form fields after successful save
       setPlanName("");
@@ -521,7 +538,7 @@ const Billing = () => {
 
 
             <label>
-              <span>Enter Mobile Number <span style={{color:'red'}}>*</span></span>
+              <span>Enter Mobile Number <span style={{ color: 'red' }}>*</span></span>
               <input
                 type="text"
                 name="planName"
@@ -613,8 +630,8 @@ const Billing = () => {
             <table className="plan-table">
               <thead>
                 <tr>
-                  <th>Select Doctor <span style={{color:'red'}}>*</span></th>
-                  <th>Plan Name <span style={{color:'red'}}>*</span></th>
+                  <th>Select Doctor <span style={{ color: 'red' }}>*</span></th>
+                  <th>Plan Name <span style={{ color: 'red' }}>*</span></th>
                   <th>GST</th>
                   <th>GST Amount</th>
                   <th>Days</th>
@@ -753,8 +770,8 @@ const Billing = () => {
             <table className="billing-last-table">
               <thead>
                 <tr>
-                  <th>Payment type <span style={{color:'red'}}>*</span></th>
-                  <th>Amount paid <span style={{color:'red'}}>*</span></th>
+                  <th>Payment type <span style={{ color: 'red' }}>*</span></th>
+                  <th>Amount paid <span style={{ color: 'red' }}>*</span></th>
                   <th>Payment Status</th>
                   <th>Remaining Amount: Rs.</th>
                 </tr>

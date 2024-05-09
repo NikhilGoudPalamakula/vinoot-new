@@ -27,13 +27,24 @@ exports.fetchBillingData = async (req, res) => {
   };
 
 
-  exports.fetchAllBillingData = async (req, res) => {
+  // exports.fetchAllBillingData = async (req, res) => {
+  //   try {
+  //     const allBillingData = await Billing.find();
+  //     res.json(allBillingData);
+  //   } catch (error) {
+  //     console.error('Error fetching billing data:', error);
+  //     res.status(500).json({ error: 'An error occurred while fetching billing data' });
+  //   }
+  // };
+
+
+  exports.getAllBillingData = async (req, res) => {
     try {
-      const allBillingData = await Billing.find();
-      res.json(allBillingData);
+      const billingData = await Billing.find();
+      res.json(billingData);
     } catch (error) {
       console.error('Error fetching billing data:', error);
-      res.status(500).json({ error: 'An error occurred while fetching billing data' });
+      res.status(500).json({ error: 'Internal Server Error' });
     }
   };
 

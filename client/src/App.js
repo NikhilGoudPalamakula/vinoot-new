@@ -75,10 +75,7 @@ function App() {
           <Route path="/Patientdetails" element={<PatientForm />} />
 
           <Route path="/Billing" element={<Billing />} />
-          <Route
-            path="/Franchisepatientbilling"
-            element={<Franchisepatientbilling />}
-          />
+         
           <Route path="/SuperSidebar" element={<SuperSidebar />} />
           <Route
             path="/Franchisestaffdetails"
@@ -94,6 +91,10 @@ function App() {
           />
           <Route path="/Franchisetogglepatients" element={<Togglepatients />} />
         </Route>
+        <Route
+            path="/Franchisepatientbilling"
+            element={<Franchisepatientbilling />}
+          />
         <Route
           path="/FranchiseLoginDetailsIcon"
           element={<FranchiseLoginDetailsIcon />}

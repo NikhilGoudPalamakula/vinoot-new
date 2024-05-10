@@ -188,7 +188,7 @@ import { useNavigate } from "react-router-dom";
 import "./RegisterPage.css";
 import Sidebar from "../../Masterdata/Sidebar/Sidebar";
 import MasterUserT from "../Masterusers/MasterUserT";
-
+import { VINOOTNEW } from "../../Helper/Helper";
 const RegisterPage = () => {
   const createdby = localStorage.getItem("userId");
 
@@ -345,7 +345,7 @@ const RegisterPage = () => {
     });
 
     try {
-      const res = await axios.post("http://localhost:5001/api/register", {
+      const res = await axios.post(`${VINOOTNEW}/api/register`, {
         ...formData,
         userId: newUserID,
       });
@@ -371,7 +371,7 @@ const RegisterPage = () => {
       // const frid = localStorage.getItem("FranchiseID");
 
       // if (frid) {
-      const response = await axios.get("http://localhost:5001/api/users");
+      const response = await axios.get(`${VINOOTNEW}/api/users`);
       setUsers(response.data);
     } catch (error) {
       console.error("Error fetching users:", error);

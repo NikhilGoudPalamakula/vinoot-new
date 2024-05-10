@@ -114,16 +114,16 @@ const Franchisestaffdetails = () => {
             <tr>
               <th>Full Name</th>
               <th>User ID</th>
-              <th>Franchise Name</th>
-              <th>Franchise ID</th>
+              {/* <th>Franchise Name</th> */}
+              {/* <th>Franchise ID</th> */}
               <th>Designation</th>
               <th>Email</th>
               <th>Password</th>
-              <th>Active/Inactive</th>
               <th>Modified By</th>
               <th>Modified At</th>
               <th>Created At</th>
               <th>Created By</th>
+              <th>Status</th>
               <th>Edit/Update</th>
             </tr>
           </thead>
@@ -142,8 +142,8 @@ const Franchisestaffdetails = () => {
                   )}
                 </td>
                 <td>{admin.userId}</td>
-                <td>{admin.franchisename}</td>
-                <td>{admin.franchiseID}</td>
+                {/* <td>{admin.franchisename}</td> */}
+                {/* <td>{admin.franchiseID}</td> */}
                 <td>
                   {currentEditIndex === index ? (
                     <input
@@ -179,6 +179,11 @@ const Franchisestaffdetails = () => {
                     admin.password
                   )}
                 </td>
+               
+                <td>{admin.modifiedBy}</td>
+                <td>{admin.modifiedAt}</td>
+                <td>{admin.createdAt}</td>
+                <td>{admin.createdBy}</td>
                 <td>
                   {" "}
                   <button
@@ -187,10 +192,6 @@ const Franchisestaffdetails = () => {
                     {admin.isActive ? "Deactivate" : "Activate"}
                   </button>
                 </td>
-                <td>{admin.modifiedBy}</td>
-                <td>{admin.modifiedAt}</td>
-                <td>{admin.createdAt}</td>
-                <td>{admin.createdBy}</td>
                 <td>
                   {currentEditIndex === index ? (
                     <>

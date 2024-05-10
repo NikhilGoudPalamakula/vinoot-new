@@ -111,7 +111,7 @@ const LoginForm = () => {
         position: "top-right",
         autoClose: 1500, // Close the toast after 3 seconds
         onClose: () => {
-          navigate("/FrSidebar");
+          navigate("/FranchiseDetails");
         },
       });
     } catch (error) {

@@ -310,8 +310,12 @@ const toDate = filters.toDate ? new Date(filters.toDate) : null;
            <SuperSidebar/>
       </div>
       <div className="franbill-right">
+        <div className="franbill-123">
        <h1> Billing Data</h1>
-       <button onClick={exportToExcel}><TbFileTypeXls/></button>   
+       <button onClick={exportToExcel}><  TbFileTypeXls    className="xlsiocn"/></button>   
+       </div>
+       <div  className="franbill-filterss">
+        <div className="franbill-filterss-11">
        <label>
           <span>From Date:</span>
           <input
@@ -330,6 +334,8 @@ const toDate = filters.toDate ? new Date(filters.toDate) : null;
             onChange={handleFilterChange}
           />
         </label>
+        </div>
+        <div  className="franbill-filterss-1">
         <label>
           <span>Franchise Name:</span>
           <input
@@ -349,7 +355,7 @@ const toDate = filters.toDate ? new Date(filters.toDate) : null;
           />
         </label>
         <label>
-          <span>Name:</span>
+          <span>Patient Name:</span>
           <input
             type="text"
             name="patientname"
@@ -375,6 +381,8 @@ const toDate = filters.toDate ? new Date(filters.toDate) : null;
             onChange={handleFilterChange}
           />
         </label>
+        </div>
+        </div>
       <table>
         <thead>
           <tr>

@@ -459,7 +459,7 @@ const RegisterPage = () => {
                       required
                     />
                     <span>
-                      Phone Number <span style={{ color: "red" }}>*</span>
+                      Mobile Number <span style={{ color: "red" }}>*</span>
                     </span>
                   </label>
                   {errors.phoneNumber && (

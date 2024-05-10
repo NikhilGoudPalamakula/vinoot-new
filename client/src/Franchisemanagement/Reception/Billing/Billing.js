@@ -1,5 +1,4 @@
-
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { VINOOTNEW } from "../../../Helper/Helper";
 import axios from "axios";
 import ReceptionSidebar from "../ReceptionSidebar/ReceptionSidebar";
@@ -14,6 +13,7 @@ const Billing = () => {
   const [filteredSuggestions1, setFilteredSuggestions1] = useState([]); // Filtered suggestions based on input
   const [focusedInput1, setFocusedInput1] = useState(null);
   const [isLoading1, setIsLoading1] = useState(false); // Loading indicator
+  const [patientError, setPatientError] = useState(""); // Error message for unregistered mobile number
 
   // Fetch suggestions when the component mounts
   const [patients, setPatients] = useState([]);
@@ -46,31 +46,59 @@ const Billing = () => {
     const filterSuggestions = () => {
       if (typeof phoneInput !== "string" || phoneInput.trim() === "") {
         setFilteredSuggestions1(suggestions1); // Show all suggestions if input is empty or not a string
+        setSelectedNumber(null); // Reset selected number
+        setPatientError(""); // Clear patient error
       } else {
-        const filteredDetails = suggestions1.filter((details) =>
-          details.mobile_number.includes(phoneInput)
+        setFilteredSuggestions1(
+          patients.filter((patient) =>
+            patient.mobile_number.includes(phoneInput)
+          )
         );
-        setFilteredSuggestions1(filteredDetails);
+        // Clear patient details if the input doesn't match any suggestions
+        if (
+          phoneInput.trim() !== "" &&
+          !filteredSuggestions1.some((suggestion) =>
+            suggestion.mobile_number.includes(phoneInput)
+          )
+        ) {
+          setSelectedNumber(null);
+          setPatientError(
+            "Mobile number not registered.Please add the patient."
+          );
+        } else {
+          setPatientError("");
+        }
       }
     };
     filterSuggestions();
-  }, [phoneInput, suggestions1]);
+  }, [phoneInput, patients, suggestions1, filteredSuggestions1]);
 
   const handlePlanChange1 = (e) => {
-    const PhoneInput = e.target.value;
-    setPhoneInput(PhoneInput); // Update selected plan
+    const newPhoneInput = e.target.value;
+    const previousPhoneInput = phoneInput;
+
+    // Update the phoneInput state with the new value
+    setPhoneInput(newPhoneInput);
+
+    // Clear patient details if the new input value is shorter than the previous value
+    if (newPhoneInput.length < previousPhoneInput.length) {
+      setSelectedNumber(null);
+      setPatient_id("");
+      setPatient_name("");
+      setAddress("");
+    }
+
     setFocusedInput1("number");
   };
 
   const handlePlanSelection1 = (suggestion) => {
-    const selectedNumber = suggestions1.find(
-      (plan) => plan.mobile_number === suggestion
+    const selectedPatient = patients.find(
+      (patient) => patient.mobile_number === suggestion
     );
-
-    if (selectedNumber) {
-      setSelectedNumber(selectedNumber); // Set the entire selected plan object
-      setPhoneInput(selectedNumber.mobile_number); // Set the plan_name property of the selected suggestion
-      setFocusedInput1(null); // Hide suggestion list when a suggestion is clicked
+    if (selectedPatient) {
+      setSelectedNumber(selectedPatient);
+      setPhoneInput(selectedPatient.mobile_number);
+      setPatientError("");
     }
   };
 
@@ -81,19 +109,16 @@ const Billing = () => {
 
   const [selectedDoctor, setSelectedDoctor] = useState(""); // State for selected doctor
 
-
   // Function to handle doctor selection
   const handleDoctorChange = (e) => {
     const selectedDoctorId = e.target.value; // Get the selected doctor's ID
     // const selectedDoctor = doctors.find(doctor => doctor._id === selectedDoctorId); // Find the doctor object based on the ID
-    // setSelectedDoctor(selectedDoctorId); 
+    // setSelectedDoctor(selectedDoctorId);
 
     setSelectedDoctor(selectedDoctorId);
     // Disable therapist selection
     setSelectedTherapist("");
   };
-
-
 
   useEffect(() => {
     const fetchDoctors = async () => {
@@ -123,19 +148,16 @@ const Billing = () => {
   const [therapists, setTherapists] = useState([]);
   const [selectedTherapist, setSelectedTherapist] = useState(""); // State for selected doctor
 
-
   // Function to handle doctor selection
   const handleTherapistChange = (e) => {
     const selectedTherapistId = e.target.value; // Get the selected doctor's ID
     // const selectedTherapist = therapists.find(therapist => therapist._id === selectedTherspistId); // Find the doctor object based on the ID
-    // setSelectedTherapist(selectedTherapistId); 
+    // setSelectedTherapist(selectedTherapistId);
 
     setSelectedTherapist(selectedTherapistId);
     // Disable doctor selection
     setSelectedDoctor("");
   };
-
-
 
   useEffect(() => {
     const fetchTherapists = async () => {
@@ -220,6 +242,28 @@ const Billing = () => {
     filterSuggestions();
   }, [planName, suggestions]);
 
+  // Ref for suggestion box
+  const suggestionBoxRef = useRef(null);
+
+  // Function to handle click outside suggestion box
+  const handleClickOutside = (event) => {
+    if (
+      suggestionBoxRef.current &&
+      !suggestionBoxRef.current.contains(event.target)
+    ) {
+      // Clicked outside the suggestion box
+      setFocusedInput1(null); // Reset focus to hide suggestions
+    }
+  };
+
+  // Add event listener for clicks outside the suggestion box
+  useEffect(() => {
+    document.addEventListener("click", handleClickOutside);
+    return () => {
+      document.removeEventListener("click", handleClickOutside);
+    };
+  }, []);
+
   const handlePlanChange = (e) => {
     const PlanName = e.target.value;
     setPlanName(PlanName); // Update selected plan
@@ -238,8 +282,6 @@ const Billing = () => {
     }
   };
 
-
-
   useEffect(() => {
     if (selectedPlan) {
       const TotalAmount = parseFloat(selectedPlan.TotalAmount);
@@ -255,7 +297,6 @@ const Billing = () => {
       }
     }
   }, [amountPaid, selectedPlan]);
-
 
   //-------------------Bill Numbers Fetching ----------------
   const [billingNumber, setBillingNumber] = useState("");
@@ -285,14 +326,13 @@ const Billing = () => {
       const createdBy = localStorage.getItem("userId");
       const franchiseName = localStorage.getItem("franchisename");
       const franchiseID = localStorage.getItem("franchiseID");
-      const remaining = selectedPlan ? parseFloat(selectedPlan.TotalAmount) - parseFloat(amountPaid) : 0; // Calculate remaining
+      const remaining = selectedPlan
+        ? parseFloat(selectedPlan.TotalAmount) - parseFloat(amountPaid)
+        : 0; // Calculate remaining
       const currentDate = new Date().toISOString().split("T")[0];
-
-
 
       // Determine payment status
       const paymentStatus = amountPaid >= price ? "Paid" : "Unpaid";
-
 
       // Send the data to the backend API endpoint for saving
       await axios.post("http://localhost:5001/api/billing", {
@@ -457,45 +497,44 @@ const Billing = () => {
           </tr>
           <tr>
             <td>Days</td>
-            <td>${selectedPlan?.days || 'N/A'}</td>
+            <td>${selectedPlan?.days || "N/A"}</td>
           </tr>
           <tr>
             <td>Price</td>
-            <td>${selectedPlan?.price || 'N/A'}</td>
+            <td>${selectedPlan?.price || "N/A"}</td>
           </tr>
           <tr>
           <td>GST</td>
-          <td>${selectedPlan?.GST || 'N/A'}</td>
+          <td>${selectedPlan?.GST || "N/A"}</td>
         </tr>
         <tr>
         <td>GST</td>
-        <td>${selectedPlan?.GSTamount || 'N/A'}</td>
+        <td>${selectedPlan?.GSTamount || "N/A"}</td>
       </tr>
           <tr>
             <td>Price</td>
-            <td>${selectedPlan?.TotalAmount || 'N/A'}</td>
+            <td>${selectedPlan?.TotalAmount || "N/A"}</td>
           </tr>
           <tr>
             <td>Payment Type</td>
-            <td>${paymentType || 'N/A'}</td>
+            <td>${paymentType || "N/A"}</td>
           </tr>
           <tr>
             <td>Amount Paid</td>
-            <td>${amountPaid || 'N/A'}</td>
+            <td>${amountPaid || "N/A"}</td>
           </tr>
           <tr>
             <td>Payment Status</td>
-            <td>${status || 'N/A'}</td>
+            <td>${status || "N/A"}</td>
           </tr>
           <tr>
             <td>Remaining Amount</td>
-            <td>Rs. ${remaining || 'N/A'}</td>
+            <td>Rs. ${remaining || "N/A"}</td>
           </tr>
         </table>
       </body>
     </html>
   `;
-
 
     // Write the HTML content to the new window
     printWindow.document.open();
@@ -532,13 +571,14 @@ const Billing = () => {
                 type="text"
                 name="bill_number"
                 value={billingNumber}
-              // placeholder="Bill Number"
+                // placeholder="Bill Number"
               />
             </label>
 
-
             <label>
-              <span>Enter Mobile Number <span style={{ color: 'red' }}>*</span></span>
+              <span>
+                Enter Mobile Number <span style={{ color: "red" }}>*</span>
+              </span>
               <input
                 type="text"
                 name="planName"
@@ -547,10 +587,17 @@ const Billing = () => {
                 onFocus={() => setFocusedInput1("plan")}
                 placeholder="Enter mobile number"
               />
-              {isLoading && <div className="loading-fetch-mbl">Loading...</div>}
+              {patientError ? (
+                <div style={{ color: "red", fontSize: "0.8rem" }}>
+                  {patientError}
+                </div>
+              ) : (
+                isLoading && <div className="loading-fetch-mbl">Loading...</div>
+              )}
               {focusedInput1 === "number" &&
                 filteredSuggestions1.length > 0 && (
                   <div
+                    ref={suggestionBoxRef}
                     className="suggestions-fetch-mbl"
                     style={{
                       position: "absolute",
@@ -626,12 +673,15 @@ const Billing = () => {
           {/* <h1>Select Doctor:</h1> */}
 
           <div>
-
             <table className="plan-table">
               <thead>
                 <tr>
-                  <th>Select Doctor <span style={{ color: 'red' }}>*</span></th>
-                  <th>Plan Name <span style={{ color: 'red' }}>*</span></th>
+                  <th>
+                    Select Doctor <span style={{ color: "red" }}>*</span>
+                  </th>
+                  <th>
+                    Plan Name <span style={{ color: "red" }}>*</span>
+                  </th>
                   <th>GST</th>
                   <th>GST Amount</th>
                   <th>Days</th>
@@ -654,8 +704,7 @@ const Billing = () => {
                     <select
                       value={selectedDoctor}
                       onChange={handleDoctorChange}
-                      disabled={selectedTherapist !== ""}
-                    >
+                      disabled={selectedTherapist !== ""}>
                       <option value="">Select Doctor</option>
                       {doctors.map((doctor) => (
                         <option key={doctor._id} value={doctor.fullname}>
@@ -675,8 +724,7 @@ const Billing = () => {
                     <select
                       value={selectedTherapist}
                       onChange={handleTherapistChange}
-                      disabled={selectedDoctor !== ""}
-                    >
+                      disabled={selectedDoctor !== ""}>
                       <option value="">Select Therapist</option>
                       {therapists.map((therapist) => (
                         <option key={therapist._id} value={therapist.fullname}>
@@ -723,8 +771,6 @@ const Billing = () => {
                           ))}
                         </div>
                       )}
-
-
                   </td>
                   <td>
                     <input
@@ -770,8 +816,12 @@ const Billing = () => {
             <table className="billing-last-table">
               <thead>
                 <tr>
-                  <th>Payment type <span style={{ color: 'red' }}>*</span></th>
-                  <th>Amount paid <span style={{ color: 'red' }}>*</span></th>
+                  <th>
+                    Payment type <span style={{ color: "red" }}>*</span>
+                  </th>
+                  <th>
+                    Amount paid <span style={{ color: "red" }}>*</span>
+                  </th>
                   <th>Payment Status</th>
                   <th>Remaining Amount: Rs.</th>
                 </tr>
@@ -781,8 +831,7 @@ const Billing = () => {
                   <td>
                     <select
                       value={paymentType}
-                      onChange={(e) => setPaymentType(e.target.value)}
-                    >
+                      onChange={(e) => setPaymentType(e.target.value)}>
                       <option value="">Select Payment Type</option>
                       <option value="Cash">Cash</option>
                       <option value="Card">Card</option>
@@ -804,7 +853,6 @@ const Billing = () => {
                 </tr>
               </tbody>
             </table>
-
           </div>
 
           <button className="btnbilling" onClick={handleSaveAndPrint}>

@@ -31,14 +31,12 @@
 // //       const suggestions = await State.find({
 // //         states: { $regex: query, $options: "i" }, // Case-insensitive regex match
 // //       }).limit(10); // Limit to a reasonable number of suggestions
-  
+
 // //       res.json(suggestions);
 // //     } else {
 // //       res.json([]); // Return empty array if no query
 // //     }
 // //   };
-
-
 
 // // In the suggeststates controller function
 // exports.suggeststates = async (req, res) => {
@@ -59,8 +57,6 @@
 //   }
 // };
 
-
-
 const State = require("../models/Statemodel");
 
 exports.getAllStates = async (req, res) => {
@@ -74,13 +70,21 @@ exports.getAllStates = async (req, res) => {
 };
 
 exports.addState = async (req, res) => {
-  const { state_id, name } = req.body;
+  const { state_id, name, modifiedBy, createdBy, createdAt, modifiedAt } =
+    req.body;
   const existingState = await State.findOne({ name });
   if (existingState) {
     return res.status(400).json({ message: "State already exists" });
   }
   try {
-    const newState = new State({ state_id, name });
+    const newState = new State({
+      state_id,
+      name,
+      modifiedBy,
+      createdBy,
+      createdAt,
+      modifiedAt,
+    });
     await newState.save();
     res.status(201).json({ message: "State added successfully" });
   } catch (error) {
@@ -90,20 +94,29 @@ exports.addState = async (req, res) => {
 // controllers/StateController.js
 exports.toggleStateStatus = async (req, res) => {
   const { stateId } = req.params;
+  const { modifiedBy, status, modifiedAt } = req.body;
+
   try {
-    const state = await State.findById(stateId); // Use findById instead of findOne
-    if (!state) {
+    // Validate request body fields
+    if (!modifiedBy || !status || !modifiedAt) {
+      return res.status(400).json({ message: "Missing required fields" });
+    }
+
+    // Update state status
+    const updatedState = await State.findByIdAndUpdate(
+      stateId,
+      { modifiedBy, status, modifiedAt },
+      { new: true }
+    );
+
+    if (!updatedState) {
       return res.status(404).json({ message: "State not found" });
     }
 
-    // Toggle the status
-    state.status = state.status === "active" ? "inactive" : "active";
-    await state.save();
-
-    res.json({ message: "State status updated successfully", state });
+    res.status(200).json({ message: "State status updated", updatedState });
   } catch (error) {
-    console.error("Failed to toggle state status", error);
-    res.status(500).json({ message: "Failed to toggle state status" });
+    console.error("Error toggling state status:", error);
+    res.status(500).json({ message: "Internal server error" });
   }
 };
 
@@ -138,4 +151,3 @@ exports.suggeststates = async (req, res) => {
     res.json([]); // Return empty array if no query
   }
 };
-

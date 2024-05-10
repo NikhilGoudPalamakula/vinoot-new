@@ -140,6 +140,9 @@ const States = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(3);
 
+  // Get user ID from local storage
+  const userId = localStorage.getItem("userId");
+
   useEffect(() => {
     fetchStates();
   }, []);
@@ -177,6 +180,10 @@ const States = () => {
       const response = await axios.post(`${VINOOTNEW}/api/states`, {
         state_id: state_id,
         name: stateName,
+        createdBy: userId, // Set createdBy field
+        createdAt: new Date(), // Set createdAt field
+        modifiedBy: userId, // Set modifiedBy field
+        modifiedAt: new Date(), // Set modifiedAt field
       });
       if (response.status === 201) {
         console.log("State added successfully");
@@ -195,9 +202,11 @@ const States = () => {
 
   const toggleStateStatus = async (stateId, currentState) => {
     try {
-      const updatedStatus = currentState === "Active" ? "Inactive" : "Active";
-      await axios.post(`${VINOOTNEW}/api/states/${stateId}/toggle`, {
+      const updatedStatus = currentState === "active" ? "inactive" : "active";
+      await axios.put(`${VINOOTNEW}/api/states/${stateId}/toggle`, {
         status: updatedStatus,
+        modifiedBy: userId, // Set modifiedBy field
+        modifiedAt: new Date(), // Set modifiedAt field
       });
       fetchStates(); // Refresh states after status update
     } catch (error) {
@@ -256,12 +265,11 @@ const States = () => {
             {currentPlans.map((state) => (
               <tr key={state._id}>
                 <td>{state.name}</td>
-                <td>{state.status === "active" ? "Active" : "Inactive"}</td>
+                <td>{state.status === "active" ? "active" : "inactive"}</td>
                 <td>
                   <button
-                    onClick={() => toggleStateStatus(state._id, state.status)}
-                  >
-                    {state.status === "active" ? "InActive" : "Active"}
+                    onClick={() => toggleStateStatus(state._id, state.status)}>
+                    {state.status === "active" ? "inActive" : "active"}
                   </button>
                 </td>
               </tr>
@@ -280,8 +288,7 @@ const States = () => {
             <span
               key={index}
               onClick={() => handlePageChange(index + 1)}
-              className={currentPage === index + 1 ? "pageactive-page" : ""}
-            >
+              className={currentPage === index + 1 ? "pageactive-page" : ""}>
               {index + 1}
             </span>
           ))}

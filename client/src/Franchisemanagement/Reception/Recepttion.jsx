@@ -161,6 +161,7 @@ import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import KeyboardDoubleArrowLeftIcon from "@mui/icons-material/KeyboardDoubleArrowLeft";
 import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArrowRight";
+import { TbFileTypeXls } from "react-icons/tb";
 
 import { saveAs } from "file-saver";
 import * as XLSX from "xlsx";
@@ -270,7 +271,7 @@ const toDate = filters.toDate ? new Date(filters.toDate) : null;
       </div>
       <div className="recp-dash-table">
         <h1>Patients Billing Details</h1>
-        <button onClick={exportToExcel}>Export to Excel</button>
+        <button onClick={exportToExcel}><TbFileTypeXls/></button>
         <label>
           <span>From Date:</span>
           <input

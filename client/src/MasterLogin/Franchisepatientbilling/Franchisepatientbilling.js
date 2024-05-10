@@ -199,6 +199,7 @@ import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import KeyboardDoubleArrowLeftIcon from "@mui/icons-material/KeyboardDoubleArrowLeft";
 import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArrowRight";
+import { TbFileTypeXls } from "react-icons/tb";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { saveAs } from "file-saver";
@@ -304,7 +305,7 @@ const toDate = filters.toDate ? new Date(filters.toDate) : null;
   return (
     <div>
        <h1> Billing Data</h1>
-       <button onClick={exportToExcel}>Export to Excel</button>
+       <button onClick={exportToExcel}><TbFileTypeXls/></button>
         
        <label>
           <span>From Date:</span>

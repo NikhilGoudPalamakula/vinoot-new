@@ -3,7 +3,8 @@ const mongoose = require("mongoose");
 const billingSchema = new mongoose.Schema({
   currentDate: {type:String},
   bill_number: { type: String},
-  doctor: { type: String, required: true },
+  doctor: { type: String },
+  therapist: { type: String },
   plan_name: { type: String ,required: true},
   paymentType: { type: String, required: true },
   amountPaid: { type: Number, required: true },
@@ -15,7 +16,7 @@ const billingSchema = new mongoose.Schema({
   days: { type: Number, required: true },
   remainingAmount: { type: Number, required: true },
   franchiseName: String,
-  FranchiseID: String,
+  franchiseID: String,
   createdBy: String,
   modifiedBy: { type: String },
   modifiedAt: { type: Date, default: Date.now },

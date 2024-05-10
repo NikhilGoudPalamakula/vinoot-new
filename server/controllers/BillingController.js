@@ -17,7 +17,7 @@ exports.fetchBillingData = async (req, res) => {
     try {
 
       const frid = req.params.frid;
-      const billingData = await Billing.find({ FranchiseID: frid });
+      const billingData = await Billing.find({ franchiseID: frid });
       res.json(billingData);
 
     } catch (error) {
@@ -27,12 +27,40 @@ exports.fetchBillingData = async (req, res) => {
   };
 
 
-  exports.fetchAllBillingData = async (req, res) => {
+  // exports.fetchAllBillingData = async (req, res) => {
+  //   try {
+  //     const allBillingData = await Billing.find();
+  //     res.json(allBillingData);
+  //   } catch (error) {
+  //     console.error('Error fetching billing data:', error);
+  //     res.status(500).json({ error: 'An error occurred while fetching billing data' });
+  //   }
+  // };
+
+
+  exports.getAllBillingData = async (req, res) => {
     try {
-      const allBillingData = await Billing.find();
-      res.json(allBillingData);
+      const billingData = await Billing.find();
+      res.json(billingData);
     } catch (error) {
       console.error('Error fetching billing data:', error);
-      res.status(500).json({ error: 'An error occurred while fetching billing data' });
+      res.status(500).json({ error: 'Internal Server Error' });
+    }
+  };
+
+
+  exports.getPatientbillingById = async (req, res) => {
+    try {
+      const patientId = req.params.patientId;
+      const patient = await Billing.findOne({ patient_id: patientId });
+      if (!patient) {
+        return res.status(404).json({ error: "Patient not found" });
+      }
+      res.status(200).json(patient);
+    } catch (error) {
+      console.error("Error fetching patient by ID:", error);
+      res
+        .status(500)
+        .json({ error: "An error occurred while fetching patient details" });
     }
   };

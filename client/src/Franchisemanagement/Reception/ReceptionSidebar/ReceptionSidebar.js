@@ -9,6 +9,7 @@ import { IoPerson } from "react-icons/io5";
 import { FaQuestionCircle } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import { MdLogout } from "react-icons/md";
 
 const ReceptionSidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -45,7 +46,7 @@ const ReceptionSidebar = () => {
                 onClick={() => handleItemClick("dashboard")}
               >
                 <MdDashboard className="icon" />
-                Dashboard
+                 Billing Details
               </li>
             </Link>
             <Link to="/Franchisetogglepatients" className="sidebar-links">
@@ -78,7 +79,7 @@ const ReceptionSidebar = () => {
                 className={activeItem === "logout" ? "active" : ""}
                 onClick={() => handleItemClick("logout") || handleLogOut}
               >
-                <IoIosPeople className="icon" />
+                <MdLogout className="icon" />
                 Logout
               </li>
             </Link>

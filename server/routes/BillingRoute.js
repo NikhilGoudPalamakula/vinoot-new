@@ -5,6 +5,10 @@ const router = express.Router();
 
 router.post('/billing', billingController.createBilling);
 router.get('/billing:frid', billingController.fetchBillingData);
-router.get('/billingdatasuperadmin', billingController.fetchAllBillingData);
+// router.get('/billingdatasuperadmin', billingController.fetchAllBillingData);
+
+router.get('/billing', billingController.getAllBillingData);
+
+router.get("/billings/:patientId", billingController.getPatientbillingById);
 
 module.exports = router;

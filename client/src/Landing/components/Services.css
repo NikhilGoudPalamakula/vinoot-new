@@ -1,0 +1,212 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat:700');
+body,html{
+  overflow-x: hidden;
+}
+.services-cont {
+  height: 100%;
+  width: 100lvw;
+  text-align: center;
+  background: #f2f2f2;
+}
+
+.wrapper {
+  display: grid;
+  margin: 150px 50px;
+  grid-gap: 20px;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+@media (max-width: 700px) {
+  .wrapper {
+    margin: 200px auto;
+    grid-template-columns: 1fr;
+  }
+}
+.box{
+  width: 100%;
+  max-width: 350px;
+  margin: 0 auto;
+  position: relative;
+  perspective: 1000px;
+}
+.wrapper .box {
+  width: 350px;
+  margin: 0 auto;
+  position: relative;
+  perspective: 1000px;
+}
+
+.wrapper .box .front-face {
+  background: #fff;
+  height: 220px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  box-shadow: 0px 5px 20px 0px rgba(0, 81, 250, 0.1);
+  transition: all 0.5s ease;
+}
+
+.front-face img {
+  height: 210px;
+  width: 210px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-self: center;
+}
+
+.box .front-face .icon {
+  height: 80px;
+}
+
+.box .front-face .icon i {
+  font-size: 65px;
+}
+
+.box .front-face span,
+.box .back-face span {
+  font-size: 22px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.box .front-face .icon i,
+.box .front-face span {
+  background: linear-gradient(-135deg, #c850c0, #4158d0);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.box .back-face {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  height: 220px;
+  width: 100%;
+  padding: 30px;
+  color: #fff;
+  opacity: 0;
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+  background: linear-gradient(-135deg, #2A8201, #089e5a);
+  transform: translateY(110px) rotateX(-90deg);
+  box-shadow: 0px 5px 20px 0px rgba(0, 81, 250, 0.1);
+  transition: all 0.5s ease;
+}
+
+.box .back-face p {
+  margin-top: 10px;
+  text-align: justify;
+}
+
+.box:hover .back-face {
+  opacity: 1;
+  transform: rotateX(0deg);
+}
+
+.box:hover .front-face {
+  opacity: 0;
+  transform: translateY(-110px) rotateX(90deg);
+}
+
+/* ------------------header------------------------ */
+.heading-cont {
+  /* background-color: #2A8201; */
+  background-image: url('../../Images/service-banner.jpg');
+  background-image: radial-gradient(radial-gradient(#2A8201, #2A8201));
+  background-size: cover;
+  background-repeat: no-repeat;
+  backdrop-filter:blur(90px);
+  opacity: 5px;
+  height: 90vh;
+  color: #fff;
+  text-align: center;
+  width: 100lvw;
+  font-weight: 700;
+  overflow: hidden;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", "Liberation Sans", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+#fly-in {
+  font-size: 4em;
+  margin: 40vh auto;
+  height: 20vh;
+  text-transform: uppercase;
+  position: relative;
+}
+
+#fly-in span {
+  display: block;
+  font-size: .4em;
+  opacity: .8;
+}
+
+#fly-in div {
+  position: absolute;
+  /* margin: 0vh 0; */
+  margin-top: -8vh;
+  opacity: 0;
+  left: 10vw;
+  width: 80vw;
+  animation: switch 32s linear infinite;
+}
+
+#fly-in div:nth-child(2) {
+  animation-delay: 3s
+}
+
+#fly-in div:nth-child(3) {
+  animation-delay: 7s
+}
+
+#fly-in div:nth-child(4) {
+  animation-delay: 11s
+}
+
+#fly-in div:nth-child(5) {
+  animation-delay: 15s
+}
+
+#fly-in div:nth-child(6) {
+  animation-delay: 18s
+}
+
+#fly-in div:nth-child(7) {
+  animation-delay: 22s
+}
+
+@keyframes switch {
+  0% {
+    opacity: 0;
+    filter: blur(20px);
+    transform: scale(12)
+  }
+
+  3% {
+    opacity: 1;
+    filter: blur(0);
+    transform: scale(1)
+  }
+
+  10% {
+    opacity: 1;
+    filter: blur(0);
+    transform: scale(.9)
+  }
+
+  13% {
+    opacity: 0;
+    filter: blur(10px);
+    transform: scale(.1)
+  }
+
+  80% {
+    opacity: 0
+  }
+
+  100% {
+    opacity: 0
+  }
+}

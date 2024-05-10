@@ -1,8 +1,17 @@
 const TreatmentPlan = require("../models/Treatmentplanmodel");
 
 exports.createTreatmentPlan = async (req, res) => {
-  const { plan_id, category_name, plan_name, GST,GSTamount,TotalAmount, days, price, updatedAt } =
-    req.body;
+  const {
+    plan_id,
+    category_name,
+    plan_name,
+    GST,
+    GSTamount,
+    TotalAmount,
+    days,
+    price,
+    updatedAt,
+  } = req.body;
 
   try {
     const newPlan = await TreatmentPlan.create({
@@ -33,12 +42,32 @@ exports.getAllTreatmentPlans = async (req, res) => {
 };
 exports.updatePlanStatus = async (req, res) => {
   const { plan_id } = req.params;
-  const { status, updatedAt } = req.body;
+  const {
+    status,
+    updatedAt,
+    plan_name,
+    GST,
+    days,
+    price,
+    GSTamount,
+    TotalAmount,
+    category_name,
+  } = req.body;
 
   try {
     const updatedPlan = await TreatmentPlan.findOneAndUpdate(
       { plan_id },
-      { status, updatedAt: updatedAt },
+      {
+        status,
+        updatedAt: updatedAt,
+        plan_name,
+        GST,
+        days,
+        price,
+        GSTamount,
+        TotalAmount,
+        category_name,
+      },
       { new: true }
     );
 
@@ -46,8 +75,8 @@ exports.updatePlanStatus = async (req, res) => {
       return res.status(404).json({ message: "Plan not found" });
     }
 
-    res.status(200).json({ message: "Plan status updated", updatedPlan });
+    res.status(200).json({ message: "Plan updated", updatedPlan });
   } catch (error) {
-    res.status(500).json({ message: "Error updating Plan status", error });
+    res.status(500).json({ message: "Error updating Plan", error });
   }
 };

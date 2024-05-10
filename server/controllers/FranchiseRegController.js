@@ -21,6 +21,7 @@ exports.getAllFranchises = async (req, res) => {
 
 exports.toggleFranchiseStatus = async (req, res) => {
   const { id } = req.params;
+  // console.log(id)
   try {
     const franchise = await Franchise.findById(id);
     if (!franchise) {
@@ -28,9 +29,7 @@ exports.toggleFranchiseStatus = async (req, res) => {
     }
 
     // Toggle the active/deactivate status
-    franchise.isActive
-    = !franchise.isActive
-    ;
+    franchise.isActive = !franchise.isActive;
     await franchise.save();
 
     res.status(200).json({ success: true, message: 'Franchise status updated successfully.', franchise });
@@ -38,6 +37,7 @@ exports.toggleFranchiseStatus = async (req, res) => {
     res.status(500).json({ success: false, message: 'Failed to update franchise status.', error: error.message });
   }
 };
+
 
 // Similarly, you can have methods for updating, deleting, and fetching franchises
 

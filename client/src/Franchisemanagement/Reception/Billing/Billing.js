@@ -21,7 +21,7 @@ const Billing = () => {
     const fetchNumbers = async () => {
       setIsLoading(true);
       try {
-        const frid = localStorage.getItem("FranchiseID");
+        const frid = localStorage.getItem("franchiseID");
         if (frid) {
           const response = await axios.get(
             `http://localhost:5001/api/patients${frid}`
@@ -85,8 +85,12 @@ const Billing = () => {
   // Function to handle doctor selection
   const handleDoctorChange = (e) => {
     const selectedDoctorId = e.target.value; // Get the selected doctor's ID
-    const selectedDoctor = doctors.find(doctor => doctor._id === selectedDoctorId); // Find the doctor object based on the ID
-    setSelectedDoctor(selectedDoctorId); // Update selected doctor to their ID
+    // const selectedDoctor = doctors.find(doctor => doctor._id === selectedDoctorId); // Find the doctor object based on the ID
+    // setSelectedDoctor(selectedDoctorId); 
+
+    setSelectedDoctor(selectedDoctorId);
+    // Disable therapist selection
+    setSelectedTherapist("");
   };
 
 
@@ -94,7 +98,7 @@ const Billing = () => {
   useEffect(() => {
     const fetchDoctors = async () => {
       try {
-        const frid = localStorage.getItem("FranchiseID");
+        const frid = localStorage.getItem("franchiseID");
         if (frid) {
           const response = await axios.get(
             `http://localhost:5001/api/franchisefetchusers/${frid}`
@@ -115,17 +119,59 @@ const Billing = () => {
     fetchDoctors();
   }, []);
 
+  // -------------------fetching therspits------------
+  const [therapists, setTherapists] = useState([]);
+  const [selectedTherapist, setSelectedTherapist] = useState(""); // State for selected doctor
+
+
+  // Function to handle doctor selection
+  const handleTherapistChange = (e) => {
+    const selectedTherapistId = e.target.value; // Get the selected doctor's ID
+    // const selectedTherapist = therapists.find(therapist => therapist._id === selectedTherspistId); // Find the doctor object based on the ID
+    // setSelectedTherapist(selectedTherapistId); 
+
+    setSelectedTherapist(selectedTherapistId);
+    // Disable doctor selection
+    setSelectedDoctor("");
+  };
+
+
+
+  useEffect(() => {
+    const fetchTherapists = async () => {
+      try {
+        const frid = localStorage.getItem("franchiseID");
+        if (frid) {
+          const response = await axios.get(
+            `http://localhost:5001/api/franchisefetchusers/${frid}`
+          );
+          // Filter doctors from the response data
+          const therapitsList = response.data.filter(
+            (admin) => admin.designation === "Therapist"
+          );
+          setTherapists(therapitsList);
+        } else {
+          console.error("FranchiseID not found in localStorage");
+        }
+      } catch (error) {
+        console.error("Error fetching Therapists:", error);
+      }
+    };
+
+    fetchTherapists();
+  }, []);
+
   // -------------------posting of all data ----------------
 
-  const [gst, setGST] = useState(""); 
-  const [price, setPrice] = useState(""); 
-  const [days, setDays] = useState(0); 
+  const [gst, setGST] = useState("");
+  const [price, setPrice] = useState("");
+  const [days, setDays] = useState(0);
   const [GSTamount, setGSTamount] = useState("");
   const [TotalAmount, setTotalAmount] = useState("");
-  const [status, setStatus] = useState(""); 
+  const [status, setStatus] = useState("");
   const [remaining, setRemainingAmount] = useState(0);
-  const [planName, setPlanName] = useState(""); 
-  const [selectedPlan, setSelectedPlan] = useState(null); 
+  const [planName, setPlanName] = useState("");
+  const [selectedPlan, setSelectedPlan] = useState(null);
   const [suggestions, setSuggestions] = useState([]); // Autosuggest options
   const [filteredSuggestions, setFilteredSuggestions] = useState([]); // Filtered suggestions based on input
   const [focusedInput, setFocusedInput] = useState(null);
@@ -200,16 +246,16 @@ const Billing = () => {
       const amountPaidValue = parseFloat(amountPaid);
       const remaining = TotalAmount - amountPaidValue;
       setRemainingAmount(remaining);
-  
+
       // Determine payment status
-      if (amountPaidValue >= price) {
+      if (amountPaidValue >= TotalAmount) {
         setStatus("Paid");
       } else {
         setStatus("Unpaid");
       }
     }
   }, [amountPaid, selectedPlan]);
-  
+
 
   //-------------------Bill Numbers Fetching ----------------
   const [billingNumber, setBillingNumber] = useState("");
@@ -231,25 +277,32 @@ const Billing = () => {
     }
   };
 
-
+  const [installments, setInstallments] = useState([]);
   const saveData = async () => {
     const newBillNumber = generateBillNumber(bill_numbers);
     setBillingNumber(newBillNumber);
     try {
       const createdBy = localStorage.getItem("userId");
       const franchiseName = localStorage.getItem("franchisename");
-      const FranchiseID = localStorage.getItem("FranchiseID");
+      const franchiseID = localStorage.getItem("franchiseID");
       const remaining = selectedPlan ? parseFloat(selectedPlan.TotalAmount) - parseFloat(amountPaid) : 0; // Calculate remaining
       const currentDate = new Date().toISOString().split("T")[0];
+
+
+
+      // Determine payment status
+      const paymentStatus = amountPaid >= price ? "Paid" : "Unpaid";
+
 
       // Send the data to the backend API endpoint for saving
       await axios.post("http://localhost:5001/api/billing", {
         bill_number: newBillNumber, // Use the newly generated bill number
         doctor: selectedDoctor,
+        therapist: selectedTherapist,
         plan_name: selectedPlan ? selectedPlan.plan_name : "",
         paymentType: paymentType,
         amountPaid: amountPaid,
-        status: amountPaid >= selectedPlan.price ? "Paid" : "Unpaid", 
+        status: amountPaid >= selectedPlan.price ? "Paid" : "Unpaid",
         GST: selectedPlan ? selectedPlan.GST : "",
         price: selectedPlan ? selectedPlan.price : "",
         days: selectedPlan ? selectedPlan.days : "",
@@ -257,14 +310,25 @@ const Billing = () => {
         TotalAmount: selectedPlan ? selectedPlan.TotalAmount : "",
         createdBy: createdBy,
         franchiseName: franchiseName,
-        FranchiseID: FranchiseID,
-        remainingAmount: remaining, 
+        franchiseID: franchiseID,
+        remainingAmount: remaining,
         mobile_number: selectedNumber ? selectedNumber.mobile_number : "",
         patient_id: selectedNumber ? selectedNumber.patient_id : "",
         patient_name: selectedNumber ? selectedNumber.patient_name : "",
         address: selectedNumber ? selectedNumber.address : "",
         currentDate: currentDate,
       });
+
+      if (paymentStatus === "Unpaid") {
+        await axios.post("http://localhost:5001/api/installments", {
+          // patient_id: selectedNumber ? selectedNumber.patient_id : "",
+          mobile_number: selectedNumber ? selectedNumber.mobile_number : "",
+          patient_id: selectedNumber ? selectedNumber.patient_id : "",
+          patient_name: selectedNumber ? selectedNumber.patient_name : "",
+          remaining_amount: remaining,
+          bill_number: newBillNumber,
+        });
+      }
 
       // Reset form fields after successful save
       setPlanName("");
@@ -281,7 +345,7 @@ const Billing = () => {
 
   const fetchBillNumbers = async () => {
     try {
-      const frid = localStorage.getItem("FranchiseID");
+      const frid = localStorage.getItem("franchiseID");
 
       if (frid) {
         const response = await axios.get(
@@ -381,7 +445,7 @@ const Billing = () => {
           </tr>
           <tr>
             <td>Franchise ID</td>
-            <td>${localStorage.getItem("FranchiseID")}</td>
+            <td>${localStorage.getItem("franchiseID")}</td>
           </tr>
           <tr>
             <td>Selected Doctor</td>
@@ -431,7 +495,7 @@ const Billing = () => {
       </body>
     </html>
   `;
-  
+
 
     // Write the HTML content to the new window
     printWindow.document.open();
@@ -471,10 +535,10 @@ const Billing = () => {
               // placeholder="Bill Number"
               />
             </label>
-           
+
 
             <label>
-              <span>Enter Mobile Number</span>
+              <span>Enter Mobile Number <span style={{ color: 'red' }}>*</span></span>
               <input
                 type="text"
                 name="planName"
@@ -550,7 +614,7 @@ const Billing = () => {
               <span> Franchise ID</span>
               <input
                 type="text"
-                value={localStorage.getItem("FranchiseID")}
+                value={localStorage.getItem("franchiseID")}
                 disabled
               />
             </label>
@@ -562,12 +626,12 @@ const Billing = () => {
           {/* <h1>Select Doctor:</h1> */}
 
           <div>
-           
+
             <table className="plan-table">
               <thead>
                 <tr>
-                  <th>Select Doctor</th>
-                  <th>Plan Name</th>
+                  <th>Select Doctor <span style={{ color: 'red' }}>*</span></th>
+                  <th>Plan Name <span style={{ color: 'red' }}>*</span></th>
                   <th>GST</th>
                   <th>GST Amount</th>
                   <th>Days</th>
@@ -578,7 +642,20 @@ const Billing = () => {
               <tbody>
                 <tr>
                   <td>
-                    <select value={selectedDoctor} onChange={handleDoctorChange}>
+                    {/* <select value={selectedDoctor} onChange={handleDoctorChange}>
+                      <option value="">Select Doctor</option>
+                      {doctors.map((doctor) => (
+                        <option key={doctor._id} value={doctor.fullname}>
+                          {doctor.fullname}
+                        </option>
+                      ))}
+                    </select> */}
+
+                    <select
+                      value={selectedDoctor}
+                      onChange={handleDoctorChange}
+                      disabled={selectedTherapist !== ""}
+                    >
                       <option value="">Select Doctor</option>
                       {doctors.map((doctor) => (
                         <option key={doctor._id} value={doctor.fullname}>
@@ -586,7 +663,29 @@ const Billing = () => {
                         </option>
                       ))}
                     </select>
+                    {/* <select value={selectedTherapist} onChange={handleTherapistChange}>
+                      <option value="">Select therapist</option>
+                      {therapists.map((therapist) => (
+                        <option key={therapist._id} value={therapist.fullname}>
+                          {therapist.fullname}
+                        </option>
+                      ))}
+                    </select> */}
+
+                    <select
+                      value={selectedTherapist}
+                      onChange={handleTherapistChange}
+                      disabled={selectedDoctor !== ""}
+                    >
+                      <option value="">Select Therapist</option>
+                      {therapists.map((therapist) => (
+                        <option key={therapist._id} value={therapist.fullname}>
+                          {therapist.fullname}
+                        </option>
+                      ))}
+                    </select>
                   </td>
+
                   <td>
                     <input
                       className="bill-tplanselecet"
@@ -625,7 +724,7 @@ const Billing = () => {
                         </div>
                       )}
 
-                  
+
                   </td>
                   <td>
                     <input
@@ -671,8 +770,8 @@ const Billing = () => {
             <table className="billing-last-table">
               <thead>
                 <tr>
-                  <th>Payment type</th>
-                  <th>Amount paid</th>
+                  <th>Payment type <span style={{ color: 'red' }}>*</span></th>
+                  <th>Amount paid <span style={{ color: 'red' }}>*</span></th>
                   <th>Payment Status</th>
                   <th>Remaining Amount: Rs.</th>
                 </tr>

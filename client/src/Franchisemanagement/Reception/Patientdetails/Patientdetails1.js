@@ -19,7 +19,7 @@ const Patientdetails1 = () => {
 
   const fetchPatients = async () => {
     try {
-      const frid = localStorage.getItem("FranchiseID");
+      const frid = localStorage.getItem("franchiseID");
 
       if (frid) {
         const response = await axios.get(
@@ -83,7 +83,7 @@ const Patientdetails1 = () => {
                 <td>{patient.address}</td>
                 <td>{patient.createdBy}</td>
                 {/* <td>{patient.franchiseName}</td>
-                  <td>{patient.FranchiseID}</td> */}
+                  <td>{patient.franchiseID}</td> */}
               </tr>
             ))}
           </tbody>

@@ -910,13 +910,13 @@ const PatientForm = () => {
         const dobDateOnly = formData.dob.split("T")[0];
         const createdBy = localStorage.getItem("userId");
         const franchiseName = localStorage.getItem("franchisename");
-        const FranchiseID = localStorage.getItem("FranchiseID");
+        const franchiseID = localStorage.getItem("franchiseID");
 
         const response = await axios.post("http://localhost:5001/api/patient", {
           ...formData,
           createdBy: createdBy,
           franchiseName: franchiseName,
-          FranchiseID: FranchiseID,
+          franchiseID: franchiseID,
           dob: dobDateOnly, // Extract only the date part
         });
 
@@ -956,7 +956,7 @@ const PatientForm = () => {
 
   const fetchPatients = async () => {
     try {
-      const frid = localStorage.getItem("FranchiseID");
+      const frid = localStorage.getItem("franchiseID");
 
       if (frid) {
         const response = await axios.get(

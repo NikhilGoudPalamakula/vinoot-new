@@ -1,7 +1,8 @@
-
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify"; // Import ToastContainer and toast from react-toastify
+import "react-toastify/dist/ReactToastify.css"; // Import the default styles for React Toastify
 import "./Plan.css";
 import { VINOOTNEW } from "../../Helper/Helper";
 import Sidebar from "../../Masterdata/Sidebar/Sidebar";
@@ -26,11 +27,13 @@ const TreatmentPlan = () => {
   const [errors, setErrors] = useState({
     plan: "",
     price: "",
-    gst: "",
-    gstamount: "",
-    totalamount: "",
+    GST: "",
+    // gstamount: "",
+    // totalamount: "",
     days: "",
   });
+  const [editId, setEditId] = useState(""); // Category ID being edited
+  const presentTime = new Date().toLocaleString();
   const navigate = useNavigate();
 
   // Fetch categories
@@ -130,8 +133,25 @@ const TreatmentPlan = () => {
   // Submit plan
   const handleSubmitPlan = async (e) => {
     e.preventDefault();
-    if (errors.plan || errors.price || errors.days || errors.gst) {
-      alert("Please fix the errors before submitting.");
+    if (errors.plan || errors.price || errors.days || errors.GST) {
+      toast.error("Please fix the errors before submitting", {
+        position: "top-right",
+        autoClose: 1500,
+      });
+      return;
+    }
+    // Check if the plan name already exists
+    const isPlanExist = plans.some(
+      (plana) =>
+        plana.plan_name.toLowerCase() === plan.toLowerCase() &&
+        plana.plan_id !== editId // Compare with other plan IDs except the one being edited
+    );
+
+    if (isPlanExist) {
+      toast.error("plan already exists. Please enter a unique plan name.", {
+        position: "top-right",
+        autoClose: 2500,
+      });
       return;
     }
     try {
@@ -139,20 +159,37 @@ const TreatmentPlan = () => {
       const count = noOfPlans.data.length;
 
       const plan_id = generateUniqueId(count + 0);
-      await axios.post(`${VINOOTNEW}/api/treatment-plan`, {
-        plan_id: plan_id,
-        category_name: selectedCategory,
-        plan_name: plan,
-        GST: GST,
-        GSTamount: GSTamount,
-        TotalAmount: TotalAmount,
-        price: price,
-        days: days,
-        updatedAt: new Date().toLocaleString(),
-        status: "active",
+      if (editId) {
+        await axios.put(`${VINOOTNEW}/api/treatment-plan/${editId}`, {
+          plan_name: plan,
+          GST: GST,
+          GSTamount: GSTamount,
+          TotalAmount: TotalAmount,
+          price: price,
+          days: days,
+          updatedAt: presentTime,
+        });
+      } else {
+        await axios.post(`${VINOOTNEW}/api/treatment-plan`, {
+          plan_id: plan_id,
+          category_name: selectedCategory,
+          plan_name: plan,
+          GST: GST,
+          GSTamount: GSTamount,
+          TotalAmount: TotalAmount,
+          price: price,
+          days: days,
+          updatedAt: presentTime,
+          status: "active",
+        });
+      }
+      toast.success("Plan Added Successful", {
+        position: "top-right",
+        autoClose: 1500,
+        onClose: () => {
+          navigate("/TreatmentCategory");
+        },
       });
-      alert("plan submittion successfully");
-      navigate("/TreatmentCategory");
     } catch (error) {
       console.error(error);
     }
@@ -171,13 +208,44 @@ const TreatmentPlan = () => {
 
       await axios.put(`${VINOOTNEW}/api/treatment-plan/${plan_id}`, {
         status: newStatus,
-        updatedAt: new Date().toLocaleString(), // Updated time
+        updatedAt: presentTime, // Updated time
       });
 
       fetchPlans(); // Refresh the plan list after status change
     } catch (error) {
       console.error("Error toggling status:", error);
     }
+  };
+  // Function to handle category editing
+  const handleEdit = (
+    plan_id,
+    plan_name,
+    GST,
+    days,
+    price,
+    GSTamount,
+    TotalAmount,
+    category_name
+  ) => {
+    setEditId(plan_id);
+    setPlan(plan_name);
+    setPrice(price);
+    setGST(GST);
+    setDays(days);
+    setGSTamount(GSTamount);
+    setTotalAmount(TotalAmount);
+    setSelectedCategory(category_name);
+  };
+  // Function to cancel category editing
+  const handleCancelEdit = () => {
+    setEditId("");
+    setPlan("");
+    setPrice("");
+    setGST("");
+    setDays("");
+    setGSTamount("");
+    setTotalAmount("");
+    setSelectedCategory("");
   };
 
   // Pagination handlers
@@ -196,6 +264,7 @@ const TreatmentPlan = () => {
   return (
     <div>
       <div className="totalplan">
+        <ToastContainer />
         <div>
           <Sidebar />
         </div>
@@ -212,8 +281,7 @@ const TreatmentPlan = () => {
                         value={selectedCategory}
                         onChange={handleCategoryChange}
                         placeholder=""
-                        required
-                      >
+                        required>
                         <option value="">Select </option>
                         {categories.map((item) => (
                           <option key={item._id} value={item.category_name}>
@@ -321,9 +389,26 @@ const TreatmentPlan = () => {
                     </div>
                   </div>
                 </div>
-                <button className="submit_tplan" type="submit">
+                {/* <button className="submit_tplan" type="submit">
                   Submit Plan
-                </button>
+                </button> */}
+                {editId ? (
+                  <div>
+                    <button className="plan_save-btn" type="submit">
+                      Save
+                    </button>
+                    <button
+                      className="plan_cancel-btn"
+                      type="button"
+                      onClick={handleCancelEdit}>
+                      Cancel
+                    </button>
+                  </div>
+                ) : (
+                  <button className="submit_tplan" type="submit">
+                    Submit
+                  </button>
+                )}
               </form>
             </div>
           </div>
@@ -336,6 +421,7 @@ const TreatmentPlan = () => {
                   <th>UpdatedTime</th>
                   <th>Status</th>
                   <th>Action</th>
+                  <th>Edit</th>
                 </tr>
               </thead>
               <tbody>
@@ -346,13 +432,27 @@ const TreatmentPlan = () => {
                     <td>{plan.status}</td>
                     <td>
                       <button
-                        onClick={() =>
-                          toggleStatus(plan.plan_id, plan.status)
-                        }
-                      >
+                        onClick={() => toggleStatus(plan.plan_id, plan.status)}>
                         {plan.status === "active"
                           ? "Set Inactive"
                           : "Set Active"}
+                      </button>
+                    </td>
+                    <td>
+                      <button
+                        onClick={() =>
+                          handleEdit(
+                            plan.plan_id,
+                            plan.plan_name,
+                            plan.GST,
+                            plan.days,
+                            plan.price,
+                            plan.GSTamount,
+                            plan.TotalAmount,
+                            plan.category_name
+                          )
+                        }>
+                        Edit
                       </button>
                     </td>
                   </tr>
@@ -371,8 +471,9 @@ const TreatmentPlan = () => {
                 <span
                   key={index}
                   onClick={() => handlePageChange(index + 1)}
-                  className={currentPage === index + 1 ? 'pageactive-page' : ''}
-                >
+                  className={
+                    currentPage === index + 1 ? "pageactive-page" : ""
+                  }>
                   {index + 1}
                 </span>
               ))}

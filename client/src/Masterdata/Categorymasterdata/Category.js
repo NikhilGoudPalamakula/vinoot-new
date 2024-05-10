@@ -1,6 +1,7 @@
-
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { ToastContainer, toast } from "react-toastify"; // Import ToastContainer and toast from react-toastify
+import "react-toastify/dist/ReactToastify.css"; // Import the default styles for React Toastify
 import { useNavigate } from "react-router-dom";
 import { VINOOTNEW } from "../../Helper/Helper";
 import "./Category.css";
@@ -20,6 +21,7 @@ const TreatmentCategory = () => {
   const [categoriesPerPage] = useState(2); // Number of categories per page
   const presentTime = new Date().toLocaleString();
   const [error, setError] = useState("");
+  const [editId, setEditId] = useState(""); // Category ID being edited
 
   // Function to fetch existing categories
   const fetchCategories = async () => {
@@ -37,7 +39,8 @@ const TreatmentCategory = () => {
 
   const handleSelect = (event) => {
     const inputValue = event.target.value;
-    setValue(inputValue);
+    const trimmedValue = inputValue.trim(); // Trim the input value
+    setValue(trimmedValue); // Set the original input value
     if (inputValue.length < 3 || inputValue.length > 100) {
       setError("Text length must be between 3 and 100 characters.");
     } else {
@@ -49,10 +52,27 @@ const TreatmentCategory = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (error) {
-      alert("Please fix the error before submitting.");
+      toast.error("Please fix the errors before submitting", {
+        position: "top-right",
+        autoClose: 1500,
+      });
       return;
     }
+    // Check if the category name already exists
+    const isCategoryExist = categories.some(
+      (category) => category.category_name.toLowerCase() === value.toLowerCase()
+    );
 
+    if (isCategoryExist) {
+      toast.error(
+        "Category already exists. Please enter a unique category name.",
+        {
+          position: "top-right",
+          autoClose: 2500,
+        }
+      );
+      return;
+    }
     try {
       const noOfCategories = await axios.get(
         `${VINOOTNEW}/api/treatment-category`
@@ -60,17 +80,31 @@ const TreatmentCategory = () => {
       const count = noOfCategories.data.length;
 
       const category_id = generateUniqueId(value, count + 1);
-
-      await axios.post(`${VINOOTNEW}/api/treatment-category`, {
-        category_id: category_id,
-        category_name: value,
-        updatedTime: presentTime,
-        status: "active", // Default status is active
-      });
+      if (editId) {
+        await axios.put(`${VINOOTNEW}/api/treatment-category/${editId}`, {
+          // category_id: category_id,
+          category_name: value,
+          updatedTime: presentTime,
+          // status: "active", // Default status is active
+        });
+      } else {
+        await axios.post(`${VINOOTNEW}/api/treatment-category`, {
+          category_id: category_id,
+          category_name: value,
+          updatedTime: presentTime,
+          status: "active", // Default status is active
+        });
+      }
 
       setValue("");
-      alert("Success");
-      navigate("/TreatmentPlan");
+      setEditId("");
+      toast.success("Category Added Successful", {
+        position: "top-right",
+        autoClose: 1500,
+        onClose: () => {
+          navigate("/TreatmentPlan");
+        },
+      });
       fetchCategories(); // Refresh the category list
     } catch (error) {
       console.error("Error saving option:", error);
@@ -100,6 +134,16 @@ const TreatmentCategory = () => {
       console.error("Error toggling status:", error);
     }
   };
+  // Function to handle category editing
+  const handleEdit = (category_id, category_name) => {
+    setEditId(category_id);
+    setValue(category_name);
+  };
+  // Function to cancel category editing
+  const handleCancelEdit = () => {
+    setEditId("");
+    setValue("");
+  };
 
   // Pagination handlers
   const handlePageChange = (pageNumber) => {
@@ -119,6 +163,7 @@ const TreatmentCategory = () => {
 
   return (
     <div className="total-tcategory">
+      <ToastContainer />{" "}
       <div>
         <Sidebar />
       </div>
@@ -137,7 +182,23 @@ const TreatmentCategory = () => {
           />
           {error && <div style={{ color: "red" }}>{error}</div>}
           <br />
-          <button className="category_submit-btn">Submit</button>
+          {editId ? (
+            <div>
+              <button className="category_save-btn" type="submit">
+                Save
+              </button>
+              <button
+                className="category_cancel-btn"
+                type="button"
+                onClick={handleCancelEdit}>
+                Cancel
+              </button>
+            </div>
+          ) : (
+            <button className="category_submit-btn" type="submit">
+              Submit
+            </button>
+          )}
         </form>
 
         <h2 className="category_list_heading">Categories List</h2>
@@ -148,6 +209,7 @@ const TreatmentCategory = () => {
               <th>UpdatedTime</th>
               <th>Status</th>
               <th>Action</th>
+              <th>Edit</th>
             </tr>
           </thead>
           <tbody>
@@ -161,11 +223,19 @@ const TreatmentCategory = () => {
                     className="treatcat-btn"
                     onClick={() =>
                       toggleStatus(category.category_id, category.status)
-                    }
-                  >
+                    }>
                     {category.status === "active"
                       ? "Set Inactive"
                       : "Set Active"}
+                  </button>
+                </td>
+                <td>
+                  <button
+                    className="treatcat-btn"
+                    onClick={() =>
+                      handleEdit(category.category_id, category.category_name)
+                    }>
+                    Edit
                   </button>
                 </td>
               </tr>
@@ -183,8 +253,7 @@ const TreatmentCategory = () => {
             <span
               key={index}
               onClick={() => handlePageChange(index + 1)}
-              className={currentPage === index + 1 ? 'pageactive-page' : ''}
-            >
+              className={currentPage === index + 1 ? "pageactive-page" : ""}>
               {index + 1}
             </span>
           ))}
@@ -201,4 +270,3 @@ const TreatmentCategory = () => {
 };
 
 export default TreatmentCategory;
-

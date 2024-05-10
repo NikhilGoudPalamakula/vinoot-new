@@ -220,11 +220,11 @@ const RegisterPage = () => {
   const generateUserID = (users) => {
     if (users.length === 0) {
       // If there are no existing users, start with the first ID
-      return "SPA001";
+      return "SUPERADMIN001";
     } else {
       // Extract the numeric part of the last patient ID
       const lastIDNumeric = parseInt(
-        users[users.length - 1].userId.substr(3),
+        users[users.length - 1].userId.substr(10),
         10
       );
       // Increment the numeric part by 1

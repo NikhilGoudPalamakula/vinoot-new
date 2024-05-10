@@ -1,0 +1,184 @@
+/* form {
+    max-width: 400px;
+    margin: 0 auto;
+  }
+  
+  div {
+    margin-bottom: 15px;
+  }
+  
+  label {
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  input,
+  textarea {
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+  }
+  
+  button {
+    background-color: #4caf50;
+    color: #fff;
+    padding: 10px 15px;
+    border: none;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #45a049;
+  }
+   */
+
+
+.cont-container{
+  background-image: url('https://img.freepik.com/premium-photo/herbal-medicine-supplement-from-herbs-good-health-wooden-medical-background_103324-77.jpg?w=900');
+  /* background-image: url('https://img.freepik.com/free-photo/top-view-green-different-leaves-isolated-black-surface_141793-14549.jpg?w=900&t=st=1705418531~exp=1705419131~hmac=f43ca9a2651f6a3824877968c48feb446bb18dc5efa294748d543446043bbf38'); */
+  background-size: 100% 100%;
+}
+   /* Contact.css */
+.contact-total{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 92vh;
+  margin: 0;
+}
+
+.landing-contact-form {
+  width: 40%;
+  /* margin: 0 auto; */
+  padding: 20px;
+  /* background-color: #f5f5f5; */
+  backdrop-filter: blur(3px);
+  background: transparent;
+  /* box-shadow: 0 35px 80px rgba(0, 0, 0, 0.15); */
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+  border-radius: 8px;
+  margin-left: -40%;
+}
+
+.landing-contact-form h1 {
+  text-align: center;
+  color: #fff;
+  font-size: 3rem;
+  font-weight:bold ;
+}
+
+.landing-contact-form div {
+  margin-bottom: 15px;
+}
+
+.label-name1 {
+  display: block;
+  margin-bottom: 5px;
+  color: #fff;
+}
+
+.input-field1,
+.text-contact1 {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.con-btn {
+  /* background-color: #4caf50; */
+  /* background:  rgb(149, 133, 177); */
+  /* background-color: #2A8201; */
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  /* margin-left: 40%; */
+  width: 100%;
+}
+
+.con-btn:hover {
+  /* background-color: #45a049; */
+  background:  rgb(73, 64, 87);
+}
+
+
+
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .landing-contact-form {
+    max-width: 100%;
+  }
+}
+
+
+
+
+.contactFranch{
+
+  .formconfrach {
+    margin: 2rem;
+    background-color: #fff;
+    padding: 20px;
+    box-shadow: 0px 0px 0px 2px rgba(52, 52, 53, 0.185);
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+  }
+  
+  .titleconfrach {
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: #1a202c;
+  }
+  
+  .labelconfrach {
+    color: rgb(0, 0, 0);
+    margin-bottom: 4px;
+  }
+  
+  .inputconfrach {
+    padding: 10px;
+    margin-bottom: 15px;
+    width: 100%;
+    font-size: 1rem;
+    color: #4a5568;
+    outline: none;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    transition: all 0.2s ease-in-out;
+  }
+  
+  .inputconfrach:focus {
+    background-color: #fff;
+    box-shadow: 0 0 0 2px #cbd5e0;
+  }
+  
+  .inputconfrach:valid {
+    border: 1px solid black;
+  }
+  
+  .inputconfrach:invalid {
+    border: 1px solid rgba(14, 14, 14, 0.205);
+  }
+  
+  .submitconfrach {
+    background-color:rgb(0, 103, 51);
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 20px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+  }
+      
+      
+      
+
+}

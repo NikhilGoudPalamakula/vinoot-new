@@ -25,7 +25,7 @@ const FranchiseStaffReg = () => {
     fullname: "",
     userId: "",
     franchisename: "",
-    FranchiseID: "",
+    franchiseID: "",
     designation: "",
     email: "",
     password: "",
@@ -51,12 +51,12 @@ const FranchiseStaffReg = () => {
       // Update adminData and franchiseData with the current values from state and localStorage
       const createdBy = localStorage.getItem("userId");
       const franchiseName = localStorage.getItem("franchisename");
-      const FranchiseiD = localStorage.getItem("FranchiseID");
+      const franchiseID = localStorage.getItem("franchiseID");
       // Update adminData
       const updatedAdminData = {
         ...adminData,
         franchisename: franchiseName,
-        FranchiseID: FranchiseiD,
+        franchiseID: franchiseID,
         createdBy: createdBy, // Add CreatedBy from localStorage
       };
 
@@ -65,7 +65,7 @@ const FranchiseStaffReg = () => {
       console.log("admin Data:", updatedAdminData);
 
       alert("Data submitted successfully.");
-      navigate("/FranchiseAdmin");
+      navigate("/Franchisetogglebutton");
     } catch (error) {
       console.error("Registration failed:", error.response.data.error);
     }
@@ -100,7 +100,7 @@ const FranchiseStaffReg = () => {
 
   const fetchAdmins = async () => {
     try {
-      const frid = localStorage.getItem("FranchiseID"); // Corrected localStorage key
+      const frid = localStorage.getItem("franchiseID"); // Corrected localStorage key
       if (frid) {
         const response = await axios.get(
           `http://localhost:5001/api/franchisefetchusers/${frid}`
@@ -184,8 +184,8 @@ const FranchiseStaffReg = () => {
                   <option value=""></option>
                   <option value="Doctor">Doctor</option>
                   <option value="Reception">Reception</option>
-                  <option value="Thearpy">Therapy</option>
-                  <option value="FranchiseAdmin">FrAdmin</option>
+                  <option value="Therapist">Therapist</option>
+                  <option value="FranchiseAdmin">Franchise Admin</option>
                 </select>
                 <label>
                   <span> Select designation</span>

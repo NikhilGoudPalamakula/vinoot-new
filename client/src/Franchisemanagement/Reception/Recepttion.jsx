@@ -212,9 +212,14 @@ const Reception = () => {
     const filterValue = parseFloat(filters.remainingAmount);
     const lowercaseName = filters.patientname.toLowerCase();
     const lowercaseBillingName = billing.patient_name.toLowerCase();
+
+    // Parse the date values for comparison
+const currentDate = new Date(billing.currentDate);
+const fromDate = filters.fromDate ? new Date(filters.fromDate) : null;
+const toDate = filters.toDate ? new Date(filters.toDate) : null;
     return (
-      billing.currentDate.includes(filters.fromDate) &&
-      billing.currentDate.includes(filters.toDate) &&
+      (!fromDate || currentDate >= fromDate) && 
+      (!toDate || currentDate <= toDate) &&
       billing.mobile_number.toString().includes(filters.mobileNumber) &&
       billing.plan_name.includes(filters.planType) &&
       lowercaseBillingName.includes(lowercaseName) &&

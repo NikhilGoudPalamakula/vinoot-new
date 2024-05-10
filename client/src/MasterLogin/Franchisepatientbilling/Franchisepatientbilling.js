@@ -195,14 +195,15 @@
 
 
 
-// Import necessary icons from MUI
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import KeyboardDoubleArrowLeftIcon from "@mui/icons-material/KeyboardDoubleArrowLeft";
 import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArrowRight";
+import { TbFileTypeXls } from "react-icons/tb";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-
+import { saveAs } from "file-saver";
+import * as XLSX from "xlsx";
 const Franchisepatientbilling = () => {
   const [billingData, setBillingData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -210,12 +211,13 @@ const Franchisepatientbilling = () => {
   const [filters, setFilters] = useState({
     fromDate: "",
     toDate: "",
+    franchisename: "",
     mobileNumber: "",
-    franchiseName: "",
     planType: "",
-    patientName: "",
-    remainingAmount: "",
+    patientname: "",
+    remainingAmount: ""
   });
+ 
 
   useEffect(() => {
     fetchBillingData();
@@ -234,18 +236,30 @@ const Franchisepatientbilling = () => {
     setCurrentPage(pageNumber);
   };
 
-  const filteredData = billingData.filter((billing) => {
+
+  
+  
+  const filteredData = billingData.filter(billing => {
+
     const remainingAmount = parseFloat(billing.remainingAmount);
     const filterValue = parseFloat(filters.remainingAmount);
-    const lowercaseName = filters.patientName.toLowerCase();
+    const lowercaseName = filters.patientname.toLowerCase();
     const lowercaseBillingName = billing.patient_name.toLowerCase();
+    const lowercasefranchise = filters.franchisename.toLowerCase();
+    const lowercaseFranchsieName = billing.franchiseName.toLowerCase();
+// Parse the date values for comparison
+const currentDate = new Date(billing.currentDate);
+const fromDate = filters.fromDate ? new Date(filters.fromDate) : null;
+const toDate = filters.toDate ? new Date(filters.toDate) : null;
+
     return (
-      billing.currentDate.includes(filters.fromDate) &&
-      billing.currentDate.includes(filters.toDate) &&
+      (!fromDate || currentDate >= fromDate) && 
+      (!toDate || currentDate <= toDate) &&
       billing.mobile_number.toString().includes(filters.mobileNumber) &&
       billing.plan_name.includes(filters.planType) &&
       lowercaseBillingName.includes(lowercaseName) &&
-      billing.franchiseName.includes(filters.franchiseName) &&
+      lowercaseFranchsieName.includes(lowercasefranchise) &&
+      billing.plan_name.includes(filters.planType) &&
       (isNaN(filterValue) || remainingAmount >= filterValue)
     );
   });
@@ -260,11 +274,40 @@ const Franchisepatientbilling = () => {
     setFilters({ ...filters, [name]: value });
   };
 
+  const exportToExcel = () => {
+    const header = ["Franchise Name", "Franchise ID", "Billing Date","Bill Number", "Patient ID","Patient Name", "Patient Mobile Number", "Doctor","Therapist", "Plan Type", "Price", "Toatl Amount ", "Remaining Amount"];
+    const data = currentPlans.map(billing => [
+      billing.franchiseName,
+      billing.franchiseID,
+      billing.currentDate,
+      billing.bill_number,
+      billing.patient_id,
+      billing.patient_name,
+      billing.mobile_number,
+      billing.doctor,
+      billing.therapist,
+      billing.plan_name,
+      billing.price,
+      billing.TotalAmount,
+      // billing.amountPaid,
+      billing.remainingAmount
+    ]);
+
+    const ws = XLSX.utils.aoa_to_sheet([header, ...data]);
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, "Billing Data");
+    const excelBuffer = XLSX.write(wb, { bookType: "xlsx", type: "array" });
+    const excelBlob = new Blob([excelBuffer], { type: "application/octet-stream" });
+    saveAs(excelBlob, "All_franchise_Billing_data.xlsx");
+  };
+  
+
   return (
     <div>
-       <h1>Patients Billing Details</h1>
-        {/* <button onClick={exportToExcel}>Export to Excel</button> */}
-        <label>
+       <h1> Billing Data</h1>
+       <button onClick={exportToExcel}><TbFileTypeXls/></button>
+        
+       <label>
           <span>From Date:</span>
           <input
             type="date"
@@ -279,6 +322,15 @@ const Franchisepatientbilling = () => {
             type="date"
             name="toDate"
             value={filters.toDate}
+            onChange={handleFilterChange}
+          />
+        </label>
+        <label>
+          <span>Franchise Name:</span>
+          <input
+            type="text"
+            name="franchisename"
+            value={filters.franchisename}
             onChange={handleFilterChange}
           />
         </label>
@@ -318,7 +370,6 @@ const Franchisepatientbilling = () => {
             onChange={handleFilterChange}
           />
         </label>
-
       <table>
         <thead>
           <tr>
@@ -328,6 +379,7 @@ const Franchisepatientbilling = () => {
             <th>Bill Number</th>
             <th>Patient ID</th>
             <th>Patient Name</th>
+            <th>Mobile Number</th>
             <th>Doctor</th>
             <th>Therapist</th>
             <th>Plan Name</th>
@@ -345,6 +397,7 @@ const Franchisepatientbilling = () => {
               <td>{data.bill_number}</td>
               <td>{data.patient_id}</td>
               <td>{data.patient_name}</td>
+              <td>{data.mobile_number}</td>
               <td>{data.doctor}</td>
               <td>{data.therapist}</td>
               <td>{data.plan_name}</td>

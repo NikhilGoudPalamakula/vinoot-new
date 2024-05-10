@@ -161,6 +161,7 @@ import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import KeyboardDoubleArrowLeftIcon from "@mui/icons-material/KeyboardDoubleArrowLeft";
 import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArrowRight";
+import { TbFileTypeXls } from "react-icons/tb";
 
 import { saveAs } from "file-saver";
 import * as XLSX from "xlsx";
@@ -212,9 +213,14 @@ const Reception = () => {
     const filterValue = parseFloat(filters.remainingAmount);
     const lowercaseName = filters.patientname.toLowerCase();
     const lowercaseBillingName = billing.patient_name.toLowerCase();
+
+    // Parse the date values for comparison
+const currentDate = new Date(billing.currentDate);
+const fromDate = filters.fromDate ? new Date(filters.fromDate) : null;
+const toDate = filters.toDate ? new Date(filters.toDate) : null;
     return (
-      billing.currentDate.includes(filters.fromDate) &&
-      billing.currentDate.includes(filters.toDate) &&
+      (!fromDate || currentDate >= fromDate) && 
+      (!toDate || currentDate <= toDate) &&
       billing.mobile_number.toString().includes(filters.mobileNumber) &&
       billing.plan_name.includes(filters.planType) &&
       lowercaseBillingName.includes(lowercaseName) &&
@@ -265,7 +271,7 @@ const Reception = () => {
       </div>
       <div className="recp-dash-table">
         <h1>Patients Billing Details</h1>
-        <button onClick={exportToExcel}>Export to Excel</button>
+        <button onClick={exportToExcel}><TbFileTypeXls/></button>
         <label>
           <span>From Date:</span>
           <input

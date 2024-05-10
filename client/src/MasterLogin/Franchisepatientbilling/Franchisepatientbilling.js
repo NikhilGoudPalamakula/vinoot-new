@@ -204,6 +204,8 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { saveAs } from "file-saver";
 import * as XLSX from "xlsx";
+import SuperSidebar from "../../Masterdata/Sidebar/Sidebar";
+import './Franchisepatientbilling.css'
 const Franchisepatientbilling = () => {
   const [billingData, setBillingData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -303,10 +305,13 @@ const toDate = filters.toDate ? new Date(filters.toDate) : null;
   
 
   return (
-    <div>
+    <div  className="franbill-total">
+      <div>
+           <SuperSidebar/>
+      </div>
+      <div className="franbill-right">
        <h1> Billing Data</h1>
-       <button onClick={exportToExcel}><TbFileTypeXls/></button>
-        
+       <button onClick={exportToExcel}><TbFileTypeXls/></button>   
        <label>
           <span>From Date:</span>
           <input
@@ -431,6 +436,7 @@ const toDate = filters.toDate ? new Date(filters.toDate) : null;
           <KeyboardDoubleArrowRightIcon />
         </span>
       </div>
+    </div>
     </div>
   );
 };

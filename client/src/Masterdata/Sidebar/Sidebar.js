@@ -54,7 +54,7 @@ const SuperSidebar = () => {
                 Super Admin's
               </li>
             </Link>
-            <Link to="/FrSidebar" className="sidebar-links">
+            <Link to="/FranchiseDetails" className="sidebar-links">
               {" "}
               <li
                 className={activeItem === "franchise" ? "active" : ""}
@@ -64,7 +64,7 @@ const SuperSidebar = () => {
                 Frachises
               </li>{" "}
             </Link>
-            <Link to="/Franchisepatients" className="sidebar-links">
+            <Link to="/Franchisepatientbilling" className="sidebar-links">
               {" "}
               <li
                 className={activeItem === "franchise" ? "active" : ""}

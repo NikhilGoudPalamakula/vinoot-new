@@ -7,14 +7,40 @@ import FranchiseadminSidebar from "../Franchiseadminsidebar/Franchiseadminsideba
 // Function to validate input fields
 const validateInputs = (data) => {
   const errors = {};
-  if (data.fullname.length < 3 || data.fullname.length > 50) {
+
+  if (data.fullname.trim() === "") {
+    // Clear the error message if the input is empty
+    errors.fullname = "";
+  } else if (data.fullname.length < 3 || data.fullname.length > 50) {
+    // Check if the length of the input is within the specified range
     errors.fullname = "Fullname should be between 3 and 50 characters";
+  } else {
+    // Clear the error message if the input is valid
+    errors.fullname = "";
   }
-  if (data.password.length < 8 || data.password.length > 16) {
-    errors.password = "Password should be between 8 and 16 characters";
+
+  // Validate email
+  if (!/^\d{6-9}\d{4}$/.test(data.email)) {
+    errors.email =
+      "Mobile number must start with 6 digits and be 10 digits in total";
+  } else {
+    // Clear the error message if the input is valid
+    errors.email = "";
   }
-  if (!/^\d{10}$/.test(data.email)) {
-    errors.email = "Mobile number must be 10 digits";
+
+  // Validate password
+  if (data.password.trim() !== "") {
+    if (
+      !/(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&])[A-Za-z\d!@#$%^&*]{8,}$/.test(
+        data.password
+      )
+    ) {
+      errors.password =
+        "Password must contain at least one uppercase letter, one number, one special character, and be 8 characters long";
+    } else {
+      // Clear the error message if the input is valid
+      errors.password = "";
+    }
   }
   return errors;
 };

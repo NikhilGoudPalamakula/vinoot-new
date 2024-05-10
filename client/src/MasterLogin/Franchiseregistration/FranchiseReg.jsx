@@ -54,7 +54,6 @@
 //         updatedFranchiseData
 //       );
 
-      
 //       console.log("Franchise Data:", updatedFranchiseData);
 
 //       alert("Data submitted successfully.");
@@ -307,9 +306,6 @@
 
 // export default FranchiseReg;
 
-
-
-
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
@@ -349,7 +345,7 @@ const FranchiseReg = () => {
   });
   const [errors, setErrors] = useState({
     franchisename: "",
-    franchiseID:"",
+    franchiseID: "",
     mobileNumber: "",
     address: "",
     pincode: "",
@@ -522,7 +518,10 @@ const FranchiseReg = () => {
 
     // Validate franchise name
     if (name === "franchisename") {
-      if (value.length < 10 || value.length > 100) {
+      if (value.trim() === "") {
+        // Clear the error message if the input is empty
+        setErrors((prevErrors) => ({ ...prevErrors, franchisename: "" }));
+      } else if (value.length < 10 || value.length > 100) {
         setErrors((prevErrors) => ({
           ...prevErrors,
           franchisename:
@@ -535,39 +534,55 @@ const FranchiseReg = () => {
 
     // Validate mobile number
     if (name === "mobileNumber") {
-      const mobileRegex = /^[1-9]\d{9}$/;
-      if (!mobileRegex.test(value)) {
-        setErrors((prevErrors) => ({
-          ...prevErrors,
-          mobileNumber:
-            "Mobile number must be 10 digits",
-        }));
-      } else {
+      if (value.trim() === "") {
+        // Clear the error message if the input is empty
         setErrors((prevErrors) => ({ ...prevErrors, mobileNumber: "" }));
+      } else {
+        const mobileRegex = /^[6-9]\d{9}$/; // Regex to check if mobile number starts with 6 and has 10 digits
+        if (!mobileRegex.test(value)) {
+          setErrors((prevErrors) => ({
+            ...prevErrors,
+            mobileNumber: "Mobile number should start 6 and have 10 digits.",
+          }));
+        } else {
+          // Clear the error message if the mobile number format is valid
+          setErrors((prevErrors) => ({ ...prevErrors, mobileNumber: "" }));
+        }
       }
     }
 
     // Validate pincode
     if (name === "pincode") {
-      const pincodeRegex = /^[1-9]\d{5}$/;
-      if (!pincodeRegex.test(value)) {
-        setErrors((prevErrors) => ({
-          ...prevErrors,
-          pincode: "Pincode must be 6 digits starting with a non-zero digit.",
-        }));
-      } else {
+      if (value.trim() === "") {
+        // Clear the error message if the input is empty
         setErrors((prevErrors) => ({ ...prevErrors, pincode: "" }));
+      } else {
+        const pincodeRegex = /^[1-9]\d{5}$/;
+        if (!pincodeRegex.test(value)) {
+          setErrors((prevErrors) => ({
+            ...prevErrors,
+            pincode: "Pincode must be 6 digits starting with a non-zero digit.",
+          }));
+        } else {
+          // Clear the error message if the pincode format is valid
+          setErrors((prevErrors) => ({ ...prevErrors, pincode: "" }));
+        }
       }
     }
 
     // Validate address
     if (name === "address") {
-      if (value.length < 10 || value.length > 250) {
+      if (value.trim() === "") {
+        // Clear the error message if the input is empty
+        setErrors((prevErrors) => ({ ...prevErrors, address: "" }));
+      } else if (value.length < 10 || value.length > 250) {
+        // Check if the value length is within the specified range
         setErrors((prevErrors) => ({
           ...prevErrors,
           address: "Address must be between 10 and 250 characters.",
         }));
       } else {
+        // Clear the error message if the input is not empty and length is valid
         setErrors((prevErrors) => ({ ...prevErrors, address: "" }));
       }
     }
@@ -578,29 +593,49 @@ const FranchiseReg = () => {
     setAdminData({ ...adminData, [name]: value });
     //password validation
     if (name === "password") {
-      if (value.length < 8 || value.length > 16) {
+      const passwordRegex =
+        /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&])[A-Za-z\d!@#$%^&*]{8,16}$/;
+      // Explanation:
+      // (?=.*[A-Z]) - At least one uppercase letter
+      // (?=.*\d) - At least one digit
+      // (?=.*[!@#$%^&]) - At least one special character
+      // [A-Za-z\d!@#$%^&*]{8,16} - Password must be between 8 and 16 characters long, containing only specified characters
+
+      // Check if the value is empty or matches the password requirements
+      if (value === "" || passwordRegex.test(value)) {
+        // If the value is valid or empty, clear the error message
+        setErrors((prevErrors) => ({ ...prevErrors, password: "" }));
+      } else {
+        // If the value is invalid, set the error message
         setErrors((prevErrors) => ({
           ...prevErrors,
-          password: "Password must be between 8 and 16 characters.",
+          password:
+            "Password must be 8-16 characters with at least one uppercase letter, one number, and one special character.",
         }));
-      } else {
-        setErrors((prevErrors) => ({ ...prevErrors, password: "" }));
       }
     }
+
     //email validation
     if (name === "email") {
-      if (value.length < 10 || value.length > 60) {
+      // Check if the value is empty or within the valid length range
+      if (value === "" || (value.length >= 10 && value.length <= 60)) {
+        // If the value is valid, clear the error message
+        setErrors((prevErrors) => ({ ...prevErrors, email: "" }));
+      } else {
+        // If the value is invalid, set the error message
         setErrors((prevErrors) => ({
           ...prevErrors,
           email: "email must be between 10 and 60 characters.",
         }));
-      } else {
-        setErrors((prevErrors) => ({ ...prevErrors, email: "" }));
       }
     }
+
     //fullname validation
     if (name === "fullname") {
-      if (value.length < 3 || value.length > 50) {
+      if (value.trim() === "") {
+        // Clear the error message if the field is empty
+        setErrors((prevErrors) => ({ ...prevErrors, fullname: "" }));
+      } else if (value.length < 3 || value.length > 50) {
         setErrors((prevErrors) => ({
           ...prevErrors,
           fullname: "fullname must be between 3 and 50 characters.",
@@ -614,7 +649,7 @@ const FranchiseReg = () => {
     <div className="addfr-franchise-Reg">
       <div className="addfr-franchise-Logo">
         <div className="addfr-image">
-        <img
+          <img
             src="https://vinootherbal.com/wp-content/uploads/2024/02/grrb-1-1536x804.png"
             alt="logo"
           />
@@ -631,7 +666,7 @@ const FranchiseReg = () => {
               <div className="addfr-franchise-detail-columns">
                 <div className="addfr-column">
                   <div className="addfr-input-wrap">
-                  <input
+                    <input
                       className="addfr-input"
                       type="text"
                       name="franchisename"
@@ -641,7 +676,9 @@ const FranchiseReg = () => {
                       required
                     />
                     <label>
-                      <span>Franchise Name <span style={{color:'red'}}>*</span></span>
+                      <span>
+                        Franchise Name <span style={{ color: "red" }}>*</span>
+                      </span>
                     </label>
                   </div>
                   {errors.franchisename && (
@@ -650,7 +687,7 @@ const FranchiseReg = () => {
                     </div>
                   )}
                   <div className="addfr-input-wrap">
-                  <input
+                    <input
                       className="addfr-input"
                       type="text"
                       name="franchiseID"
@@ -660,11 +697,13 @@ const FranchiseReg = () => {
                       required
                     />
                     <label>
-                      <span>Franchise ID <span style={{color:'red'}}>*</span></span>
+                      <span>
+                        Franchise ID <span style={{ color: "red" }}>*</span>
+                      </span>
                     </label>
                   </div>
                   <div className="addfr-input-wrap">
-                  <input
+                    <input
                       className="addfr-input"
                       type="number"
                       name="mobileNumber"
@@ -674,7 +713,9 @@ const FranchiseReg = () => {
                       required
                     />
                     <label>
-                      <span>Mobile Number <span style={{color:'red'}}>*</span></span>
+                      <span>
+                        Mobile Number <span style={{ color: "red" }}>*</span>
+                      </span>
                     </label>
                   </div>
                   {errors.mobileNumber && (
@@ -711,14 +752,17 @@ const FranchiseReg = () => {
                         {filteredStates.map((state) => (
                           <li
                             key={state._id}
-                            onClick={() => handleStateSelection(state.name)}>
+                            onClick={() => handleStateSelection(state.name)}
+                          >
                             {state.name}
                           </li>
                         ))}
                       </ul>
                     )}
                     <label>
-                      <span>State <span style={{color:'red'}}>*</span></span>
+                      <span>
+                        State <span style={{ color: "red" }}>*</span>
+                      </span>
                     </label>
                   </div>
                 </div>
@@ -738,14 +782,17 @@ const FranchiseReg = () => {
                         {filteredCities.map((city) => (
                           <li
                             key={city._id}
-                            onClick={() => handleCitySelection(city.name)}>
+                            onClick={() => handleCitySelection(city.name)}
+                          >
                             {city.name}
                           </li>
                         ))}
                       </ul>
                     )}
                     <label>
-                      <span>City <span style={{color:'red'}}>*</span></span>
+                      <span>
+                        City <span style={{ color: "red" }}>*</span>
+                      </span>
                     </label>
                   </div>
                   <div className="addfr-column">
@@ -764,14 +811,17 @@ const FranchiseReg = () => {
                           {filteredAreas.map((area) => (
                             <li
                               key={area._id}
-                              onClick={() => handleAreaSelection(area.name)}>
+                              onClick={() => handleAreaSelection(area.name)}
+                            >
                               {area.name}
                             </li>
                           ))}
                         </ul>
                       )}
                       <label>
-                        <span>Area <span style={{color:'red'}}>*</span></span>
+                        <span>
+                          Area <span style={{ color: "red" }}>*</span>
+                        </span>
                       </label>
                     </div>
                     <div className="addfr-input-wrap">
@@ -785,7 +835,9 @@ const FranchiseReg = () => {
                         required
                       />
                       <label>
-                        <span>Address <span style={{color:'red'}}>*</span></span>
+                        <span>
+                          Address <span style={{ color: "red" }}>*</span>
+                        </span>
                       </label>
                     </div>
                     {errors.address && (
@@ -804,7 +856,9 @@ const FranchiseReg = () => {
                         required
                       />
                       <label>
-                        <span>Pincode <span style={{color:'red'}}>*</span></span>
+                        <span>
+                          Pincode <span style={{ color: "red" }}>*</span>
+                        </span>
                       </label>
                     </div>
                     {errors.pincode && (
@@ -829,7 +883,9 @@ const FranchiseReg = () => {
                       required
                     />
                     <label>
-                      <span>fullname <span style={{color:'red'}}>*</span></span>
+                      <span>
+                        fullname <span style={{ color: "red" }}>*</span>
+                      </span>
                     </label>
                   </div>
                   {errors.fullname && (
@@ -848,7 +904,9 @@ const FranchiseReg = () => {
                       required
                     />
                     <label>
-                      <span>userId <span style={{color:'red'}}>*</span></span>
+                      <span>
+                        userId <span style={{ color: "red" }}>*</span>
+                      </span>
                     </label>
                   </div>
                   {errors.userId && (
@@ -882,7 +940,9 @@ const FranchiseReg = () => {
                       required
                     />
                     <label>
-                      <span>Email <span style={{color:'red'}}>*</span></span>
+                      <span>
+                        Email <span style={{ color: "red" }}>*</span>
+                      </span>
                     </label>
                   </div>
                   {errors.email && (
@@ -901,7 +961,9 @@ const FranchiseReg = () => {
                       required
                     />
                     <label>
-                      <span>Password <span style={{color:'red'}}>*</span></span>
+                      <span>
+                        Password <span style={{ color: "red" }}>*</span>
+                      </span>
                     </label>
                   </div>
                   {errors.password && (

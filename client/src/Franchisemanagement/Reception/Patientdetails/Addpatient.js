@@ -811,11 +811,42 @@ const PatientForm = () => {
 
     // Validate input values
     switch (name) {
+      // case "patient_name":
+      //   if (value.length < 3 || value.length > 50) {
+      //     setErrors((prevErrors) => ({
+      //       ...prevErrors,
+      //       [name]: "Patient name should be between 3 and 50 characters",
+      //     }));
+      //   } else {
+      //     setErrors((prevErrors) => ({
+      //       ...prevErrors,
+      //       [name]: "",
+      //     }));
+      //   }
+      //   break;
+
       case "patient_name":
-        if (value.length < 3 || value.length > 50) {
+        if (value.trim() === "") {
+          // Clear the error message when the input field is empty
           setErrors((prevErrors) => ({
             ...prevErrors,
-            [name]: "Patient name should be between 3 and 50 characters",
+            [name]: "",
+          }));
+        } else if (value.length < 3) {
+          setErrors((prevErrors) => ({
+            ...prevErrors,
+            [name]: "Patient name should consist of a minimum of 3 characters",
+          }));
+        } else if (value.length > 50) {
+          setErrors((prevErrors) => ({
+            ...prevErrors,
+            [name]: "Patient name should be at most 50 characters",
+          }));
+        } else if (!/^[\w\d\s\S]*[a-zA-Z]+[\w\d\s\S]*$/.test(value)) {
+          setErrors((prevErrors) => ({
+            ...prevErrors,
+            [name]:
+              "Patient name should contain at least one alphabetic character",
           }));
         } else {
           setErrors((prevErrors) => ({
@@ -824,12 +855,39 @@ const PatientForm = () => {
           }));
         }
         break;
+
+      // case "mobile_number":
+      // if (!/^\d{10}$/.test(value)) {
+      //   setErrors((prevErrors) => ({
+      //     ...prevErrors,
+      //     [name]: "Mobile number must have 10 digits",
+      //   }));
+      // } else {
+      //   setErrors((prevErrors) => ({
+      //     ...prevErrors,
+      //     [name]: "",
+      //   }));
+      // }
+      // break;
       case "mobile_number":
-        if (!/^\d{10}$/.test(value)) {
+        if (value === "") {
+          // Clear the error message when the input field is empty
           setErrors((prevErrors) => ({
             ...prevErrors,
-            [name]: "Mobile number must have 10 digits",
+            [name]: "",
           }));
+        } else if (!/^[6]\d{9}$/.test(value)) {
+          if (!/^6/.test(value)) {
+            setErrors((prevErrors) => ({
+              ...prevErrors,
+              [name]: "Mobile number must start with 6",
+            }));
+          } else if (value.length !== 10) {
+            setErrors((prevErrors) => ({
+              ...prevErrors,
+              [name]: "Mobile number should have 10 digits",
+            }));
+          }
         } else {
           setErrors((prevErrors) => ({
             ...prevErrors,
@@ -838,30 +896,45 @@ const PatientForm = () => {
         }
         break;
       case "dob":
-        const dobDate = new Date(value);
-        const presentDate = new Date();
-        const minDobDate = new Date();
-        const selectedDate = new Date(value);
-        minDobDate.setFullYear(presentDate.getFullYear() - 140);
-        if (dobDate < minDobDate) {
-          setErrors((prevErrors) => ({
-            ...prevErrors,
-            [name]: "Date of birth should be at less than 140 years ago",
-          }));
-        } else if (selectedDate > presentDate) {
-          setErrors((prevErrors) => ({
-            ...prevErrors,
-            [name]: "Date of birth cannot be a future date",
-          }));
-        } else {
+        if (value.trim() === "") {
+          // Clear the error message when the input field is empty
           setErrors((prevErrors) => ({
             ...prevErrors,
             [name]: "",
           }));
+        } else {
+          const dobDate = new Date(value);
+          const presentDate = new Date();
+          const minDobDate = new Date();
+          const selectedDate = new Date(value);
+          minDobDate.setFullYear(presentDate.getFullYear() - 140);
+          if (dobDate < minDobDate) {
+            setErrors((prevErrors) => ({
+              ...prevErrors,
+              [name]: "Date of birth should be at less than 140 years ago",
+            }));
+          } else if (selectedDate > presentDate) {
+            setErrors((prevErrors) => ({
+              ...prevErrors,
+              [name]: "Date of birth cannot be a future date",
+            }));
+          } else {
+            setErrors((prevErrors) => ({
+              ...prevErrors,
+              [name]: "",
+            }));
+          }
         }
         break;
+
       case "email":
-        if (
+        if (value.trim() === "") {
+          // Clear the error message when the input field is empty
+          setErrors((prevErrors) => ({
+            ...prevErrors,
+            [name]: "",
+          }));
+        } else if (
           value.length < 10 ||
           value.length > 60 ||
           !/\S+@\S+\.\S+/.test(value)
@@ -877,8 +950,15 @@ const PatientForm = () => {
           }));
         }
         break;
+
       case "address":
-        if (value.length < 10 || value.length > 250) {
+        if (value.trim() === "") {
+          // Clear the error message when the input field is empty
+          setErrors((prevErrors) => ({
+            ...prevErrors,
+            [name]: "",
+          }));
+        } else if (value.length < 10 || value.length > 250) {
           setErrors((prevErrors) => ({
             ...prevErrors,
             [name]: "Address should be between 10 and 250 characters",
@@ -890,6 +970,7 @@ const PatientForm = () => {
           }));
         }
         break;
+
       default:
         break;
     }
@@ -993,7 +1074,9 @@ const PatientForm = () => {
             <div className="column-wrapper">
               <div className="column">
                 <div className="input-wrapper">
-                  <label htmlFor="patient_id">Patient ID:<span className="mandatory">*</span></label>
+                  <label htmlFor="patient_id">
+                    Patient ID:<span className="mandatory">*</span>
+                  </label>
                   <input
                     id="patient_id"
                     type="text"
@@ -1027,7 +1110,9 @@ const PatientForm = () => {
                 />
               </div> */}
                 <div className="input-wrapper">
-                  <label htmlFor="patient_name">Patient Name:<span className="mandatory">*</span></label>
+                  <label htmlFor="patient_name">
+                    Patient Name:<span className="mandatory">*</span>
+                  </label>
                   <input
                     id="patient_name"
                     type="text"
@@ -1041,7 +1126,9 @@ const PatientForm = () => {
                   <span className="error">{errors.patient_name}</span>
                 )}
                 <div className="input-wrapper">
-                  <label htmlFor="dob">Date of Birth:<span className="mandatory">*</span></label>
+                  <label htmlFor="dob">
+                    Date of Birth:<span className="mandatory">*</span>
+                  </label>
                   <input
                     id="dob"
                     type="date"
@@ -1065,7 +1152,9 @@ const PatientForm = () => {
                 </div>
                 {errors.email && <span className="error">{errors.email}</span>}
                 <div className="input-wrapper">
-                  <label htmlFor="mobile_number">Mobile Number:<span className="mandatory">*</span></label>
+                  <label htmlFor="mobile_number">
+                    Mobile Number:<span className="mandatory">*</span>
+                  </label>
                   <input
                     id="mobile_number"
                     type="number"
@@ -1085,7 +1174,9 @@ const PatientForm = () => {
 
               <div className="column">
                 <div className="input-wrapper">
-                  <label htmlFor="genderSelect">Gender:<span className="mandatory">*</span></label>
+                  <label htmlFor="genderSelect">
+                    Gender:<span className="mandatory">*</span>
+                  </label>
                   <select
                     id="genderSelect"
                     name="gender"
@@ -1100,7 +1191,9 @@ const PatientForm = () => {
                   </select>
                 </div>
                 <div className="input-wrapper">
-                  <label htmlFor="stateInput">State:<span className="mandatory">*</span></label>
+                  <label htmlFor="stateInput">
+                    State:<span className="mandatory">*</span>
+                  </label>
                   <input
                     id="stateInput"
                     type="text"
@@ -1123,7 +1216,9 @@ const PatientForm = () => {
                   )}
                 </div>
                 <div className="input-wrapper">
-                  <label htmlFor="cityInput">City:<span className="mandatory">*</span></label>
+                  <label htmlFor="cityInput">
+                    City:<span className="mandatory">*</span>
+                  </label>
                   <input
                     id="cityInput"
                     type="text"
@@ -1146,7 +1241,9 @@ const PatientForm = () => {
                   )}
                 </div>
                 <div className="input-wrapper">
-                  <label htmlFor="areaInput">Area:<span className="mandatory">*</span></label>
+                  <label htmlFor="areaInput">
+                    Area:<span className="mandatory">*</span>
+                  </label>
                   <input
                     id="areaInput"
                     type="text"
@@ -1169,7 +1266,9 @@ const PatientForm = () => {
                   )}
                 </div>
                 <div className="input-wrapper">
-                  <label htmlFor="address">Address:<span className="mandatory">*</span> </label>
+                  <label htmlFor="address">
+                    Address:<span className="mandatory">*</span>{" "}
+                  </label>
                   <textarea
                     id="address"
                     type="text"

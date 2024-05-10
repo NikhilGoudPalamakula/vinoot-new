@@ -451,7 +451,7 @@ const RegisterPage = () => {
                   <label>
                     <input
                       className="input1_rp"
-                      type="text"
+                      type="number"
                       name="phoneNumber"
                       value={formData.phoneNumber}
                       onChange={handleChange}

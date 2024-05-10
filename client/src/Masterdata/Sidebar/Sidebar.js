@@ -67,7 +67,7 @@ const SuperSidebar = () => {
             <Link to="/Franchisepatientbilling" className="sidebar-links">
               {" "}
               <li
-                className={activeItem === "franchise" ? "active" : ""}
+                className={activeItem === "patients" ? "active" : ""}
                 onClick={() => handleItemClick("patients")}
               >
                 <PiUsersFourFill className="icon" />

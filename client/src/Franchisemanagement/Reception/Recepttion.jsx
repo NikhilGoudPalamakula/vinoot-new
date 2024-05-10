@@ -270,8 +270,12 @@ const toDate = filters.toDate ? new Date(filters.toDate) : null;
         <ReceptionSidebar />
       </div>
       <div className="recp-dash-table">
+        <div className="recep-dash-fi">
         <h1>Patients Billing Details</h1>
-        <button onClick={exportToExcel}><TbFileTypeXls/></button>
+        <button onClick={exportToExcel}><TbFileTypeXls className="xlsiocn2"/></button>
+        </div>
+        <div className="recep-dash-filter">
+        <div className="recep-dash-filter-1">
         <label>
           <span>From Date:</span>
           <input
@@ -290,6 +294,8 @@ const toDate = filters.toDate ? new Date(filters.toDate) : null;
             onChange={handleFilterChange}
           />
         </label>
+        </div>
+        <div className="recep-dash-filter-11">
         <label>
           <span>Mobile Number:</span>
           <input
@@ -326,6 +332,8 @@ const toDate = filters.toDate ? new Date(filters.toDate) : null;
             onChange={handleFilterChange}
           />
         </label>
+        </div>
+        </div>
         <table>
           <thead>
             <tr>

@@ -121,6 +121,8 @@
 
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { ToastContainer, toast } from "react-toastify"; // Import ToastContainer and toast from react-toastify
+import "react-toastify/dist/ReactToastify.css"; // Import the default styles for React Toastify
 import { useNavigate } from "react-router-dom";
 import { VINOOTNEW } from "../../Helper/Helper";
 import Sidebar from "../Sidebar/Sidebar";
@@ -169,7 +171,10 @@ const States = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (error) {
-      alert("Please fix the error before submitting.");
+      toast.error("Please fix the errors before submitting", {
+        position: "top-right",
+        autoClose: 1500,
+      });
       return;
     }
 
@@ -187,15 +192,25 @@ const States = () => {
       });
       if (response.status === 201) {
         console.log("State added successfully");
-        alert("State added successfully");
-        navigate("/Cities");
+        toast.success("State added successfully", {
+          position: "top-right",
+          autoClose: 1500,
+          onClose: () => {
+            navigate("/Cities");
+          },
+        });
+        return;
       } else {
         console.error("Failed to add state");
       }
     } catch (error) {
       console.error("Failed to add state", error);
       if (error.response && error.response.status === 400) {
-        alert("State already exists");
+        toast.error("State already exists", {
+          position: "top-right",
+          autoClose: 1500,
+        });
+        return;
       }
     }
   };
@@ -211,7 +226,11 @@ const States = () => {
       fetchStates(); // Refresh states after status update
     } catch (error) {
       console.error("Failed to toggle state status", error);
-      alert("Failed to toggle state status");
+      toast.error("Failed to toggle state status", {
+        position: "top-right",
+        autoClose: 1500,
+      });
+      return;
     }
   };
 
@@ -237,6 +256,7 @@ const States = () => {
 
   return (
     <div className="states-total">
+      <ToastContainer />
       <div>
         <Sidebar />
       </div>

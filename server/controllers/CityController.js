@@ -45,9 +45,6 @@
 //   }
 // };
 
-
-
-
 const City = require("../models/citymodel");
 const State = require("../models/Statemodel");
 
@@ -62,7 +59,15 @@ exports.getAllCities = async (req, res) => {
 };
 
 exports.addCity = async (req, res) => {
-  const { stateId, city_id, cityName } = req.body;
+  const {
+    stateId,
+    city_id,
+    cityName,
+    modifiedBy,
+    createdBy,
+    createdAt,
+    modifiedAt,
+  } = req.body;
   try {
     // Check if the provided stateId exists
     const state = await State.findById(stateId);
@@ -86,6 +91,10 @@ exports.addCity = async (req, res) => {
       state_id: state.state_id, // Fetch and store the state_id from the state schema
       name: cityName,
       city_id: city_id,
+      modifiedBy,
+      createdBy,
+      createdAt,
+      modifiedAt,
     });
     await newCity.save();
     res.status(201).json({ message: "City added successfully" });
@@ -96,20 +105,29 @@ exports.addCity = async (req, res) => {
 };
 exports.toggleCityStatus = async (req, res) => {
   const { cityId } = req.params;
-  const { status } = req.body;
+
+  const { modifiedBy, status, modifiedAt } = req.body;
+
   try {
-    const city = await City.findById(cityId);
-    if (!city) {
-      return res.status(404).json({ message: "City not found" });
+    // Validate request body fields
+    if (!modifiedBy || !status || !modifiedAt) {
+      return res.status(400).json({ message: "Missing required fields" });
     }
-    city.status = status; // Update city status with the provided value
-    await city.save();
-    res.status(200).json({ message: "City status updated successfully", city });
+
+    // Update state status
+    const updatedCity = await City.findByIdAndUpdate(
+      cityId,
+      { modifiedBy, status, modifiedAt },
+      { new: true }
+    );
+
+    if (!updatedCity) {
+      return res.status(404).json({ message: "city not found" });
+    }
+
+    res.status(200).json({ message: "city status updated", updatedCity });
   } catch (error) {
-    console.error("Failed to toggle city status", error);
-    res.status(500).json({ message: "Failed to toggle city status" });
+    console.error("Error toggling city status:", error);
+    res.status(500).json({ message: "Internal server error" });
   }
 };
-
-
-

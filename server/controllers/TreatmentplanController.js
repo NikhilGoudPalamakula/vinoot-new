@@ -10,7 +10,10 @@ exports.createTreatmentPlan = async (req, res) => {
     TotalAmount,
     days,
     price,
-    updatedAt,
+    createdAt,
+    createdBy,
+    modifiedAt,
+    modifiedBy,
   } = req.body;
 
   try {
@@ -23,7 +26,10 @@ exports.createTreatmentPlan = async (req, res) => {
       TotalAmount,
       days,
       price,
-      updatedAt,
+      createdAt,
+      createdBy,
+      modifiedAt,
+      modifiedBy,
     });
 
     res.status(201).json({ message: "Plan created successfully", newPlan });
@@ -44,7 +50,8 @@ exports.updatePlanStatus = async (req, res) => {
   const { plan_id } = req.params;
   const {
     status,
-    updatedAt,
+    modifiedBy,
+    modifiedAt,
     plan_name,
     GST,
     days,
@@ -59,7 +66,8 @@ exports.updatePlanStatus = async (req, res) => {
       { plan_id },
       {
         status,
-        updatedAt: updatedAt,
+        modifiedBy,
+        modifiedAt,
         plan_name,
         GST,
         days,

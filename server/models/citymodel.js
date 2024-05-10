@@ -10,7 +10,6 @@
 
 // module.exports = City;
 
-
 const mongoose = require("mongoose");
 
 const citySchema = new mongoose.Schema({
@@ -35,6 +34,10 @@ const citySchema = new mongoose.Schema({
     enum: ["active", "inactive"],
     default: "active",
   },
+  modifiedBy: { type: String, required: true },
+  modifiedAt: { type: Date, default: Date.now },
+  createdAt: { type: Date, default: Date.now },
+  createdBy: { type: String, required: true },
 });
 const City = mongoose.model("City", citySchema);
 

@@ -48,7 +48,6 @@
 //   }
 // };
 
-
 const Area = require("../models/Areamodel");
 const City = require("../models/citymodel");
 
@@ -63,7 +62,16 @@ exports.getAllAreas = async (req, res) => {
 };
 
 exports.addArea = async (req, res) => {
-  const { cityId, areaName, city_id, area_id } = req.body;
+  const {
+    cityId,
+    areaName,
+    city_id,
+    area_id,
+    modifiedBy,
+    createdBy,
+    createdAt,
+    modifiedAt,
+  } = req.body;
   try {
     // Check if the provided cityId exists
     const city = await City.findById(cityId);
@@ -90,6 +98,10 @@ exports.addArea = async (req, res) => {
       name: areaName,
       city_id: city_id,
       area_id: area_id,
+      modifiedBy,
+      createdBy,
+      createdAt,
+      modifiedAt,
     });
     await newArea.save();
     res.status(201).json({ message: "Area added successfully" });
@@ -100,19 +112,27 @@ exports.addArea = async (req, res) => {
 };
 exports.toggleAreaStatus = async (req, res) => {
   const { areaId } = req.params;
-  const { status } = req.body;
+  const { modifiedBy, status, modifiedAt } = req.body;
   try {
-    const area = await Area.findById(areaId);
-    if (!area) {
-      return res.status(404).json({ message: "Area not found" });
+    // Validate request body fields
+    if (!modifiedBy || !status || !modifiedAt) {
+      return res.status(400).json({ message: "Missing required fields" });
     }
-    area.status = status;
-    await area.save();
-    res.status(200).json({ message: "Area status updated successfully", area });
+
+    // Update state status
+    const updatedArea = await Area.findByIdAndUpdate(
+      areaId,
+      { modifiedBy, status, modifiedAt },
+      { new: true }
+    );
+
+    if (!updatedArea) {
+      return res.status(404).json({ message: "area not found" });
+    }
+
+    res.status(200).json({ message: "area status updated", updatedArea });
   } catch (error) {
-    console.error("Failed to toggle area status", error);
-    res
-      .status(500)
-      .json({ message: "Failed to toggle area status", error: error.message });
+    console.error("Error toggling area status:", error);
+    res.status(500).json({ message: "Internal server error" });
   }
 };

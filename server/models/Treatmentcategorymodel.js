@@ -10,15 +10,16 @@ const treatmentCategorySchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  time: {
-    type: String,
-    required: true,
-  },
+
   status: {
     type: String,
     enum: ["active", "inactive"],
     default: "active",
   },
+  modifiedBy: { type: String, required: true },
+  modifiedAt: { type: String, required: true },
+  createdAt: { type: String, required: true },
+  createdBy: { type: String, required: true },
 });
 
 const TreatmentCategory = mongoose.model(

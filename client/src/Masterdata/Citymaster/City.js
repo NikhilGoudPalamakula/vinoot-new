@@ -179,6 +179,8 @@
 
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { ToastContainer, toast } from "react-toastify"; // Import ToastContainer and toast from react-toastify
+import "react-toastify/dist/ReactToastify.css"; // Import the default styles for React Toastify
 import { useNavigate } from "react-router-dom";
 import { VINOOTNEW } from "../../Helper/Helper";
 import Sidebar from "../Sidebar/Sidebar";
@@ -200,6 +202,8 @@ const Cities = () => {
 
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(3);
+  // Get user ID from local storage
+  const userId = localStorage.getItem("userId");
 
   useEffect(() => {
     fetchCities();
@@ -252,7 +256,10 @@ const Cities = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (error) {
-      alert("Please fix the error before submitting.");
+      toast.error("Please fix the errors before submitting", {
+        position: "top-right",
+        autoClose: 1500,
+      });
       return;
     }
 
@@ -264,11 +271,17 @@ const Cities = () => {
       // }
 
       if (!stateName) {
-        alert("Please select a state.");
+        toast.error("Please select a state", {
+          position: "top-right",
+          autoClose: 1500,
+        });
         return;
       }
       if (!cityName) {
-        alert("Please enter a city name.");
+        toast.error("Please enter a city name", {
+          position: "top-right",
+          autoClose: 1500,
+        });
         return;
       }
 
@@ -280,40 +293,62 @@ const Cities = () => {
         stateId: selectedState._id,
         cityName: cityName,
         city_id: city_id,
+        createdBy: userId, // Set createdBy field
+        createdAt: new Date(), // Set createdAt field
+        modifiedBy: userId, // Set modifiedBy field
+        modifiedAt: new Date(), // Set modifiedAt field
       });
       if (response.status === 201) {
         console.log("City added successfully");
-        alert("City added successfully");
-        navigate("/Area");
+        toast.success("City added successfully", {
+          position: "top-right",
+          autoClose: 1500,
+          onClose: () => {
+            navigate("/Area");
+          },
+        });
+        return;
       } else {
         console.error("Failed to add city");
       }
     } catch (error) {
       console.error("Failed to add city", error);
       if (error.response && error.response.status === 400) {
-        alert("City already exists in this state");
+        toast.error("City already exists in this state", {
+          position: "top-right",
+          autoClose: 1500,
+        });
       }
     }
   };
 
-  const toggleCityStatus = async (cityId, currentState) => {
+  const toggleCityStatus = async (cityId, currentStatus) => {
     try {
-      const updatedStatus = currentState === "active" ? "inactive" : "active";
-      const response = await axios.post(
+      const updatedStatus = currentStatus === "active" ? "inactive" : "active";
+      const response = await axios.put(
         `${VINOOTNEW}/api/cities/${cityId}/toggle`,
         {
           status: updatedStatus,
+          modifiedBy: userId,
+          modifiedAt: new Date(),
         }
       );
+
       if (response.status === 200) {
-        console.log("City status updated successfully");
-        fetchCities();
+        // Find the index of the area that was toggled
+        const cityIndex = cities.findIndex((city) => city._id === cityId);
+
+        // Create a new array with the updated status
+        const updatedCities = [...cities];
+        updatedCities[cityIndex].status = updatedStatus;
+
+        // Update the state with the new array
+        setCities(updatedCities);
       } else {
         console.error("Failed to toggle city status");
       }
     } catch (error) {
-      console.error("Failed to toggle city status", error);
-      alert("Failed to toggle city status");
+      console.error("Failed to toggle city status:", error);
     }
   };
 
@@ -388,8 +423,7 @@ const Cities = () => {
                     <td>{city.status}</td>
                     <td>
                       <button
-                        onClick={() => toggleCityStatus(city._id, city.status)}
-                      >
+                        onClick={() => toggleCityStatus(city._id, city.status)}>
                         {city.status === "active" ? "Inactive" : "Active"}
                       </button>
                     </td>
@@ -409,8 +443,7 @@ const Cities = () => {
               <span
                 key={index}
                 onClick={() => handlePageChange(index + 1)}
-                className={currentPage === index + 1 ? "pageactive-page" : ""}
-              >
+                className={currentPage === index + 1 ? "pageactive-page" : ""}>
                 {index + 1}
               </span>
             ))}

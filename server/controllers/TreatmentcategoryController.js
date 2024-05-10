@@ -4,16 +4,22 @@ exports.createTreatmentCategory = async (req, res) => {
   const {
     category_id,
     category_name,
-    updatedTime,
     status = "active",
+    modifiedBy,
+    createdBy,
+    createdAt,
+    modifiedAt,
   } = req.body;
 
   try {
     const newCategory = await TreatmentCategory.create({
       category_id,
       category_name,
-      time: updatedTime,
       status,
+      modifiedBy,
+      createdBy,
+      createdAt,
+      modifiedAt,
     });
     res
       .status(201)
@@ -34,12 +40,12 @@ exports.getAllTreatmentCategories = async (req, res) => {
 
 exports.updateCategoryStatus = async (req, res) => {
   const { category_id } = req.params;
-  const { category_name, status, updatedTime } = req.body;
+  const { category_name, status, modifiedBy, modifiedAt } = req.body;
 
   try {
     const updatedCategory = await TreatmentCategory.findOneAndUpdate(
       { category_id },
-      { category_name, status, time: updatedTime },
+      { category_name, status, modifiedBy, modifiedAt },
       { new: true }
     );
 

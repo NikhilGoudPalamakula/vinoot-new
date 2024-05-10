@@ -22,6 +22,7 @@ const TreatmentCategory = () => {
   const presentTime = new Date().toLocaleString();
   const [error, setError] = useState("");
   const [editId, setEditId] = useState(""); // Category ID being edited
+  const userId = localStorage.getItem("userId");
 
   // Function to fetch existing categories
   const fetchCategories = async () => {
@@ -84,15 +85,20 @@ const TreatmentCategory = () => {
         await axios.put(`${VINOOTNEW}/api/treatment-category/${editId}`, {
           // category_id: category_id,
           category_name: value,
-          updatedTime: presentTime,
+          modifiedAt: presentTime,
+          modifiedBy: userId,
           // status: "active", // Default status is active
         });
       } else {
         await axios.post(`${VINOOTNEW}/api/treatment-category`, {
           category_id: category_id,
           category_name: value,
-          updatedTime: presentTime,
+          createdAt: presentTime,
           status: "active", // Default status is active
+          createdBy: userId, // Set createdBy field
+
+          modifiedBy: userId, // Set modifiedBy field
+          modifiedAt: presentTime, // Set modifiedAt field
         });
       }
 
@@ -126,7 +132,8 @@ const TreatmentCategory = () => {
 
       await axios.put(`${VINOOTNEW}/api/treatment-category/${category_id}`, {
         status: newStatus,
-        updatedTime: presentTime, // Updated time
+        modifiedAt: presentTime, // Updated time
+        modifiedBy: userId, // Set modifiedBy field
       });
 
       fetchCategories(); // Refresh the category list after status change
@@ -216,7 +223,7 @@ const TreatmentCategory = () => {
             {currentCategories.map((category) => (
               <tr key={category.category_id}>
                 <td>{category.category_name}</td>
-                <td>{category.time}</td>
+                <td>{category.modifiedAt}</td>
                 <td>{category.status}</td>
                 <td>
                   <button

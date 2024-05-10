@@ -9,7 +9,10 @@ router.post("/treatment-plan", treatmentPlanController.createTreatmentPlan);
 router.get("/treatment-plan", treatmentPlanController.getAllTreatmentPlans);
 
 // Route to update the status of a category
-router.put("/treatment-plan/:plan_id", treatmentPlanController.updatePlanStatus);
+router.put(
+  "/treatment-plan/:plan_id",
+  treatmentPlanController.updatePlanStatus
+);
 
 module.exports = router;
 

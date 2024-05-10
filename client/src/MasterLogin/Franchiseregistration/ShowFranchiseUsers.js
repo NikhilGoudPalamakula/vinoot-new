@@ -1,19 +1,21 @@
-import React, { useState, useEffect } from "react";
-// import "../Franchisedetails/FranchiseAdmintable.css";
+
+
+
+
+ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
-// import Sidebar from "../../Masterdata/Sidebar/Sidebar";
-// import "./FranchiseAdmintable.css";
-// import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
-// import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
-// import KeyboardDoubleArrowLeftIcon from "@mui/icons-material/KeyboardDoubleArrowLeft";
-// import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArrowRight";
+import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
+import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
+import KeyboardDoubleArrowLeftIcon from "@mui/icons-material/KeyboardDoubleArrowLeft";
+import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArrowRight";
+import './ShowFranchiseUsers.css'
+import SuperSidebar from "../../Masterdata/Sidebar/Sidebar";
 const ShowFranchiseUsers = () => {
-  //   const [admins, setAdmins] = useState([]);
-  //   const [currentPage, setCurrentPage] = useState(1);
-  //   const [itemsPerPage] = useState(3);
   const { franchiseID } = useParams();
   const [franchiseAdmins, setFranchiseAdmins] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage] = useState(3);
 
   useEffect(() => {
     const fetchFranchiseAdmins = async () => {
@@ -21,7 +23,6 @@ const ShowFranchiseUsers = () => {
         const response = await axios.get(
           `http://localhost:5001/api/franchisefetchAdmins/${franchiseID}`
         );
-        // Filter admins whose designation is "FranchiseAdmin"
         const filteredAdmins = response.data.filter(
           (admin) => admin.designation === "FranchiseAdmin"
         );
@@ -30,28 +31,8 @@ const ShowFranchiseUsers = () => {
         console.error("Error fetching franchise admins:", error);
       }
     };
-
     fetchFranchiseAdmins();
   }, [franchiseID]);
-
-  //   useEffect(() => {
-  //     fetchAdmins();
-  //   }, [franchisename]);
-
-  //   const fetchAdmins = async () => {
-  //     try {
-  //       const response = await axios.get(
-  //         "http://localhost:5001/api/franchisefetchAdmin"
-  //       );
-  //       // Filter admins whose designation is "FranchiseAdmin"
-  //       const filteredAdmins = response.data.filter(
-  //         (admin) => admin.designation === "FranchiseAdmin"
-  //       );
-  //       setFranchiseAdmins(filteredAdmins);
-  //     } catch (error) {
-  //       console.error("Error fetching admins:", error);
-  //     }
-  //   };
 
   const toggleActiveState = async (id, isActive) => {
     try {
@@ -65,25 +46,36 @@ const ShowFranchiseUsers = () => {
           admin._id === id ? { ...admin, isActive: !isActive } : admin
         )
       );
-      //   fetchAdmins();
     } catch (error) {
       console.error("Error updating active state:", error);
     }
   };
 
-  //   const totalPages = Math.ceil(franchiseAdmins.length / itemsPerPage);
+  // Calculate indexes for pagination
+  const indexOfLastAdmin = currentPage * itemsPerPage;
+  const indexOfFirstAdmin = indexOfLastAdmin - itemsPerPage;
+  const currentAdmins = franchiseAdmins.slice(indexOfFirstAdmin, indexOfLastAdmin);
+  const totalPages = Math.ceil(franchiseAdmins.length / itemsPerPage);
+
+  // Handle page change
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
+
   return (
-    <div className="franchise-details">
-      {/* <div>
-        <Sidebar />
-      </div> */}
-      <div className="franchise-admin-rights">
-        <h1>Franchise Details</h1>
-        <table className="tabf">
+    <div className="francadmin-details">
+      <div>
+        <SuperSidebar/>
+      </div>
+      <div className="franadmin-right">
+        <h1>
+       
+          Franchise Admin Details </h1>
+        <table>
           <thead>
             <tr>
-              <th>fullname</th>
-              <th>userId</th>
+              <th>Fullname</th>
+              <th>User ID</th>
               <th>Franchise Name</th>
               <th>Franchise ID</th>
               <th>Designation</th>
@@ -98,9 +90,9 @@ const ShowFranchiseUsers = () => {
             </tr>
           </thead>
           <tbody>
-            {franchiseAdmins.map((admin) => (
+            {currentAdmins.map((admin) => (
               <tr key={admin._id}>
-                <td>{admin.fullname}</td>
+               <td>{admin.fullname}</td>
                 <td>{admin.userId}</td>
                 <td>{admin.franchisename}</td>
                 <td>{admin.franchiseID}</td>
@@ -125,7 +117,7 @@ const ShowFranchiseUsers = () => {
             ))}
           </tbody>
         </table>
-        {/* <div className="paginationss">
+        <div className="paginationss">
           <span onClick={() => handlePageChange(1)}>
             <KeyboardDoubleArrowLeftIcon />
           </span>
@@ -147,7 +139,7 @@ const ShowFranchiseUsers = () => {
           <span onClick={() => handlePageChange(totalPages)}>
             <KeyboardDoubleArrowRightIcon />
           </span>
-        </div> */}
+        </div>
       </div>
     </div>
   );

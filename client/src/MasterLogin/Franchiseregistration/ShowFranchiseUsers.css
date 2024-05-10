@@ -1,0 +1,21 @@
+.francadmin-details{
+    display: flex;
+}
+.franadmin-right{
+    margin-left: 18.5%;
+    table{
+        margin-top: 2vh;
+        text-align: center;
+        border-collapse: collapse;
+    }
+    th{
+        background-color: #0aa506;
+        font-size: 0.8rem;
+        padding: 7px;
+        color: white;
+    }
+    td{
+        font-size: 0.8rem;
+        padding: 6px;
+    }
+}

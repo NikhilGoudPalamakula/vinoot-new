@@ -2,7 +2,7 @@
 
 
 
- import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
@@ -65,40 +65,38 @@ const ShowFranchiseUsers = () => {
   return (
     <div className="francadmin-details">
       <div>
-        <SuperSidebar/>
+        <SuperSidebar />
       </div>
       <div className="franadmin-right">
         <h1>
-       
+
           Franchise Admin Details </h1>
         <table>
           <thead>
             <tr>
-              <th>Fullname</th>
-              <th>User ID</th>
-              <th>Franchise Name</th>
               <th>Franchise ID</th>
+              <th>Franchise Name</th>
+              <th>User ID</th>
+              <th>Fullname</th>
               <th>Designation</th>
               <th>Email</th>
-              <th>Password</th>
-              <th>Is Active</th>
-              <th>Action</th>
               <th>Modified By</th>
-              <th>Modified At</th>
-              <th>Created At</th>
               <th>Created By</th>
+              <th>Action</th>
+              <th>Is Active</th>
             </tr>
           </thead>
           <tbody>
             {currentAdmins.map((admin) => (
               <tr key={admin._id}>
-               <td>{admin.fullname}</td>
-                <td>{admin.userId}</td>
-                <td>{admin.franchisename}</td>
                 <td>{admin.franchiseID}</td>
+                <td>{admin.franchisename}</td>
+                <td>{admin.userId}</td>
+                <td>{admin.fullname}</td>
                 <td>{admin.designation}</td>
                 <td>{admin.email}</td>
-                <td>{admin.password}</td>
+                <td>{admin.modifiedBy}</td>
+                <td>{admin.createdBy}</td>
                 <td>{admin.isActive ? "Active" : "Inactive"}</td>
                 <td>
                   <button
@@ -109,10 +107,6 @@ const ShowFranchiseUsers = () => {
                     {admin.isActive ? "Deactivate" : "Activate"}
                   </button>
                 </td>
-                <td>{admin.modifiedBy}</td>
-                <td>{admin.modifiedAt}</td>
-                <td>{admin.createdAt}</td>
-                <td>{admin.createdBy}</td>
               </tr>
             ))}
           </tbody>

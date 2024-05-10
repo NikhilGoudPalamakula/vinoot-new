@@ -239,7 +239,7 @@ const FranchiseDetails = () => {
       <div className="fradetail-right">
         <h1>Franchises</h1>
         <span>Filter based on active/inactive:</span>
-        <select onChange={handleFilterChange} value={filterStatus}>
+        <select className="frdetail-filter" onChange={handleFilterChange} value={filterStatus}>
           <option value="">All</option>
           <option value="Active">Active</option>
           <option value="Inactive">Inactive</option>

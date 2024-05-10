@@ -39,10 +39,14 @@ const TreatmentCategory = () => {
   }, []); // Empty dependency array ensures this effect runs once on mount
 
   const handleSelect = (event) => {
-    const inputValue = event.target.value;
-    const trimmedValue = inputValue.trim(); // Trim the input value
-    setValue(trimmedValue); // Set the original input value
-    if (inputValue.length < 3 || inputValue.length > 100) {
+  
+    const inputValue = event.target.value.trim();
+    setValue(inputValue);
+
+    const alphabeticRegex = /[a-zA-Z]{3,}/;
+    if (!alphabeticRegex.test(inputValue)) {
+      setError("Category must contain at least 3 alphabetic characters.");
+    } else if (inputValue.length < 3 || inputValue.length > 100) {
       setError("Text length must be between 3 and 100 characters.");
     } else {
       setError("");

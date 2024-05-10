@@ -239,29 +239,9 @@ const RegisterPage = () => {
     // Clear previous errors
     setErrors((prevErrors) => ({
       ...prevErrors,
-      [name]: "", // Clear error for the current field
+      [name]: "", 
     }));
-    // Password validation
-    // if (name === "password") {
-    //   if (value.length < 8 || value.length > 16) {
-    //     setErrors((prevErrors) => ({
-    //       ...prevErrors,
-    //       password: "Password must be between 8 and 16 characters.",
-    //     }));
-    //   }
-    // }
-
-    // // Confirm Password validation
-    // if (name === "confirmPassword") {
-    //   if (value !== formData.password) {
-    //     setErrors((prevErrors) => ({
-    //       ...prevErrors,
-    //       confirmPassword: "Passwords do not match.",
-    //     }));
-    //   }
-    // }
-
-    // Password complexity validation
+    
     if (name === "password" && value.trim() !== "") {
       if (
         !/(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/.test(

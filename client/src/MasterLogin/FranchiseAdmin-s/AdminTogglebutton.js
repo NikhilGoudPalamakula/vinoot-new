@@ -26,12 +26,13 @@ const AdminTogglebutton = () => {
       </div>
       <div className="fra-adm-togg-right">
         <div className="fra-adm-togg-r1">
-          <h1>{adminshowComponent1 ? "Register Page" : "MasterUsers"}</h1>
+          <h1>{adminshowComponent1 ? "Add Super Admin" : "Super Admins"}</h1>
+          <span className="fra-1234"></span>
           <button
             className="admin-toggle-button123"
             onClick={admintoggleComponent}
           >
-            {adminshowComponent1 ? "MasterUsers" : "Register Page"}{" "}
+            {adminshowComponent1 ? "Super Admins" : "Add Super Admin"}{" "}
             <span className="admintog-icon">{buttonIcon}</span>
           </button>
         </div>

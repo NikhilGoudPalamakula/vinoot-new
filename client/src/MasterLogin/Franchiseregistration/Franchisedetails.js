@@ -135,9 +135,9 @@ const FranchiseDetails = () => {
       console.error("Error toggling status:", error);
     }
   };
-  const usersFranchiseAdmin = (franchiseName) => {
-    navigate(`/franchise/${franchiseName}/users`);
-    console.log(franchiseName);
+  const usersFranchiseAdmin = (franchiseID) => {
+    navigate(`/franchise/${franchiseID}/users`);
+    console.log(franchiseID);
   };
 
   return (
@@ -164,7 +164,7 @@ const FranchiseDetails = () => {
           {franchises.map((franchise) => (
             <tr key={franchise._id}>
               <td>{franchise.franchisename}</td>
-              <td>{franchise.FranchiseID}</td>
+              <td>{franchise.franchiseID}</td>
               <td>{franchise.mobileNumber}</td>
               <td>{franchise.country}</td>
               <td>{franchise.state}</td>
@@ -180,8 +180,7 @@ const FranchiseDetails = () => {
               </td>
               <td>
                 <button
-                  onClick={() => usersFranchiseAdmin(franchise.franchisename)}
-                >
+                  onClick={() => usersFranchiseAdmin(franchise.franchiseID)}>
                   FranchiseAdmins
                 </button>
               </td>

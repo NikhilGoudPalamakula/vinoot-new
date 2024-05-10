@@ -12,23 +12,27 @@ const ShowFranchiseUsers = () => {
   //   const [admins, setAdmins] = useState([]);
   //   const [currentPage, setCurrentPage] = useState(1);
   //   const [itemsPerPage] = useState(3);
-  const { franchisename } = useParams();
+  const { franchiseID } = useParams();
   const [franchiseAdmins, setFranchiseAdmins] = useState([]);
 
   useEffect(() => {
     const fetchFranchiseAdmins = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:5001/api/franchisefetchAdmins/${franchisename}`
+          `http://localhost:5001/api/franchisefetchAdmins/${franchiseID}`
         );
-        setFranchiseAdmins(response.data);
+        // Filter admins whose designation is "FranchiseAdmin"
+        const filteredAdmins = response.data.filter(
+          (admin) => admin.designation === "FranchiseAdmin"
+        );
+        setFranchiseAdmins(filteredAdmins);
       } catch (error) {
         console.error("Error fetching franchise admins:", error);
       }
     };
 
     fetchFranchiseAdmins();
-  }, [franchisename]);
+  }, [franchiseID]);
 
   //   useEffect(() => {
   //     fetchAdmins();
@@ -66,17 +70,7 @@ const ShowFranchiseUsers = () => {
       console.error("Error updating active state:", error);
     }
   };
-  //   // Pagination handlers
-  //   const handlePageChange = (pageNumber) => {
-  //     setCurrentPage(pageNumber);
-  //   };
 
-  //   // Get current plans
-  //   const indexOfLastPlan = currentPage * itemsPerPage;
-  //   const indexOfFirstPlan = indexOfLastPlan - itemsPerPage;
-  //   const currentPlans = franchiseAdmins.slice(indexOfFirstPlan, indexOfLastPlan);
-
-  //   // Calculate total pages
   //   const totalPages = Math.ceil(franchiseAdmins.length / itemsPerPage);
   return (
     <div className="franchise-details">
@@ -109,7 +103,7 @@ const ShowFranchiseUsers = () => {
                 <td>{admin.fullname}</td>
                 <td>{admin.userId}</td>
                 <td>{admin.franchisename}</td>
-                <td>{admin.FranchiseID}</td>
+                <td>{admin.franchiseID}</td>
                 <td>{admin.designation}</td>
                 <td>{admin.email}</td>
                 <td>{admin.password}</td>
@@ -117,8 +111,9 @@ const ShowFranchiseUsers = () => {
                 <td>
                   <button
                     className="farnchiseadmin-activebtn"
-                    onClick={() => toggleActiveState(admin._id, admin.isActive)}
-                  >
+                    onClick={() =>
+                      toggleActiveState(admin._id, admin.isActive)
+                    }>
                     {admin.isActive ? "Deactivate" : "Activate"}
                   </button>
                 </td>

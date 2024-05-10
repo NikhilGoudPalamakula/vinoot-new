@@ -290,15 +290,15 @@ exports.getDoctors = async (req, res) => {
   }
 };
 
-exports.getFranchiseAdminsByFranchiseName = async (req, res) => {
+exports.getFranchiseAdminsByFranchiseID = async (req, res) => {
   try {
-    const { franchisename } = req.params;
-    const franchise = await FranchiseRegModel.findOne({ franchisename });
+    const { franchiseID } = req.params;
+    const franchise = await FranchiseRegModel.findOne({ franchiseID });
     if (!franchise) {
       return res.status(404).json({ error: "Franchise not found" });
     }
-    const franchiseID = franchise.franchiseID;
-    const users = await Admin.find({ franchiseID: franchiseID });
+    const FranchiseID = franchise.franchiseID;
+    const users = await Admin.find({ franchiseID: FranchiseID });
     res.status(200).json(users);
   } catch (error) {
     console.error(error);

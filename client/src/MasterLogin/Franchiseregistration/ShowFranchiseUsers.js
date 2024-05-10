@@ -15,7 +15,7 @@ const ShowFranchiseUsers = () => {
   const { franchiseID } = useParams();
   const [franchiseAdmins, setFranchiseAdmins] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage] = useState(3);
+  const [itemsPerPage] = useState(6);
 
   useEffect(() => {
     const fetchFranchiseAdmins = async () => {

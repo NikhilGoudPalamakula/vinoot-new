@@ -515,8 +515,7 @@ const RegisterPage = () => {
                       name="gender"
                       value={formData.gender}
                       onChange={handleChange}
-                      required
-                    >
+                      required>
                       <option value="">Select Gender</option>
                       <option value="male">Male</option>
                       <option value="female">Female</option>

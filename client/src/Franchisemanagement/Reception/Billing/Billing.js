@@ -23,9 +23,7 @@ const Billing = () => {
       try {
         const frid = localStorage.getItem("franchiseID");
         if (frid) {
-          const response = await axios.get(
-            `http://localhost:5001/api/patients${frid}`
-          );
+          const response = await axios.get(`${VINOOTNEW}/api/patients${frid}`);
           setPatients(response.data);
           setSuggestions1(response.data);
           setFilteredSuggestions1(response.data);
@@ -90,16 +88,57 @@ const Billing = () => {
 
     setFocusedInput1("number");
   };
-
-  const handlePlanSelection1 = (suggestion) => {
-    const selectedPatient = patients.find(
-      (patient) => patient.mobile_number === suggestion
-    );
-    if (selectedPatient) {
-      setSelectedNumber(selectedPatient);
-      setPhoneInput(selectedPatient.mobile_number);
-      setPatientError("");
+  // Step 1: Identify duplicate mobile numbers
+  const mobileNumberMap = {};
+  patients.forEach((patient) => {
+    if (mobileNumberMap[patient.mobile_number]) {
+      mobileNumberMap[patient.mobile_number].push(patient);
+    } else {
+      mobileNumberMap[patient.mobile_number] = [patient];
     }
+  });
+  // Step 2: Create a state to manage additional patient name selection
+  const [additionalField, setAdditionalField] = useState(false);
+  const [patientSuggestions, setPatientSuggestions] = useState([]);
+  const [patientName, setPatientName] = useState("");
+
+  const handlePlanSelection1 = (mobileNumber) => {
+    // Step 2: Check if this mobile number has multiple associated patients
+    const associatedPatients = mobileNumberMap[mobileNumber] || [];
+
+    if (associatedPatients.length > 1) {
+      const selectedPatient = associatedPatients[0];
+      // Multiple patients with this mobile number
+      setSelectedNumber(null); // Reset the selected patient
+      setPatientError(""); // Reset error message
+      setPhoneInput(selectedPatient.mobile_number); // Set the mobile number
+      setAdditionalField(true); // Toggle visibility for additional patient name selection
+      setPatientSuggestions(associatedPatients); // Set suggestions for the patient name field
+    } else {
+      // Only one patient with this mobile number
+      const selectedPatient = associatedPatients[0];
+      setSelectedNumber(selectedPatient); // Select the patient
+      setPhoneInput(selectedPatient.mobile_number); // Set the mobile number
+      setPatientError(""); // Clear patient error
+      setAdditionalField(false); // Hide additional patient name selection
+    }
+    // Handle cases where mobile number has only one associated patient
+    if (selectedNumber && additionalField === false) {
+      // Fill patient details when only one patient is associated with the selected mobile number
+      setPatient_id(selectedNumber.patient_id);
+      setPatient_name(selectedNumber.patient_name);
+      setAddress(selectedNumber.address);
+    } else {
+      setPatient_id("");
+      setPatient_name("");
+      setAddress("");
+    }
+  };
+  // Function to handle patient name selection
+  const handlePatientNameSelection = (patient) => {
+    setSelectedNumber(patient); // Set the selected patient
+    setPhoneInput(patient.mobile_number); // Set the mobile number
+    setAdditionalField(false); // Hide the additional field
   };
 
   // -------------------Doctor details fetch ---------------
@@ -621,6 +660,31 @@ const Billing = () => {
                   </div>
                 )}
             </label>
+            {additionalField && (
+              <div>
+                <label>
+                  <span>Select Patient Name</span>
+                  <input
+                    type="text"
+                    value={patientName}
+                    onChange={(e) => setPatientName(e.target.value)}
+                    onFocus={() => setFocusedInput("patientName")}
+                    placeholder="Select patient name"
+                  />
+                  {focusedInput === "patientName" && (
+                    <div className="suggestions-box">
+                      {patientSuggestions.map((patient) => (
+                        <p
+                          key={patient.patient_id}
+                          onClick={() => handlePatientNameSelection(patient)}>
+                          {patient.patient_name}
+                        </p>
+                      ))}
+                    </div>
+                  )}
+                </label>
+              </div>
+            )}
 
             <label>
               <span>Patient ID</span>

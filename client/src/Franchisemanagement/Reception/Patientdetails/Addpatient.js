@@ -876,8 +876,8 @@ const PatientForm = () => {
             ...prevErrors,
             [name]: "",
           }));
-        } else if (!/^[6]\d{9}$/.test(value)) {
-          if (!/^6/.test(value)) {
+        } else if (!/^[6-9]\d{9}$/.test(value)) {
+          if (!/^[6-9]/.test(value)) {
             setErrors((prevErrors) => ({
               ...prevErrors,
               [name]: "Mobile number must start with 6",
@@ -1182,8 +1182,7 @@ const PatientForm = () => {
                     name="gender"
                     value={formData.gender}
                     onChange={handleInputChange}
-                    required
-                  >
+                    required>
                     <option value="">select the gender</option>
                     <option value="Male">Male</option>
                     <option value="Female">Female</option>
@@ -1207,8 +1206,7 @@ const PatientForm = () => {
                       {filteredStates.map((state) => (
                         <li
                           key={state._id}
-                          onClick={() => handleStateSelection(state.name)}
-                        >
+                          onClick={() => handleStateSelection(state.name)}>
                           {state.name}
                         </li>
                       ))}
@@ -1232,8 +1230,7 @@ const PatientForm = () => {
                       {filteredCities.map((city) => (
                         <li
                           key={city._id}
-                          onClick={() => handleCitySelection(city.name)}
-                        >
+                          onClick={() => handleCitySelection(city.name)}>
                           {city.name}
                         </li>
                       ))}
@@ -1257,8 +1254,7 @@ const PatientForm = () => {
                       {filteredAreas.map((area) => (
                         <li
                           key={area._id}
-                          onClick={() => handleAreaSelection(area.name)}
-                        >
+                          onClick={() => handleAreaSelection(area.name)}>
                           {area.name}
                         </li>
                       ))}

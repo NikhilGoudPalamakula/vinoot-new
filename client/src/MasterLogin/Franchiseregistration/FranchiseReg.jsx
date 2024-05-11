@@ -521,11 +521,16 @@ const FranchiseReg = () => {
       if (value.trim() === "") {
         // Clear the error message if the input is empty
         setErrors((prevErrors) => ({ ...prevErrors, franchisename: "" }));
-      } else if (value.length < 10 || value.length > 100) {
+      } else if (value.length < 10) {
         setErrors((prevErrors) => ({
           ...prevErrors,
           franchisename:
-            "Franchise name must be between 10 and 100 characters.",
+            "Franchise name should consists of a minimum of 10 characters",
+        }));
+      } else if (value.length > 100) {
+        setErrors((prevErrors) => ({
+          ...prevErrors,
+          franchisename: "Franchise name should consists only 100 characters",
         }));
       } else {
         setErrors((prevErrors) => ({ ...prevErrors, franchisename: "" }));
@@ -542,7 +547,8 @@ const FranchiseReg = () => {
         if (!mobileRegex.test(value)) {
           setErrors((prevErrors) => ({
             ...prevErrors,
-            mobileNumber: "Mobile number should start 6 and have 10 digits.",
+            mobileNumber:
+              "Mobile number should start 6-9 and consists of 10 digits.",
           }));
         } else {
           // Clear the error message if the mobile number format is valid
@@ -579,7 +585,7 @@ const FranchiseReg = () => {
         // Check if the value length is within the specified range
         setErrors((prevErrors) => ({
           ...prevErrors,
-          address: "Address must be between 10 and 250 characters.",
+          address: "Address consists of (10-250 characters).",
         }));
       } else {
         // Clear the error message if the input is not empty and length is valid
@@ -625,7 +631,7 @@ const FranchiseReg = () => {
         // If the value is invalid, set the error message
         setErrors((prevErrors) => ({
           ...prevErrors,
-          email: "email must be between 10 and 60 characters.",
+          email: "email address consists of (10-60 characters)",
         }));
       }
     }

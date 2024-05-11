@@ -835,12 +835,12 @@ const PatientForm = () => {
         } else if (value.length < 3) {
           setErrors((prevErrors) => ({
             ...prevErrors,
-            [name]: "Patient name should consist of a minimum of 3 characters",
+            [name]: "Patient name should consists of a minimum of 3 characters",
           }));
         } else if (value.length > 50) {
           setErrors((prevErrors) => ({
             ...prevErrors,
-            [name]: "Patient name should be at most 50 characters",
+            [name]: "Patient name should consists only 50 characters",
           }));
         } else if (!/^[\w\d\s\S]*[a-zA-Z]+[\w\d\s\S]*$/.test(value)) {
           setErrors((prevErrors) => ({
@@ -880,7 +880,7 @@ const PatientForm = () => {
           if (!/^[6-9]/.test(value)) {
             setErrors((prevErrors) => ({
               ...prevErrors,
-              [name]: "Mobile number must start with 6",
+              [name]: "Mobile number must start with 6-9",
             }));
           } else if (value.length !== 10) {
             setErrors((prevErrors) => ({
@@ -941,7 +941,7 @@ const PatientForm = () => {
         ) {
           setErrors((prevErrors) => ({
             ...prevErrors,
-            [name]: "Please enter a valid email address (10-60 characters)",
+            [name]: "email address consists of (10-60 characters)",
           }));
         } else {
           setErrors((prevErrors) => ({
@@ -961,7 +961,7 @@ const PatientForm = () => {
         } else if (value.length < 10 || value.length > 250) {
           setErrors((prevErrors) => ({
             ...prevErrors,
-            [name]: "Address should be between 10 and 250 characters",
+            [name]: "Address consists of (10-250 characters)",
           }));
         } else {
           setErrors((prevErrors) => ({
@@ -1182,7 +1182,8 @@ const PatientForm = () => {
                     name="gender"
                     value={formData.gender}
                     onChange={handleInputChange}
-                    required>
+                    required
+                  >
                     <option value="">select the gender</option>
                     <option value="Male">Male</option>
                     <option value="Female">Female</option>
@@ -1206,7 +1207,8 @@ const PatientForm = () => {
                       {filteredStates.map((state) => (
                         <li
                           key={state._id}
-                          onClick={() => handleStateSelection(state.name)}>
+                          onClick={() => handleStateSelection(state.name)}
+                        >
                           {state.name}
                         </li>
                       ))}
@@ -1230,7 +1232,8 @@ const PatientForm = () => {
                       {filteredCities.map((city) => (
                         <li
                           key={city._id}
-                          onClick={() => handleCitySelection(city.name)}>
+                          onClick={() => handleCitySelection(city.name)}
+                        >
                           {city.name}
                         </li>
                       ))}
@@ -1254,7 +1257,8 @@ const PatientForm = () => {
                       {filteredAreas.map((area) => (
                         <li
                           key={area._id}
-                          onClick={() => handleAreaSelection(area.name)}>
+                          onClick={() => handleAreaSelection(area.name)}
+                        >
                           {area.name}
                         </li>
                       ))}

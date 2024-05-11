@@ -239,9 +239,9 @@ const RegisterPage = () => {
     // Clear previous errors
     setErrors((prevErrors) => ({
       ...prevErrors,
-      [name]: "", 
+      [name]: "",
     }));
-    
+
     if (name === "password" && value.trim() !== "") {
       if (
         !/(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/.test(
@@ -251,7 +251,7 @@ const RegisterPage = () => {
         setErrors((prevErrors) => ({
           ...prevErrors,
           password:
-            "Password must contain at least 8 characters, one letter, one number, and one special character.",
+            "Password must be 8-16 characters with at least one uppercase letter, one number, and one special character.",
         }));
       }
     }
@@ -262,7 +262,7 @@ const RegisterPage = () => {
         if (!/^[6-9]/.test(value)) {
           setErrors((prevErrors) => ({
             ...prevErrors,
-            phoneNumber: "Mobile number should start with 6",
+            phoneNumber: "Mobile number should start with 6-9",
           }));
         } else if (value.length !== 10) {
           setErrors((prevErrors) => ({
@@ -296,22 +296,27 @@ const RegisterPage = () => {
       if (value.length < 10 || value.length > 60) {
         setErrors((prevErrors) => ({
           ...prevErrors,
-          email: "email must be between 10 and 60 characters.",
+          email: "email address consists of (10-60 characters)",
         }));
       }
     }
     //fullname validation
     if (name === "fullName" && value.trim() !== "") {
-      if (value.length < 3 || value.length > 50) {
+      if (value.length < 3) {
         setErrors((prevErrors) => ({
           ...prevErrors,
-          fullName: "Full name must be between 3 and 50 characters.",
+          fullName: "Full name should consists minimum of 3 characters",
         }));
-      } else if (!/[a-zA-Z].*[a-zA-Z]/.test(value)) {
+      } else if (value.length > 50) {
+        setErrors((prevErrors) => ({
+          ...prevErrors,
+          fullName: "Full name must should consists only 50 characters.",
+        }));
+      } else if (!/[a-zA-Z].*[a-zA-Z].*[a-zA-Z]/.test(value)) {
         setErrors((prevErrors) => ({
           ...prevErrors,
           fullName:
-            "Full name must contain at least two alphabetic characters.",
+            "Full name should consist of at least 3 alphabetic characters",
         }));
       }
     }
@@ -495,7 +500,8 @@ const RegisterPage = () => {
                       name="gender"
                       value={formData.gender}
                       onChange={handleChange}
-                      required>
+                      required
+                    >
                       <option value="">Select Gender</option>
                       <option value="male">Male</option>
                       <option value="female">Female</option>

@@ -11,9 +11,16 @@ const validateInputs = (data) => {
   if (data.fullname.trim() === "") {
     // Clear the error message if the input is empty
     errors.fullname = "";
-  } else if (data.fullname.length < 3 || data.fullname.length > 50) {
+  } else if (data.fullname.length < 3) {
     // Check if the length of the input is within the specified range
-    errors.fullname = "Fullname should be between 3 and 50 characters";
+    errors.fullname = "Full name should consists minimum of 3 characters";
+  } else if (!/^[a-zA-Z]{3,}$/.test(data.fullname)) {
+    // Check if the full name consists of at least 3 alphabetic characters
+    errors.fullname =
+      "Full name should consist of at least 3 alphabetic characters";
+  } else if (data.fullname.length > 50) {
+    // Check if the length of the input is within the specified range
+    errors.fullname = "Full name must should consists only 50 characters";
   } else {
     // Clear the error message if the input is valid
     errors.fullname = "";

@@ -164,6 +164,7 @@ const Reception = () => {
             <tr>
               <th>Date</th>
               <th>Bill Number</th>
+              <th>Patient ID</th>
               <th>Patient Name</th>
               <th>Patient MobileNumber</th>
               <th>Doctor</th>
@@ -180,6 +181,7 @@ const Reception = () => {
               <tr key={billing._id}>
                 <td>{billing.currentDate}</td>
                 <td>{billing.bill_number}</td>
+                <td>{billing.patient_id}</td>
                 <td>{billing.patient_name}</td>
                 <td>{billing.mobile_number}</td>
                 <td>{billing.doctor}</td>

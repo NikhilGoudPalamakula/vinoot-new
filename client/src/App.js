@@ -35,14 +35,14 @@ import FranchiseDetails from "./MasterLogin/Franchiseregistration/Franchisedetai
 import Landingpage from "./Landing/Landingpage";
 import ShowFranchiseUsers from "./MasterLogin/Franchiseregistration/ShowFranchiseUsers";
 import ShowPatientDetails from "./Franchisemanagement/Reception/ShowPatientDetails/ShowPatientDetails";
+import Landingvinoot from "./Landingpage/Landing";
 function App() {
   return (
     <Router>
       <Routes>
-        {/* <Landingpage/> */}
-        {/* Mastar data */}
+  {/* <Landingvinoot/> */}
         <Route path="/login" element={<LoginForm />} />
-        <Route path="/" element={<Landingpage />} />
+        <Route path="/" element={<Landingvinoot />} />
         {/* <Route path="/login" element={<Home />} /> */}
 
         <Route path="*" element={<NotFound />} />

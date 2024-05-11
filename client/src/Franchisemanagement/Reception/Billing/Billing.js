@@ -413,8 +413,11 @@ const Billing = () => {
           mobile_number: selectedNumber ? selectedNumber.mobile_number : "",
           patient_id: selectedNumber ? selectedNumber.patient_id : "",
           patient_name: selectedNumber ? selectedNumber.patient_name : "",
-          remaining_amount: remaining,
+          remainingAmount: remaining,
           bill_number: newBillNumber,
+          franchiseName: franchiseName,
+          franchiseID: franchiseID,
+          currentDate: currentDate,
         });
       }
 

@@ -207,28 +207,51 @@ const Reception = () => {
     navigate(`/ShowPatient/${patientId}`);
   };
 
-  const filteredData = billingData.filter(billing => {
+  // const filteredData = billingData.filter(billing => {
 
+  //   const remainingAmount = parseFloat(billing.remainingAmount);
+  //   const filterValue = parseFloat(filters.remainingAmount);
+  //   const lowercaseName = filters.patientname.toLowerCase();
+  //   const lowercaseBillingName = billing.patient_name.toLowerCase();
+
+  //   // Parse the date values for comparison
+  //   const currentDate = new Date(billing.currentDate);
+  //   const fromDate = filters.fromDate ? new Date(filters.fromDate) : null;
+  //   const toDate = filters.toDate ? new Date(filters.toDate) : null;
+  //   return (
+  //     (!fromDate || currentDate >= fromDate) &&
+  //     (!toDate || currentDate <= toDate) &&
+  //     billing.mobile_number.toString().includes(filters.mobileNumber) &&
+  //     billing.plan_name.includes(filters.planType) &&
+  //     lowercaseBillingName.includes(lowercaseName) &&
+  //     // billing.remainingAmount.toString().includes(filters.remainingAmount)
+  //     billing.plan_name.includes(filters.planType) &&
+  //     (isNaN(filterValue) || remainingAmount >= filterValue)
+  //   );
+  // });
+
+
+  const filteredData = billingData.filter(billing => {
     const remainingAmount = parseFloat(billing.remainingAmount);
     const filterValue = parseFloat(filters.remainingAmount);
     const lowercaseName = filters.patientname.toLowerCase();
     const lowercaseBillingName = billing.patient_name.toLowerCase();
-
+    
     // Parse the date values for comparison
-const currentDate = new Date(billing.currentDate);
-const fromDate = filters.fromDate ? new Date(filters.fromDate) : null;
-const toDate = filters.toDate ? new Date(filters.toDate) : null;
+    const currentDate = new Date(billing.currentDate);
+    const fromDate = filters.fromDate ? new Date(filters.fromDate) : null;
+    const toDate = filters.toDate ? new Date(filters.toDate) : null;
+
     return (
-      (!fromDate || currentDate >= fromDate) && 
-      (!toDate || currentDate <= toDate) &&
-      billing.mobile_number.toString().includes(filters.mobileNumber) &&
-      billing.plan_name.includes(filters.planType) &&
-      lowercaseBillingName.includes(lowercaseName) &&
-      // billing.remainingAmount.toString().includes(filters.remainingAmount)
-      billing.plan_name.includes(filters.planType) &&
-      (isNaN(filterValue) || remainingAmount >= filterValue)
+        (!fromDate || currentDate >= fromDate) && 
+        (!toDate || currentDate <= toDate) &&
+        billing.mobile_number.toString().includes(filters.mobileNumber) &&
+        (filters.planType ? billing.plan_name.includes(filters.planType) : true) &&
+        lowercaseBillingName.includes(lowercaseName) &&
+        !isNaN(filterValue) && remainingAmount >= filterValue
     );
-  });
+});
+
 
   const indexOfLastPlan = currentPage * itemsPerPage;
   const indexOfFirstPlan = indexOfLastPlan - itemsPerPage;
@@ -271,68 +294,68 @@ const toDate = filters.toDate ? new Date(filters.toDate) : null;
       </div>
       <div className="recp-dash-table">
         <div className="recep-dash-fi">
-        <h1>Patients Billing Details</h1>
-        <button onClick={exportToExcel}><TbFileTypeXls className="xlsiocn2"/></button>
+          <h1>Patients Billing Details</h1>
+          <button onClick={exportToExcel}><TbFileTypeXls className="xlsiocn2" /></button>
         </div>
         <div className="recep-dash-filter">
-        <div className="recep-dash-filter-1">
-        <label>
-          <span>From Date:</span>
-          <input
-            type="date"
-            name="fromDate"
-            value={filters.fromDate}
-            onChange={handleFilterChange}
-          />
-        </label>
-        <label>
-          <span>To Date:</span>
-          <input
-            type="date"
-            name="toDate"
-            value={filters.toDate}
-            onChange={handleFilterChange}
-          />
-        </label>
-        </div>
-        <div className="recep-dash-filter-11">
-        <label>
-          <span>Mobile Number:</span>
-          <input
-            type="text"
-            name="mobileNumber"
-            value={filters.mobileNumber}
-            onChange={handleFilterChange}
-          />
-        </label>
-        <label>
-          <span>Name:</span>
-          <input
-            type="text"
-            name="patientname"
-            value={filters.patientname}
-            onChange={handleFilterChange}
-          />
-        </label>
-        <label>
-          <span>Plan Type:</span>
-          <input
-            type="text"
-            name="planType"
-            value={filters.planType}
-            onChange={handleFilterChange}
-          />
-        </label>
-        <label>
-          <span>Remaining Amount above:</span>
-          <input
-            type="text"
-            name="remainingAmount"
-            value={filters.remainingAmount}
-            onChange={handleFilterChange}
-          />
-        </label>
-        </div>
+          <div className="recep-dash-filter-1">
+            <label>
+              <span>From Date:</span>
+              <input
+                type="date"
+                name="fromDate"
+                value={filters.fromDate}
+                onChange={handleFilterChange}
+              />
+            </label>
+            <label>
+              <span>To Date:</span>
+              <input
+                type="date"
+                name="toDate"
+                value={filters.toDate}
+                onChange={handleFilterChange}
+              />
+            </label>
+          </div>
+          <div className="recep-dash-filter-11">
+            <label>
+              <span>Mobile Number:</span>
+              <input
+                type="text"
+                name="mobileNumber"
+                value={filters.mobileNumber}
+                onChange={handleFilterChange}
+              />
+            </label>
+            <label>
+              <span>Name:</span>
+              <input
+                type="text"
+                name="patientname"
+                value={filters.patientname}
+                onChange={handleFilterChange}
+              />
+            </label>
+            <label>
+              <span>Plan Type:</span>
+              <input
+                type="text"
+                name="planType"
+                value={filters.planType}
+                onChange={handleFilterChange}
+              />
+            </label>
+            <label>
+              <span>Remaining Amount above:</span>
+              <input
+                type="text"
+                name="remainingAmount"
+                value={filters.remainingAmount}
+                onChange={handleFilterChange}
+              />
+            </label>
+          </div>
         </div>
         <table>
           <thead>

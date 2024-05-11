@@ -67,6 +67,22 @@
     display: flex;
     padding-top: 1.5rem;
   }
+  
+  .home-banner-container > * {
+    opacity: 0;
+    animation: slideInFromTop 3s forwards;
+  }
+  
+  @keyframes slideInFromTop {
+    from {
+      opacity: 0;
+      transform: translateY(-50px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
   .home-bannerImage-container {
     position: absolute;
     top: -100px;
@@ -112,6 +128,9 @@
     display: flex;
     align-items: center;
     justify-content: center;
+  }
+  .fran-regbtn{
+    text-decoration: none;
   }
   .secondary-button svg {
     margin-left: 0.75rem;
@@ -367,6 +386,7 @@
       font-size: 1rem;
       padding: 0.8rem 2rem;
       cursor: pointer;
+
     }
     .about-section-container {
       margin-top: 5rem !important;

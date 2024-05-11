@@ -47,14 +47,15 @@ const Navbar = () => {
         <img src={Logo} style={{height:'15vh'}} alt="" />
       </div>
       <div className="navbar-links-container">
-        <a href="./">Home</a>
+       <Link to="/"><button className="primary-button">Home</button></Link> 
+       <Link to="/fr"><button className="primary-button">Register for Franchise</button></Link> 
         {/* <a href="">About</a>
         <a href="">Testimonials</a> */}
-        <a href="./fr">Register for Franchise</a>
+        {/* <a href="/fr">Register for Franchise</a> */}
         {/* <a href="">
           <BsCart2 className="navbar-cart-icon" />
         </a> */}
-       <Link to="./login" > <button className="primary-button">Login</button> </Link> 
+       <Link to="/login" > <button className="primary-button">Login</button> </Link> 
       </div>
       <div className="navbar-menu-container">
         <HiOutlineBars3 onClick={() => setOpenMenu(true)} />

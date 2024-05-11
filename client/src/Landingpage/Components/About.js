@@ -18,7 +18,7 @@ const About = () => {
          Vinoot Herbal offers natural products. 
         </span>
         <p className="primary-text">
-        Vinoot Herbal merges Ayurvedic wisdom with modernity, offering franchise opportunities to revolutionize hair care with natural solutions and well-being.
+        Vinoot Herbal merges Ayurvedic wisdom with modernity, offering franchise opportunities to revolutionize hair and skin care with natural solutions and well-being.
         </p>
         {/* <p className="primary-text">
           Non tincidunt magna non et elit. Dolor turpis molestie dui magnis

@@ -231,6 +231,31 @@ const FranchiseReg = () => {
       }
     }
 
+    if (name === "franchiseID") {
+      if (value.trim() === "") {
+        // Clear the error message if the field is empty
+        setErrors((prevErrors) => ({ ...prevErrors, franchiseID: "" }));
+      } else if (value.length !== 6) {
+        // Check if the length is not equal to 6 characters
+        setErrors((prevErrors) => ({
+          ...prevErrors,
+          franchiseID: "Franchise ID must be exactly 6 characters long.",
+        }));
+      } else {
+        // Count the number of alphabetic characters in the franchiseID
+        const alphabeticChars = value.match(/[a-zA-Z]/g);
+        if (!alphabeticChars || alphabeticChars.length < 3) {
+          setErrors((prevErrors) => ({
+            ...prevErrors,
+            franchiseID: "Franchise ID must contain at least 3 alphabetic characters.",
+          }));
+        } else {
+          // Clear the error message if the franchiseID meets the requirements
+          setErrors((prevErrors) => ({ ...prevErrors, franchiseID: "" }));
+        }
+      }
+    }
+
     // Validate mobile number
     if (name === "mobileNumber") {
       if (value.trim() === "") {
@@ -330,20 +355,31 @@ const FranchiseReg = () => {
       }
     }
 
-    //fullname validation
-    if (name === "fullname") {
-      if (value.trim() === "") {
-        // Clear the error message if the field is empty
-        setErrors((prevErrors) => ({ ...prevErrors, fullname: "" }));
-      } else if (value.length < 3 || value.length > 50) {
+   // Validate fullname
+  if (name === "fullname") {
+    if (value.trim() === "") {
+      // Clear the error message if the field is empty
+      setErrors((prevErrors) => ({ ...prevErrors, fullname: "" }));
+    } else if (value.length < 3 || value.length > 50) {
+      // Check if the length is within the specified range
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        fullname: "Full name must be between 3 and 50 characters long.",
+      }));
+    } else {
+      // Count the number of alphabetic characters in the fullname
+      const alphabeticChars = value.match(/[a-zA-Z]/g);
+      if (!alphabeticChars || alphabeticChars.length < 3) {
         setErrors((prevErrors) => ({
           ...prevErrors,
-          fullname: "fullname must be between 3 and 50 characters.",
+          fullname: "Full name must contain at least 3 alphabetic characters.",
         }));
       } else {
+        // Clear the error message if the fullname meets the requirements
         setErrors((prevErrors) => ({ ...prevErrors, fullname: "" }));
       }
     }
+  }
   };
   return (
     <div className="addfr-franchise-Reg">
@@ -403,6 +439,11 @@ const FranchiseReg = () => {
                       </span>
                     </label>
                   </div>
+                  {errors.franchiseID && (
+                    <div style={{ color: "red" }} className="font-size-error">
+                      {errors.franchiseID}
+                    </div>
+                  )}
                   <div className="addfr-input-wrap">
                     <input
                       className="addfr-input"

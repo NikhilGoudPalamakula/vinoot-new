@@ -115,8 +115,12 @@ const toDate = filters.toDate ? new Date(filters.toDate) : null;
         <FranchiseadminSidebar />
       </div>
       <div className="fradmin-staffri">
+        <div className="franadmin-123">
         <h1>Patients Billing Details</h1>
-        <button onClick={exportToExcel}><TbFileTypeXls/></button>
+        <button onClick={exportToExcel}><TbFileTypeXls  className="xlsiocn1"/></button>
+        </div>
+        <div className="fradmin-filters">
+        <div className="fradmin-filters-1">
         <label>
           <span>From Date:</span>
           <input
@@ -135,6 +139,8 @@ const toDate = filters.toDate ? new Date(filters.toDate) : null;
             onChange={handleFilterChange}
           />
         </label>
+        </div>
+        <div className="fradmin-filters-11">
         <label>
           <span>Mobile Number:</span>
           <input
@@ -145,7 +151,7 @@ const toDate = filters.toDate ? new Date(filters.toDate) : null;
           />
         </label>
         <label>
-          <span>Name:</span>
+          <span>Patient Name:</span>
           <input
             type="text"
             name="patientname"
@@ -171,6 +177,8 @@ const toDate = filters.toDate ? new Date(filters.toDate) : null;
             onChange={handleFilterChange}
           />
         </label>
+        </div>
+        </div>
 
         <table>
           <thead>

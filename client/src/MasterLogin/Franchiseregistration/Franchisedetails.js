@@ -161,7 +161,7 @@ import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import KeyboardDoubleArrowLeftIcon from "@mui/icons-material/KeyboardDoubleArrowLeft";
 import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArrowRight";
-
+import { VINOOTNEW } from "../../Helper/Helper";
 const FranchiseDetails = () => {
   const [franchises, setFranchises] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -173,7 +173,7 @@ const FranchiseDetails = () => {
   useEffect(() => {
     const fetchFranchises = async () => {
       try {
-        const response = await axios.get("http://localhost:5001/api/franchise");
+        const response = await axios.get(`${VINOOTNEW}/api/franchise`);
         setFranchises(response.data.franchises);
       } catch (error) {
         console.error("Error fetching franchises:", error);
@@ -186,7 +186,7 @@ const FranchiseDetails = () => {
   const toggleStatus = async (franchiseId) => {
     try {
       await axios.put(
-        `http://localhost:5001/api/franchise/${franchiseId}/toggle`
+        `${VINOOTNEW}/api/franchise/${franchiseId}/toggle`
       );
 
       setFranchises(
@@ -239,7 +239,7 @@ const FranchiseDetails = () => {
       <div className="fradetail-right">
         <h1>Franchises</h1>
         <span>Filter based on active/inactive:</span>
-        <select onChange={handleFilterChange} value={filterStatus}>
+        <select className="frdetail-filter" onChange={handleFilterChange} value={filterStatus}>
           <option value="">All</option>
           <option value="Active">Active</option>
           <option value="Inactive">Inactive</option>
@@ -250,7 +250,6 @@ const FranchiseDetails = () => {
               <th>Franchise Name</th>
               <th>Franchise ID</th>
               <th>Mobile Number</th>
-              <th>Country</th>
               <th>State</th>
               <th>City</th>
               <th>Area</th>
@@ -267,7 +266,6 @@ const FranchiseDetails = () => {
                 <td>{franchise.franchisename}</td>
                 <td>{franchise.franchiseID}</td>
                 <td>{franchise.mobileNumber}</td>
-                <td>{franchise.country}</td>
                 <td>{franchise.state}</td>
                 <td>{franchise.city}</td>
                 <td>{franchise.area}</td>

@@ -1,31 +1,50 @@
-.fradetail-total{
+.fradetail-total {
     display: flex;
 }
-.fradetail-right{
+
+.frdetail-filter {
+    margin-left: 2%;
+    width: 12.3vw;
+    border: 1px solid gray;
+    height: 5vh;
+    border-radius: 5px;
+}
+
+.frdetail-filter:focus {
+    border-color: #0aa506;
+    outline: none;
+    border-width: 1.5px;
+}
+
+.fradetail-right {
     margin-left: 18.5%;
-    table{
+
+    table {
         margin-top: 2vh;
         text-align: center;
         border-collapse: collapse;
     }
-    th{
+
+    th {
         background-color: #0aa506;
         font-size: 0.8rem;
         padding: 7px;
         color: white;
     }
-    td{
+
+    td {
         font-size: 0.8rem;
         padding: 6px;
     }
-    button{
+
+    button {
         border: none;
-    outline: none;
-    padding: 7px 7px 7px 7px;
-    border-radius: 10px;
-    color: #fff;
-    font-size: 0.7rem;
-    background-color: #0aa506;
-    cursor: pointer;
+        outline: none;
+        padding: 7px 7px 7px 7px;
+        border-radius: 10px;
+        color: #fff;
+        font-size: 0.7rem;
+        background-color: #0aa506;
+        cursor: pointer;
     }
 }

@@ -70,7 +70,14 @@ const TreatmentPlan = () => {
   const handlePlanChange = (e) => {
     const inputValue = e.target.value;
     setPlan(inputValue);
-    if (inputValue.length < 15 || inputValue.length > 250) {
+
+    const alphabeticRegex = /[a-zA-Z]{3,}/;
+    if (!alphabeticRegex.test(inputValue)) {
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        plan: "Plan must contain at least 3 alphabetic characters.",
+      }));
+    } else if (inputValue.length < 15 || inputValue.length > 250) {
       setErrors((prevErrors) => ({
         ...prevErrors,
         plan: "Plan must be between 15 and 250 characters.",

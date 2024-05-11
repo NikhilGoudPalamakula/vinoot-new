@@ -188,7 +188,7 @@ import { useNavigate } from "react-router-dom";
 import "./RegisterPage.css";
 import Sidebar from "../../Masterdata/Sidebar/Sidebar";
 import MasterUserT from "../Masterusers/MasterUserT";
-
+import { VINOOTNEW } from "../../Helper/Helper";
 const RegisterPage = () => {
   const createdby = localStorage.getItem("userId");
 
@@ -239,29 +239,9 @@ const RegisterPage = () => {
     // Clear previous errors
     setErrors((prevErrors) => ({
       ...prevErrors,
-      [name]: "", // Clear error for the current field
+      [name]: "", 
     }));
-    // Password validation
-    // if (name === "password") {
-    //   if (value.length < 8 || value.length > 16) {
-    //     setErrors((prevErrors) => ({
-    //       ...prevErrors,
-    //       password: "Password must be between 8 and 16 characters.",
-    //     }));
-    //   }
-    // }
-
-    // // Confirm Password validation
-    // if (name === "confirmPassword") {
-    //   if (value !== formData.password) {
-    //     setErrors((prevErrors) => ({
-    //       ...prevErrors,
-    //       confirmPassword: "Passwords do not match.",
-    //     }));
-    //   }
-    // }
-
-    // Password complexity validation
+    
     if (name === "password" && value.trim() !== "") {
       if (
         !/(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/.test(
@@ -365,7 +345,7 @@ const RegisterPage = () => {
     });
 
     try {
-      const res = await axios.post("http://localhost:5001/api/register", {
+      const res = await axios.post(`${VINOOTNEW}/api/register`, {
         ...formData,
         userId: newUserID,
       });
@@ -391,7 +371,7 @@ const RegisterPage = () => {
       // const frid = localStorage.getItem("FranchiseID");
 
       // if (frid) {
-      const response = await axios.get("http://localhost:5001/api/users");
+      const response = await axios.get(`${VINOOTNEW}/api/users`);
       setUsers(response.data);
     } catch (error) {
       console.error("Error fetching users:", error);
@@ -471,7 +451,7 @@ const RegisterPage = () => {
                   <label>
                     <input
                       className="input1_rp"
-                      type="text"
+                      type="number"
                       name="phoneNumber"
                       value={formData.phoneNumber}
                       onChange={handleChange}
@@ -479,7 +459,7 @@ const RegisterPage = () => {
                       required
                     />
                     <span>
-                      Phone Number <span style={{ color: "red" }}>*</span>
+                      Mobile Number <span style={{ color: "red" }}>*</span>
                     </span>
                   </label>
                   {errors.phoneNumber && (

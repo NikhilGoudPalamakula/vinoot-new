@@ -1,21 +1,90 @@
-.franbill-total{
+.franbill-total {
     display: flex;
 }
-.franbill-right{
+
+.franbill-right {
     margin-left: 18.5%;
-    table{
+
+    .franbill-123 {
+        display: flex;
+        align-items: center;
+        button{
+            /* height: 5vh; */
+            margin-left:70% ;
+            background-color: transparent;
+            border: 1px solid gray;
+            border-radius: 3px;
+        }
+        .xlsiocn{
+            color: #0aa506;
+            font-size: 30px;
+        }
+    }
+
+    table {
         margin-top: 2vh;
         text-align: center;
         border-collapse: collapse;
     }
-    th{
+
+    th {
         background-color: #0aa506;
         font-size: 0.8rem;
         padding: 7px;
         color: white;
     }
-    td{
+
+    td {
         font-size: 0.8rem;
         padding: 6px;
+    }
+}
+.franbill-filterss{
+    label{
+        display: flex;
+        flex-direction: column;
+    }
+}
+.franbill-filterss-11{
+    display: flex;
+    gap: 30px;
+    text-align: left;
+    label{
+        display: flex;
+        flex-direction: column;
+    }
+    input{
+        width: 12.5vw;
+        border: 1px solid gray;
+        height: 5vh;
+        border-radius: 5px;
+    }
+    input:focus{
+        border-color: #0aa506; 
+        outline: none;
+        border-width: 1.5px;
+    }
+}
+.franbill-filterss-1{
+
+    display: flex;
+    gap: 30px;
+    text-align: left;
+
+    label{
+        margin-top: 3vh;
+        display: flex;
+        flex-direction: column;
+    }
+    input{
+        width: 12.3vw;
+        border: 1px solid gray;
+        height: 5vh;
+        border-radius: 5px;
+    }
+    input:focus{
+        border-color: #0aa506; 
+        outline: none;
+        border-width: 1.5px;
     }
 }

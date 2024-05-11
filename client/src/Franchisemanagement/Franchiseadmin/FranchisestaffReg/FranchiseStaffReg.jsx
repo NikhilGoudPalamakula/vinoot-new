@@ -223,7 +223,7 @@ const FranchiseStaffReg = () => {
               <div className="addfr-inputs-wraps">
                 <input
                   className="addfr-inputs"
-                  type="text"
+                  type="number"
                   name="email"
                   value={adminData.email}
                   onChange={handleAdminInputChange}

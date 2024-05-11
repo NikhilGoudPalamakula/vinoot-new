@@ -4,8 +4,26 @@
 
 .fradmin-staffri{
     margin-left: 18.2%;
-    margin-top: 2%;
+    /* margin-top: 2%; */
+
+    .franadmin-123 {
+        display: flex;
+        align-items: center;
+        button{
+            /* height: 5vh; */
+            margin-left:55% ;
+            background-color: transparent;
+            border: 1px solid gray;
+            border-radius: 3px;
+        }
+        .xlsiocn1{
+            color: #0aa506;
+            font-size: 30px;
+        }
+    }
+
     table{
+        margin-top: 2vh;
         border-collapse: collapse;
         text-align: center;
     }
@@ -20,5 +38,56 @@
         text-align: center;
         padding: 8px;
         font-size: 0.9rem;
+    }
+}
+
+
+.fradmin-filters{
+    label{
+        display: flex;
+        flex-direction: column;
+    }
+}
+.fradmin-filters-1{
+    display: flex;
+    gap: 30px;
+    text-align: left;
+    label{
+        display: flex;
+        flex-direction: column;
+    }
+    input{
+        width: 12.5vw;
+        border: 1px solid gray;
+        height: 5vh;
+        border-radius: 5px;
+    }
+    input:focus{
+        border-color: #0aa506; 
+        outline: none;
+        border-width: 1.5px;
+    }
+}
+.fradmin-filters-11{
+
+    display: flex;
+    gap: 30px;
+    text-align: left;
+
+    label{
+        margin-top: 3vh;
+        display: flex;
+        flex-direction: column;
+    }
+    input{
+        width: 12.3vw;
+        border: 1px solid gray;
+        height: 5vh;
+        border-radius: 5px;
+    }
+    input:focus{
+        border-color: #0aa506; 
+        outline: none;
+        border-width: 1.5px;
     }
 }

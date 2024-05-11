@@ -118,7 +118,7 @@
     font-size: 1.5rem;
   }
   .secondary-button:hover {
-    background-color: #e48f0f;
+    background-color: rgb(29, 65, 29);
   }
   .about-section-container {
     margin-top: 10rem;
@@ -258,7 +258,7 @@
   .testimonials-stars-container svg {
     margin: 0rem 0.25rem;
     font-size: 1.5rem;
-    color: #fe9e0d;
+    color: rgb(29, 65, 29);
   }
   .testimonial-section-bottom h2 {
     margin-top: 1.5rem;

@@ -26,10 +26,15 @@ const validateInputs = (data) => {
     errors.fullname = "";
   }
 
-  // Validate email
-  if (!/^\d{6-9}\d{4}$/.test(data.email)) {
-    errors.email =
-      "Mobile number must start with 6 digits and be 10 digits in total";
+  if (data.email.trim() === "") {
+    // Clear the error message if the input is empty
+    errors.email = "";
+  } else if (!/^[6-9]/.test(data.email)) {
+    // Check if the email starts with a digit between 6 and 9
+    errors.email = "Mobile number should start with 6-9";
+  } else if (!/^\d{10}$/.test(data.email)) {
+    // Check if the email consists of exactly 10 digits
+    errors.email = "Mobile number should have 10 digits";
   } else {
     // Clear the error message if the input is valid
     errors.email = "";

@@ -10,4 +10,7 @@ router.post('/installments', installmentController.createInstallment);
 // Route to fetch all installments
 router.get('/installments', installmentController.getAllInstallments);
 
+router.get("/installment/:patientId", installmentController.getPatientInstallmentsById);
+router.get("/installment/update", installmentController.updateRemainingAmount);
+
 module.exports = router;

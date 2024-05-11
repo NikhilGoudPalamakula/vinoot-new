@@ -25,8 +25,13 @@ const Billing = () => {
         if (frid) {
           const response = await axios.get(`${VINOOTNEW}/api/patients${frid}`);
           setPatients(response.data);
-          setSuggestions1(response.data);
-          setFilteredSuggestions1(response.data);
+          const mobileNumberSet = new Set();
+          response.data.forEach((patient) => {
+            mobileNumberSet.add(patient.mobile_number); // Add mobile number to the set
+          });
+
+          setSuggestions1(mobileNumberSet);
+          setFilteredSuggestions1(mobileNumberSet);
           setIsLoading1(false);
         } else {
           console.error("FranchiseID not found in localStorage");
@@ -47,21 +52,22 @@ const Billing = () => {
         setSelectedNumber(null); // Reset selected number
         setPatientError(""); // Clear patient error
       } else {
-        setFilteredSuggestions1(
-          patients.filter((patient) =>
-            patient.mobile_number.includes(phoneInput)
-          )
+        const filtered = patients.filter((patient) =>
+          patient.mobile_number.includes(phoneInput)
         );
+
+        setFilteredSuggestions1(filtered);
+
         // Clear patient details if the input doesn't match any suggestions
         if (
           phoneInput.trim() !== "" &&
-          !filteredSuggestions1.some((suggestion) =>
+          !filtered.some((suggestion) =>
             suggestion.mobile_number.includes(phoneInput)
           )
         ) {
           setSelectedNumber(null);
           setPatientError(
-            "Mobile number not registered.Please add the patient."
+            "Mobile number not registered. Please add the patient."
           );
         } else {
           setPatientError("");
@@ -69,7 +75,7 @@ const Billing = () => {
       }
     };
     filterSuggestions();
-  }, [phoneInput, patients, suggestions1, filteredSuggestions1]);
+  }, [phoneInput, patients, suggestions1]);
 
   const handlePlanChange1 = (e) => {
     const newPhoneInput = e.target.value;
@@ -80,6 +86,7 @@ const Billing = () => {
 
     // Clear patient details if the new input value is shorter than the previous value
     if (newPhoneInput.length < previousPhoneInput.length) {
+      setAdditionalField(false);
       setSelectedNumber(null);
       setPatient_id("");
       setPatient_name("");
@@ -236,6 +243,7 @@ const Billing = () => {
   const [suggestions, setSuggestions] = useState([]); // Autosuggest options
   const [filteredSuggestions, setFilteredSuggestions] = useState([]); // Filtered suggestions based on input
   const [focusedInput, setFocusedInput] = useState(null);
+  const [focusedInput2, setFocusedInput2] = useState(null);
   const [isLoading, setIsLoading] = useState(false); // Loading indicator
   const [mobile_number, setMobile_number] = useState(false); // Loading indicator
   const [patient_id, setPatient_id] = useState(false); // Loading indicator
@@ -291,7 +299,8 @@ const Billing = () => {
       !suggestionBoxRef.current.contains(event.target)
     ) {
       // Clicked outside the suggestion box
-      setFocusedInput1(null); // Reset focus to hide suggestions
+      setFocusedInput1(null); // Reset focus for other input fields
+      // setFocusedInput2(null); // Reset focus for the additional field
     }
   };
 
@@ -610,6 +619,7 @@ const Billing = () => {
                 type="text"
                 name="bill_number"
                 value={billingNumber}
+                readOnly
                 // placeholder="Bill Number"
               />
             </label>
@@ -651,6 +661,7 @@ const Billing = () => {
                       <p
                         key={suggestion._id}
                         className="suggestion-item-fetch-mbl"
+                        style={{ cursor: "pointer" }}
                         onClick={() =>
                           handlePlanSelection1(suggestion.mobile_number)
                         }>
@@ -661,29 +672,46 @@ const Billing = () => {
                 )}
             </label>
             {additionalField && (
-              <div>
-                <label>
-                  <span>Select Patient Name</span>
-                  <input
-                    type="text"
-                    value={patientName}
-                    onChange={(e) => setPatientName(e.target.value)}
-                    onFocus={() => setFocusedInput("patientName")}
-                    placeholder="Select patient name"
-                  />
-                  {focusedInput === "patientName" && (
-                    <div className="suggestions-box">
-                      {patientSuggestions.map((patient) => (
+              <label>
+                <span>Select Patient Name</span>
+                <input
+                  type="text"
+                  value={patientName}
+                  onChange={(e) => setPatientName(e.target.value)}
+                  onFocus={() => setFocusedInput2("patientName")}
+                  placeholder="Select patient name"
+                />
+                {focusedInput2 === "patientName" && (
+                  <div
+                    ref={suggestionBoxRef}
+                    className="suggestions-fetch-mbl"
+                    style={{
+                      position: "absolute",
+                      backgroundColor: "white",
+                      border: "1px solid #ccc",
+                      width: "15%",
+                      marginTop: "55px",
+                      height: "13vh",
+                      overflowY: "auto",
+                    }}>
+                    {patientSuggestions
+                      .filter((patient) =>
+                        patient.patient_name
+                          .toLowerCase()
+                          .includes(patientName.toLowerCase())
+                      )
+                      .map((patient) => (
                         <p
                           key={patient.patient_id}
+                          className="suggestion-item-fetch-mbl"
+                          style={{ cursor: "pointer" }}
                           onClick={() => handlePatientNameSelection(patient)}>
                           {patient.patient_name}
                         </p>
                       ))}
-                    </div>
-                  )}
-                </label>
-              </div>
+                  </div>
+                )}
+              </label>
             )}
 
             <label>

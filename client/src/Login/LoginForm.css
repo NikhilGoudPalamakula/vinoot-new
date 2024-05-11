@@ -28,6 +28,22 @@
 	margin-left: 20%;
 }
 
+.total > * {
+	opacity: 0;
+	animation: slideInFromTop 2s forwards;
+  }
+  
+  @keyframes slideInFromTop {
+	from {
+	  opacity: 0;
+	  transform: translateY(-50px);
+	}
+	to {
+	  opacity: 1;
+	  transform: translateY(0);
+	}
+  }
+
 .container {
 	/* background-color: var(--white); */
 	position: relative;

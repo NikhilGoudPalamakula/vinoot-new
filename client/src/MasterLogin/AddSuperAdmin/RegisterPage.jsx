@@ -180,8 +180,6 @@
 
 // export default RegisterPage;
 
-
-
 // // RegisterPage.js
 
 import React, { useState, useEffect } from "react";
@@ -190,7 +188,7 @@ import { useNavigate } from "react-router-dom";
 import "./RegisterPage.css";
 import Sidebar from "../../Masterdata/Sidebar/Sidebar";
 import MasterUserT from "../Masterusers/MasterUserT";
-
+import { VINOOTNEW } from "../../Helper/Helper";
 const RegisterPage = () => {
   const createdby = localStorage.getItem("userId");
 
@@ -241,39 +239,41 @@ const RegisterPage = () => {
     // Clear previous errors
     setErrors((prevErrors) => ({
       ...prevErrors,
-      [name]: "", // Clear error for the current field
+      [name]: "",
     }));
-    // Password validation
-    if (name === "password") {
-      if (value.length < 8 || value.length > 16) {
+
+    if (name === "password" && value.trim() !== "") {
+      if (
+        !/(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/.test(
+          value
+        )
+      ) {
         setErrors((prevErrors) => ({
           ...prevErrors,
-          password: "Password must be between 8 and 16 characters.",
+          password:
+            "Password must be 8-16 characters with at least one uppercase letter, one number, and one special character.",
         }));
       }
     }
 
-    // Confirm Password validation
-    if (name === "confirmPassword") {
-      if (value !== formData.password) {
-        setErrors((prevErrors) => ({
-          ...prevErrors,
-          confirmPassword: "Passwords do not match.",
-        }));
-      }
-    }
-
-    if (name === "phoneNumber") {
-      // Phone Number validation logic
-      if (!/^\d{10}$/.test(value)) {
-        setErrors((prevErrors) => ({
-          ...prevErrors,
-          phoneNumber: "Phone Number must contain 10 numbers.",
-        }));
+    // Mobile number validation
+    if (name === "phoneNumber" && value.trim() !== "") {
+      if (!/^[6-9]\d{9}$/.test(value)) {
+        if (!/^[6-9]/.test(value)) {
+          setErrors((prevErrors) => ({
+            ...prevErrors,
+            phoneNumber: "Mobile number should start with 6-9",
+          }));
+        } else if (value.length !== 10) {
+          setErrors((prevErrors) => ({
+            ...prevErrors,
+            phoneNumber: "Mobile number should have 10 digits",
+          }));
+        }
       }
     }
     // Date of Birth validation
-    if (name === "dateOfBirth") {
+    if (name === "dateOfBirth" && value.trim() !== "") {
       const dobDate = new Date(value);
       const presentDate = new Date();
       const minDobDate = new Date();
@@ -292,20 +292,31 @@ const RegisterPage = () => {
       }
     }
     //email validation
-    if (name === "email") {
+    if (name === "email" && value.trim() !== "") {
       if (value.length < 10 || value.length > 60) {
         setErrors((prevErrors) => ({
           ...prevErrors,
-          email: "email must be between 10 and 60 characters.",
+          email: "email address consists of (10-60 characters)",
         }));
       }
     }
     //fullname validation
-    if (name === "fullName") {
-      if (value.length < 3 || value.length > 50) {
+    if (name === "fullName" && value.trim() !== "") {
+      if (value.length < 3) {
         setErrors((prevErrors) => ({
           ...prevErrors,
-          fullName: "fullname must be between 3 and 50 characters.",
+          fullName: "Full name should consists minimum of 3 characters",
+        }));
+      } else if (value.length > 50) {
+        setErrors((prevErrors) => ({
+          ...prevErrors,
+          fullName: "Full name must should consists only 50 characters.",
+        }));
+      } else if (!/[a-zA-Z].*[a-zA-Z].*[a-zA-Z]/.test(value)) {
+        setErrors((prevErrors) => ({
+          ...prevErrors,
+          fullName:
+            "Full name should consist of at least 3 alphabetic characters",
         }));
       }
     }
@@ -313,6 +324,16 @@ const RegisterPage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // Check if password and confirm password match
+    if (formData.password !== formData.confirmPassword) {
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        confirmPassword: "Passwords do not match.",
+      }));
+      return; // Exit the function early if passwords don't match
+    }
+
     // Check for any errors before submission
     for (const key in errors) {
       if (errors[key]) {
@@ -329,7 +350,7 @@ const RegisterPage = () => {
     });
 
     try {
-      const res = await axios.post("http://localhost:5001/api/register", {
+      const res = await axios.post(`${VINOOTNEW}/api/register`, {
         ...formData,
         userId: newUserID,
       });
@@ -355,7 +376,7 @@ const RegisterPage = () => {
       // const frid = localStorage.getItem("FranchiseID");
 
       // if (frid) {
-      const response = await axios.get("http://localhost:5001/api/users");
+      const response = await axios.get(`${VINOOTNEW}/api/users`);
       setUsers(response.data);
     } catch (error) {
       console.error("Error fetching users:", error);
@@ -390,7 +411,9 @@ const RegisterPage = () => {
                       placeholder=""
                       required
                     />
-                    <span>Full Name <span style={{color:'red'}}>*</span></span>
+                    <span>
+                      Full Name <span style={{ color: "red" }}>*</span>
+                    </span>
                   </label>
                   {errors.fullName && (
                     <div style={{ color: "red" }} className="font-size-error">
@@ -408,7 +431,9 @@ const RegisterPage = () => {
                       readOnly
                       required
                     />
-                    <span>UserId <span style={{color:'red'}}>*</span></span>
+                    <span>
+                      UserId <span style={{ color: "red" }}>*</span>
+                    </span>
                   </label>
 
                   <label>
@@ -431,14 +456,16 @@ const RegisterPage = () => {
                   <label>
                     <input
                       className="input1_rp"
-                      type="text"
+                      type="number"
                       name="phoneNumber"
                       value={formData.phoneNumber}
                       onChange={handleChange}
                       placeholder=""
                       required
                     />
-                    <span>Phone Number  <span style={{color:'red'}}>*</span></span>
+                    <span>
+                      Mobile Number <span style={{ color: "red" }}>*</span>
+                    </span>
                   </label>
                   {errors.phoneNumber && (
                     <div style={{ color: "red" }} className="font-size-error">
@@ -473,13 +500,14 @@ const RegisterPage = () => {
                       name="gender"
                       value={formData.gender}
                       onChange={handleChange}
-                      required>
+                      required
+                    >
                       <option value="">Select Gender</option>
                       <option value="male">Male</option>
                       <option value="female">Female</option>
                       <option value="other">Other</option>
                     </select>
-                    <span>Gender  </span>
+                    <span>Gender </span>
                   </label>
                   <label>
                     <input
@@ -491,7 +519,9 @@ const RegisterPage = () => {
                       placeholder=""
                       required
                     />
-                    <span>Password <span style={{color:'red'}}>*</span></span>
+                    <span>
+                      Password <span style={{ color: "red" }}>*</span>
+                    </span>
                   </label>
                   {errors.password && (
                     <div style={{ color: "red" }} className="font-size-error">
@@ -509,7 +539,9 @@ const RegisterPage = () => {
                       placeholder=""
                       required
                     />
-                    <span>Confirm Password <span style={{color:'red'}}>*</span></span>
+                    <span>
+                      Confirm Password <span style={{ color: "red" }}>*</span>
+                    </span>
                   </label>
                   {errors.confirmPassword && (
                     <div style={{ color: "red" }} className="font-size-error">

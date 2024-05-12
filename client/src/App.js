@@ -35,14 +35,14 @@ import FranchiseDetails from "./MasterLogin/Franchiseregistration/Franchisedetai
 import Landingpage from "./Landing/Landingpage";
 import ShowFranchiseUsers from "./MasterLogin/Franchiseregistration/ShowFranchiseUsers";
 import ShowPatientDetails from "./Franchisemanagement/Reception/ShowPatientDetails/ShowPatientDetails";
+import Landingvinoot from "./Landingpage/Landing";
 function App() {
   return (
     <Router>
       <Routes>
-        {/* <Landingpage/> */}
-        {/* Mastar data */}
+  {/* <Landingvinoot/> */}
         <Route path="/login" element={<LoginForm />} />
-        <Route path="/" element={<Landingpage />} />
+        <Route path="/" element={<Landingvinoot />} />
         {/* <Route path="/login" element={<Home />} /> */}
 
         <Route path="*" element={<NotFound />} />
@@ -75,7 +75,7 @@ function App() {
           <Route path="/Patientdetails" element={<PatientForm />} />
 
           <Route path="/Billing" element={<Billing />} />
-         
+
           <Route path="/SuperSidebar" element={<SuperSidebar />} />
           <Route
             path="/Franchisestaffdetails"
@@ -92,19 +92,28 @@ function App() {
           <Route path="/Franchisetogglepatients" element={<Togglepatients />} />
         </Route>
         <Route
-            path="/Franchisepatientbilling"
-            element={<Franchisepatientbilling />}
-          />
+          path="/Franchisepatientbilling"
+          element={<Franchisepatientbilling />}
+        />
         <Route
           path="/FranchiseLoginDetailsIcon"
           element={<FranchiseLoginDetailsIcon />}
         />
         <Route path="/FranchiseDetails" element={<FranchiseDetails />} />
-        <Route path="/ShowFranchiseUsersdetails/franchise/:franchisename/users" element={<ShowFranchiseUsers />} />
-        <Route path="/ShowPatient/:patientId" element={<ShowPatientDetails />} />
+        {/* <Route
+          path="/ShowFranchiseUsersdetails/franchise/:franchisename/users"
+          element={<ShowFranchiseUsers />}
+        /> */}
+        <Route
+          path="/franchise/:franchiseID/users"
+          element={<ShowFranchiseUsers />}
+        />
+        <Route
+          path="/ShowPatient/:patientId"
+          element={<ShowPatientDetails />}
+        />
 
         {/* <FranchiseLoginDetailsIcon/> */}
-        
       </Routes>
     </Router>
   );

@@ -19,7 +19,6 @@
 
 // module.exports = Area;
 
-
 const mongoose = require("mongoose");
 
 const areaSchema = new mongoose.Schema({
@@ -41,6 +40,10 @@ const areaSchema = new mongoose.Schema({
     enum: ["active", "inactive"],
     default: "active",
   },
+  modifiedBy: { type: String, required: true },
+  modifiedAt: { type: Date, default: Date.now },
+  createdAt: { type: Date, default: Date.now },
+  createdBy: { type: String, required: true },
 });
 const Area = mongoose.model("Area", areaSchema);
 

@@ -9,12 +9,15 @@ const treatmentPlanSchema = new mongoose.Schema({
   GSTamount: Number,
   TotalAmount: Number,
   price: Number,
-  updatedAt: String,
   status: {
     type: String,
     enum: ["active", "inactive"],
     default: "active",
   },
+  modifiedBy: { type: String, required: true },
+  modifiedAt: { type: String, required: true },
+  createdAt: { type: String, required: true },
+  createdBy: { type: String, required: true },
 });
 
 const TreatmentPlan = mongoose.model("TreatmentPlan", treatmentPlanSchema);

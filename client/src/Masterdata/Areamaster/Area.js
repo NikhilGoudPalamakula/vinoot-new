@@ -211,6 +211,8 @@ const Area = () => {
   const [itemsPerPage] = useState(3);
 
   const navigate = useNavigate();
+  // Get user ID from local storage
+  const userId = localStorage.getItem("userId");
 
   useEffect(() => {
     fetchCities();
@@ -294,6 +296,10 @@ const Area = () => {
         areaName: areaName,
         city_id: selectedCity.city_id,
         area_id: area_id,
+        createdBy: userId, // Set createdBy field
+        createdAt: new Date(), // Set createdAt field
+        modifiedBy: userId, // Set modifiedBy field
+        modifiedAt: new Date(), // Set modifiedAt field
       });
 
       if (response.status === 201) {
@@ -313,22 +319,31 @@ const Area = () => {
 
   const toggleStatus = async (areaId, currentStatus) => {
     try {
-      const newStatus = currentStatus === "active" ? "inactive" : "active";
-      const response = await axios.post(
+      const updatedStatus = currentStatus === "active" ? "inactive" : "active";
+      const response = await axios.put(
         `${VINOOTNEW}/api/areas/${areaId}/toggle`,
         {
-          status: newStatus,
+          status: updatedStatus,
+          modifiedBy: userId,
+          modifiedAt: new Date(),
         }
       );
+
       if (response.status === 200) {
-        console.log("Area status updated successfully");
-        fetchAreas();
+        // Find the index of the area that was toggled
+        const areaIndex = areas.findIndex((area) => area._id === areaId);
+
+        // Create a new array with the updated status
+        const updatedAreas = [...areas];
+        updatedAreas[areaIndex].status = updatedStatus;
+
+        // Update the state with the new array
+        setAreas(updatedAreas);
       } else {
         console.error("Failed to toggle area status");
       }
     } catch (error) {
-      console.error("Failed to toggle area status", error);
-      alert("Failed to toggle area status");
+      console.error("Failed to toggle area status:", error);
     }
   };
 
@@ -404,9 +419,8 @@ const Area = () => {
                     <td>{area.status}</td>
                     <td>
                       <button
-                        onClick={() => toggleStatus(area._id, area.status)}
-                      >
-                        {area.status === "active" ? "Inactive" : "Active"}
+                        onClick={() => toggleStatus(area._id, area.status)}>
+                        {area.status === "active" ? "inactive" : "active"}
                       </button>
                     </td>
                   </tr>
@@ -425,8 +439,7 @@ const Area = () => {
               <span
                 key={index}
                 onClick={() => handlePageChange(index + 1)}
-                className={currentPage === index + 1 ? "pageactive-page" : ""}
-              >
+                className={currentPage === index + 1 ? "pageactive-page" : ""}>
                 {index + 1}
               </span>
             ))}

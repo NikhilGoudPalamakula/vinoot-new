@@ -7,14 +7,52 @@ import FranchiseadminSidebar from "../Franchiseadminsidebar/Franchiseadminsideba
 // Function to validate input fields
 const validateInputs = (data) => {
   const errors = {};
-  if (data.fullname.length < 3 || data.fullname.length > 50) {
-    errors.fullname = "Fullname should be between 3 and 50 characters";
+
+  if (data.fullname.trim() === "") {
+    // Clear the error message if the input is empty
+    errors.fullname = "";
+  } else if (data.fullname.length < 3) {
+    // Check if the length of the input is within the specified range
+    errors.fullname = "Full name should consists minimum of 3 characters";
+  } else if (!/^[a-zA-Z]{3,}$/.test(data.fullname)) {
+    // Check if the full name consists of at least 3 alphabetic characters
+    errors.fullname =
+      "Full name should consist of at least 3 alphabetic characters";
+  } else if (data.fullname.length > 50) {
+    // Check if the length of the input is within the specified range
+    errors.fullname = "Full name must should consists only 50 characters";
+  } else {
+    // Clear the error message if the input is valid
+    errors.fullname = "";
   }
-  if (data.password.length < 8 || data.password.length > 16) {
-    errors.password = "Password should be between 8 and 16 characters";
+
+  if (data.email.trim() === "") {
+    // Clear the error message if the input is empty
+    errors.email = "";
+  } else if (!/^[6-9]/.test(data.email)) {
+    // Check if the email starts with a digit between 6 and 9
+    errors.email = "Mobile number should start with 6-9";
+  } else if (!/^\d{10}$/.test(data.email)) {
+    // Check if the email consists of exactly 10 digits
+    errors.email = "Mobile number should have 10 digits";
+  } else {
+    // Clear the error message if the input is valid
+    errors.email = "";
   }
-  if (!/^\d{10}$/.test(data.email)) {
-    errors.email = "Mobile number must be 10 digits";
+
+  // Validate password
+  if (data.password.trim() !== "") {
+    if (
+      !/(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&])[A-Za-z\d!@#$%^&*]{8,}$/.test(
+        data.password
+      )
+    ) {
+      errors.password =
+        "Password must contain at least one uppercase letter, one number, one special character, and be 8 characters long";
+    } else {
+      // Clear the error message if the input is valid
+      errors.password = "";
+    }
   }
   return errors;
 };
@@ -197,7 +235,7 @@ const FranchiseStaffReg = () => {
               <div className="addfr-inputs-wraps">
                 <input
                   className="addfr-inputs"
-                  type="text"
+                  type="number"
                   name="email"
                   value={adminData.email}
                   onChange={handleAdminInputChange}

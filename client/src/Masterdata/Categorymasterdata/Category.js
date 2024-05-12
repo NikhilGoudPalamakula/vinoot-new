@@ -22,6 +22,7 @@ const TreatmentCategory = () => {
   const presentTime = new Date().toLocaleString();
   const [error, setError] = useState("");
   const [editId, setEditId] = useState(""); // Category ID being edited
+  const userId = localStorage.getItem("userId");
 
   // Function to fetch existing categories
   const fetchCategories = async () => {
@@ -38,10 +39,14 @@ const TreatmentCategory = () => {
   }, []); // Empty dependency array ensures this effect runs once on mount
 
   const handleSelect = (event) => {
-    const inputValue = event.target.value;
-    const trimmedValue = inputValue.trim(); // Trim the input value
-    setValue(trimmedValue); // Set the original input value
-    if (inputValue.length < 3 || inputValue.length > 100) {
+  
+    const inputValue = event.target.value.trim();
+    setValue(inputValue);
+
+    const alphabeticRegex = /[a-zA-Z]{3,}/;
+    if (!alphabeticRegex.test(inputValue)) {
+      setError("Category must contain at least 3 alphabetic characters.");
+    } else if (inputValue.length < 3 || inputValue.length > 100) {
       setError("Text length must be between 3 and 100 characters.");
     } else {
       setError("");
@@ -84,15 +89,20 @@ const TreatmentCategory = () => {
         await axios.put(`${VINOOTNEW}/api/treatment-category/${editId}`, {
           // category_id: category_id,
           category_name: value,
-          updatedTime: presentTime,
+          modifiedAt: presentTime,
+          modifiedBy: userId,
           // status: "active", // Default status is active
         });
       } else {
         await axios.post(`${VINOOTNEW}/api/treatment-category`, {
           category_id: category_id,
           category_name: value,
-          updatedTime: presentTime,
+          createdAt: presentTime,
           status: "active", // Default status is active
+          createdBy: userId, // Set createdBy field
+
+          modifiedBy: userId, // Set modifiedBy field
+          modifiedAt: presentTime, // Set modifiedAt field
         });
       }
 
@@ -126,7 +136,8 @@ const TreatmentCategory = () => {
 
       await axios.put(`${VINOOTNEW}/api/treatment-category/${category_id}`, {
         status: newStatus,
-        updatedTime: presentTime, // Updated time
+        modifiedAt: presentTime, // Updated time
+        modifiedBy: userId, // Set modifiedBy field
       });
 
       fetchCategories(); // Refresh the category list after status change
@@ -216,7 +227,7 @@ const TreatmentCategory = () => {
             {currentCategories.map((category) => (
               <tr key={category.category_id}>
                 <td>{category.category_name}</td>
-                <td>{category.time}</td>
+                <td>{category.modifiedAt}</td>
                 <td>{category.status}</td>
                 <td>
                   <button

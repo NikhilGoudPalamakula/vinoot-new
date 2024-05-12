@@ -23,3 +23,33 @@ exports.getAllInstallments = async (req, res) => {
     res.status(500).json({ error: 'Internal Server Error' });
   }
 };
+
+
+exports.getPatientInstallmentsById = async (req, res) => {
+  try {
+    const patientId = req.params.patientId;
+    const installments = await BillingInstallment.find({ patient_id: patientId });
+    if (!installments || installments.length === 0) {
+      return res.status(404).json({ error: "Installments not found for this patient" });
+    }
+    res.status(200).json(installments);
+  } catch (error) {
+    console.error("Error fetching installments by patient ID:", error);
+    res.status(500).json({ error: "An error occurred while fetching installments" });
+  }
+};
+
+exports.updateRemainingAmount = async (req, res) => {
+  try {
+    const { _id, remainingAmount } = req.body; // Assuming _id is the identifier of the installment
+    const updatedInstallment = await BillingInstallment.findByIdAndUpdate(
+      _id,
+      { remainingAmount },
+      { new: true }
+    );
+    res.status(200).json(updatedInstallment);
+  } catch (error) {
+    console.error("Error updating remaining amount:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+};

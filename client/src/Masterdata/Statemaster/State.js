@@ -121,6 +121,8 @@
 
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { ToastContainer, toast } from "react-toastify"; // Import ToastContainer and toast from react-toastify
+import "react-toastify/dist/ReactToastify.css"; // Import the default styles for React Toastify
 import { useNavigate } from "react-router-dom";
 import { VINOOTNEW } from "../../Helper/Helper";
 import Sidebar from "../Sidebar/Sidebar";
@@ -139,6 +141,9 @@ const States = () => {
 
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(3);
+
+  // Get user ID from local storage
+  const userId = localStorage.getItem("userId");
 
   useEffect(() => {
     fetchStates();
@@ -166,7 +171,10 @@ const States = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (error) {
-      alert("Please fix the error before submitting.");
+      toast.error("Please fix the errors before submitting", {
+        position: "top-right",
+        autoClose: 1500,
+      });
       return;
     }
 
@@ -177,32 +185,52 @@ const States = () => {
       const response = await axios.post(`${VINOOTNEW}/api/states`, {
         state_id: state_id,
         name: stateName,
+        createdBy: userId, // Set createdBy field
+        createdAt: new Date(), // Set createdAt field
+        modifiedBy: userId, // Set modifiedBy field
+        modifiedAt: new Date(), // Set modifiedAt field
       });
       if (response.status === 201) {
         console.log("State added successfully");
-        alert("State added successfully");
-        navigate("/Cities");
+        toast.success("State added successfully", {
+          position: "top-right",
+          autoClose: 1500,
+          onClose: () => {
+            navigate("/Cities");
+          },
+        });
+        return;
       } else {
         console.error("Failed to add state");
       }
     } catch (error) {
       console.error("Failed to add state", error);
       if (error.response && error.response.status === 400) {
-        alert("State already exists");
+        toast.error("State already exists", {
+          position: "top-right",
+          autoClose: 1500,
+        });
+        return;
       }
     }
   };
 
   const toggleStateStatus = async (stateId, currentState) => {
     try {
-      const updatedStatus = currentState === "Active" ? "Inactive" : "Active";
-      await axios.post(`${VINOOTNEW}/api/states/${stateId}/toggle`, {
+      const updatedStatus = currentState === "active" ? "inactive" : "active";
+      await axios.put(`${VINOOTNEW}/api/states/${stateId}/toggle`, {
         status: updatedStatus,
+        modifiedBy: userId, // Set modifiedBy field
+        modifiedAt: new Date(), // Set modifiedAt field
       });
       fetchStates(); // Refresh states after status update
     } catch (error) {
       console.error("Failed to toggle state status", error);
-      alert("Failed to toggle state status");
+      toast.error("Failed to toggle state status", {
+        position: "top-right",
+        autoClose: 1500,
+      });
+      return;
     }
   };
 
@@ -228,6 +256,7 @@ const States = () => {
 
   return (
     <div className="states-total">
+      <ToastContainer />
       <div>
         <Sidebar />
       </div>
@@ -256,12 +285,11 @@ const States = () => {
             {currentPlans.map((state) => (
               <tr key={state._id}>
                 <td>{state.name}</td>
-                <td>{state.status === "active" ? "Active" : "Inactive"}</td>
+                <td>{state.status === "active" ? "active" : "inactive"}</td>
                 <td>
                   <button
-                    onClick={() => toggleStateStatus(state._id, state.status)}
-                  >
-                    {state.status === "active" ? "InActive" : "Active"}
+                    onClick={() => toggleStateStatus(state._id, state.status)}>
+                    {state.status === "active" ? "inActive" : "active"}
                   </button>
                 </td>
               </tr>
@@ -280,8 +308,7 @@ const States = () => {
             <span
               key={index}
               onClick={() => handlePageChange(index + 1)}
-              className={currentPage === index + 1 ? "pageactive-page" : ""}
-            >
+              className={currentPage === index + 1 ? "pageactive-page" : ""}>
               {index + 1}
             </span>
           ))}

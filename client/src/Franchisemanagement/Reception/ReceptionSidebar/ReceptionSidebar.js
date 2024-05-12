@@ -10,6 +10,9 @@ import { FaQuestionCircle } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { MdLogout } from "react-icons/md";
+import { RiBillFill } from "react-icons/ri";
+import { TbListDetails } from "react-icons/tb";
+import { IoPersonAddSharp } from "react-icons/io5";
 
 const ReceptionSidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -45,7 +48,7 @@ const ReceptionSidebar = () => {
                 className={activeItem === "dashboard" ? "active" : ""}
                 onClick={() => handleItemClick("dashboard")}
               >
-                <MdDashboard className="icon" />
+                <TbListDetails className="icon" />
                  Billing Details
               </li>
             </Link>
@@ -54,7 +57,7 @@ const ReceptionSidebar = () => {
                 className={activeItem === "Patientdetails" ? "active" : ""}
                 onClick={() => handleItemClick("Patientdetails")}
               >
-                <FaBoxArchive className="icon" />
+                <IoPersonAddSharp className="icon" />
                 Add Patient{" "}
               </li>
             </Link>
@@ -64,7 +67,7 @@ const ReceptionSidebar = () => {
                 className={activeItem === "Billng" ? "active" : ""}
                 onClick={() => handleItemClick("Billng")}
               >
-                <FaStoreAlt className="icon" />
+                <RiBillFill className="icon" />
                 Billing
               </li>{" "}
             </Link>

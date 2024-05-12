@@ -1,320 +1,10 @@
-// import React, { useState } from "react";
-// import axios from "axios";
-// import { Link } from "react-router-dom";
-// import "../Franchiseregistration/FranchiseReg.css";
-
-// const FranchiseReg = () => {
-//   const [franchiseData, setFranchiseData] = useState({
-//     franchisename: "",
-//     franchiseID: "",
-//     mobileNumber: "",
-//     country: "",
-//     state: "",
-//     city: "",
-//     area: "",
-//     address: "",
-//     pincode: "",
-//   });
-
-//   const [adminData, setAdminData] = useState({
-//     fullname: "",
-//     userId: "",
-//     franchisename: "",
-//     franchiseID: "",
-//     designation: "FranchiseAdmin",
-//     email: "",
-//     password: "",
-//   });
-
-//   const handleSubmit = async (e) => {
-//     e.preventDefault();
-//     try {
-//       // Update adminData and franchiseData with the current values from state and localStorage
-//       const createdBy = localStorage.getItem("userId");
-
-//       // Update adminData
-//       const updatedAdminData = {
-//         ...adminData,
-//         franchisename: franchiseData.franchisename,
-//         franchiseID: franchiseData.franchiseID,
-//         createdBy: createdBy, // Add CreatedBy from localStorage
-//       };
-
-//       // Update franchiseData
-//       const updatedFranchiseData = {
-//         ...franchiseData,
-//         createdBy: createdBy, // Add CreatedBy from localStorage
-//       };
-
-//       await axios.post("http://localhost:5001/api/admin", updatedAdminData);
-//       console.log("admin Data:", updatedAdminData);
-
-//       await axios.post(
-//         "http://localhost:5001/api/franchise",
-//         updatedFranchiseData
-//       );
-
-      
-//       console.log("Franchise Data:", updatedFranchiseData);
-
-//       alert("Data submitted successfully.");
-//     } catch (error) {
-//       console.error("Registration failed:", error.response.data.error);
-//     }
-//   };
-
-//   const handleFranchiseInputChange = (e) => {
-//     setFranchiseData({ ...franchiseData, [e.target.name]: e.target.value });
-//   };
-
-//   const handleAdminInputChange = (e) => {
-//     setAdminData({ ...adminData, [e.target.name]: e.target.value });
-//   };
-//   return (
-//     <div className="addfr-franchise-Reg">
-//       <div className="addfr-franchise-Logo">
-//         <div className="addfr-image">
-//           <img
-//             src="https://tse4.mm.bing.net/th?id=OIP.m4FmOjk0Bx-N4JaBzsBoTgHaEP&pid=Api&P=0&h=180"
-//             alt="Loading...!"
-//           />
-//         </div>
-//         <div className="addfr-Registration">
-//           <h2>Franchise Registration</h2>
-//         </div>
-//       </div>
-//       <div className="addfr-total">
-//         <h2 className="addfr-franchise-details">Franchise Form</h2>
-//         <form onSubmit={handleSubmit} className="addfr-franchiseReg-form">
-//           <div className="addfr-franchise-column">
-//             <div className="addfr-franchise-admin">
-//               <div className="addfr-franchise-detail-columns">
-//                 <div className="addfr-column">
-//                   <div className="addfr-input-wrap">
-//                     <input
-//                       className="addfr-input"
-//                       type="text"
-//                       name="franchisename"
-//                       value={franchiseData.franchisename}
-//                       onChange={handleFranchiseInputChange}
-//                       placeholder=""
-//                       required
-//                     />
-//                     <label>
-//                       <span>Franchise Name</span>
-//                     </label>
-//                   </div>
-//                   <div className="addfr-input-wrap">
-//                     <input
-//                       className="addfr-input"
-//                       type="text"
-//                       name="franchiseID"
-//                       value={franchiseData.franchiseID}
-//                       onChange={handleFranchiseInputChange}
-//                       placeholder=""
-//                       required
-//                     />
-//                     <label>
-//                       <span>Franchise ID</span>
-//                     </label>
-//                   </div>
-//                   <div className="addfr-input-wrap">
-//                     <input
-//                       className="addfr-input"
-//                       type="text"
-//                       name="mobileNumber"
-//                       value={franchiseData.mobileNumber}
-//                       onChange={handleFranchiseInputChange}
-//                       placeholder=""
-//                       required
-//                     />
-//                     <label>
-//                       <span>Mobile Number</span>
-//                     </label>
-//                   </div>
-//                   <div className="addfr-input-wrap">
-//                     <input
-//                       className="addfr-input"
-//                       type="text"
-//                       name="country"
-//                       value={franchiseData.country}
-//                       onChange={handleFranchiseInputChange}
-//                       placeholder=""
-//                       required
-//                     />
-//                     <label>
-//                       <span>Country</span>
-//                     </label>
-//                   </div>
-//                   <div className="addfr-input-wrap">
-//                     <input
-//                       className="addfr-input"
-//                       type="text"
-//                       name="state"
-//                       value={franchiseData.state}
-//                       onChange={handleFranchiseInputChange}
-//                       placeholder=""
-//                       required
-//                     />
-//                     <label>
-//                       <span>State</span>
-//                     </label>
-//                   </div>
-//                 </div>
-//                 <div className="addfr-column">
-//                   <div className="addfr-input-wrap">
-//                     <input
-//                       className="addfr-input"
-//                       type="text"
-//                       name="city"
-//                       value={franchiseData.city}
-//                       onChange={handleFranchiseInputChange}
-//                       placeholder=""
-//                       required
-//                     />
-//                     <label>
-//                       <span>City</span>
-//                     </label>
-//                   </div>
-//                   <div className="addfr-column">
-//                     <div className="addfr-input-wrap">
-//                       <input
-//                         className="addfr-input"
-//                         type="text"
-//                         name="area"
-//                         value={franchiseData.area}
-//                         onChange={handleFranchiseInputChange}
-//                         placeholder=""
-//                         required
-//                       />
-//                       <label>
-//                         <span>Area</span>
-//                       </label>
-//                     </div>
-//                     <div className="addfr-input-wrap">
-//                       <input
-//                         className="addfr-input"
-//                         type="text"
-//                         name="address"
-//                         value={franchiseData.address}
-//                         onChange={handleFranchiseInputChange}
-//                         placeholder=""
-//                         required
-//                       />
-//                       <label>
-//                         <span>Address</span>
-//                       </label>
-//                     </div>
-//                     <div className="addfr-input-wrap">
-//                       <input
-//                         className="addfr-input"
-//                         type="text"
-//                         name="pincode"
-//                         value={franchiseData.pincode}
-//                         onChange={handleFranchiseInputChange}
-//                         placeholder=""
-//                         required
-//                       />
-//                       <label>
-//                         <span>Pincode</span>
-//                       </label>
-//                     </div>
-//                   </div>
-//                 </div>
-//               </div>
-//               <div className="addfr-admin">
-//                 <div className="addfr-column">
-//                   <h2 className="addfr-franchise-details-admin">Admin Form</h2>
-//                   <div className="addfr-input-wrap">
-//                     <input
-//                       className="addfr-input"
-//                       type="text"
-//                       name="fullname"
-//                       value={adminData.fullname}
-//                       onChange={handleAdminInputChange}
-//                       placeholder=""
-//                     />
-//                     <label>
-//                       <span>fullname</span>
-//                     </label>
-//                   </div>
-//                   <div className="addfr-input-wrap">
-//                     <input
-//                       className="addfr-input"
-//                       type="text"
-//                       name="userId"
-//                       value={adminData.userId}
-//                       onChange={handleAdminInputChange}
-//                       placeholder=""
-//                     />
-//                     <label>
-//                       <span>userId</span>
-//                     </label>
-//                   </div>
-//                   <div className="addfr-input-wrap">
-//                     <input
-//                       className="addfr-input"
-//                       type="text"
-//                       name="designation"
-//                       value={adminData.designation}
-//                       onChange={handleAdminInputChange}
-//                       placeholder=""
-//                       readOnly
-//                     />
-//                     <label>
-//                       <span>Designation</span>
-//                     </label>
-//                   </div>
-//                   <div className="addfr-input-wrap">
-//                     <input
-//                       className="addfr-input"
-//                       type="text"
-//                       name="email"
-//                       value={adminData.email}
-//                       onChange={handleAdminInputChange}
-//                       placeholder=""
-//                     />
-//                     <label>
-//                       <span>Email</span>
-//                     </label>
-//                   </div>
-//                   <div className="addfr-input-wrap">
-//                     <input
-//                       className="addfr-input"
-//                       type="text"
-//                       name="password"
-//                       value={adminData.password}
-//                       onChange={handleAdminInputChange}
-//                       placeholder=""
-//                     />
-//                     <label>
-//                       <span>Password</span>
-//                     </label>
-//                   </div>
-//                 </div>
-//               </div>
-//             </div>
-//           </div>
-
-//           <button type="submit" className="addfr-submit-button">
-//             Submit
-//           </button>
-//         </form>
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default FranchiseReg;
-
-
 
 
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import "../Franchiseregistration/FranchiseReg.css";
-
+import Navbarlanding from '../../../src/Landingpage/Components/Navbar'
 const FranchiseReg = () => {
   const [states, setStates] = useState([]);
   const [cities, setCities] = useState([]);
@@ -349,7 +39,7 @@ const FranchiseReg = () => {
   });
   const [errors, setErrors] = useState({
     franchisename: "",
-    franchiseID:"",
+    franchiseID: "",
     mobileNumber: "",
     address: "",
     pincode: "",
@@ -522,52 +212,102 @@ const FranchiseReg = () => {
 
     // Validate franchise name
     if (name === "franchisename") {
-      if (value.length < 10 || value.length > 100) {
+      if (value.trim() === "") {
+        // Clear the error message if the input is empty
+        setErrors((prevErrors) => ({ ...prevErrors, franchisename: "" }));
+      } else if (value.length < 10) {
         setErrors((prevErrors) => ({
           ...prevErrors,
           franchisename:
-            "Franchise name must be between 10 and 100 characters.",
+            "Franchise name should consists of a minimum of 10 characters",
+        }));
+      } else if (value.length > 100) {
+        setErrors((prevErrors) => ({
+          ...prevErrors,
+          franchisename: "Franchise name should consists only 100 characters",
         }));
       } else {
         setErrors((prevErrors) => ({ ...prevErrors, franchisename: "" }));
       }
     }
 
-    // Validate mobile number
-    if (name === "mobileNumber") {
-      const mobileRegex = /^[1-9]\d{9}$/;
-      if (!mobileRegex.test(value)) {
+    if (name === "franchiseID") {
+      if (value.trim() === "") {
+        // Clear the error message if the field is empty
+        setErrors((prevErrors) => ({ ...prevErrors, franchiseID: "" }));
+      } else if (value.length !== 6) {
+        // Check if the length is not equal to 6 characters
         setErrors((prevErrors) => ({
           ...prevErrors,
-          mobileNumber:
-            "Mobile number must be 10 digits",
+          franchiseID: "Franchise ID must be exactly 6 characters long.",
         }));
       } else {
+        // Count the number of alphabetic characters in the franchiseID
+        const alphabeticChars = value.match(/[a-zA-Z]/g);
+        if (!alphabeticChars || alphabeticChars.length < 3) {
+          setErrors((prevErrors) => ({
+            ...prevErrors,
+            franchiseID: "Franchise ID must contain at least 3 alphabetic characters.",
+          }));
+        } else {
+          // Clear the error message if the franchiseID meets the requirements
+          setErrors((prevErrors) => ({ ...prevErrors, franchiseID: "" }));
+        }
+      }
+    }
+
+    // Validate mobile number
+    if (name === "mobileNumber") {
+      if (value.trim() === "") {
+        // Clear the error message if the input is empty
         setErrors((prevErrors) => ({ ...prevErrors, mobileNumber: "" }));
+      } else {
+        const mobileRegex = /^[6-9]\d{9}$/; // Regex to check if mobile number starts with 6 and has 10 digits
+        if (!mobileRegex.test(value)) {
+          setErrors((prevErrors) => ({
+            ...prevErrors,
+            mobileNumber:
+              "Mobile number should start 6-9 and consists of 10 digits.",
+          }));
+        } else {
+          // Clear the error message if the mobile number format is valid
+          setErrors((prevErrors) => ({ ...prevErrors, mobileNumber: "" }));
+        }
       }
     }
 
     // Validate pincode
     if (name === "pincode") {
-      const pincodeRegex = /^[1-9]\d{5}$/;
-      if (!pincodeRegex.test(value)) {
-        setErrors((prevErrors) => ({
-          ...prevErrors,
-          pincode: "Pincode must be 6 digits starting with a non-zero digit.",
-        }));
-      } else {
+      if (value.trim() === "") {
+        // Clear the error message if the input is empty
         setErrors((prevErrors) => ({ ...prevErrors, pincode: "" }));
+      } else {
+        const pincodeRegex = /^[1-9]\d{5}$/;
+        if (!pincodeRegex.test(value)) {
+          setErrors((prevErrors) => ({
+            ...prevErrors,
+            pincode: "Pincode must be 6 digits starting with a non-zero digit.",
+          }));
+        } else {
+          // Clear the error message if the pincode format is valid
+          setErrors((prevErrors) => ({ ...prevErrors, pincode: "" }));
+        }
       }
     }
 
     // Validate address
     if (name === "address") {
-      if (value.length < 10 || value.length > 250) {
+      if (value.trim() === "") {
+        // Clear the error message if the input is empty
+        setErrors((prevErrors) => ({ ...prevErrors, address: "" }));
+      } else if (value.length < 10 || value.length > 250) {
+        // Check if the value length is within the specified range
         setErrors((prevErrors) => ({
           ...prevErrors,
-          address: "Address must be between 10 and 250 characters.",
+          address: "Address consists of (10-250 characters).",
         }));
       } else {
+        // Clear the error message if the input is not empty and length is valid
         setErrors((prevErrors) => ({ ...prevErrors, address: "" }));
       }
     }
@@ -578,43 +318,75 @@ const FranchiseReg = () => {
     setAdminData({ ...adminData, [name]: value });
     //password validation
     if (name === "password") {
-      if (value.length < 8 || value.length > 16) {
+      const passwordRegex =
+        /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&])[A-Za-z\d!@#$%^&*]{8,16}$/;
+      // Explanation:
+      // (?=.*[A-Z]) - At least one uppercase letter
+      // (?=.*\d) - At least one digit
+      // (?=.*[!@#$%^&]) - At least one special character
+      // [A-Za-z\d!@#$%^&*]{8,16} - Password must be between 8 and 16 characters long, containing only specified characters
+
+      // Check if the value is empty or matches the password requirements
+      if (value === "" || passwordRegex.test(value)) {
+        // If the value is valid or empty, clear the error message
+        setErrors((prevErrors) => ({ ...prevErrors, password: "" }));
+      } else {
+        // If the value is invalid, set the error message
         setErrors((prevErrors) => ({
           ...prevErrors,
-          password: "Password must be between 8 and 16 characters.",
+          password:
+            "Password must be 8-16 characters with at least one uppercase letter, one number, and one special character.",
         }));
-      } else {
-        setErrors((prevErrors) => ({ ...prevErrors, password: "" }));
       }
     }
+
     //email validation
     if (name === "email") {
-      if (value.length < 10 || value.length > 60) {
+      // Check if the value is empty or within the valid length range
+      if (value === "" || (value.length >= 10 && value.length <= 60)) {
+        // If the value is valid, clear the error message
+        setErrors((prevErrors) => ({ ...prevErrors, email: "" }));
+      } else {
+        // If the value is invalid, set the error message
         setErrors((prevErrors) => ({
           ...prevErrors,
-          email: "email must be between 10 and 60 characters.",
+          email: "email address consists of (10-60 characters)",
         }));
-      } else {
-        setErrors((prevErrors) => ({ ...prevErrors, email: "" }));
       }
     }
-    //fullname validation
-    if (name === "fullname") {
-      if (value.length < 3 || value.length > 50) {
+
+   // Validate fullname
+  if (name === "fullname") {
+    if (value.trim() === "") {
+      // Clear the error message if the field is empty
+      setErrors((prevErrors) => ({ ...prevErrors, fullname: "" }));
+    } else if (value.length < 3 || value.length > 50) {
+      // Check if the length is within the specified range
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        fullname: "Full name must be between 3 and 50 characters long.",
+      }));
+    } else {
+      // Count the number of alphabetic characters in the fullname
+      const alphabeticChars = value.match(/[a-zA-Z]/g);
+      if (!alphabeticChars || alphabeticChars.length < 3) {
         setErrors((prevErrors) => ({
           ...prevErrors,
-          fullname: "fullname must be between 3 and 50 characters.",
+          fullname: "Full name must contain at least 3 alphabetic characters.",
         }));
       } else {
+        // Clear the error message if the fullname meets the requirements
         setErrors((prevErrors) => ({ ...prevErrors, fullname: "" }));
       }
     }
+  }
   };
   return (
     <div className="addfr-franchise-Reg">
-      <div className="addfr-franchise-Logo">
+      <Navbarlanding/>
+      {/* <div className="addfr-franchise-Logo">
         <div className="addfr-image">
-        <img
+          <img
             src="https://vinootherbal.com/wp-content/uploads/2024/02/grrb-1-1536x804.png"
             alt="logo"
           />
@@ -622,7 +394,7 @@ const FranchiseReg = () => {
         <div className="addfr-Registration">
           <h2>Franchise Registration</h2>
         </div>
-      </div>
+      </div> */}
       <div className="addfr-total">
         <h2 className="addfr-franchise-details">Franchise Form</h2>
         <form onSubmit={handleSubmit} className="addfr-franchiseReg-form">
@@ -631,7 +403,7 @@ const FranchiseReg = () => {
               <div className="addfr-franchise-detail-columns">
                 <div className="addfr-column">
                   <div className="addfr-input-wrap">
-                  <input
+                    <input
                       className="addfr-input"
                       type="text"
                       name="franchisename"
@@ -641,7 +413,9 @@ const FranchiseReg = () => {
                       required
                     />
                     <label>
-                      <span>Franchise Name <span style={{color:'red'}}>*</span></span>
+                      <span>
+                        Franchise Name <span style={{ color: "red" }}>*</span>
+                      </span>
                     </label>
                   </div>
                   {errors.franchisename && (
@@ -650,7 +424,7 @@ const FranchiseReg = () => {
                     </div>
                   )}
                   <div className="addfr-input-wrap">
-                  <input
+                    <input
                       className="addfr-input"
                       type="text"
                       name="franchiseID"
@@ -660,11 +434,18 @@ const FranchiseReg = () => {
                       required
                     />
                     <label>
-                      <span>Franchise ID <span style={{color:'red'}}>*</span></span>
+                      <span>
+                        Franchise ID <span style={{ color: "red" }}>*</span>
+                      </span>
                     </label>
                   </div>
+                  {errors.franchiseID && (
+                    <div style={{ color: "red" }} className="font-size-error">
+                      {errors.franchiseID}
+                    </div>
+                  )}
                   <div className="addfr-input-wrap">
-                  <input
+                    <input
                       className="addfr-input"
                       type="number"
                       name="mobileNumber"
@@ -674,7 +455,9 @@ const FranchiseReg = () => {
                       required
                     />
                     <label>
-                      <span>Mobile Number <span style={{color:'red'}}>*</span></span>
+                      <span>
+                        Mobile Number <span style={{ color: "red" }}>*</span>
+                      </span>
                     </label>
                   </div>
                   {errors.mobileNumber && (
@@ -711,14 +494,17 @@ const FranchiseReg = () => {
                         {filteredStates.map((state) => (
                           <li
                             key={state._id}
-                            onClick={() => handleStateSelection(state.name)}>
+                            onClick={() => handleStateSelection(state.name)}
+                          >
                             {state.name}
                           </li>
                         ))}
                       </ul>
                     )}
                     <label>
-                      <span>State <span style={{color:'red'}}>*</span></span>
+                      <span>
+                        State <span style={{ color: "red" }}>*</span>
+                      </span>
                     </label>
                   </div>
                 </div>
@@ -738,14 +524,17 @@ const FranchiseReg = () => {
                         {filteredCities.map((city) => (
                           <li
                             key={city._id}
-                            onClick={() => handleCitySelection(city.name)}>
+                            onClick={() => handleCitySelection(city.name)}
+                          >
                             {city.name}
                           </li>
                         ))}
                       </ul>
                     )}
                     <label>
-                      <span>City <span style={{color:'red'}}>*</span></span>
+                      <span>
+                        City <span style={{ color: "red" }}>*</span>
+                      </span>
                     </label>
                   </div>
                   <div className="addfr-column">
@@ -764,14 +553,17 @@ const FranchiseReg = () => {
                           {filteredAreas.map((area) => (
                             <li
                               key={area._id}
-                              onClick={() => handleAreaSelection(area.name)}>
+                              onClick={() => handleAreaSelection(area.name)}
+                            >
                               {area.name}
                             </li>
                           ))}
                         </ul>
                       )}
                       <label>
-                        <span>Area <span style={{color:'red'}}>*</span></span>
+                        <span>
+                          Area <span style={{ color: "red" }}>*</span>
+                        </span>
                       </label>
                     </div>
                     <div className="addfr-input-wrap">
@@ -785,7 +577,9 @@ const FranchiseReg = () => {
                         required
                       />
                       <label>
-                        <span>Address <span style={{color:'red'}}>*</span></span>
+                        <span>
+                          Address <span style={{ color: "red" }}>*</span>
+                        </span>
                       </label>
                     </div>
                     {errors.address && (
@@ -804,7 +598,9 @@ const FranchiseReg = () => {
                         required
                       />
                       <label>
-                        <span>Pincode <span style={{color:'red'}}>*</span></span>
+                        <span>
+                          Pincode <span style={{ color: "red" }}>*</span>
+                        </span>
                       </label>
                     </div>
                     {errors.pincode && (
@@ -829,7 +625,9 @@ const FranchiseReg = () => {
                       required
                     />
                     <label>
-                      <span>fullname <span style={{color:'red'}}>*</span></span>
+                      <span>
+                        Full Name <span style={{ color: "red" }}>*</span>
+                      </span>
                     </label>
                   </div>
                   {errors.fullname && (
@@ -848,7 +646,9 @@ const FranchiseReg = () => {
                       required
                     />
                     <label>
-                      <span>userId <span style={{color:'red'}}>*</span></span>
+                      <span>
+                        UserId <span style={{ color: "red" }}>*</span>
+                      </span>
                     </label>
                   </div>
                   {errors.userId && (
@@ -882,7 +682,9 @@ const FranchiseReg = () => {
                       required
                     />
                     <label>
-                      <span>Email <span style={{color:'red'}}>*</span></span>
+                      <span>
+                        Email <span style={{ color: "red" }}>*</span>
+                      </span>
                     </label>
                   </div>
                   {errors.email && (
@@ -901,7 +703,9 @@ const FranchiseReg = () => {
                       required
                     />
                     <label>
-                      <span>Password <span style={{color:'red'}}>*</span></span>
+                      <span>
+                        Password <span style={{ color: "red" }}>*</span>
+                      </span>
                     </label>
                   </div>
                   {errors.password && (

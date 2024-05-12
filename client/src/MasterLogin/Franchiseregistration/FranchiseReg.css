@@ -203,6 +203,21 @@
   border-radius: 10px;
   padding: 4px 20px 4px 20px;
 }
+.addfr-total > * {
+  opacity: 0;
+  animation: slideInFromTop 2s forwards;
+}
+
+@keyframes slideInFromTop {
+  from {
+    opacity: 0;
+    transform: translateY(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 .addfr-franchise-Reg {
   height: 100vh;
   width: 100vw;
@@ -228,6 +243,8 @@
   outline: none;
   height: 7.5vh;
   width: 30vw;
+  border-radius: 5px;
+  border: 1px solid #0aa506;
 }
 .suggestion-list1 {
   height: 13vh;
@@ -297,7 +314,7 @@
 }
 .addfr-franchise-detail-columns {
   display: flex;
-  gap: 1.5vw;
+  gap: 2.5vw;
 }
 .addfr-franchise-admin {
   display: flex;
@@ -309,7 +326,7 @@
 }
 .addfr-franchise-details-admin {
   padding: 2vh 0 3.3vh 0vw;
-  margin-top: -10vh;
+  margin-top: -11.7vh;
   color: #0aa506;
 }
 .addfr-submit-button {

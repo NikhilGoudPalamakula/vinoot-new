@@ -20,8 +20,8 @@ router.get(
 router.get("/doctors", adminController.getDoctors);
 
 router.get(
-  "/franchisefetchAdmins/:franchisename",
-  adminController.getFranchiseAdminsByFranchiseName
+  "/franchisefetchAdmins/:franchiseID",
+  adminController.getFranchiseAdminsByFranchiseID
 );
 
 module.exports = router;

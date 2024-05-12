@@ -11,6 +11,7 @@ import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import KeyboardDoubleArrowLeftIcon from "@mui/icons-material/KeyboardDoubleArrowLeft";
 import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArrowRight";
+import { TbFileTypeXls } from "react-icons/tb";
 const FranchiseAdmin = () => {
   const [billingData, setBillingData] = useState([]);
 
@@ -56,9 +57,14 @@ const FranchiseAdmin = () => {
     const filterValue = parseFloat(filters.remainingAmount);
     const lowercaseName = filters.patientname.toLowerCase();
     const lowercaseBillingName = billing.patient_name.toLowerCase();
+
+    // Parse the date values for comparison
+const currentDate = new Date(billing.currentDate);
+const fromDate = filters.fromDate ? new Date(filters.fromDate) : null;
+const toDate = filters.toDate ? new Date(filters.toDate) : null;
     return (
-      billing.currentDate.includes(filters.fromDate) &&
-      billing.currentDate.includes(filters.toDate) &&
+      (!fromDate || currentDate >= fromDate) && 
+      (!toDate || currentDate <= toDate) &&
       billing.mobile_number.toString().includes(filters.mobileNumber) &&
       billing.plan_name.includes(filters.planType) &&
       lowercaseBillingName.includes(lowercaseName) &&
@@ -109,8 +115,12 @@ const FranchiseAdmin = () => {
         <FranchiseadminSidebar />
       </div>
       <div className="fradmin-staffri">
+        <div className="franadmin-123">
         <h1>Patients Billing Details</h1>
-        <button onClick={exportToExcel}>Export to Excel</button>
+        <button onClick={exportToExcel}><TbFileTypeXls  className="xlsiocn1"/></button>
+        </div>
+        <div className="fradmin-filters">
+        <div className="fradmin-filters-1">
         <label>
           <span>From Date:</span>
           <input
@@ -129,6 +139,8 @@ const FranchiseAdmin = () => {
             onChange={handleFilterChange}
           />
         </label>
+        </div>
+        <div className="fradmin-filters-11">
         <label>
           <span>Mobile Number:</span>
           <input
@@ -139,7 +151,7 @@ const FranchiseAdmin = () => {
           />
         </label>
         <label>
-          <span>Name:</span>
+          <span>Patient Name:</span>
           <input
             type="text"
             name="patientname"
@@ -165,6 +177,8 @@ const FranchiseAdmin = () => {
             onChange={handleFilterChange}
           />
         </label>
+        </div>
+        </div>
 
         <table>
           <thead>
@@ -174,6 +188,7 @@ const FranchiseAdmin = () => {
               <th>Patient Name</th>
               <th>Patient MobileNumber</th>
               <th>Doctor</th>
+              <th>Therapist</th>
               <th>Plan Type</th>
               <th>Days</th>
               <th>Price</th>
@@ -190,6 +205,7 @@ const FranchiseAdmin = () => {
                 <td>{billing.patient_name}</td>
                 <td>{billing.mobile_number}</td>
                 <td>{billing.doctor}</td>
+                <td>{billing.therapist}</td>
                 <td>{billing.plan_name}</td>
                 <td>{billing.days}</td>
                 <td>{billing.TotalAmount}</td>

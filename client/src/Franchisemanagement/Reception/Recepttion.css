@@ -3,9 +3,27 @@
     display: flex;
 }
 .recp-dash-table{
-    margin-top: 5vh;
+    /* margin-top: 2vh; */
     margin-left: 18.5%;
+
+    .recep-dash-fi {
+        display: flex;
+        align-items: center;
+        button{
+            /* height: 5vh; */
+            margin-left:55% ;
+            background-color: transparent;
+            border: 1px solid gray;
+            border-radius: 3px;
+        }
+        .xlsiocn2{
+            color: #0aa506;
+            font-size: 30px;
+        }
+    }
+
     table{
+        margin-top: 2vh;
         border-collapse: collapse;
         text-align: center;
     }
@@ -20,5 +38,55 @@
         text-align: center;
         padding: 8px;
         font-size: 0.9rem;
+    }
+}
+
+.recep-dash-filter{
+    label{
+        display: flex;
+        flex-direction: column;
+    }
+}
+.recep-dash-filter-1{
+    display: flex;
+    gap: 30px;
+    text-align: left;
+    label{
+        display: flex;
+        flex-direction: column;
+    }
+    input{
+        width: 12.5vw;
+        border: 1px solid gray;
+        height: 5vh;
+        border-radius: 5px;
+    }
+    input:focus{
+        border-color: #0aa506; 
+        outline: none;
+        border-width: 1.5px;
+    }
+}
+.recep-dash-filter-11{
+
+    display: flex;
+    gap: 30px;
+    text-align: left;
+
+    label{
+        margin-top: 3vh;
+        display: flex;
+        flex-direction: column;
+    }
+    input{
+        width: 12.3vw;
+        border: 1px solid gray;
+        height: 5vh;
+        border-radius: 5px;
+    }
+    input:focus{
+        border-color: #0aa506; 
+        outline: none;
+        border-width: 1.5px;
     }
 }

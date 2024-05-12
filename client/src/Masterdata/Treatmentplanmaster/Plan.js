@@ -35,6 +35,7 @@ const TreatmentPlan = () => {
   const [editId, setEditId] = useState(""); // Category ID being edited
   const presentTime = new Date().toLocaleString();
   const navigate = useNavigate();
+  const userId = localStorage.getItem("userId");
 
   // Fetch categories
   const fetchCategory = async () => {
@@ -69,7 +70,14 @@ const TreatmentPlan = () => {
   const handlePlanChange = (e) => {
     const inputValue = e.target.value;
     setPlan(inputValue);
-    if (inputValue.length < 15 || inputValue.length > 250) {
+
+    const alphabeticRegex = /[a-zA-Z]{3,}/;
+    if (!alphabeticRegex.test(inputValue)) {
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        plan: "Plan must contain at least 3 alphabetic characters.",
+      }));
+    } else if (inputValue.length < 15 || inputValue.length > 250) {
       setErrors((prevErrors) => ({
         ...prevErrors,
         plan: "Plan must be between 15 and 250 characters.",
@@ -167,7 +175,8 @@ const TreatmentPlan = () => {
           TotalAmount: TotalAmount,
           price: price,
           days: days,
-          updatedAt: presentTime,
+          modifiedAt: presentTime,
+          modifiedBy: userId, // Set modifiedBy field
         });
       } else {
         await axios.post(`${VINOOTNEW}/api/treatment-plan`, {
@@ -179,7 +188,10 @@ const TreatmentPlan = () => {
           TotalAmount: TotalAmount,
           price: price,
           days: days,
-          updatedAt: presentTime,
+          createdAt: presentTime,
+          createdBy: userId, // Set createdBy field
+          modifiedBy: userId, // Set modifiedBy field
+          modifiedAt: presentTime, // Set modifiedAt field
           status: "active",
         });
       }
@@ -208,7 +220,8 @@ const TreatmentPlan = () => {
 
       await axios.put(`${VINOOTNEW}/api/treatment-plan/${plan_id}`, {
         status: newStatus,
-        updatedAt: presentTime, // Updated time
+        modifiedAt: presentTime, // Updated time
+        modifiedBy: userId, // Updated user ID
       });
 
       fetchPlans(); // Refresh the plan list after status change
@@ -357,11 +370,11 @@ const TreatmentPlan = () => {
                           required
                         />
                         <span>
-                          GST <span style={{ color: "red" }}>*</span>
+                          GST(%) <span style={{ color: "red" }}>*</span>
                         </span>
                       </label>
-                      {errors.gst && (
-                        <div style={{ color: "red" }}>{errors.gst}</div>
+                      {errors.GST && (
+                        <div style={{ color: "red" }}>{errors.GST}</div>
                       )}
 
                       <label>
@@ -428,7 +441,7 @@ const TreatmentPlan = () => {
                 {currentPlans.map((plan) => (
                   <tr key={plan.plan_id}>
                     <td>{plan.plan_name}</td>
-                    <td>{plan.updatedAt}</td>
+                    <td>{plan.modifiedAt}</td>
                     <td>{plan.status}</td>
                     <td>
                       <button

@@ -8,7 +8,6 @@
 
 // module.exports = State;
 
-
 const mongoose = require("mongoose");
 
 const stateSchema = new mongoose.Schema({
@@ -25,6 +24,10 @@ const stateSchema = new mongoose.Schema({
     enum: ["active", "inactive"],
     default: "active",
   },
+  modifiedBy: { type: String, required: true },
+  modifiedAt: { type: Date, default: Date.now },
+  createdAt: { type: Date, default: Date.now },
+  createdBy: { type: String, required: true },
 });
 
 const State = mongoose.model("State", stateSchema);

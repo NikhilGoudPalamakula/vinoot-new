@@ -4,6 +4,7 @@ import { ToastContainer, toast } from "react-toastify"; // Import ToastContainer
 import "react-toastify/dist/ReactToastify.css"; // Import the default styles for React Toastify
 import "./LoginForm.css";
 import axios from "axios";
+import Navbarlanding from '../Landingpage/Components/Navbar'
 const LoginForm = () => {
   const [isSignInActive, setIsSignInActive] = useState(false);
 
@@ -111,7 +112,7 @@ const LoginForm = () => {
         position: "top-right",
         autoClose: 1500, // Close the toast after 3 seconds
         onClose: () => {
-          navigate("/FrSidebar");
+          navigate("/FranchiseDetails");
         },
       });
     } catch (error) {
@@ -126,6 +127,8 @@ const LoginForm = () => {
   // ----------------------------------------------------------------
 
   return (
+    <div>
+            <Navbarlanding/>
     <div className="total">
       <ToastContainer />{" "}
       {/* Add ToastContainer here to display toast messages */}
@@ -140,7 +143,7 @@ const LoginForm = () => {
               name="userId"
               value={formData1.userId}
               onChange={handleChange12}
-              placeholder="userId"
+              placeholder="UserId"
               required
             />
 
@@ -170,7 +173,7 @@ const LoginForm = () => {
               name="userId"
               value={formData.userId}
               onChange={handleChange}
-              placeholder="userId"
+              placeholder="UserId"
               required
             />
 
@@ -210,6 +213,7 @@ const LoginForm = () => {
           </div>
         </div>
       </div>
+    </div>
     </div>
   );
 };

@@ -1,5 +1,4 @@
-
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { VINOOTNEW } from "../../../Helper/Helper";
 import axios from "axios";
 import ReceptionSidebar from "../ReceptionSidebar/ReceptionSidebar";
@@ -14,6 +13,7 @@ const Billing = () => {
   const [filteredSuggestions1, setFilteredSuggestions1] = useState([]); // Filtered suggestions based on input
   const [focusedInput1, setFocusedInput1] = useState(null);
   const [isLoading1, setIsLoading1] = useState(false); // Loading indicator
+  const [patientError, setPatientError] = useState(""); // Error message for unregistered mobile number
 
   // Fetch suggestions when the component mounts
   const [patients, setPatients] = useState([]);
@@ -23,12 +23,15 @@ const Billing = () => {
       try {
         const frid = localStorage.getItem("franchiseID");
         if (frid) {
-          const response = await axios.get(
-            `http://localhost:5001/api/patients${frid}`
-          );
+          const response = await axios.get(`${VINOOTNEW}/api/patients${frid}`);
           setPatients(response.data);
-          setSuggestions1(response.data);
-          setFilteredSuggestions1(response.data);
+          const mobileNumberSet = new Set();
+          response.data.forEach((patient) => {
+            mobileNumberSet.add(patient.mobile_number); // Add mobile number to the set
+          });
+
+          setSuggestions1(mobileNumberSet);
+          setFilteredSuggestions1(mobileNumberSet);
           setIsLoading1(false);
         } else {
           console.error("FranchiseID not found in localStorage");
@@ -46,32 +49,103 @@ const Billing = () => {
     const filterSuggestions = () => {
       if (typeof phoneInput !== "string" || phoneInput.trim() === "") {
         setFilteredSuggestions1(suggestions1); // Show all suggestions if input is empty or not a string
+        setSelectedNumber(null); // Reset selected number
+        setPatientError(""); // Clear patient error
       } else {
-        const filteredDetails = suggestions1.filter((details) =>
-          details.mobile_number.includes(phoneInput)
+        const filtered = patients.filter((patient) =>
+          patient.mobile_number.includes(phoneInput)
         );
-        setFilteredSuggestions1(filteredDetails);
+
+        setFilteredSuggestions1(filtered);
+
+        // Clear patient details if the input doesn't match any suggestions
+        if (
+          phoneInput.trim() !== "" &&
+          !filtered.some((suggestion) =>
+            suggestion.mobile_number.includes(phoneInput)
+          )
+        ) {
+          setSelectedNumber(null);
+          setPatientError(
+            "Mobile number not registered. Please add the patient."
+          );
+        } else {
+          setPatientError("");
+        }
       }
     };
     filterSuggestions();
-  }, [phoneInput, suggestions1]);
+  }, [phoneInput, patients, suggestions1]);
 
   const handlePlanChange1 = (e) => {
-    const PhoneInput = e.target.value;
-    setPhoneInput(PhoneInput); // Update selected plan
+    const newPhoneInput = e.target.value;
+    const previousPhoneInput = phoneInput;
+
+    // Update the phoneInput state with the new value
+    setPhoneInput(newPhoneInput);
+
+    // Clear patient details if the new input value is shorter than the previous value
+    if (newPhoneInput.length < previousPhoneInput.length) {
+      setAdditionalField(false);
+      setSelectedNumber(null);
+      setPatient_id("");
+      setPatient_name("");
+      setAddress("");
+    }
+
     setFocusedInput1("number");
   };
-
-  const handlePlanSelection1 = (suggestion) => {
-    const selectedNumber = suggestions1.find(
-      (plan) => plan.mobile_number === suggestion
-    );
-
-    if (selectedNumber) {
-      setSelectedNumber(selectedNumber); // Set the entire selected plan object
-      setPhoneInput(selectedNumber.mobile_number); // Set the plan_name property of the selected suggestion
-      setFocusedInput1(null); // Hide suggestion list when a suggestion is clicked
+  // Step 1: Identify duplicate mobile numbers
+  const mobileNumberMap = {};
+  patients.forEach((patient) => {
+    if (mobileNumberMap[patient.mobile_number]) {
+      mobileNumberMap[patient.mobile_number].push(patient);
+    } else {
+      mobileNumberMap[patient.mobile_number] = [patient];
     }
+  });
+  // Step 2: Create a state to manage additional patient name selection
+  const [additionalField, setAdditionalField] = useState(false);
+  const [patientSuggestions, setPatientSuggestions] = useState([]);
+  const [patientName, setPatientName] = useState("");
+
+  const handlePlanSelection1 = (mobileNumber) => {
+    // Step 2: Check if this mobile number has multiple associated patients
+    const associatedPatients = mobileNumberMap[mobileNumber] || [];
+
+    if (associatedPatients.length > 1) {
+      const selectedPatient = associatedPatients[0];
+      // Multiple patients with this mobile number
+      setSelectedNumber(null); // Reset the selected patient
+      setPatientError(""); // Reset error message
+      setPhoneInput(selectedPatient.mobile_number); // Set the mobile number
+      setAdditionalField(true); // Toggle visibility for additional patient name selection
+      setPatientSuggestions(associatedPatients); // Set suggestions for the patient name field
+    } else {
+      // Only one patient with this mobile number
+      const selectedPatient = associatedPatients[0];
+      setSelectedNumber(selectedPatient); // Select the patient
+      setPhoneInput(selectedPatient.mobile_number); // Set the mobile number
+      setPatientError(""); // Clear patient error
+      setAdditionalField(false); // Hide additional patient name selection
+    }
+    // Handle cases where mobile number has only one associated patient
+    if (selectedNumber && additionalField === false) {
+      // Fill patient details when only one patient is associated with the selected mobile number
+      setPatient_id(selectedNumber.patient_id);
+      setPatient_name(selectedNumber.patient_name);
+      setAddress(selectedNumber.address);
+    } else {
+      setPatient_id("");
+      setPatient_name("");
+      setAddress("");
+    }
+  };
+  // Function to handle patient name selection
+  const handlePatientNameSelection = (patient) => {
+    setSelectedNumber(patient); // Set the selected patient
+    setPhoneInput(patient.mobile_number); // Set the mobile number
+    setAdditionalField(false); // Hide the additional field
   };
 
   // -------------------Doctor details fetch ---------------
@@ -81,19 +155,16 @@ const Billing = () => {
 
   const [selectedDoctor, setSelectedDoctor] = useState(""); // State for selected doctor
 
-
   // Function to handle doctor selection
   const handleDoctorChange = (e) => {
     const selectedDoctorId = e.target.value; // Get the selected doctor's ID
     // const selectedDoctor = doctors.find(doctor => doctor._id === selectedDoctorId); // Find the doctor object based on the ID
-    // setSelectedDoctor(selectedDoctorId); 
+    // setSelectedDoctor(selectedDoctorId);
 
     setSelectedDoctor(selectedDoctorId);
     // Disable therapist selection
     setSelectedTherapist("");
   };
-
-
 
   useEffect(() => {
     const fetchDoctors = async () => {
@@ -123,19 +194,16 @@ const Billing = () => {
   const [therapists, setTherapists] = useState([]);
   const [selectedTherapist, setSelectedTherapist] = useState(""); // State for selected doctor
 
-
   // Function to handle doctor selection
   const handleTherapistChange = (e) => {
     const selectedTherapistId = e.target.value; // Get the selected doctor's ID
     // const selectedTherapist = therapists.find(therapist => therapist._id === selectedTherspistId); // Find the doctor object based on the ID
-    // setSelectedTherapist(selectedTherapistId); 
+    // setSelectedTherapist(selectedTherapistId);
 
     setSelectedTherapist(selectedTherapistId);
     // Disable doctor selection
     setSelectedDoctor("");
   };
-
-
 
   useEffect(() => {
     const fetchTherapists = async () => {
@@ -175,6 +243,7 @@ const Billing = () => {
   const [suggestions, setSuggestions] = useState([]); // Autosuggest options
   const [filteredSuggestions, setFilteredSuggestions] = useState([]); // Filtered suggestions based on input
   const [focusedInput, setFocusedInput] = useState(null);
+  const [focusedInput2, setFocusedInput2] = useState(null);
   const [isLoading, setIsLoading] = useState(false); // Loading indicator
   const [mobile_number, setMobile_number] = useState(false); // Loading indicator
   const [patient_id, setPatient_id] = useState(false); // Loading indicator
@@ -220,6 +289,29 @@ const Billing = () => {
     filterSuggestions();
   }, [planName, suggestions]);
 
+  // Ref for suggestion box
+  const suggestionBoxRef = useRef(null);
+
+  // Function to handle click outside suggestion box
+  const handleClickOutside = (event) => {
+    if (
+      suggestionBoxRef.current &&
+      !suggestionBoxRef.current.contains(event.target)
+    ) {
+      // Clicked outside the suggestion box
+      setFocusedInput1(null); // Reset focus for other input fields
+      // setFocusedInput2(null); // Reset focus for the additional field
+    }
+  };
+
+  // Add event listener for clicks outside the suggestion box
+  useEffect(() => {
+    document.addEventListener("click", handleClickOutside);
+    return () => {
+      document.removeEventListener("click", handleClickOutside);
+    };
+  }, []);
+
   const handlePlanChange = (e) => {
     const PlanName = e.target.value;
     setPlanName(PlanName); // Update selected plan
@@ -238,8 +330,6 @@ const Billing = () => {
     }
   };
 
-
-
   useEffect(() => {
     if (selectedPlan) {
       const TotalAmount = parseFloat(selectedPlan.TotalAmount);
@@ -255,7 +345,6 @@ const Billing = () => {
       }
     }
   }, [amountPaid, selectedPlan]);
-
 
   //-------------------Bill Numbers Fetching ----------------
   const [billingNumber, setBillingNumber] = useState("");
@@ -285,14 +374,13 @@ const Billing = () => {
       const createdBy = localStorage.getItem("userId");
       const franchiseName = localStorage.getItem("franchisename");
       const franchiseID = localStorage.getItem("franchiseID");
-      const remaining = selectedPlan ? parseFloat(selectedPlan.TotalAmount) - parseFloat(amountPaid) : 0; // Calculate remaining
+      const remaining = selectedPlan
+        ? parseFloat(selectedPlan.TotalAmount) - parseFloat(amountPaid)
+        : 0; // Calculate remaining
       const currentDate = new Date().toISOString().split("T")[0];
-
-
 
       // Determine payment status
       const paymentStatus = amountPaid >= price ? "Paid" : "Unpaid";
-
 
       // Send the data to the backend API endpoint for saving
       await axios.post("http://localhost:5001/api/billing", {
@@ -325,8 +413,11 @@ const Billing = () => {
           mobile_number: selectedNumber ? selectedNumber.mobile_number : "",
           patient_id: selectedNumber ? selectedNumber.patient_id : "",
           patient_name: selectedNumber ? selectedNumber.patient_name : "",
-          remaining_amount: remaining,
+          remainingAmount: remaining,
           bill_number: newBillNumber,
+          franchiseName: franchiseName,
+          franchiseID: franchiseID,
+          currentDate: currentDate,
         });
       }
 
@@ -457,45 +548,44 @@ const Billing = () => {
           </tr>
           <tr>
             <td>Days</td>
-            <td>${selectedPlan?.days || 'N/A'}</td>
+            <td>${selectedPlan?.days || "N/A"}</td>
           </tr>
           <tr>
             <td>Price</td>
-            <td>${selectedPlan?.price || 'N/A'}</td>
+            <td>${selectedPlan?.price || "N/A"}</td>
           </tr>
           <tr>
           <td>GST</td>
-          <td>${selectedPlan?.GST || 'N/A'}</td>
+          <td>${selectedPlan?.GST || "N/A"}</td>
         </tr>
         <tr>
         <td>GST</td>
-        <td>${selectedPlan?.GSTamount || 'N/A'}</td>
+        <td>${selectedPlan?.GSTamount || "N/A"}</td>
       </tr>
           <tr>
             <td>Price</td>
-            <td>${selectedPlan?.TotalAmount || 'N/A'}</td>
+            <td>${selectedPlan?.TotalAmount || "N/A"}</td>
           </tr>
           <tr>
             <td>Payment Type</td>
-            <td>${paymentType || 'N/A'}</td>
+            <td>${paymentType || "N/A"}</td>
           </tr>
           <tr>
             <td>Amount Paid</td>
-            <td>${amountPaid || 'N/A'}</td>
+            <td>${amountPaid || "N/A"}</td>
           </tr>
           <tr>
             <td>Payment Status</td>
-            <td>${status || 'N/A'}</td>
+            <td>${status || "N/A"}</td>
           </tr>
           <tr>
             <td>Remaining Amount</td>
-            <td>Rs. ${remaining || 'N/A'}</td>
+            <td>Rs. ${remaining || "N/A"}</td>
           </tr>
         </table>
       </body>
     </html>
   `;
-
 
     // Write the HTML content to the new window
     printWindow.document.open();
@@ -532,13 +622,15 @@ const Billing = () => {
                 type="text"
                 name="bill_number"
                 value={billingNumber}
-              // placeholder="Bill Number"
+                readOnly
+                // placeholder="Bill Number"
               />
             </label>
 
-
             <label>
-              <span>Enter Mobile Number <span style={{ color: 'red' }}>*</span></span>
+              <span>
+                Enter Mobile Number <span style={{ color: "red" }}>*</span>
+              </span>
               <input
                 type="text"
                 name="planName"
@@ -547,10 +639,17 @@ const Billing = () => {
                 onFocus={() => setFocusedInput1("plan")}
                 placeholder="Enter mobile number"
               />
-              {isLoading && <div className="loading-fetch-mbl">Loading...</div>}
+              {patientError ? (
+                <div style={{ color: "red", fontSize: "0.8rem" }}>
+                  {patientError}
+                </div>
+              ) : (
+                isLoading && <div className="loading-fetch-mbl">Loading...</div>
+              )}
               {focusedInput1 === "number" &&
                 filteredSuggestions1.length > 0 && (
                   <div
+                    ref={suggestionBoxRef}
                     className="suggestions-fetch-mbl"
                     style={{
                       position: "absolute",
@@ -565,6 +664,7 @@ const Billing = () => {
                       <p
                         key={suggestion._id}
                         className="suggestion-item-fetch-mbl"
+                        style={{ cursor: "pointer" }}
                         onClick={() =>
                           handlePlanSelection1(suggestion.mobile_number)
                         }>
@@ -574,6 +674,48 @@ const Billing = () => {
                   </div>
                 )}
             </label>
+            {additionalField && (
+              <label>
+                <span>Select Patient Name</span>
+                <input
+                  type="text"
+                  value={patientName}
+                  onChange={(e) => setPatientName(e.target.value)}
+                  onFocus={() => setFocusedInput2("patientName")}
+                  placeholder="Select patient name"
+                />
+                {focusedInput2 === "patientName" && (
+                  <div
+                    ref={suggestionBoxRef}
+                    className="suggestions-fetch-mbl"
+                    style={{
+                      position: "absolute",
+                      backgroundColor: "white",
+                      border: "1px solid #ccc",
+                      width: "15%",
+                      marginTop: "55px",
+                      height: "13vh",
+                      overflowY: "auto",
+                    }}>
+                    {patientSuggestions
+                      .filter((patient) =>
+                        patient.patient_name
+                          .toLowerCase()
+                          .includes(patientName.toLowerCase())
+                      )
+                      .map((patient) => (
+                        <p
+                          key={patient.patient_id}
+                          className="suggestion-item-fetch-mbl"
+                          style={{ cursor: "pointer" }}
+                          onClick={() => handlePatientNameSelection(patient)}>
+                          {patient.patient_name}
+                        </p>
+                      ))}
+                  </div>
+                )}
+              </label>
+            )}
 
             <label>
               <span>Patient ID</span>
@@ -626,12 +768,15 @@ const Billing = () => {
           {/* <h1>Select Doctor:</h1> */}
 
           <div>
-
             <table className="plan-table">
               <thead>
                 <tr>
-                  <th>Select Doctor <span style={{ color: 'red' }}>*</span></th>
-                  <th>Plan Name <span style={{ color: 'red' }}>*</span></th>
+                  <th>
+                    Select Doctor <span style={{ color: "red" }}>*</span>
+                  </th>
+                  <th>
+                    Plan Name <span style={{ color: "red" }}>*</span>
+                  </th>
                   <th>GST</th>
                   <th>GST Amount</th>
                   <th>Days</th>
@@ -654,8 +799,7 @@ const Billing = () => {
                     <select
                       value={selectedDoctor}
                       onChange={handleDoctorChange}
-                      disabled={selectedTherapist !== ""}
-                    >
+                      disabled={selectedTherapist !== ""}>
                       <option value="">Select Doctor</option>
                       {doctors.map((doctor) => (
                         <option key={doctor._id} value={doctor.fullname}>
@@ -675,8 +819,7 @@ const Billing = () => {
                     <select
                       value={selectedTherapist}
                       onChange={handleTherapistChange}
-                      disabled={selectedDoctor !== ""}
-                    >
+                      disabled={selectedDoctor !== ""}>
                       <option value="">Select Therapist</option>
                       {therapists.map((therapist) => (
                         <option key={therapist._id} value={therapist.fullname}>
@@ -723,8 +866,6 @@ const Billing = () => {
                           ))}
                         </div>
                       )}
-
-
                   </td>
                   <td>
                     <input
@@ -770,8 +911,12 @@ const Billing = () => {
             <table className="billing-last-table">
               <thead>
                 <tr>
-                  <th>Payment type <span style={{ color: 'red' }}>*</span></th>
-                  <th>Amount paid <span style={{ color: 'red' }}>*</span></th>
+                  <th>
+                    Payment type <span style={{ color: "red" }}>*</span>
+                  </th>
+                  <th>
+                    Amount paid <span style={{ color: "red" }}>*</span>
+                  </th>
                   <th>Payment Status</th>
                   <th>Remaining Amount: Rs.</th>
                 </tr>
@@ -781,8 +926,7 @@ const Billing = () => {
                   <td>
                     <select
                       value={paymentType}
-                      onChange={(e) => setPaymentType(e.target.value)}
-                    >
+                      onChange={(e) => setPaymentType(e.target.value)}>
                       <option value="">Select Payment Type</option>
                       <option value="Cash">Cash</option>
                       <option value="Card">Card</option>
@@ -804,7 +948,6 @@ const Billing = () => {
                 </tr>
               </tbody>
             </table>
-
           </div>
 
           <button className="btnbilling" onClick={handleSaveAndPrint}>

@@ -1,53 +1,34 @@
 import React, { useState, useEffect } from "react";
-// import "../Franchisedetails/FranchiseAdmintable.css";
 import axios from "axios";
 import { useParams } from "react-router-dom";
-// import Sidebar from "../../Masterdata/Sidebar/Sidebar";
-// import "./FranchiseAdmintable.css";
-// import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
-// import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
-// import KeyboardDoubleArrowLeftIcon from "@mui/icons-material/KeyboardDoubleArrowLeft";
-// import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArrowRight";
+import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
+import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
+import KeyboardDoubleArrowLeftIcon from "@mui/icons-material/KeyboardDoubleArrowLeft";
+import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArrowRight";
+import './ShowFranchiseUsers.css'
+import SuperSidebar from "../../Masterdata/Sidebar/Sidebar";
 const ShowFranchiseUsers = () => {
-  //   const [admins, setAdmins] = useState([]);
-  //   const [currentPage, setCurrentPage] = useState(1);
-  //   const [itemsPerPage] = useState(3);
-  const { franchisename } = useParams();
+  const { franchiseID } = useParams();
   const [franchiseAdmins, setFranchiseAdmins] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage] = useState(6);
 
   useEffect(() => {
     const fetchFranchiseAdmins = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:5001/api/franchisefetchAdmins/${franchisename}`
+          `http://localhost:5001/api/franchisefetchAdmins/${franchiseID}`
         );
-        setFranchiseAdmins(response.data);
+        const filteredAdmins = response.data.filter(
+          (admin) => admin.designation === "FranchiseAdmin"
+        );
+        setFranchiseAdmins(filteredAdmins);
       } catch (error) {
         console.error("Error fetching franchise admins:", error);
       }
     };
-
     fetchFranchiseAdmins();
-  }, [franchisename]);
-
-  //   useEffect(() => {
-  //     fetchAdmins();
-  //   }, [franchisename]);
-
-  //   const fetchAdmins = async () => {
-  //     try {
-  //       const response = await axios.get(
-  //         "http://localhost:5001/api/franchisefetchAdmin"
-  //       );
-  //       // Filter admins whose designation is "FranchiseAdmin"
-  //       const filteredAdmins = response.data.filter(
-  //         (admin) => admin.designation === "FranchiseAdmin"
-  //       );
-  //       setFranchiseAdmins(filteredAdmins);
-  //     } catch (error) {
-  //       console.error("Error fetching admins:", error);
-  //     }
-  //   };
+  }, [franchiseID]);
 
   const toggleActiveState = async (id, isActive) => {
     try {
@@ -61,76 +42,72 @@ const ShowFranchiseUsers = () => {
           admin._id === id ? { ...admin, isActive: !isActive } : admin
         )
       );
-      //   fetchAdmins();
     } catch (error) {
       console.error("Error updating active state:", error);
     }
   };
-  //   // Pagination handlers
-  //   const handlePageChange = (pageNumber) => {
-  //     setCurrentPage(pageNumber);
-  //   };
 
-  //   // Get current plans
-  //   const indexOfLastPlan = currentPage * itemsPerPage;
-  //   const indexOfFirstPlan = indexOfLastPlan - itemsPerPage;
-  //   const currentPlans = franchiseAdmins.slice(indexOfFirstPlan, indexOfLastPlan);
+  // Calculate indexes for pagination
+  const indexOfLastAdmin = currentPage * itemsPerPage;
+  const indexOfFirstAdmin = indexOfLastAdmin - itemsPerPage;
+  const currentAdmins = franchiseAdmins.slice(indexOfFirstAdmin, indexOfLastAdmin);
+  const totalPages = Math.ceil(franchiseAdmins.length / itemsPerPage);
 
-  //   // Calculate total pages
-  //   const totalPages = Math.ceil(franchiseAdmins.length / itemsPerPage);
+  // Handle page change
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
+
   return (
-    <div className="franchise-details">
-      {/* <div>
-        <Sidebar />
-      </div> */}
-      <div className="franchise-admin-rights">
-        <h1>Franchise Details</h1>
-        <table className="tabf">
+    <div className="francadmin-details">
+      <div>
+        <SuperSidebar />
+      </div>
+      <div className="franadmin-right">
+        <h1>
+
+          Franchise Admin Details </h1>
+        <table>
           <thead>
             <tr>
-              <th>fullname</th>
-              <th>userId</th>
-              <th>Franchise Name</th>
               <th>Franchise ID</th>
+              <th>Franchise Name</th>
+              <th>User ID</th>
+              <th>Fullname</th>
               <th>Designation</th>
               <th>Email</th>
-              <th>Password</th>
-              <th>Is Active</th>
-              <th>Action</th>
               <th>Modified By</th>
-              <th>Modified At</th>
-              <th>Created At</th>
               <th>Created By</th>
+              <th>Action</th>
+              <th>Is Active</th>
             </tr>
           </thead>
           <tbody>
-            {franchiseAdmins.map((admin) => (
+            {currentAdmins.map((admin) => (
               <tr key={admin._id}>
-                <td>{admin.fullname}</td>
-                <td>{admin.userId}</td>
+                <td>{admin.franchiseID}</td>
                 <td>{admin.franchisename}</td>
-                <td>{admin.FranchiseID}</td>
+                <td>{admin.userId}</td>
+                <td>{admin.fullname}</td>
                 <td>{admin.designation}</td>
                 <td>{admin.email}</td>
-                <td>{admin.password}</td>
+                <td>{admin.modifiedBy}</td>
+                <td>{admin.createdBy}</td>
                 <td>{admin.isActive ? "Active" : "Inactive"}</td>
                 <td>
                   <button
                     className="farnchiseadmin-activebtn"
-                    onClick={() => toggleActiveState(admin._id, admin.isActive)}
-                  >
+                    onClick={() =>
+                      toggleActiveState(admin._id, admin.isActive)
+                    }>
                     {admin.isActive ? "Deactivate" : "Activate"}
                   </button>
                 </td>
-                <td>{admin.modifiedBy}</td>
-                <td>{admin.modifiedAt}</td>
-                <td>{admin.createdAt}</td>
-                <td>{admin.createdBy}</td>
               </tr>
             ))}
           </tbody>
         </table>
-        {/* <div className="paginationss">
+        <div className="paginationss">
           <span onClick={() => handlePageChange(1)}>
             <KeyboardDoubleArrowLeftIcon />
           </span>
@@ -152,7 +129,7 @@ const ShowFranchiseUsers = () => {
           <span onClick={() => handlePageChange(totalPages)}>
             <KeyboardDoubleArrowRightIcon />
           </span>
-        </div> */}
+        </div>
       </div>
     </div>
   );

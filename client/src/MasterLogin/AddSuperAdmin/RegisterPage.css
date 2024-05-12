@@ -3,22 +3,22 @@
 }
 .super-regright {
   margin-top: 5vh;
-  margin-left: 0%;
+  margin-left: 3%;
 }
 .super-regright-1 {
-  margin-left: 25%;
+  margin-left: 30%;
 }
 .superflex-high {
   display: flex;
   flex-direction: row;
-  width: 500px;
-  padding: 20px;
+  width: 550px;
+  padding: 20px 60px 20px 60px;
   border-radius: 20px;
   position: relative;
   /* background-color: #1a1a1a; */
   color: #0000;
   border: 1px solid #0aa506;
-  gap: 50px;
+  gap: 120px;
 }
 .super-regright22 {
   display: flex;
@@ -29,7 +29,7 @@
 .super-flex {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 20px;
 }
 
 .super-flex label {
@@ -85,7 +85,7 @@
 }
 
 .submit_rp {
-  margin-left: 30%;
+  margin-left: 37%;
   margin-top: 2vh;
   border: none;
   outline: none;

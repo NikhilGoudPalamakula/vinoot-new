@@ -772,8 +772,6 @@ useEffect(() => {
               <tbody>
                 <tr>
                   <td>
-                   
-
                     <select
                       value={selectedDoctor}
                       onChange={handleDoctorChange}
@@ -785,9 +783,6 @@ useEffect(() => {
                         </option>
                       ))}
                     </select>
-                    
-                  
-
                     <select
                       value={selectedTherapist}
                       onChange={handleTherapistChange}

@@ -25,8 +25,8 @@ const stateSchema = new mongoose.Schema({
     default: "active",
   },
   modifiedBy: { type: String, required: true },
-  modifiedAt: { type: Date, default: Date.now },
-  createdAt: { type: Date, default: Date.now },
+  modifiedAt: { type: String, required: true  },
+  createdAt: { type: String, required: true  },
   createdBy: { type: String, required: true },
 });
 

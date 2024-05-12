@@ -16,6 +16,8 @@ const billinginstallmentSchema = new mongoose.Schema({
   paymentType: { type: String, required: true },
   amountPaid: { type: Number, required: true },
   status: { type: String, required: true },
+  currentDate: {type:String},
+  createdAt: { type: Date, default: Date.now },
 });
 
 const Installment = mongoose.model('Billinginstallment', billinginstallmentSchema);

@@ -144,6 +144,7 @@ const States = () => {
 
   // Get user ID from local storage
   const userId = localStorage.getItem("userId");
+  const presentTime = new Date().toLocaleString();
 
   useEffect(() => {
     fetchStates();
@@ -186,9 +187,9 @@ const States = () => {
         state_id: state_id,
         name: stateName,
         createdBy: userId, // Set createdBy field
-        createdAt: new Date(), // Set createdAt field
+        createdAt: presentTime, // Set createdAt field
         modifiedBy: userId, // Set modifiedBy field
-        modifiedAt: new Date(), // Set modifiedAt field
+        modifiedAt: presentTime, // Set modifiedAt field
       });
       if (response.status === 201) {
         console.log("State added successfully");
@@ -221,7 +222,7 @@ const States = () => {
       await axios.put(`${VINOOTNEW}/api/states/${stateId}/toggle`, {
         status: updatedStatus,
         modifiedBy: userId, // Set modifiedBy field
-        modifiedAt: new Date(), // Set modifiedAt field
+        modifiedAt: presentTime, // Set modifiedAt field
       });
       fetchStates(); // Refresh states after status update
     } catch (error) {

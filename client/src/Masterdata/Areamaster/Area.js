@@ -209,6 +209,7 @@ const Area = () => {
 
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(3);
+  const presentTime = new Date().toLocaleString();
 
   const navigate = useNavigate();
   // Get user ID from local storage
@@ -297,15 +298,15 @@ const Area = () => {
         city_id: selectedCity.city_id,
         area_id: area_id,
         createdBy: userId, // Set createdBy field
-        createdAt: new Date(), // Set createdAt field
+        createdAt: presentTime, // Set createdAt field
         modifiedBy: userId, // Set modifiedBy field
-        modifiedAt: new Date(), // Set modifiedAt field
+        modifiedAt: presentTime, // Set modifiedAt field
       });
 
       if (response.status === 201) {
         console.log("Area added successfully");
         alert("Area added successfully");
-        navigate("/");
+        // navigate("/");
       } else {
         console.error("Failed to add area");
       }
@@ -325,7 +326,7 @@ const Area = () => {
         {
           status: updatedStatus,
           modifiedBy: userId,
-          modifiedAt: new Date(),
+          modifiedAt: presentTime,
         }
       );
 

@@ -204,6 +204,7 @@ const Cities = () => {
   const [itemsPerPage] = useState(3);
   // Get user ID from local storage
   const userId = localStorage.getItem("userId");
+  const presentTime = new Date().toLocaleString();
 
   useEffect(() => {
     fetchCities();
@@ -294,9 +295,9 @@ const Cities = () => {
         cityName: cityName,
         city_id: city_id,
         createdBy: userId, // Set createdBy field
-        createdAt: new Date(), // Set createdAt field
+        createdAt: presentTime, // Set createdAt field
         modifiedBy: userId, // Set modifiedBy field
-        modifiedAt: new Date(), // Set modifiedAt field
+        modifiedAt: presentTime, // Set modifiedAt field
       });
       if (response.status === 201) {
         console.log("City added successfully");
@@ -330,7 +331,7 @@ const Cities = () => {
         {
           status: updatedStatus,
           modifiedBy: userId,
-          modifiedAt: new Date(),
+          modifiedAt: presentTime,
         }
       );
 

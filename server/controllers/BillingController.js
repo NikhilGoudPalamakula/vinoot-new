@@ -10,6 +10,7 @@ exports.createBilling = async (req, res) => {
     if (newBilling.status === "Unpaid") {
     // Create a new BillingInstallment document
     const newInstallment = new BillingInstallment({
+      currentDate: newBilling.currentDate,
       patient_id: newBilling.patient_id,
       remainingAmount: newBilling.remainingAmount,
       mobile_number: newBilling.mobile_number,
@@ -20,8 +21,8 @@ exports.createBilling = async (req, res) => {
       createdBy:newBilling.createdBy,
       paymentType:newBilling.paymentType,
       amountPaid:newBilling.amountPaid,
-      status:newBilling.status
-      
+      status:newBilling.status,
+      createdAt:newBilling.createdAt,
       // Add other relevant fields as needed
     });
     await newInstallment.save();

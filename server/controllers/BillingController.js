@@ -1,9 +1,32 @@
 const Billing = require('../models/BillingModel');
+const BillingInstallment = require("../models/BillingInstallmentsmodel")
 
 exports.createBilling = async (req, res) => {
   try {
     const newBilling = new Billing(req.body);
     await newBilling.save();
+
+    
+    if (newBilling.status === "Unpaid") {
+    // Create a new BillingInstallment document
+    const newInstallment = new BillingInstallment({
+      patient_id: newBilling.patient_id,
+      remainingAmount: newBilling.remainingAmount,
+      mobile_number: newBilling.mobile_number,
+      patient_name:newBilling.patient_name,
+      bill_number:newBilling.bill_number,
+      franchiseName:newBilling.franchiseName,
+      franchiseID:newBilling.franchiseID,
+      createdBy:newBilling.createdBy,
+      paymentType:newBilling.paymentType,
+      amountPaid:newBilling.amountPaid,
+      status:newBilling.status
+      
+      // Add other relevant fields as needed
+    });
+    await newInstallment.save();
+  }
+
     res.status(201).json({ message: 'Data saved successfully' });
   } catch (error) {
     console.error('Error saving data:', error);

@@ -188,7 +188,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./Area.css";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import { VINOOTNEW } from "../../Helper/Helper";
 import Sidebar from "../Sidebar/Sidebar";
 
@@ -211,7 +211,7 @@ const Area = () => {
   const [itemsPerPage] = useState(3);
   const presentTime = new Date().toLocaleString();
 
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   // Get user ID from local storage
   const userId = localStorage.getItem("userId");
 

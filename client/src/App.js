@@ -12,7 +12,6 @@ import Cities from "./Masterdata/Citymaster/City";
 import Area from "./Masterdata/Areamaster/Area";
 import FranchiseLogin from "./MasterLogin/FranchiseLogin";
 import FranchiseAdmintable from "./MasterLogin/Franchisedetails/FranchiseAdmintable";
-import Home from "./Home/Home";
 import TreatmentCategory from "./Masterdata/Categorymasterdata/Category";
 import TreatmentPlan from "./Masterdata/Treatmentplanmaster/Plan";
 import PatientForm from "./Franchisemanagement/Reception/Patientdetails/Addpatient";
@@ -32,7 +31,6 @@ import AdminTogglebutton from "./MasterLogin/FranchiseAdmin-s/AdminTogglebutton"
 import Togglepatients from "./Franchisemanagement/Reception/Patientdetails/FranchiseToggledetails/Togglepatients";
 import FranchiseLoginDetailsIcon from "./Franchisemanagement/Franchiseadmin/FranchiseLoginDetailsIcon";
 import FranchiseDetails from "./MasterLogin/Franchiseregistration/Franchisedetails";
-import Landingpage from "./Landing/Landingpage";
 import ShowFranchiseUsers from "./MasterLogin/Franchiseregistration/ShowFranchiseUsers";
 import ShowPatientDetails from "./Franchisemanagement/Reception/ShowPatientDetails/ShowPatientDetails";
 import Landingvinoot from "./Landingpage/Landing";
@@ -40,7 +38,6 @@ function App() {
   return (
     <Router>
       <Routes>
-  {/* <Landingvinoot/> */}
         <Route path="/login" element={<LoginForm />} />
         <Route path="/" element={<Landingvinoot />} />
         {/* <Route path="/login" element={<Home />} /> */}

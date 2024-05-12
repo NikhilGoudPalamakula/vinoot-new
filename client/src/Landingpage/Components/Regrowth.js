@@ -16,28 +16,28 @@ const Regrowthpage = () => {
             <div className='bottom-content1s'>
             <div className='part1s' data-aos='fade-up' data-aos-delay='50'>
             <div className='image-bg1s'>
-                <img src={Image1} alt="" className='img-icon1s'/>
+                <img src={Image1} className='img-icon1s'/>
             </div>
             <h2 className='heading-h2s'>Scalp cleaning</h2>
             <p className='para-about1s'>Scalp cleaning with pure herbal powder.</p>
             </div>
             <div className='part1s' data-aos='fade-up' data-aos-delay='50'>
             <div className='image-bg1s'>
-            <img src={Image2} alt="" className='img-icon1s'/>
+            <img src={Image2} className='img-icon1s'/>
             </div>
             <h2 className='heading-h2s'>Raising scalp temperature</h2>
             <p className='para-about1s'>Raising scalp temperature up to 1-2 degree centigrade.</p>
             </div>
             <div className='part1s'  data-aos='fade-up' data-aos-delay='50'>
             <div className='image-bg1s'>
-            <img src={Image3} alt="" className='img-icon1s'/>
+            <img src={Image3} className='img-icon1s'/>
             </div>
             <h2 className='heading-h2s'>Cleaning follicles</h2>
             <p className='para-about1s'>Cleaning follicles with seed paste by adsorption.</p>
             </div>
             <div className='part3s'  data-aos='fade-up' data-aos-delay='100'>
             <div className='image-bg2s'>
-            <img src={Image4} alt="" className='img-icon1s'/>
+            <img src={Image4}  className='img-icon1s'/>
             </div>
             <h2 className='heading-h2s'>Spraying Herbal Solution</h2>
             <p className='para-about1s'>Spraying Herbal Solution all over the scalp.</p>

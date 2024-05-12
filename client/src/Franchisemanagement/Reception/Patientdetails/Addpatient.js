@@ -186,19 +186,7 @@ const PatientForm = () => {
 
     // Validate input values
     switch (name) {
-      // case "patient_name":
-      //   if (value.length < 3 || value.length > 50) {
-      //     setErrors((prevErrors) => ({
-      //       ...prevErrors,
-      //       [name]: "Patient name should be between 3 and 50 characters",
-      //     }));
-      //   } else {
-      //     setErrors((prevErrors) => ({
-      //       ...prevErrors,
-      //       [name]: "",
-      //     }));
-      //   }
-      //   break;
+    
 
       case "patient_name":
         if (value.trim() === "") {
@@ -217,11 +205,11 @@ const PatientForm = () => {
             ...prevErrors,
             [name]: "Patient name should consists only 50 characters",
           }));
-        } else if (!/^[\w\d\s\S]*[a-zA-Z]+[\w\d\s\S]*$/.test(value)) {
+        } else if (!/^[\w\d\s\S]*[a-zA-Z]{3,}[\w\d\s\S]*$/.test(value))  {
           setErrors((prevErrors) => ({
             ...prevErrors,
             [name]:
-              "Patient name should contain at least one alphabetic character",
+              "Patient name should contain at least 3 alphabetic character",
           }));
         } else {
           setErrors((prevErrors) => ({
@@ -231,19 +219,6 @@ const PatientForm = () => {
         }
         break;
 
-      // case "mobile_number":
-      // if (!/^\d{10}$/.test(value)) {
-      //   setErrors((prevErrors) => ({
-      //     ...prevErrors,
-      //     [name]: "Mobile number must have 10 digits",
-      //   }));
-      // } else {
-      //   setErrors((prevErrors) => ({
-      //     ...prevErrors,
-      //     [name]: "",
-      //   }));
-      // }
-      // break;
       case "mobile_number":
         if (value === "") {
           // Clear the error message when the input field is empty
@@ -327,24 +302,29 @@ const PatientForm = () => {
         break;
 
       case "address":
-        if (value.trim() === "") {
-          // Clear the error message when the input field is empty
-          setErrors((prevErrors) => ({
-            ...prevErrors,
-            [name]: "",
-          }));
-        } else if (value.length < 10 || value.length > 250) {
-          setErrors((prevErrors) => ({
-            ...prevErrors,
-            [name]: "Address consists of (10-250 characters)",
-          }));
-        } else {
-          setErrors((prevErrors) => ({
-            ...prevErrors,
-            [name]: "",
-          }));
-        }
-        break;
+  if (value.trim() === "") {
+    setErrors((prevErrors) => ({
+      ...prevErrors,
+      [name]: "",
+    }));
+  } else if (value.length < 10 || value.length > 250) {
+    setErrors((prevErrors) => ({
+      ...prevErrors,
+      [name]: "Address must be between 10 and 250 characters",
+    }));
+  } else if (!/[a-zA-Z]{5,}/.test(value)) {
+    setErrors((prevErrors) => ({
+      ...prevErrors,
+      [name]: "Address must contain at least 5 alphabetic characters",
+    }));
+  } else {
+    setErrors((prevErrors) => ({
+      ...prevErrors,
+      [name]: "",
+    }));
+  }
+  break;
+
 
       default:
         break;

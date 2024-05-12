@@ -7,15 +7,14 @@ import "./Billing.css";
 const Billing = () => {
   // --------------patient details fetch---------------
 
-  const [phoneInput, setPhoneInput] = useState(""); // User input
-  const [selectedNumber, setSelectedNumber] = useState(null); // Selected plan object
-  const [suggestions1, setSuggestions1] = useState([]); // Autosuggest options
-  const [filteredSuggestions1, setFilteredSuggestions1] = useState([]); // Filtered suggestions based on input
+  const [phoneInput, setPhoneInput] = useState(""); 
+  const [selectedNumber, setSelectedNumber] = useState(null); 
+  const [suggestions1, setSuggestions1] = useState([]); 
+  const [filteredSuggestions1, setFilteredSuggestions1] = useState([]); 
   const [focusedInput1, setFocusedInput1] = useState(null);
-  const [isLoading1, setIsLoading1] = useState(false); // Loading indicator
-  const [patientError, setPatientError] = useState(""); // Error message for unregistered mobile number
+  const [isLoading1, setIsLoading1] = useState(false); 
+  const [patientError, setPatientError] = useState(""); 
 
-  // Fetch suggestions when the component mounts
   const [patients, setPatients] = useState([]);
   useEffect(() => {
     const fetchNumbers = async () => {
@@ -44,11 +43,10 @@ const Billing = () => {
     fetchNumbers();
   }, []);
 
-  // Filter suggestions based on input value// Filter suggestions based on input value
 useEffect(() => {
   const filterSuggestions = () => {
     if (typeof phoneInput !== "string" || phoneInput.trim() === "") {
-      setFilteredSuggestions1([]); // Clear suggestions if input is empty or not a string
+      setFilteredSuggestions1([]); 
       setSelectedNumber(null); // Reset selected number
       setPatientError(""); // Clear patient error
     } else {
@@ -57,8 +55,6 @@ useEffect(() => {
       );
 
       setFilteredSuggestions1(filtered);
-
-      // Clear patient details if the input doesn't match any suggestions
       if (
         phoneInput.trim() !== "" &&
         filtered.length === 0
@@ -79,11 +75,7 @@ useEffect(() => {
   const handlePlanChange1 = (e) => {
     const newPhoneInput = e.target.value;
     const previousPhoneInput = phoneInput;
-
-    // Update the phoneInput state with the new value
     setPhoneInput(newPhoneInput);
-
-    // Clear patient details if the new input value is shorter than the previous value
     if (newPhoneInput.length < previousPhoneInput.length) {
       setAdditionalField(false);
       setSelectedNumber(null);
@@ -103,15 +95,13 @@ useEffect(() => {
       mobileNumberMap[patient.mobile_number] = [patient];
     }
   });
-  // Step 2: Create a state to manage additional patient name selection
   const [additionalField, setAdditionalField] = useState(false);
   const [patientSuggestions, setPatientSuggestions] = useState([]);
   const [patientName, setPatientName] = useState("");
 
   const handlePlanSelection1 = (mobileNumber) => {
-    // Step 2: Check if this mobile number has multiple associated patients
-    const associatedPatients = mobileNumberMap[mobileNumber] || [];
 
+    const associatedPatients = mobileNumberMap[mobileNumber] || [];
     if (associatedPatients.length > 1) {
       const selectedPatient = associatedPatients[0];
       // Multiple patients with this mobile number
@@ -157,9 +147,6 @@ useEffect(() => {
   // Function to handle doctor selection
   const handleDoctorChange = (e) => {
     const selectedDoctorId = e.target.value; // Get the selected doctor's ID
-    // const selectedDoctor = doctors.find(doctor => doctor._id === selectedDoctorId); // Find the doctor object based on the ID
-    // setSelectedDoctor(selectedDoctorId);
-
     setSelectedDoctor(selectedDoctorId);
     // Disable therapist selection
     setSelectedTherapist("");
@@ -196,9 +183,6 @@ useEffect(() => {
   // Function to handle doctor selection
   const handleTherapistChange = (e) => {
     const selectedTherapistId = e.target.value; // Get the selected doctor's ID
-    // const selectedTherapist = therapists.find(therapist => therapist._id === selectedTherspistId); // Find the doctor object based on the ID
-    // setSelectedTherapist(selectedTherapistId);
-
     setSelectedTherapist(selectedTherapistId);
     // Disable doctor selection
     setSelectedDoctor("");
@@ -297,13 +281,10 @@ useEffect(() => {
       suggestionBoxRef.current &&
       !suggestionBoxRef.current.contains(event.target)
     ) {
-      // Clicked outside the suggestion box
       setFocusedInput1(null); // Reset focus for other input fields
-      // setFocusedInput2(null); // Reset focus for the additional field
+      
     }
   };
-
-  // Add event listener for clicks outside the suggestion box
   useEffect(() => {
     document.addEventListener("click", handleClickOutside);
     return () => {
@@ -377,8 +358,6 @@ useEffect(() => {
         ? parseFloat(selectedPlan.TotalAmount) - parseFloat(amountPaid)
         : 0; // Calculate remaining
       const currentDate = new Date().toISOString().split("T")[0];
-
-      // Determine payment status
       const paymentStatus = amountPaid >= price ? "Paid" : "Unpaid";
 
       // Send the data to the backend API endpoint for saving
@@ -444,10 +423,8 @@ useEffect(() => {
 
   // --------------------
 
-  // State for the current date
   const [currentDate, setCurrentDate] = useState("");
 
-  // Function to fetch the current date
   useEffect(() => {
     const fetchCurrentDate = () => {
       const date = new Date();
@@ -608,7 +585,6 @@ useEffect(() => {
                 name="bill_number"
                 value={billingNumber}
                 readOnly
-                // placeholder="Bill Number"
               />
             </label>
 
@@ -633,16 +609,16 @@ useEffect(() => {
               )}
               {focusedInput1 === "number" &&
                 filteredSuggestions1.length > 0 && (
-                  <div
+                  <div 
                     ref={suggestionBoxRef}
-                    className="suggestions-fetch-mbl"
+                    className="suggestions-fetch-mblsss"
                     style={{
                       position: "absolute",
                       backgroundColor: "white",
                       border: "1px solid #ccc",
-                      width: "15%",
+                      width: "20%",
                       marginTop: "55px",
-                      height: "13vh",
+                      height: "15vh",
                       overflowY: "auto",
                     }}>
                     {filteredSuggestions1.map((suggestion) => (
@@ -750,23 +726,17 @@ useEffect(() => {
 
         <div className="billig-below">
           {/* ----------------------doctor selection ------------------ */}
-          {/* <h1>Select Doctor:</h1> */}
-
-          <div>
+          <div  className="billing-below-11">
             <table className="plan-table">
               <thead>
                 <tr>
                   <th>
-                    Select Doctor <span style={{ color: "red" }}>*</span>
+                    Select Doctor / Therapist <span style={{ color: "red" }}>*</span>
                   </th>
                   <th>
                     Plan Name <span style={{ color: "red" }}>*</span>
                   </th>
-                  <th>GST</th>
-                  <th>GST Amount</th>
-                  <th>Days</th>
-                  <th>Price</th>
-                  <th>Total Amount</th>
+                  
                 </tr>
               </thead>
               <tbody>
@@ -815,9 +785,10 @@ useEffect(() => {
                             position: "absolute",
                             backgroundColor: "white",
                             border: "1px solid #ccc",
-                            width: "25%",
-                            height: "13vh",
+                            width: "25.6%",
+                            height: "15vh",
                             overflowY: "auto",
+                            marginLeft:"45px",
                           }}>
                           {filteredSuggestions.map((suggestion) => (
                             <p
@@ -834,7 +805,23 @@ useEffect(() => {
                         </div>
                       )}
                   </td>
-                  <td>
+                  
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div className="billin-below-1">
+            <table className="billing-last-table">
+              <thead>
+              <th>GST</th>
+                  <th>GST Amount</th>
+                  <th>Days</th>
+                  <th>Price</th>
+                  <th>Total Amount</th>
+              </thead>
+              <tbody>
+              <td>
                     <input
                       type="text"
                       value={selectedPlan ? selectedPlan.GST : ""}
@@ -869,7 +856,6 @@ useEffect(() => {
                       disabled
                     />
                   </td>
-                </tr>
               </tbody>
             </table>
           </div>

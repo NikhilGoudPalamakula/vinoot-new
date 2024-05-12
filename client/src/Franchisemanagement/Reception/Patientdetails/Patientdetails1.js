@@ -11,7 +11,7 @@ const Patientdetails1 = () => {
   const [patients, setPatients] = useState([]);
 
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage] = useState(3);
+  const [itemsPerPage] = useState(6);
 
   useEffect(() => {
     fetchPatients();

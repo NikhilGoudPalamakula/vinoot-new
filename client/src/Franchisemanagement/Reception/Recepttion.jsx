@@ -168,6 +168,7 @@ const Reception = () => {
               <th>Patient Name</th>
               <th>Patient MobileNumber</th>
               <th>Doctor</th>
+              <th>Therapist</th>
               <th>Plan Type</th>
               <th>Days</th>
               <th>Price</th>
@@ -185,6 +186,7 @@ const Reception = () => {
                 <td>{billing.patient_name}</td>
                 <td>{billing.mobile_number}</td>
                 <td>{billing.doctor}</td>
+                <td>{billing.therapist}</td>
                 <td>{billing.plan_name}</td>
                 <td>{billing.days}</td>
                 <td>{billing.TotalAmount}</td>

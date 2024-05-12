@@ -246,6 +246,7 @@ const PatientForm = () => {
         }
         break;
       case "dob":
+        const dobDateOnly = value.split("T")[0];
         if (value.trim() === "") {
           // Clear the error message when the input field is empty
           setErrors((prevErrors) => ({
@@ -442,28 +443,7 @@ const PatientForm = () => {
                   />
                 </div>
 
-                {/* <div className="input-wrapper">
-                <label htmlFor="franchise_name">Franchise Name:</label>
-                <input
-                  id="franchise_name"
-                  type="text"
-                  name="franchise_name"
-                  value={formData.franchise_name}
-                  onChange={handleInputChange}
-                  required
-                />
-              </div>
-              <div className="input-wrapper">
-                <label htmlFor="franchise_id">Franchise ID:</label>
-                <input
-                  id="franchise_id"
-                  type="text"
-                  name="franchise_id"
-                  value={formData.franchise_id}
-                  onChange={handleInputChange}
-                  required
-                />
-              </div> */}
+                
                 <div className="input-wrapper">
                   <label htmlFor="patient_name">
                     Patient Name:<span className="mandatory">*</span>

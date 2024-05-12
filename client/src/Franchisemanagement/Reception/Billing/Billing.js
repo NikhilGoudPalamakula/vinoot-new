@@ -150,7 +150,7 @@ const Billing = () => {
 
   // -------------------Doctor details fetch ---------------
   const [doctors, setDoctors] = useState([]);
-  const [paymentType, setPaymentType] = useState(""); // State for payment type
+  const [paymentType, setPaymentType] = useState("Cash"); // State for payment type
   const [amountPaid, setAmountPaid] = useState(0); // State for amount paid
 
   const [selectedDoctor, setSelectedDoctor] = useState(""); // State for selected doctor
@@ -406,20 +406,6 @@ const Billing = () => {
         address: selectedNumber ? selectedNumber.address : "",
         currentDate: currentDate,
       });
-
-      if (paymentStatus === "Unpaid") {
-        await axios.post("http://localhost:5001/api/installments", {
-          // patient_id: selectedNumber ? selectedNumber.patient_id : "",
-          mobile_number: selectedNumber ? selectedNumber.mobile_number : "",
-          patient_id: selectedNumber ? selectedNumber.patient_id : "",
-          patient_name: selectedNumber ? selectedNumber.patient_name : "",
-          remainingAmount: remaining,
-          bill_number: newBillNumber,
-          franchiseName: franchiseName,
-          franchiseID: franchiseID,
-          currentDate: currentDate,
-        });
-      }
 
       // Reset form fields after successful save
       setPlanName("");

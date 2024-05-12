@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
-
+import './ShowPatientDetails.css';
+import ReceptionSidebar from "../ReceptionSidebar/ReceptionSidebar";
 const ShowPatientDetails = () => {
   // const [patientDetails, setPatientDetails] = useState(null);
   // const { patientId } = useParams();
@@ -25,16 +26,16 @@ const ShowPatientDetails = () => {
   //   return <div>Loading...</div>;
   // }
 
-// ---------------
+  // ---------------
 
 
 
-const [patientDetails, setPatientDetails] = useState(null);
+  const [patientDetails, setPatientDetails] = useState(null);
   const [patientInstallments, setPatientInstallments] = useState(null);
   const [subtractedAmount, setSubtractedAmount] = useState(0);
   const [updatedRemainingAmount, setUpdatedRemainingAmount] = useState(null);
   const [paymentStatus, setPaymentStatus] = useState("Unpaid");
-  const [paymentType, setPaymentType] = useState("Cash"); 
+  const [paymentType, setPaymentType] = useState("Cash");
   const { patientId } = useParams();
 
   useEffect(() => {
@@ -85,7 +86,7 @@ const [patientDetails, setPatientDetails] = useState(null);
       // Round up to the nearest amount if the difference is 0.99
       const roundedAmount = Math.round(newRemainingAmount * 100) / 100;
       setUpdatedRemainingAmount(roundedAmount.toFixed(2));
-  
+
       // Check if the remaining amount is zero or less to update payment status
       if (newRemainingAmount <= 0) {
         setPaymentStatus("Paid");
@@ -94,9 +95,9 @@ const [patientDetails, setPatientDetails] = useState(null);
       }
     }
   }, [subtractedAmount, patientInstallments]);
-  
-  
-  
+
+
+
 
   const handleAmountChange = (e) => {
     setSubtractedAmount(Number(e.target.value)); // Convert input value to a number
@@ -123,9 +124,8 @@ const [patientDetails, setPatientDetails] = useState(null);
         bill_number: patientDetails.bill_number,
         paymentType: paymentType,
         amountPaid: subtractedAmount,
-        status:paymentStatus
-        
-        // Add other fields as needed
+        status: paymentStatus,
+
       };
 
       const response = await axios.post(
@@ -134,14 +134,14 @@ const [patientDetails, setPatientDetails] = useState(null);
       );
 
       console.log("New installment created:", response.data);
-    alert("New installment paid successfully!");
+      alert("New installment paid successfully!");
 
       // await axios.post(`http://localhost:5001/api/installment/update`, updatedInstallment);
       // alert("Remaining amount updated successfully!");
       // You can also fetch the updated installments again here to reflect the changes
     } catch (error) {
       console.error("Error to pay new installment:", error);
-    alert("Error to pay new installment. Please try again.");
+      alert("Error to pay new installment. Please try again.");
     }
   };
 
@@ -150,162 +150,138 @@ const [patientDetails, setPatientDetails] = useState(null);
   }
   return (
     <div>
-    <div>
-      <h1>Patient Details</h1>
-      {/* <p>Name: {patientDetails.patient_name}</p>
-      <p>patientId: {patientDetails.patient_id}</p>
-      <p>mobile Number: {patientDetails.mobile_number}</p>
-      <p>Bill Number: {patientDetails.bill_number}</p>
-      <p>Plan Name: {patientDetails.plan_name}</p>
-      <p>Payment Type: {patientDetails.paymentType}</p>
-      <p>Treatment in Days: {patientDetails.days}</p>
-      <p>Amount Paid: {patientDetails.amountPaid}</p>
-      <p>Payment Status: {patientDetails.status}</p>
-      <p>Gst (%): {patientDetails.GST}</p>
-      <p>Price: {patientDetails.price}</p>
-      <p>GST Amount: {patientDetails.GSTamount}</p>
-      <p>RemainingAmount: {patientDetails.remainingAmount}</p> */}
-      <table>
-      <tbody>
-        <tr>
-          <td>Name:</td>
-          <td>{patientDetails.patient_name}</td>
-        </tr>
-        <tr>
-          <td>Patient ID:</td>
-          <td>{patientDetails.patient_id}</td>
-        </tr>
-        <tr>
-          <td>Mobile Number:</td>
-          <td>{patientDetails.mobile_number}</td>
-        </tr>
-        <tr>
-          <td>Bill Number:</td>
-          <td>{patientDetails.bill_number}</td>
-        </tr>
-        <tr>
-          <td>Plan Name:</td>
-          <td>{patientDetails.plan_name}</td>
-        </tr>
-        <tr>
-          <td>Payment Type:</td>
-          <td>{patientDetails.paymentType}</td>
-        </tr>
-        <tr>
-          <td>Treatment in Days:</td>
-          <td>{patientDetails.days}</td>
-        </tr>
-        <tr>
-          <td>Amount Paid:</td>
-          <td>{patientDetails.amountPaid}</td>
-        </tr>
-        <tr>
-          <td>Payment Status:</td>
-          <td>{patientDetails.status}</td>
-        </tr>
-        <tr>
-          <td>Gst (%):</td>
-          <td>{patientDetails.GST}</td>
-        </tr>
-        <tr>
-          <td>Price:</td>
-          <td>{patientDetails.price}</td>
-        </tr>
-        <tr>
-          <td>GST Amount:</td>
-          <td>{patientDetails.GSTamount}</td>
-        </tr>
-        <tr>
-          <td>Remaining Amount:</td>
-          <td>{patientDetails.remainingAmount}</td>
-        </tr>
-      </tbody>
-    </table>
-    </div>
+      <div className="showpat-total">
+        <div>
 
-    <div>
+          <ReceptionSidebar />
+        </div>
+        <div className="showpat-right">
+          <div  className="sowpat-above-t1">
+            <h1>Patient Billing Details</h1>
 
-      <p>from installments collection</p>
-      <h1>Patient Installments</h1>
-        {/* {patientInstallments.map((installment, index) => (
-          <div key={index}>
-            <p>Patient ID: {installment.patient_id}</p>
-            <p>Payment Type: {installment.paymentType}</p>
-            <p>AMount Paid: {installment.amountPaid}</p>
-            <p>Payment status: {installment.status}</p>
-            <p>Remaining Amount: {installment.remainingAmount}</p>
-            <p>Mobile Number: {installment.mobile_number}</p>
-            <p>Patient Name: {installment.patient_name}</p>
-            <p>Bill Number: {installment.bill_number}</p>
-            <p>Current date: {installment.currentDate}</p>
+            <table>
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Name</th>
+                  <th>Patient ID</th>
+                  <th>Mobile Number</th>
+                  <th>Bill Number</th>
+                  <th>Plan Name</th>
+                  <th>Treatment in Days</th>
+                  <th>Price</th>
+                  <th>Gst (%)</th>
+                  <th>GST Amount</th>
+                  <th>Amount Paid</th>
+                  <th>Remaining Amount</th>
+                  <th>Payment Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>{patientDetails.currentDate}</td>
+                  <td>{patientDetails.patient_name}</td>
+                  <td>{patientDetails.patient_id}</td>
+                  <td>{patientDetails.mobile_number}</td>
+                  <td>{patientDetails.bill_number}</td>
+                  <td>{patientDetails.plan_name}</td>
+                  <td>{patientDetails.days}</td>
+                  <td>{patientDetails.price}</td>
+                  <td>{patientDetails.GST}</td>
+                  <td>{patientDetails.GSTamount}</td>
+                  <td>{patientDetails.amountPaid}</td>
+                  <td>{patientDetails.remainingAmount}</td>
+                  <td>{patientDetails.status}</td>
+                </tr>
+              </tbody>
+            </table>
           </div>
-        ))} */}
-        <table>
-      <thead>
-        <tr>
-          <th>Patient ID</th>
-          <th>Payment Type</th>
-          <th>Amount Paid</th>
-          <th>Payment Status</th>
-          <th>Remaining Amount</th>
-          <th>Mobile Number</th>
-          <th>Patient Name</th>
-          <th>Bill Number</th>
-          <th>Current Date</th>
-        </tr>
-      </thead>
-      <tbody>
-        {patientInstallments.map((installment, index) => (
-          <tr key={index}>
-            <td>{installment.patient_id}</td>
-            <td>{installment.paymentType}</td>
-            <td>{installment.amountPaid}</td>
-            <td>{installment.status}</td>
-            <td>{installment.remainingAmount}</td>
-            <td>{installment.mobile_number}</td>
-            <td>{installment.patient_name}</td>
-            <td>{installment.bill_number}</td>
-            <td>{installment.currentDate}</td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
-      <form onSubmit={handleSubmit}>
-          <label>
-            <span>Enter Amount to Subtract:</span>
-            <input
-              type="number"
-              name="amountPaid"
-              step="any"
-              onChange={handleAmountChange}
-              required
-            />
-          </label>
-          <input
-            type="text"
-            name="remainingAmount"
-            value={updatedRemainingAmount}
-            readOnly
-          />
-          <input
-            type="text"
-            value={paymentStatus}
-            readOnly
-          />
-          <label>
-          Payment Type:
-          <select value={paymentType} onChange={handlePaymentTypeChange}>
-            <option value="">Select Payment Type</option>
-            <option value="Cash">Cash</option>
-            <option value="Credit Card">Credit Card</option>
-            {/* Add more options as needed */}
-          </select>
-        </label>
-          
-          <button type="submit">Submit</button>
-        </form>
-       
-    </div>
+          <div className="sowpat-above-t2">
+            <h1>Patient Bill Installments</h1>
+            <table>
+              <thead>
+                <tr>
+                <th>Paid Date</th>
+                  <th>Patient ID</th>
+                  <th>Patient Name</th>
+                  <th>Mobile Number</th>
+                  <th>Bill Number</th>
+                  <th>Payment Type</th>
+                  <th>Last Amount Paid</th>
+                  <th>Remaining Amount</th>
+                  <th>Payment Status</th>
+                  
+                </tr>
+              </thead>
+              <tbody>
+                {patientInstallments.map((installment, index) => (
+                  <tr key={index}>
+                    <td>{installment.currentDate}</td>
+                    <td>{installment.patient_id}</td>
+                    <td>{installment.patient_name}</td>
+                    <td>{installment.mobile_number}</td>
+                    <td>{installment.bill_number}</td>
+                    <td>{installment.paymentType}</td>
+                    <td>{installment.amountPaid}</td>
+                    <td>{installment.remainingAmount}</td>
+                    <td>{installment.status}</td>
+                    
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+        
+            <form className="shwopat-belowdet" onSubmit={handleSubmit}>
+              <table>
+                <thead>
+                  <th>Payment Type</th>
+                  <th> Installment amount to pay</th>
+                  <th>Remaining Amount</th>
+                  <th>Payment Status</th>
+                </thead>
+                <tbody>
+                  <td>
+                    <select value={paymentType} onChange={handlePaymentTypeChange}>
+                      <option value="">Select Payment Type</option>
+                      <option value="Cash">Cash</option>
+                      <option value="Credit Card">Credit Card</option>
+
+                    </select>
+                  </td>
+                  <td>
+                    <input
+                      type="number"
+                      name="amountPaid"
+                      step="any"
+                      onChange={handleAmountChange}
+                      required
+                    />
+                  </td>
+                  <td>
+                    <input
+                      type="text"
+                      name="remainingAmount"
+                      value={updatedRemainingAmount}
+                      readOnly
+                    />
+                  </td>
+
+
+                  <td>
+                    <input
+                      type="text"
+                      name="paymentStatus"
+                      value={paymentStatus}
+                      readOnly
+                    />
+                  </td>
+                </tbody>
+              </table>
+              <button type="submit">Submit</button>
+            </form>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

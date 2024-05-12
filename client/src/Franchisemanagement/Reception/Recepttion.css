@@ -1,91 +1,113 @@
-
-.recp-total{
+.recp-total {
     display: flex;
 }
-.recp-dash-table{
+
+.recp-dash-table {
     /* margin-top: 2vh; */
     margin-left: 18.5%;
 
     .recep-dash-fi {
         display: flex;
         align-items: center;
-        button{
+
+        button {
             /* height: 5vh; */
-            margin-left:55% ;
+            margin-left: 55%;
             background-color: transparent;
             border: 1px solid gray;
             border-radius: 3px;
         }
-        .xlsiocn2{
+
+        .xlsiocn2 {
             color: #0aa506;
             font-size: 30px;
         }
     }
 
-    table{
+    table {
         margin-top: 2vh;
         border-collapse: collapse;
         text-align: center;
     }
-    th{
+
+    th {
         text-align: center;
         padding: 8px;
         font-size: 0.8rem;
         color: white;
         background-color: #0AA506;
-      }
-       td{
+    }
+
+    td {
         text-align: center;
         padding: 6px;
         font-size: 0.8rem;
     }
+
+    button {
+        font-weight: 500;
+        border: none;
+        outline: none;
+        padding: 5px 20px 5px 20px;
+        border-radius: 7px;
+        color: #fff;
+        font-size: 0.8rem;
+        background-color: #0AA506;
+    }
 }
 
-.recep-dash-filter{
-    label{
+.recep-dash-filter {
+    label {
         display: flex;
         flex-direction: column;
     }
 }
-.recep-dash-filter-1{
+
+.recep-dash-filter-1 {
     display: flex;
     gap: 30px;
     text-align: left;
-    label{
+
+    label {
         display: flex;
         flex-direction: column;
     }
-    input{
+
+    input {
         width: 12.5vw;
         border: 1px solid gray;
         height: 5vh;
         border-radius: 5px;
     }
-    input:focus{
-        border-color: #0aa506; 
+
+    input:focus {
+        border-color: #0aa506;
         outline: none;
         border-width: 1.5px;
     }
 }
-.recep-dash-filter-11{
+
+.recep-dash-filter-11 {
 
     display: flex;
     gap: 30px;
     text-align: left;
 
-    label{
+    label {
         margin-top: 3vh;
         display: flex;
         flex-direction: column;
     }
-    input{
+
+    input {
         width: 12.3vw;
         border: 1px solid gray;
         height: 5vh;
         border-radius: 5px;
     }
-    input:focus{
-        border-color: #0aa506; 
+
+    input:focus {
+        border-color: #0aa506;
         outline: none;
         border-width: 1.5px;
     }

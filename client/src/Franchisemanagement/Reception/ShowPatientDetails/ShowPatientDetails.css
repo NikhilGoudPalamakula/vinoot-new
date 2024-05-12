@@ -1,0 +1,116 @@
+.showpat-total {
+    display: flex;
+}
+
+.showpat-right {
+    margin-left: 19%;
+}
+
+
+.sowpat-above-t1 {
+    table {
+        border-collapse: collapse;
+        text-align: center;
+    }
+
+    th {
+        font-size: 0.8rem;
+        padding: 8px;
+        color: white;
+        background-color: #0aa506;
+    }
+
+    td {
+        font-size: 0.8rem;
+        padding: 8px;
+    }
+}
+
+.sowpat-above-t2 {
+    margin-top: 5vh;
+    border-radius: 10px;
+    border: 1.5px solid #0AA506;
+    padding: 10px 10px;
+    margin-bottom: 2vh;
+
+    table {
+        border-collapse: collapse;
+        text-align: center;
+    }
+
+    th {
+        font-size: 0.8rem;
+        padding: 8px;
+        color: white;
+        background-color: #0aa506;
+    }
+
+    td {
+        font-size: 0.8rem;
+        padding: 8px;
+    }
+}
+
+
+
+
+.shwopat-belowdet {
+    margin-top: 4vh;
+
+    table {
+        border-collapse: collapse;
+        text-align: center;
+        margin-left: 10%;
+    }
+
+    th {
+        font-size: 0.9rem;
+        padding: 8px;
+        color: white;
+        background-color: #0aa506;
+    }
+
+    td {
+        font-size: 0.9rem;
+        padding: 8px;
+    }
+
+    input {
+        width: 12vw;
+        border: 1px solid gray;
+        height: 5.5vh;
+        border-radius: 5px;
+    }
+
+    input:focus {
+        border-color: #0aa506;
+        outline: none;
+        border-width: 1.5px;
+    }
+
+    select {
+        width: 14vw;
+        height: 6vh;
+        border-radius: 5px;
+        border: 1px solid gray;
+    }
+
+    select:focus {
+        border-color: #0aa506;
+        outline: none;
+        border-width: 1.5px;
+    }
+
+    button {
+        margin-left: 10%;
+        font-weight: bold;
+        margin-top: 4vh;
+        border: none;
+        outline: none;
+        padding: 10px 25px 10px 25px;
+        border-radius: 7px;
+        color: #fff;
+        font-size: 0.8rem;
+        background-color: #0AA506;
+    }
+}

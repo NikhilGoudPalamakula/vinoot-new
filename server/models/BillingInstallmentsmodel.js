@@ -12,6 +12,10 @@ const billinginstallmentSchema = new mongoose.Schema({
   franchiseName: String,
   franchiseID: String,
   createdBy: String,
+
+  paymentType: { type: String, required: true },
+  amountPaid: { type: Number, required: true },
+  status: { type: String, required: true },
 });
 
 const Installment = mongoose.model('Billinginstallment', billinginstallmentSchema);

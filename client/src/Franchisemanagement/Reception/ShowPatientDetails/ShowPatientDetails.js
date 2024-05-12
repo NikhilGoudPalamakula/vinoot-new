@@ -34,6 +34,7 @@ const [patientDetails, setPatientDetails] = useState(null);
   const [subtractedAmount, setSubtractedAmount] = useState(0);
   const [updatedRemainingAmount, setUpdatedRemainingAmount] = useState(null);
   const [paymentStatus, setPaymentStatus] = useState("Unpaid");
+  const [paymentType, setPaymentType] = useState("Cash"); 
   const { patientId } = useParams();
 
   useEffect(() => {
@@ -43,7 +44,7 @@ const [patientDetails, setPatientDetails] = useState(null);
           `http://localhost:5001/api/billings/${patientId}`
         );
         setPatientDetails(response.data);
-        setUpdatedRemainingAmount(response.data?.remainingAmount.toFixed(2)); // Initialize with remaining amount
+        // setUpdatedRemainingAmount(response.data?.remainingAmount.toFixed(2)); // Initialize with remaining amount
       } catch (error) {
         console.error("Error fetching patient details:", error);
       }
@@ -59,6 +60,13 @@ const [patientDetails, setPatientDetails] = useState(null);
           `http://localhost:5001/api/installment/${patientId}`
         );
         setPatientInstallments(response.data);
+        // console.log(response.data)
+        if (response.data.length > 0) {
+          // Get the last installment
+          const lastInstallment = response.data[response.data.length - 1];
+          // Set updatedRemainingAmount with the remaining amount from the last installment
+          setUpdatedRemainingAmount(lastInstallment.remainingAmount.toFixed(2));
+        }
       } catch (error) {
         console.error("Error fetching patient installments:", error);
       }
@@ -68,22 +76,35 @@ const [patientDetails, setPatientDetails] = useState(null);
   }, [patientId]);
 
   useEffect(() => {
-    // Calculate updated remaining amount whenever subtractedAmount changes
-    const newRemainingAmount = patientDetails?.remainingAmount - subtractedAmount;
-    // Round up to the nearest amount if the difference is 0.99
-    const roundedAmount = Math.round(newRemainingAmount * 100) / 100;
-    setUpdatedRemainingAmount(roundedAmount.toFixed(2));
-
-    // Check if the remaining amount is zero or less to update payment status
-    if (newRemainingAmount <= 0) {
-      setPaymentStatus("Paid");
-    } else {
-      setPaymentStatus("Unpaid");
+    // Check if patientInstallments is not null and not empty
+    if (patientInstallments && patientInstallments.length > 0) {
+      // Get the last installment
+      const lastInstallment = patientInstallments[patientInstallments.length - 1];
+      // Calculate updated remaining amount whenever subtractedAmount changes
+      const newRemainingAmount = lastInstallment.remainingAmount - subtractedAmount;
+      // Round up to the nearest amount if the difference is 0.99
+      const roundedAmount = Math.round(newRemainingAmount * 100) / 100;
+      setUpdatedRemainingAmount(roundedAmount.toFixed(2));
+  
+      // Check if the remaining amount is zero or less to update payment status
+      if (newRemainingAmount <= 0) {
+        setPaymentStatus("Paid");
+      } else {
+        setPaymentStatus("Unpaid");
+      }
     }
-  }, [subtractedAmount, patientDetails?.remainingAmount]);
+  }, [subtractedAmount, patientInstallments]);
+  
+  
+  
 
   const handleAmountChange = (e) => {
     setSubtractedAmount(Number(e.target.value)); // Convert input value to a number
+  };
+
+
+  const handlePaymentTypeChange = (e) => {
+    setPaymentType(e.target.value);
   };
 
   const handleSubmit = async (e) => {
@@ -100,6 +121,10 @@ const [patientDetails, setPatientDetails] = useState(null);
         mobile_number: patientDetails.mobile_number,
         patient_name: patientDetails.patient_name,
         bill_number: patientDetails.bill_number,
+        paymentType: paymentType,
+        amountPaid: subtractedAmount,
+        status:paymentStatus
+        
         // Add other fields as needed
       };
 
@@ -165,6 +190,7 @@ const [patientDetails, setPatientDetails] = useState(null);
             <input
               type="number"
               name="amountPaid"
+              step="any"
               onChange={handleAmountChange}
               required
             />
@@ -180,6 +206,16 @@ const [patientDetails, setPatientDetails] = useState(null);
             value={paymentStatus}
             readOnly
           />
+          <label>
+          Payment Type:
+          <select value={paymentType} onChange={handlePaymentTypeChange}>
+            <option value="">Select Payment Type</option>
+            <option value="Cash">Cash</option>
+            <option value="Credit Card">Credit Card</option>
+            {/* Add more options as needed */}
+          </select>
+        </label>
+          
           <button type="submit">Submit</button>
         </form>
        

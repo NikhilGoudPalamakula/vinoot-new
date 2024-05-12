@@ -1,12 +1,5 @@
 import React, { useState } from "react";
 // import './Sidebar.css';
-import { MdDashboard } from "react-icons/md";
-import { FaBoxArchive } from "react-icons/fa6";
-import { FaStoreAlt } from "react-icons/fa";
-import { IoIosPeople } from "react-icons/io";
-import { FaBell } from "react-icons/fa";
-import { IoPerson } from "react-icons/io5";
-import { FaQuestionCircle } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { MdLogout } from "react-icons/md";

@@ -44,38 +44,37 @@ const Billing = () => {
     fetchNumbers();
   }, []);
 
-  // Filter suggestions based on input value
-  useEffect(() => {
-    const filterSuggestions = () => {
-      if (typeof phoneInput !== "string" || phoneInput.trim() === "") {
-        setFilteredSuggestions1(suggestions1); // Show all suggestions if input is empty or not a string
-        setSelectedNumber(null); // Reset selected number
-        setPatientError(""); // Clear patient error
-      } else {
-        const filtered = patients.filter((patient) =>
-          patient.mobile_number.includes(phoneInput)
+  // Filter suggestions based on input value// Filter suggestions based on input value
+useEffect(() => {
+  const filterSuggestions = () => {
+    if (typeof phoneInput !== "string" || phoneInput.trim() === "") {
+      setFilteredSuggestions1([]); // Clear suggestions if input is empty or not a string
+      setSelectedNumber(null); // Reset selected number
+      setPatientError(""); // Clear patient error
+    } else {
+      const filtered = patients.filter((patient, index, self) =>
+        patient.mobile_number.includes(phoneInput) && self.findIndex(p => p.mobile_number === patient.mobile_number) === index
+      );
+
+      setFilteredSuggestions1(filtered);
+
+      // Clear patient details if the input doesn't match any suggestions
+      if (
+        phoneInput.trim() !== "" &&
+        filtered.length === 0
+      ) {
+        setSelectedNumber(null);
+        setPatientError(
+          "Mobile number not registered. Please add the patient."
         );
-
-        setFilteredSuggestions1(filtered);
-
-        // Clear patient details if the input doesn't match any suggestions
-        if (
-          phoneInput.trim() !== "" &&
-          !filtered.some((suggestion) =>
-            suggestion.mobile_number.includes(phoneInput)
-          )
-        ) {
-          setSelectedNumber(null);
-          setPatientError(
-            "Mobile number not registered. Please add the patient."
-          );
-        } else {
-          setPatientError("");
-        }
+      } else {
+        setPatientError("");
       }
-    };
-    filterSuggestions();
-  }, [phoneInput, patients, suggestions1]);
+    }
+  };
+  filterSuggestions();
+}, [phoneInput, patients]);
+
 
   const handlePlanChange1 = (e) => {
     const newPhoneInput = e.target.value;
@@ -773,14 +772,7 @@ const Billing = () => {
               <tbody>
                 <tr>
                   <td>
-                    {/* <select value={selectedDoctor} onChange={handleDoctorChange}>
-                      <option value="">Select Doctor</option>
-                      {doctors.map((doctor) => (
-                        <option key={doctor._id} value={doctor.fullname}>
-                          {doctor.fullname}
-                        </option>
-                      ))}
-                    </select> */}
+                   
 
                     <select
                       value={selectedDoctor}
@@ -793,14 +785,8 @@ const Billing = () => {
                         </option>
                       ))}
                     </select>
-                    {/* <select value={selectedTherapist} onChange={handleTherapistChange}>
-                      <option value="">Select therapist</option>
-                      {therapists.map((therapist) => (
-                        <option key={therapist._id} value={therapist.fullname}>
-                          {therapist.fullname}
-                        </option>
-                      ))}
-                    </select> */}
+                    
+                  
 
                     <select
                       value={selectedTherapist}

@@ -27,8 +27,7 @@ const Work = () => {
         <p className="primary-subheading">Work</p>
         <span className="primary-heading">How It Works</span>
         <p className="primary-text">
-          Lorem ipsum dolor sit amet consectetur. Non tincidunt magna non et
-          elit. Dolor turpis molestie dui magnis facilisis at fringilla quam.
+        Scalp cleaning with herbal powder, raising temperature, cleansing follicles, and spraying herbal solution.
         </p>
       </div>
       <div className="work-section-bottom">

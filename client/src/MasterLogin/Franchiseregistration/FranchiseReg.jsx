@@ -172,6 +172,34 @@ const FranchiseReg = () => {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    for (const error in errors) {
+      if (errors[error] !== "") {
+        alert("Please fix all errors before submitting the form.");
+        return;
+      }
+    }
+
+
+    const mobileRegex = /^[6-9]\d{9}$/; // Regex to check if mobile number starts with 6, 7, 8, or 9 and has 10 digits
+    if (!mobileRegex.test(franchiseData.mobileNumber)) {
+      alert("Mobile number should start with 6, 7, 8, or 9 and consist of 10 digits.");
+      return;
+    }
+
+    // Validate address
+    if (franchiseData.address.trim().length < 10) {
+      alert("Address should consist of a minimum of 10 characters.");
+      return;
+    }
+
+    // Validate pincode
+    const pincodeRegex = /^[1-9]\d{5}$/; // Regex to check if pincode has 6 digits starting with a non-zero digit
+    if (!pincodeRegex.test(franchiseData.pincode)) {
+      alert("Pincode must be 6 digits starting with a non-zero digit.");
+      return;
+    }
+
     try {
       // Update adminData and franchiseData with the current values from state and localStorage
       const createdBy = localStorage.getItem("userId");
@@ -198,12 +226,45 @@ const FranchiseReg = () => {
         updatedFranchiseData
       );
       console.log("Franchise Data:", updatedFranchiseData);
-
-      alert("Data submitted successfully.");
+      alert("Franchise rigistered successfully.");
     } catch (error) {
-      console.error("Failed to submit data", error);
-      alert("Failed to submit data. Please try again.");
+    //   // console.error("Failed to submit data", error);
+    //   // alert("Failed to submit data. Please try again.");
+    //   console.error("Error response:", error.response.data);
+    // if (error.response && error.response.data && error.response.data.error === "Email already exists") {
+    //   alert("Email already exists. Please use a different email.");
+    // } else {
+    //   console.error("Failed to submit data", error);
+    //   alert("Failed to submit data. Please try again.");
+    // }
+    // }
+    if (error.response) {
+      // The request was made and the server responded with a status code
+      if (error.response.status === 400) {
+        // Server returned a Bad Request status code
+        const errorMessage = error.response.data.error;
+        if (
+          errorMessage === "Admin with this User ID already exists" ||
+          errorMessage === "Admin with this email already exists"
+        ) {
+          // Display alert for duplicate UserID or email
+          alert(errorMessage);
+        } else {
+          // Handle other 400 errors
+          alert("Failed to create admin: " + errorMessage);
+        }
+      } else {
+        // Handle other HTTP errors
+        alert("Failed to create admin: " + error.response.data.error);
+      }
+    } else if (error.request) {
+      // The request was made but no response was received
+      alert("No response from server");
+    } else {
+      // Something else happened while setting up the request
+      alert("Error: " + error.message);
     }
+  }
   };
 
   const handleFranchiseInputChange = (e) => {
@@ -355,35 +416,35 @@ const FranchiseReg = () => {
       }
     }
 
-   // Validate fullname
-  if (name === "fullname") {
-    if (value.trim() === "") {
-      // Clear the error message if the field is empty
-      setErrors((prevErrors) => ({ ...prevErrors, fullname: "" }));
-    } else if (value.length < 3 || value.length > 50) {
-      // Check if the length is within the specified range
-      setErrors((prevErrors) => ({
-        ...prevErrors,
-        fullname: "Full name must be between 3 and 50 characters long.",
-      }));
-    } else {
-      // Count the number of alphabetic characters in the fullname
-      const alphabeticChars = value.match(/[a-zA-Z]/g);
-      if (!alphabeticChars || alphabeticChars.length < 3) {
+    // Validate fullname
+    if (name === "fullname") {
+      if (value.trim() === "") {
+        // Clear the error message if the field is empty
+        setErrors((prevErrors) => ({ ...prevErrors, fullname: "" }));
+      } else if (value.length < 3 || value.length > 50) {
+        // Check if the length is within the specified range
         setErrors((prevErrors) => ({
           ...prevErrors,
-          fullname: "Full name must contain at least 3 alphabetic characters.",
+          fullname: "Full name must be between 3 and 50 characters long.",
         }));
       } else {
-        // Clear the error message if the fullname meets the requirements
-        setErrors((prevErrors) => ({ ...prevErrors, fullname: "" }));
+        // Count the number of alphabetic characters in the fullname
+        const alphabeticChars = value.match(/[a-zA-Z]/g);
+        if (!alphabeticChars || alphabeticChars.length < 3) {
+          setErrors((prevErrors) => ({
+            ...prevErrors,
+            fullname: "Full name must contain at least 3 alphabetic characters.",
+          }));
+        } else {
+          // Clear the error message if the fullname meets the requirements
+          setErrors((prevErrors) => ({ ...prevErrors, fullname: "" }));
+        }
       }
     }
-  }
   };
   return (
     <div className="addfr-franchise-Reg">
-      <Navbarlanding/>
+      <Navbarlanding />
       {/* <div className="addfr-franchise-Logo">
         <div className="addfr-image">
           <img
@@ -647,7 +708,7 @@ const FranchiseReg = () => {
                     />
                     <label>
                       <span>
-                        UserId <span style={{ color: "red" }}>*</span>
+                        User ID <span style={{ color: "red" }}>*</span>
                       </span>
                     </label>
                   </div>
@@ -674,7 +735,7 @@ const FranchiseReg = () => {
                   <div className="addfr-input-wrap">
                     <input
                       className="addfr-input"
-                      type="text"
+                      type="email"
                       name="email"
                       value={adminData.email}
                       onChange={handleAdminInputChange}
@@ -695,7 +756,7 @@ const FranchiseReg = () => {
                   <div className="addfr-input-wrap">
                     <input
                       className="addfr-input"
-                      type="text"
+                      type="password"
                       name="password"
                       value={adminData.password}
                       onChange={handleAdminInputChange}

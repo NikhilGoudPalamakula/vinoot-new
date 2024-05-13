@@ -292,28 +292,21 @@ const FranchiseReg = () => {
       }
     }
 
+   
+
     if (name === "franchiseID") {
       if (value.trim() === "") {
         // Clear the error message if the field is empty
         setErrors((prevErrors) => ({ ...prevErrors, franchiseID: "" }));
-      } else if (value.length !== 6) {
-        // Check if the length is not equal to 6 characters
+      } else if (!/^[a-zA-Z]{3}\d{3}$/.test(value)) {
+        // Check if the franchiseID does not match the pattern of 3 alphabetic characters followed by 3 numeric characters
         setErrors((prevErrors) => ({
           ...prevErrors,
-          franchiseID: "Franchise ID must be exactly 6 characters long.",
+          franchiseID: "Franchise ID must consist of 3 alphabetical characters followed by 3 numeric characters.",
         }));
       } else {
-        // Count the number of alphabetic characters in the franchiseID
-        const alphabeticChars = value.match(/[a-zA-Z]/g);
-        if (!alphabeticChars || alphabeticChars.length < 3) {
-          setErrors((prevErrors) => ({
-            ...prevErrors,
-            franchiseID: "Franchise ID must contain at least 3 alphabetic characters.",
-          }));
-        } else {
-          // Clear the error message if the franchiseID meets the requirements
-          setErrors((prevErrors) => ({ ...prevErrors, franchiseID: "" }));
-        }
+        // Clear the error message if the franchiseID meets the requirements
+        setErrors((prevErrors) => ({ ...prevErrors, franchiseID: "" }));
       }
     }
 
@@ -337,14 +330,18 @@ const FranchiseReg = () => {
       }
     }
 
-    // Validate pincode
+  
+
     if (name === "pincode") {
-      if (value.trim() === "") {
+      // Remove unwanted characters from the input value
+      const sanitizedValue = value.replace(/[.,]/g, "");
+    
+      if (sanitizedValue.trim() === "") {
         // Clear the error message if the input is empty
         setErrors((prevErrors) => ({ ...prevErrors, pincode: "" }));
       } else {
         const pincodeRegex = /^[1-9]\d{5}$/;
-        if (!pincodeRegex.test(value)) {
+        if (!pincodeRegex.test(sanitizedValue) || sanitizedValue.includes("e-") || sanitizedValue.includes("-e")) {
           setErrors((prevErrors) => ({
             ...prevErrors,
             pincode: "Pincode must be 6 digits starting with a non-zero digit.",
@@ -355,6 +352,7 @@ const FranchiseReg = () => {
         }
       }
     }
+    
 
     // Validate address
     if (name === "address") {

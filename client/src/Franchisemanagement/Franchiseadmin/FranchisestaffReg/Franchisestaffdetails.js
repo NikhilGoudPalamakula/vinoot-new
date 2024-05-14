@@ -1,5 +1,3 @@
-
-
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./Franchisestaffdetails.css";
@@ -52,7 +50,8 @@ const Franchisestaffdetails = () => {
     }
   };
 
-  const handleEdit = (index) => {
+  const handleEdit = (userId) => {
+    const index = admins.findIndex((user) => user.userId === userId);
     setCurrentEditIndex(index);
   };
 
@@ -130,56 +129,14 @@ const Franchisestaffdetails = () => {
           <tbody>
             {currentPlans.map((admin, index) => (
               <tr key={admin._id}>
-                <td>
-                  {currentEditIndex === index ? (
-                    <input
-                      type="text"
-                      value={admin.fullname}
-                      onChange={(e) => handleInputChange(e, index, "fullname")}
-                    />
-                  ) : (
-                    admin.fullname
-                  )}
-                </td>
+                <td>{admin.fullname}</td>
                 <td>{admin.userId}</td>
                 {/* <td>{admin.franchisename}</td> */}
                 {/* <td>{admin.franchiseID}</td> */}
-                <td>
-                  {currentEditIndex === index ? (
-                    <input
-                      type="text"
-                      value={admin.designation}
-                      onChange={(e) =>
-                        handleInputChange(e, index, "designation")
-                      }
-                    />
-                  ) : (
-                    admin.designation
-                  )}
-                </td>
-                <td>
-                  {currentEditIndex === index ? (
-                    <input
-                      type="text"
-                      value={admin.email}
-                      onChange={(e) => handleInputChange(e, index, "email")}
-                    />
-                  ) : (
-                    admin.email
-                  )}
-                </td>
-                <td>
-                  {currentEditIndex === index ? (
-                    <input
-                      type="text"
-                      value={admin.password}
-                      onChange={(e) => handleInputChange(e, index, "password")}
-                    />
-                  ) : (
-                    admin.password
-                  )}
-                </td>
-               
+                <td>{admin.designation}</td>
+                <td>{admin.email}</td>
+                <td>{admin.password}</td>
+
                 <td>{admin.modifiedBy}</td>
                 <td>{admin.modifiedAt}</td>
                 <td>{admin.createdAt}</td>
@@ -193,16 +150,7 @@ const Franchisestaffdetails = () => {
                   </button>
                 </td>
                 <td>
-                  {currentEditIndex === index ? (
-                    <>
-                      <button onClick={() => handleUpdate(index)}>
-                        Update
-                      </button>
-                      <button onClick={handleCancel}>Cancel</button>
-                    </>
-                  ) : (
-                    <button onClick={() => handleEdit(index)}>Edit</button>
-                  )}
+                  <button onClick={() => handleEdit(admin.userId)}>Edit</button>
                 </td>
               </tr>
             ))}
@@ -232,6 +180,51 @@ const Franchisestaffdetails = () => {
           </span>
         </div>
       </div>
+      {currentEditIndex > -1 && (
+        <div className="modal  master-user-users">
+          <div className="modal-content">
+            <span
+              className="close"
+              style={{ cursor: "pointer", fontSize: "medium" }}
+              onClick={handleCancel}
+            >
+              &times;
+            </span>
+            <h2>Edit User Details</h2>
+            <input
+              type="text"
+              value={admins[currentEditIndex].fullname || ""}
+              onChange={(e) =>
+                handleInputChange(e, currentEditIndex, "fullname")
+              }
+            />
+            <input
+              type="text"
+              value={admins[currentEditIndex].designation || ""}
+              onChange={(e) =>
+                handleInputChange(e, currentEditIndex, "designation")
+              }
+            />
+            <input
+              type="number"
+              value={admins[currentEditIndex].email || ""}
+              onChange={(e) => handleInputChange(e, currentEditIndex, "email")}
+            />
+            <input
+              type="text"
+              value={admins[currentEditIndex].password || ""}
+              onChange={(e) =>
+                handleInputChange(e, currentEditIndex, "password")
+              }
+            />
+
+            <button onClick={() => handleUpdate(currentEditIndex)}>
+              Update
+            </button>
+            <button onClick={handleCancel}>Cancel</button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

@@ -63,10 +63,21 @@
   }
   input {
     height: 4vh;
-    margin-left: 1vw;
+    width: 12vw;
+    /* margin-left: 1vw; */
     border-radius: 6px;
     border: none;
     outline: none;
     border: 1px solid #0aa506;
   }
+}
+.modal-content-div {
+  position: relative;
+  display: flex;
+  gap: 1vw;
+}
+/* Ensure that the error message has appropriate styling */
+.error {
+  color: red;
+  font-size: 0.2rem;
 }

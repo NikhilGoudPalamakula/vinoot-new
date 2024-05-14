@@ -340,6 +340,7 @@ const MasterUserT = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(3);
   const [currentEditIndex, setCurrentEditIndex] = useState(-1);
+  const [errors, setErrors] = useState({});
 
   useEffect(() => {
     fetchUsers();
@@ -434,41 +435,11 @@ const MasterUserT = () => {
           <tbody>
             {currentPlans.map((user, index) => (
               <tr key={user._id}>
-                <td>
-                  {currentEditIndex === index ? (
-                    <input
-                      type="text"
-                      value={user.fullName}
-                      onChange={(e) => handleInputChange(e, index, "fullName")}
-                    />
-                  ) : (
-                    user.fullName
-                  )}
-                </td>
+                <td>{user.fullName}</td>
                 <td>{user.userId}</td>
-                <td>
-                  {currentEditIndex === index ? (
-                    <input
-                      type="text"
-                      value={user.email}
-                      onChange={(e) => handleInputChange(e, index, "email")}
-                    />
-                  ) : (
-                    user.email
-                  )}
-                </td>
+                <td>{user.email}</td>
                 <td>{user.phoneNumber}</td>
-                <td>
-                  {currentEditIndex === index ? (
-                    <input
-                      type="text"
-                      value={user.password}
-                      onChange={(e) => handleInputChange(e, index, "password")}
-                    />
-                  ) : (
-                    user.password
-                  )}
-                </td>
+                <td>{user.password}</td>
                 <td>{user.dateOfBirth}</td>
                 <td>{user.gender}</td>
                 <td>{user.userType}</td>
@@ -530,39 +501,45 @@ const MasterUserT = () => {
                 &times;
               </span>
               <h2>Edit User Details</h2>
-              <input
-                type="text"
-                value={users[currentEditIndex].fullName || ""}
-                onChange={(e) =>
-                  handleInputChange(e, currentEditIndex, "fullName")
-                }
-              />
-              <input
-                type="number"
-                value={users[currentEditIndex].phoneNumber || ""}
-                onChange={(e) =>
-                  handleInputChange(e, currentEditIndex, "phoneNumber")
-                }
-              />
-              <input
-                type="email"
-                value={users[currentEditIndex].email || ""}
-                onChange={(e) =>
-                  handleInputChange(e, currentEditIndex, "email")
-                }
-              />
-              <input
-                type="text"
-                value={users[currentEditIndex].password || ""}
-                onChange={(e) =>
-                  handleInputChange(e, currentEditIndex, "password")
-                }
-              />
+              <div className="modal-content-div">
+                <input
+                  type="text"
+                  value={users[currentEditIndex].fullName || ""}
+                  onChange={(e) =>
+                    handleInputChange(e, currentEditIndex, "fullName")
+                  }
+                  placeholder="fullname"
+                />
+                <input
+                  type="number"
+                  value={users[currentEditIndex].phoneNumber || ""}
+                  onChange={(e) =>
+                    handleInputChange(e, currentEditIndex, "phoneNumber")
+                  }
+                  placeholder="mobilenumber"
+                />
+                <input
+                  type="email"
+                  value={users[currentEditIndex].email || ""}
+                  onChange={(e) =>
+                    handleInputChange(e, currentEditIndex, "email")
+                  }
+                  placeholder="email"
+                />
+                <input
+                  type="text"
+                  value={users[currentEditIndex].password || ""}
+                  onChange={(e) =>
+                    handleInputChange(e, currentEditIndex, "password")
+                  }
+                  placeholder="password"
+                />
 
-              <button onClick={() => handleUpdate(currentEditIndex)}>
-                Update
-              </button>
-              <button onClick={handleCancel}>Cancel</button>
+                <button onClick={() => handleUpdate(currentEditIndex)}>
+                  Update
+                </button>
+                <button onClick={handleCancel}>Cancel</button>
+              </div>
             </div>
           </div>
         )}

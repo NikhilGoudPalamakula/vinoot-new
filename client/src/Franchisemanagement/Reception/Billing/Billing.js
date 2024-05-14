@@ -441,7 +441,7 @@ useEffect(() => {
     const htmlContent = `
     <html>
       <head>
-        <title>Billing Details</title>
+        <title>Vinoot Hair & Skin Clinic</title>
         <!-- Add any CSS styles for printing -->
         <style>
           /* Define your print styles here */
@@ -467,17 +467,16 @@ useEffect(() => {
             width: 150px;
             justify-content:center;
             align-items:center;
-           margin-left:-9px;
+            margin-left:-9px;
           }
         </style>
       </head>
       <body>
-        <h1>Billing Details</h1>
         <div class="print-logo">
-        <img src="https://vinootherbal.com/wp-content/uploads/2024/02/grrb-1-1536x804.png" alt="logo" />
-      </div>
+          <img src="https://vinootherbal.com/wp-content/uploads/2024/02/grrb-1-1536x804.png" alt="logo" />
+          <h1>Billing Details</h1>
+        </div>
         <table>
-         
           <tr>
             <td>Date</td>
             <td>${currentDate}</td>
@@ -527,15 +526,15 @@ useEffect(() => {
             <td>${selectedPlan?.price || "N/A"}</td>
           </tr>
           <tr>
-          <td>GST</td>
-          <td>${selectedPlan?.GST || "N/A"}</td>
-        </tr>
-        <tr>
-        <td>GST</td>
-        <td>${selectedPlan?.GSTamount || "N/A"}</td>
-      </tr>
+            <td>GST</td>
+            <td>${selectedPlan?.GST || "N/A"}</td>
+          </tr>
           <tr>
-            <td>Price</td>
+            <td>GST Amount</td>
+            <td>${selectedPlan?.GSTamount || "N/A"}</td>
+          </tr>
+          <tr>
+            <td>Total Amount</td>
             <td>${selectedPlan?.TotalAmount || "N/A"}</td>
           </tr>
           <tr>
@@ -569,7 +568,8 @@ useEffect(() => {
 
     // Close the print window after printing
     printWindow.close();
-  };
+};
+
   const handleSaveAndPrint = () => {
     saveData(); // Call the saveData function to save the data
     printDetails(); // Call the printDetails function to print the data

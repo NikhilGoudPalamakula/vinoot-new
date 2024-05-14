@@ -13,6 +13,11 @@
 
 .total {
 	font-family: "Open Sans" , sans-serif;
+	position: relative;
+	display: grid;
+	height: 84.3vh;
+	overflow: hidden;
+	margin-left: 20%;
 	/* align-items: center; */
 	/* background: url("./images/bg3.jpeg"); */
     
@@ -27,6 +32,12 @@
 	overflow: hidden;
 	margin-left: 20%;
 }
+.Toastify {
+	position: absolute;
+	top: 0;
+	right: 0;
+	z-index: 9999; /* Ensure it's above other elements */
+  }
 
 .total > * {
 	opacity: 0;

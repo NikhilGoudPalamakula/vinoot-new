@@ -254,7 +254,7 @@ exports.loginfranchiseUser = async (req, res) => {
 
 exports.updateFranchiseAdminActiveState = async (req, res) => {
   const { id } = req.params;
-  const { isActive, updatedBy, fullname, password, designation, email } =
+  const { isActive, updatedBy, fullname, password, designation, mobileNumber } =
     req.body; // Updated by information
   try {
     // Update active state and updated by information
@@ -265,9 +265,9 @@ exports.updateFranchiseAdminActiveState = async (req, res) => {
         modifiedBy: updatedBy,
         modifiedAt: Date.now(),
         fullname,
-        email,
         designation,
         password,
+        mobileNumber,
       },
       { new: true } // Set { new: true } to return the updated document
     );

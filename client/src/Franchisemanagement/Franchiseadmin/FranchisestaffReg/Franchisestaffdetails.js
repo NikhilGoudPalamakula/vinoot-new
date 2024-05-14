@@ -65,7 +65,7 @@ const Franchisestaffdetails = () => {
           fullname: updatedAdmin.fullname,
           password: updatedAdmin.password,
           designation: updatedAdmin.designation,
-          email: updatedAdmin.email,
+          mobileNumber: updatedAdmin.mobileNumber,
           updatedBy,
         }
       );
@@ -118,6 +118,7 @@ const Franchisestaffdetails = () => {
               <th>Designation</th>
               <th>Email</th>
               <th>Password</th>
+              <th>mobileNumber</th>
               <th>Modified By</th>
               <th>Modified At</th>
               <th>Created At</th>
@@ -136,6 +137,7 @@ const Franchisestaffdetails = () => {
                 <td>{admin.designation}</td>
                 <td>{admin.email}</td>
                 <td>{admin.password}</td>
+                <td>{admin.mobileNumber}</td>
 
                 <td>{admin.modifiedBy}</td>
                 <td>{admin.modifiedAt}</td>
@@ -182,46 +184,73 @@ const Franchisestaffdetails = () => {
       </div>
       {currentEditIndex > -1 && (
         <div className="modal  master-user-users">
-          <div className="modal-content">
+          <div
+            className="modal-content-div"
+            style={{ display: "flex", flexDirection: "column" }}
+          >
             <span
               className="close"
               style={{ cursor: "pointer", fontSize: "medium" }}
               onClick={handleCancel}
-            >
-              &times;
-            </span>
-            <h2>Edit User Details</h2>
-            <input
-              type="text"
-              value={admins[currentEditIndex].fullname || ""}
-              onChange={(e) =>
-                handleInputChange(e, currentEditIndex, "fullname")
-              }
-            />
-            <input
-              type="text"
-              value={admins[currentEditIndex].designation || ""}
-              onChange={(e) =>
-                handleInputChange(e, currentEditIndex, "designation")
-              }
-            />
-            <input
-              type="number"
-              value={admins[currentEditIndex].email || ""}
-              onChange={(e) => handleInputChange(e, currentEditIndex, "email")}
-            />
-            <input
-              type="text"
-              value={admins[currentEditIndex].password || ""}
-              onChange={(e) =>
-                handleInputChange(e, currentEditIndex, "password")
-              }
-            />
+            ></span>
+            <h2>Edit Staff Details</h2>
+            <div className="" style={{ display: "flex", gap: "3px" }}>
+              <div>
+                <div>
+                  <label>fullname</label>
+                </div>
+                <input
+                  type="text"
+                  value={admins[currentEditIndex].fullname || ""}
+                  onChange={(e) =>
+                    handleInputChange(e, currentEditIndex, "fullname")
+                  }
+                />
+              </div>
+              <div>
+                <div>
+                  {" "}
+                  <label>designation</label>
+                </div>
+                <input
+                  type="text"
+                  value={admins[currentEditIndex].designation || ""}
+                  onChange={(e) =>
+                    handleInputChange(e, currentEditIndex, "designation")
+                  }
+                />
+              </div>
+              <div>
+                <div>
+                  <label>mobileNumber</label>
+                </div>
+                <input
+                  type="number"
+                  value={admins[currentEditIndex].mobileNumber || ""}
+                  onChange={(e) =>
+                    handleInputChange(e, currentEditIndex, "mobileNumber")
+                  }
+                />
+              </div>
 
-            <button onClick={() => handleUpdate(currentEditIndex)}>
-              Update
-            </button>
-            <button onClick={handleCancel}>Cancel</button>
+              <div>
+                <div>
+                  <label>password</label>
+                </div>
+                <input
+                  type="text"
+                  value={admins[currentEditIndex].password || ""}
+                  onChange={(e) =>
+                    handleInputChange(e, currentEditIndex, "password")
+                  }
+                />
+              </div>
+
+              <button onClick={() => handleUpdate(currentEditIndex)}>
+                Update
+              </button>
+              <button onClick={handleCancel}>Cancel</button>
+            </div>
           </div>
         </div>
       )}

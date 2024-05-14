@@ -472,9 +472,10 @@ useEffect(() => {
         </style>
       </head>
       <body>
-        <h1>Billing Details</h1>
+       
         <div class="print-logo">
         <img src="https://vinootherbal.com/wp-content/uploads/2024/02/grrb-1-1536x804.png" alt="logo" />
+        <h1>Billing Details</h1>
       </div>
         <table>
          

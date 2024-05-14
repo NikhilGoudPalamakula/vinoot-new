@@ -14,6 +14,8 @@ import ListItemText from "@mui/material/ListItemText";
 import HomeIcon from "@mui/icons-material/Home";
 import InfoIcon from "@mui/icons-material/Info";
 import CommentRoundedIcon from "@mui/icons-material/CommentRounded";
+import { RiLoginCircleFill } from "react-icons/ri";
+import { MdAppRegistration } from "react-icons/md";
 import PhoneRoundedIcon from "@mui/icons-material/PhoneRounded";
 import ShoppingCartRoundedIcon from "@mui/icons-material/ShoppingCartRounded";
 import { Link } from "react-router-dom";
@@ -23,22 +25,17 @@ const Navbar = () => {
     {
       text: "Home",
       icon: <HomeIcon />,
+      path: "/",
     },
     {
-      text: "About",
-      icon: <InfoIcon />,
+      text: "Register for Franchise Form",
+      icon: <MdAppRegistration />,
+      path: "/fr",
     },
     {
-      text: "Testimonials",
-      icon: <CommentRoundedIcon />,
-    },
-    {
-      text: "Contact",
-      icon: <PhoneRoundedIcon />,
-    },
-    {
-      text: "Cart",
-      icon: <ShoppingCartRoundedIcon />,
+      text: "Login",
+      icon: <RiLoginCircleFill />,
+      path: "/login",
     },
   ];
   return (

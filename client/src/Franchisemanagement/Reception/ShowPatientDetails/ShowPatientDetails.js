@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { useParams } from "react-router-dom";
 import "./ShowPatientDetails.css";
 import ReceptionSidebar from "../ReceptionSidebar/ReceptionSidebar";
@@ -30,6 +32,7 @@ const ShowPatientDetails = () => {
 
   const [patientDetails, setPatientDetails] = useState(null);
   const [patientInstallments, setPatientInstallments] = useState(null);
+
   const [subtractedAmount, setSubtractedAmount] = useState(0);
   const [updatedRemainingAmount, setUpdatedRemainingAmount] = useState(null);
   const [paymentStatus, setPaymentStatus] = useState("Unpaid");
@@ -88,7 +91,7 @@ const ShowPatientDetails = () => {
       setUpdatedRemainingAmount(roundedAmount.toFixed(2));
 
       // Check if the remaining amount is zero or less to update payment status
-      if (newRemainingAmount <= 0) {
+      if ((newRemainingAmount === 0)) {
         setPaymentStatus("Paid");
       } else {
         setPaymentStatus("Unpaid");
@@ -100,12 +103,18 @@ const ShowPatientDetails = () => {
 
   const handleAmountChange = (e) => {
     const enteredAmount = Number(e.target.value);
-    setSubtractedAmount(enteredAmount); // Convert input value to a number
+    setSubtractedAmount(parseFloat(enteredAmount));
 
     if (subtractedAmount > parseFloat(updatedRemainingAmount)) {
-      setAmountError("collecting More");
+      setAmountError(
+        "Installment amount cannot be greater than the remaining amount."
+      );
+      toast.error("cannot be greater than the remaining amount.", {
+        position: "top-right",
+        autoClose: 1500,
+      });
     } else {
-      setAmountError(null); // Clear the error if the entered amount is valid
+      setAmountError(null);
     }
   };
 
@@ -356,6 +365,7 @@ const ShowPatientDetails = () => {
                 ))}
               </tbody>
             </table>
+            <ToastContainer />
 
             <form className="shwopat-belowdet" onSubmit={handleSubmit}>
               <table>
@@ -381,6 +391,7 @@ const ShowPatientDetails = () => {
                       name="amountPaid"
                       step="any"
                       onChange={handleAmountChange}
+                      pattern="[0-9]*"
                       required
                     />
                     {amountError && (

@@ -57,16 +57,18 @@ const FranchiseReg = () => {
       try {
         const response = await axios.get("http://localhost:5001/api/states");
         const activeStates = response.data.filter(
-          (state) => state.status === "active"
+          (state) =>
+            state.status === "active" &&
+            state.name.toLowerCase().includes(stateInput.toLowerCase())
         );
         setStates(activeStates);
-        setFilteredStates(activeStates); // Initialize filteredStates with active states
+        setFilteredStates(activeStates);
       } catch (error) {
-        // console.error("Failed to fetch states", error);
+        console.error("Failed to fetch states", error);
       }
     };
     fetchStates();
-  }, []);
+  }, [stateInput]); // Add stateInput to dependency array
 
   useEffect(() => {
     const fetchCities = async () => {
@@ -114,26 +116,30 @@ const FranchiseReg = () => {
     setArea(value);
     setFocusedInput("area");
   };
+  // Update useEffect hook to filter cities based on state input and city name
   useEffect(() => {
     if (stateInput.trim() === "") {
       setFilteredCities([]); // Clear city suggestions if state input is empty
       setFilteredAreas([]); // Clear area suggestions if state input is empty
     } else {
       const filteredCities = cities.filter(
-        (cite) =>
-          cite.state_id === franchiseData.state.state_id &&
-          cite.name.toLowerCase().includes(city.toLowerCase())
+        (cit) =>
+          cit.state_id === franchiseData.state.state_id &&
+          cit.name.toLowerCase().includes(city.toLowerCase())
       );
       setFilteredCities(filteredCities);
-
-      const filteredAreas = areas.filter(
-        (are) =>
-          are.state_id === franchiseData.state.state_id &&
-          are.name.toLowerCase().includes(area.toLowerCase())
-      );
-      setFilteredAreas(filteredAreas);
     }
-  }, [stateInput, cities, areas, franchiseData.state]);
+  }, [stateInput, cities, franchiseData.state, city]); // Add city to dependency array
+
+  // Update useEffect hook to filter areas based on area name
+  useEffect(() => {
+    const filteredAreas = areas.filter(
+      (are) =>
+        are.state_id === franchiseData.state.state_id &&
+        are.name.toLowerCase().includes(area.toLowerCase())
+    );
+    setFilteredAreas(filteredAreas);
+  }, [area, areas, franchiseData.state]); // Add area to dependency array
 
   const handleStateSelection = (selectedStateId, selectedStateName) => {
     setStateInput(selectedStateName);
@@ -234,7 +240,6 @@ const FranchiseReg = () => {
         franchisename: "",
         franchiseID: "",
         mobileNumber: "",
-        country: "",
         state: "",
         city: "",
         area: "",

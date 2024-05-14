@@ -5,6 +5,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { useParams } from "react-router-dom";
 import "./ShowPatientDetails.css";
 import ReceptionSidebar from "../ReceptionSidebar/ReceptionSidebar";
+
 const ShowPatientDetails = () => {
   // const [patientDetails, setPatientDetails] = useState(null);
   // const { patientId } = useParams();
@@ -135,14 +136,14 @@ const ShowPatientDetails = () => {
       );
 
       console.log("New installment created:", response.data);
-      alert("New installment paid successfully!");
+      toast.success("New installment paid successfully!");
 
       // await axios.post(`http://localhost:5001/api/installment/update`, updatedInstallment);
       // alert("Remaining amount updated successfully!");
       // You can also fetch the updated installments again here to reflect the changes
     } catch (error) {
       console.error("Error to pay new installment:", error);
-      alert("Error to pay new installment. Please try again.");
+      toast.error("Error to pay new installment. Please try again.");
     }
   };
 

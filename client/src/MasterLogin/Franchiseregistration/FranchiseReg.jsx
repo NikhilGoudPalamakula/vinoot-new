@@ -37,6 +37,7 @@ const FranchiseReg = () => {
     franchiseID: "",
     designation: "FranchiseAdmin",
     email: "",
+    mobileNumber: "",
     password: "",
     createdBy: "",
   });
@@ -49,6 +50,7 @@ const FranchiseReg = () => {
     pincode: "",
     password: "",
     fullname: "",
+    userId: "",
     email: "",
   });
 
@@ -205,6 +207,7 @@ const FranchiseReg = () => {
         franchisename: franchiseData.franchisename,
         franchiseID: franchiseData.franchiseID,
         createdBy: createdBy,
+        mobileNumber: franchiseData.mobileNumber,
       };
       const updatedFranchiseData = {
         ...franchiseData,
@@ -282,16 +285,20 @@ const FranchiseReg = () => {
     if (name === "franchisename") {
       if (value.trim() === "") {
         setErrors((prevErrors) => ({ ...prevErrors, franchisename: "" }));
-      } else if (value.length < 10) {
+      } else if (
+        !/^(?=.*[A-Z].*[A-Z].*[A-Z].*[A-Z].*[A-Z].*[A-Z].*[A-Z])[A-Z0-9]{10,}$/.test(
+          value
+        )
+      ) {
         setErrors((prevErrors) => ({
           ...prevErrors,
           franchisename:
-            "Franchise name should consist of a minimum of 10 characters",
+            "Franchise name should contain at least 7 uppercase alphabet characters in any order and be at least 10 characters long.",
         }));
       } else if (value.length > 100) {
         setErrors((prevErrors) => ({
           ...prevErrors,
-          franchisename: "Franchise name should consist of only 100 characters",
+          franchisename: "Franchise name should not exceed 100 characters",
         }));
       } else {
         setErrors((prevErrors) => ({ ...prevErrors, franchisename: "" }));
@@ -397,18 +404,27 @@ const FranchiseReg = () => {
     if (name === "fullname") {
       if (value.trim() === "") {
         setErrors((prevErrors) => ({ ...prevErrors, fullname: "" }));
-      } else if (!/^[a-zA-Z\s]+$/.test(value)) {
+      } else if (!/^[a-zA-Z\s']{3,50}$/.test(value)) {
         setErrors((prevErrors) => ({
           ...prevErrors,
-          fullname: "Full name should contain only alphabets.",
-        }));
-      } else if (value.length > 50) {
-        setErrors((prevErrors) => ({
-          ...prevErrors,
-          fullname: "Full name should not exceed 50 characters.",
+          fullname:
+            "Full name should contain only alphabets and be between 3 and 50 characters long.",
         }));
       } else {
         setErrors((prevErrors) => ({ ...prevErrors, fullname: "" }));
+      }
+    }
+    if (name === "userId") {
+      if (value.trim() === "") {
+        setErrors((prevErrors) => ({ ...prevErrors, userId: "" }));
+      } else if (!/^[a-zA-Z]{3}\d{3}$/.test(value)) {
+        setErrors((prevErrors) => ({
+          ...prevErrors,
+          userId:
+            "userId must consist of 3 alphabetical characters followed by 3 numeric characters.",
+        }));
+      } else {
+        setErrors((prevErrors) => ({ ...prevErrors, userId: "" }));
       }
     }
 
@@ -428,15 +444,13 @@ const FranchiseReg = () => {
     if (name === "password") {
       if (value.trim() === "") {
         setErrors((prevErrors) => ({ ...prevErrors, password: "" }));
-      } else if (value.length < 8) {
+      } else if (
+        !/^(?=.*\d)(?=.*[a-zA-Z])(?=.*[^a-zA-Z0-9\s]).{8,16}$/.test(value)
+      ) {
         setErrors((prevErrors) => ({
           ...prevErrors,
-          password: "Password should consist of a minimum of 8 characters.",
-        }));
-      } else if (value.length > 15) {
-        setErrors((prevErrors) => ({
-          ...prevErrors,
-          password: "Password should not exceed 15 characters.",
+          password:
+            "Password should contain at least one number, one alphabet, one special character, and be between 8 and 16 characters long.",
         }));
       } else {
         setErrors((prevErrors) => ({ ...prevErrors, password: "" }));

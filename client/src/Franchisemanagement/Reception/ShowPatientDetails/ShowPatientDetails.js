@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
-import './ShowPatientDetails.css';
+import "./ShowPatientDetails.css";
 import ReceptionSidebar from "../ReceptionSidebar/ReceptionSidebar";
 const ShowPatientDetails = () => {
   // const [patientDetails, setPatientDetails] = useState(null);
@@ -27,8 +27,6 @@ const ShowPatientDetails = () => {
   // }
 
   // ---------------
-
-
 
   const [patientDetails, setPatientDetails] = useState(null);
   const [patientInstallments, setPatientInstallments] = useState(null);
@@ -80,9 +78,11 @@ const ShowPatientDetails = () => {
     // Check if patientInstallments is not null and not empty
     if (patientInstallments && patientInstallments.length > 0) {
       // Get the last installment
-      const lastInstallment = patientInstallments[patientInstallments.length - 1];
+      const lastInstallment =
+        patientInstallments[patientInstallments.length - 1];
       // Calculate updated remaining amount whenever subtractedAmount changes
-      const newRemainingAmount = lastInstallment.remainingAmount - subtractedAmount;
+      const newRemainingAmount =
+        lastInstallment.remainingAmount - subtractedAmount;
       // Round up to the nearest amount if the difference is 0.99
       const roundedAmount = Math.round(newRemainingAmount * 100) / 100;
       setUpdatedRemainingAmount(roundedAmount.toFixed(2));
@@ -96,13 +96,18 @@ const ShowPatientDetails = () => {
     }
   }, [subtractedAmount, patientInstallments]);
 
-
-
+  const [amountError, setAmountError] = useState(null);
 
   const handleAmountChange = (e) => {
-    setSubtractedAmount(Number(e.target.value)); // Convert input value to a number
-  };
+    const enteredAmount = Number(e.target.value);
+    setSubtractedAmount(enteredAmount); // Convert input value to a number
 
+    if (subtractedAmount > parseFloat(updatedRemainingAmount)) {
+      setAmountError("collecting More");
+    } else {
+      setAmountError(null); // Clear the error if the entered amount is valid
+    }
+  };
 
   const handlePaymentTypeChange = (e) => {
     setPaymentType(e.target.value);
@@ -125,7 +130,6 @@ const ShowPatientDetails = () => {
         paymentType: paymentType,
         amountPaid: subtractedAmount,
         status: paymentStatus,
-
       };
 
       const response = await axios.post(
@@ -154,7 +158,7 @@ const ShowPatientDetails = () => {
   };
   const printDetails = () => {
     const printWindow = window.open("", "_blank");
-  
+
     const htmlContent = `
       <html>
         <head>
@@ -242,7 +246,9 @@ const ShowPatientDetails = () => {
               </tr>
             </thead>
             <tbody>
-              ${patientInstallments.map((installment, index) => `
+              ${patientInstallments
+                .map(
+                  (installment, index) => `
                 <tr key=${index}>
                   <td>${installment.currentDate}</td>
                   <td>${installment.patient_id}</td>
@@ -254,32 +260,31 @@ const ShowPatientDetails = () => {
                   <td>${installment.remainingAmount}</td>
                   <td>${installment.status}</td>
                 </tr>
-              `).join('')}
+              `
+                )
+                .join("")}
             </tbody>
           </table>
         </body>
       </html>
     `;
-  
+
     printWindow.document.open();
     printWindow.document.write(htmlContent);
     printWindow.document.close();
-  
+
     printWindow.print();
     printWindow.close();
   };
-  
-  
-  
+
   return (
     <div>
       <div className="showpat-total">
         <div>
-
           <ReceptionSidebar />
         </div>
         <div className="showpat-right">
-          <div  className="sowpat-above-t1">
+          <div className="sowpat-above-t1">
             <h1>Patient Billing Details</h1>
 
             <table>
@@ -324,7 +329,7 @@ const ShowPatientDetails = () => {
             <table>
               <thead>
                 <tr>
-                <th>Paid Date</th>
+                  <th>Paid Date</th>
                   <th>Patient ID</th>
                   <th>Patient Name</th>
                   <th>Mobile Number</th>
@@ -333,7 +338,6 @@ const ShowPatientDetails = () => {
                   <th>Last Amount Paid</th>
                   <th>Remaining Amount</th>
                   <th>Payment Status</th>
-                  
                 </tr>
               </thead>
               <tbody>
@@ -348,12 +352,11 @@ const ShowPatientDetails = () => {
                     <td>{installment.amountPaid}</td>
                     <td>{installment.remainingAmount}</td>
                     <td>{installment.status}</td>
-                    
                   </tr>
                 ))}
               </tbody>
             </table>
-        
+
             <form className="shwopat-belowdet" onSubmit={handleSubmit}>
               <table>
                 <thead>
@@ -364,11 +367,12 @@ const ShowPatientDetails = () => {
                 </thead>
                 <tbody>
                   <td>
-                    <select value={paymentType} onChange={handlePaymentTypeChange}>
+                    <select
+                      value={paymentType}
+                      onChange={handlePaymentTypeChange}>
                       <option value="">Select Payment Type</option>
                       <option value="Cash">Cash</option>
                       <option value="Credit Card">Credit Card</option>
-
                     </select>
                   </td>
                   <td>
@@ -379,6 +383,11 @@ const ShowPatientDetails = () => {
                       onChange={handleAmountChange}
                       required
                     />
+                    {amountError && (
+                      <p className="error-message" style={{ color: "red" }}>
+                        {amountError}
+                      </p>
+                    )}
                   </td>
                   <td>
                     <input
@@ -388,7 +397,6 @@ const ShowPatientDetails = () => {
                       readOnly
                     />
                   </td>
-
 
                   <td>
                     <input
@@ -401,7 +409,9 @@ const ShowPatientDetails = () => {
                 </tbody>
               </table>
               <button type="submit">Submit</button>
-              <button onClick={handlePrint} style={{cursor:"pointer"}}>Print</button>
+              <button onClick={handlePrint} style={{ cursor: "pointer" }}>
+                Print
+              </button>
             </form>
           </div>
         </div>

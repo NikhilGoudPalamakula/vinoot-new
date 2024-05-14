@@ -437,6 +437,7 @@ const TreatmentPlan = () => {
             <table className="tabp">
               <thead>
                 <tr>
+                  <th>Category</th>
                   <th>Plan Name</th>
                   <th>UpdatedTime</th>
                   <th>Status</th>
@@ -447,6 +448,7 @@ const TreatmentPlan = () => {
               <tbody>
                 {currentPlans.map((plan) => (
                   <tr key={plan.plan_id}>
+                    <td>{plan.category_name}</td>
                     <td>{plan.plan_name}</td>
                     <td>{plan.modifiedAt}</td>
                     <td>{plan.status}</td>

@@ -148,6 +148,128 @@ const ShowPatientDetails = () => {
   if (!patientDetails || !patientInstallments) {
     return <div>Loading...</div>;
   }
+
+  const handlePrint = () => {
+    printDetails();
+  };
+  const printDetails = () => {
+    const printWindow = window.open("", "_blank");
+  
+    const htmlContent = `
+      <html>
+        <head>
+          <title>Vinoot Hair & Skin Clinic</title>
+          <style>
+            .no-print {
+              display: none;
+            }
+            table {
+              border-collapse: collapse;
+              width: 100%;
+            }
+            th, td {
+              border: 1px solid #dddddd;
+              text-align: left;
+              padding: 8px;
+            }
+            th {
+              background-color: #f2f2f2;
+            }
+            .print-logo img {
+              height: 100px; 
+              width: 150px;
+              justify-content:center;
+              align-items:center;
+            }
+          </style>
+        </head>
+        <body>
+        <div class="print-logo">
+            <img src="https://vinootherbal.com/wp-content/uploads/2024/02/grrb-1-1536x804.png" alt="logo" />
+          </div>
+          <h1>Patient Billing Details</h1>
+          
+          <table>
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Name</th>
+                <th>Patient ID</th>
+                <th>Mobile Number</th>
+                <th>Bill Number</th>
+                <th>Plan Name</th>
+                <th>Treatment in Days</th>
+                <th>Price</th>
+                <th>Gst (%)</th>
+                <th>GST Amount</th>
+                <th>Amount Paid</th>
+                <th>Remaining Amount</th>
+                <th>Payment Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>${patientDetails.currentDate}</td>
+                <td>${patientDetails.patient_name}</td>
+                <td>${patientDetails.patient_id}</td>
+                <td>${patientDetails.mobile_number}</td>
+                <td>${patientDetails.bill_number}</td>
+                <td>${patientDetails.plan_name}</td>
+                <td>${patientDetails.days}</td>
+                <td>${patientDetails.price}</td>
+                <td>${patientDetails.GST}</td>
+                <td>${patientDetails.GSTamount}</td>
+                <td>${patientDetails.amountPaid}</td>
+                <td>${patientDetails.remainingAmount}</td>
+                <td>${patientDetails.status}</td>
+              </tr>
+            </tbody>
+          </table>
+          <h1>Patient Bill Installments</h1>
+          <table>
+            <thead>
+              <tr>
+                <th>Paid Date</th>
+                <th>Patient ID</th>
+                <th>Patient Name</th>
+                <th>Mobile Number</th>
+                <th>Bill Number</th>
+                <th>Payment Type</th>
+                <th>Last Amount Paid</th>
+                <th>Remaining Amount</th>
+                <th>Payment Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${patientInstallments.map((installment, index) => `
+                <tr key=${index}>
+                  <td>${installment.currentDate}</td>
+                  <td>${installment.patient_id}</td>
+                  <td>${installment.patient_name}</td>
+                  <td>${installment.mobile_number}</td>
+                  <td>${installment.bill_number}</td>
+                  <td>${installment.paymentType}</td>
+                  <td>${installment.amountPaid}</td>
+                  <td>${installment.remainingAmount}</td>
+                  <td>${installment.status}</td>
+                </tr>
+              `).join('')}
+            </tbody>
+          </table>
+        </body>
+      </html>
+    `;
+  
+    printWindow.document.open();
+    printWindow.document.write(htmlContent);
+    printWindow.document.close();
+  
+    printWindow.print();
+    printWindow.close();
+  };
+  
+  
+  
   return (
     <div>
       <div className="showpat-total">
@@ -278,6 +400,7 @@ const ShowPatientDetails = () => {
                 </tbody>
               </table>
               <button type="submit">Submit</button>
+              <button onClick={handlePrint} style={{cursor:"pointer"}}>Print</button>
             </form>
           </div>
         </div>

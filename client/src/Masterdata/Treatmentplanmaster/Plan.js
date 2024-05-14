@@ -337,6 +337,14 @@ const TreatmentPlan = () => {
                           className="tplan-input"
                           type="number"
                           value={price}
+                          pattern="\d{6}"
+                          maxLength="6"
+                          onKeyDown={(evt) =>
+                            (evt.key === "." ||
+                              evt.key === "e" ||
+                              evt.key === "E") &&
+                            evt.preventDefault()
+                          }
                           onChange={handlePriceChange}
                           required
                           placeholder=""
@@ -354,6 +362,10 @@ const TreatmentPlan = () => {
                           className="tplan-input"
                           type="number"
                           value={days}
+                          onKeyDown={(evt) =>
+                            ["e", "E", "+", "-"].includes(evt.key) &&
+                            evt.preventDefault()
+                          }
                           onChange={handleDaysChange}
                           placeholder=""
                           required
@@ -372,6 +384,10 @@ const TreatmentPlan = () => {
                           className="tplan-input"
                           type="number"
                           value={GST}
+                          onKeyDown={(evt) =>
+                            ["e", "E", "+", "-"].includes(evt.key) &&
+                            evt.preventDefault()
+                          }
                           onChange={handleGSTChange}
                           placeholder=""
                           required

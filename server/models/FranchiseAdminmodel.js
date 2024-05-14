@@ -7,6 +7,7 @@ const adminSchema = new mongoose.Schema({
   franchiseID: String,
   designation: String,
   email: String,
+  mobileNumber:Number,
   password: String,
   isActive: { type: Boolean, default: true },
   modifiedBy: { type: String },

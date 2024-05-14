@@ -99,29 +99,17 @@ const ShowPatientDetails = () => {
     }
   }, [subtractedAmount, patientInstallments]);
 
-  const [amountError, setAmountError] = useState(null);
-
-  const handleAmountChange = (e) => {
-    const enteredAmount = Number(e.target.value);
-    setSubtractedAmount(parseFloat(enteredAmount));
-
-    if (subtractedAmount > parseFloat(updatedRemainingAmount)) {
-      setAmountError(
-        "Installment amount cannot be greater than the remaining amount."
-      );
-      toast.error("cannot be greater than the remaining amount.", {
-        position: "top-right",
-        autoClose: 1500,
-      });
-    } else {
-      setAmountError(null);
-    }
-  };
+  
 
   const handlePaymentTypeChange = (e) => {
     setPaymentType(e.target.value);
   };
 
+  const handleAmountChange = (e) => {
+    const enteredAmount = Number(e.target.value);
+    setSubtractedAmount(parseFloat(enteredAmount));
+  };
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -390,15 +378,23 @@ const ShowPatientDetails = () => {
                       type="number"
                       name="amountPaid"
                       step="any"
-                      onChange={handleAmountChange}
+                      // onChange={handleAmountChange}
+                      value={subtractedAmount === 0 ? '' : subtractedAmount}
+                      onChange={(e) => {
+                        const enteredAmount = parseFloat(e.target.value); // Convert the entered value to a number
+                        const currentInstallment = patientInstallments[patientInstallments.length - 1]; // Get the current installment
+                        const remainingAmount = parseFloat(currentInstallment.remainingAmount); // Get the remaining amount from the current installment
+                    
+                        // If the entered amount is greater than the remaining amount, set the entered amount to the remaining amount; otherwise, set it to the entered amount
+                        const updatedAmount = Math.min(enteredAmount, remainingAmount);
+                        setSubtractedAmount(updatedAmount);
+                      }}
+                  
                       pattern="[0-9]*"
                       required
+                     
                     />
-                    {amountError && (
-                      <p className="error-message" style={{ color: "red" }}>
-                        {amountError}
-                      </p>
-                    )}
+                    
                   </td>
                   <td>
                     <input

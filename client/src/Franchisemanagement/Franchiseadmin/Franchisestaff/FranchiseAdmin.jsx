@@ -260,7 +260,7 @@ import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import KeyboardDoubleArrowLeftIcon from "@mui/icons-material/KeyboardDoubleArrowLeft";
 import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArrowRight";
-
+import { VINOOTNEW } from "../../../Helper/Helper";
 const FranchiseAdmin = () => {
   const [billingData, setBillingData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -280,7 +280,7 @@ const FranchiseAdmin = () => {
         const frid = localStorage.getItem("franchiseID");
         if (frid) {
           const response = await axios.get(
-            `http://localhost:5001/api/billing${frid}`
+            `${ VINOOTNEW }/api/billing${frid}`
           );
           setBillingData(response.data);
         } else {

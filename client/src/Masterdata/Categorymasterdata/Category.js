@@ -39,7 +39,6 @@ const TreatmentCategory = () => {
   }, []); // Empty dependency array ensures this effect runs once on mount
 
   const handleSelect = (event) => {
-  
     const inputValue = event.target.value.trim();
     setValue(inputValue);
 
@@ -93,6 +92,13 @@ const TreatmentCategory = () => {
           modifiedBy: userId,
           // status: "active", // Default status is active
         });
+        toast.success("Category Updated Successful", {
+          position: "top-right",
+          autoClose: 1500,
+          onClose: () => {
+            navigate("/TreatmentPlan");
+          },
+        });
       } else {
         await axios.post(`${VINOOTNEW}/api/treatment-category`, {
           category_id: category_id,
@@ -104,17 +110,17 @@ const TreatmentCategory = () => {
           modifiedBy: userId, // Set modifiedBy field
           modifiedAt: presentTime, // Set modifiedAt field
         });
+        toast.success("Category Added Successful", {
+          position: "top-right",
+          autoClose: 1500,
+          onClose: () => {
+            navigate("/TreatmentPlan");
+          },
+        });
       }
 
       setValue("");
       setEditId("");
-      toast.success("Category Added Successful", {
-        position: "top-right",
-        autoClose: 1500,
-        onClose: () => {
-          navigate("/TreatmentPlan");
-        },
-      });
       fetchCategories(); // Refresh the category list
     } catch (error) {
       console.error("Error saving option:", error);

@@ -899,7 +899,13 @@ useEffect(() => {
                     <input
                       type="number"
                       value={amountPaid}
-                      onChange={(e) => setAmountPaid(e.target.value)}
+                      // onChange={(e) => setAmountPaid(e.target.value)}
+                      onChange={(e) => {
+                        const inputAmount = parseFloat(e.target.value); // Convert the input value to a number
+                        const totalAmount = parseFloat(selectedPlan?.TotalAmount || 0); // Get the total amount as a number
+                        // If the input amount is greater than the total amount, set amountPaid to the total amount; otherwise, set it to the input amount
+                        setAmountPaid(Math.min(inputAmount, totalAmount));
+                      }}
                     />
                   </td>
                   <td>

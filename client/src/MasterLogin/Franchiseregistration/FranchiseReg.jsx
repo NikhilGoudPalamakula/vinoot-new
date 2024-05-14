@@ -1,10 +1,9 @@
-
-
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import "../Franchiseregistration/FranchiseReg.css";
 import Navbarlanding from '../../../src/Landingpage/Components/Navbar'
+
 const FranchiseReg = () => {
   const [states, setStates] = useState([]);
   const [cities, setCities] = useState([]);
@@ -37,6 +36,7 @@ const FranchiseReg = () => {
     email: "",
     password: "",
   });
+
   const [errors, setErrors] = useState({
     franchisename: "",
     franchiseID: "",
@@ -49,7 +49,6 @@ const FranchiseReg = () => {
   });
 
   useEffect(() => {
-    // Fetch states data when component mounts
     const fetchStates = async () => {
       try {
         const response = await axios.get("http://localhost:5001/api/states");
@@ -63,7 +62,6 @@ const FranchiseReg = () => {
   }, []);
 
   useEffect(() => {
-    // Fetch cities data when component mounts
     const fetchCities = async () => {
       try {
         const response = await axios.get("http://localhost:5001/api/cities");
@@ -77,7 +75,6 @@ const FranchiseReg = () => {
   }, []);
 
   useEffect(() => {
-    // Fetch areas data when component mounts
     const fetchAreas = async () => {
       try {
         const response = await axios.get("http://localhost:5001/api/areas");
@@ -91,7 +88,6 @@ const FranchiseReg = () => {
   }, []);
 
   useEffect(() => {
-    // Filter states based on input value
     if (stateInput.trim() === "") {
       setFilteredStates(states); // Show all states if input is empty
     } else {
@@ -103,7 +99,6 @@ const FranchiseReg = () => {
   }, [stateInput, states]);
 
   useEffect(() => {
-    // Filter cities based on input value
     if (city.trim() === "") {
       setFilteredCities(cities); // Show all cities if input is empty
     } else {
@@ -115,7 +110,6 @@ const FranchiseReg = () => {
   }, [city, cities]);
 
   useEffect(() => {
-    // Filter areas based on input value
     if (area.trim() === "") {
       setFilteredAreas(areas); // Show all areas if input is empty
     } else {
@@ -148,28 +142,29 @@ const FranchiseReg = () => {
     setStateInput(selectedState);
     setFranchiseData({
       ...franchiseData,
-      state: selectedState, // Add selected state to formData
+      state: selectedState,
     });
-    setFocusedInput(null); // Hide suggestion list when a suggestion is clicked
+    setFocusedInput(null);
   };
 
   const handleCitySelection = (selectedCity) => {
     setCity(selectedCity);
     setFranchiseData({
       ...franchiseData,
-      city: selectedCity, // Add selected city to formData
+      city: selectedCity,
     });
-    setFocusedInput(null); // Hide suggestion list when a suggestion is clicked
+    setFocusedInput(null);
   };
 
   const handleAreaSelection = (selectedArea) => {
     setArea(selectedArea);
     setFranchiseData({
       ...franchiseData,
-      area: selectedArea, // Add selected area to formData
+      area: selectedArea,
     });
-    setFocusedInput(null); // Hide suggestion list when a suggestion is clicked
+    setFocusedInput(null);
   };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -180,266 +175,241 @@ const FranchiseReg = () => {
       }
     }
 
-
-    const mobileRegex = /^[6-9]\d{9}$/; // Regex to check if mobile number starts with 6, 7, 8, or 9 and has 10 digits
+    const mobileRegex = /^[1-9]\d{6}$/;
     if (!mobileRegex.test(franchiseData.mobileNumber)) {
-      alert("Mobile number should start with 6, 7, 8, or 9 and consist of 10 digits.");
+      alert("Mobile number should start with 6 and consist of 10 digits.");
       return;
     }
 
-    // Validate address
     if (franchiseData.address.trim().length < 10) {
       alert("Address should consist of a minimum of 10 characters.");
       return;
     }
 
-    // Validate pincode
-    const pincodeRegex = /^[1-9]\d{5}$/; // Regex to check if pincode has 6 digits starting with a non-zero digit
+    const pincodeRegex = /^[1-6]\d{5}$/;
     if (!pincodeRegex.test(franchiseData.pincode)) {
       alert("Pincode must be 6 digits starting with a non-zero digit.");
       return;
     }
 
     try {
-      // Update adminData and franchiseData with the current values from state and localStorage
       const createdBy = localStorage.getItem("userId");
 
-      // Update adminData
       const updatedAdminData = {
         ...adminData,
         franchisename: franchiseData.franchisename,
         franchiseID: franchiseData.franchiseID,
-        createdBy: createdBy, // Add CreatedBy from localStorage
+        createdBy: createdBy,
       };
 
-      // Update franchiseData
       const updatedFranchiseData = {
         ...franchiseData,
-        createdBy: createdBy, // Add CreatedBy from localStorage
+        createdBy: createdBy,
       };
 
       await axios.post("http://localhost:5001/api/admin", updatedAdminData);
       console.log("admin Data:", updatedAdminData);
 
-      await axios.post(
-        "http://localhost:5001/api/franchise",
-        updatedFranchiseData
-      );
+      await axios.post("http://localhost:5001/api/franchise", updatedFranchiseData);
       console.log("Franchise Data:", updatedFranchiseData);
-      alert("Franchise rigistered successfully.");
+      alert("Franchise registered successfully.");
     } catch (error) {
-    //   // console.error("Failed to submit data", error);
-    //   // alert("Failed to submit data. Please try again.");
-    //   console.error("Error response:", error.response.data);
-    // if (error.response && error.response.data && error.response.data.error === "Email already exists") {
-    //   alert("Email already exists. Please use a different email.");
-    // } else {
-    //   console.error("Failed to submit data", error);
-    //   alert("Failed to submit data. Please try again.");
-    // }
-    // }
-    if (error.response) {
-      // The request was made and the server responded with a status code
-      if (error.response.status === 400) {
-        // Server returned a Bad Request status code
-        const errorMessage = error.response.data.error;
-        if (
-          errorMessage === "Admin with this User ID already exists" ||
-          errorMessage === "Admin with this email already exists"
-        ) {
-          // Display alert for duplicate UserID or email
-          alert(errorMessage);
+      if (error.response) {
+        if (error.response.status === 400) {
+          const errorMessage = error.response.data.error;
+          if (
+            errorMessage === "Admin with this User ID already exists" ||
+            errorMessage === "Admin with this email already exists"
+          ) {
+            alert(errorMessage);
+          } else {
+            alert("Failed to create admin: " + errorMessage);
+          }
         } else {
-          // Handle other 400 errors
-          alert("Failed to create admin: " + errorMessage);
+          alert("Failed to create admin: " + error.response.data.error);
         }
+      } else if (error.request) {
+        alert("No response from server");
       } else {
-        // Handle other HTTP errors
-        alert("Failed to create admin: " + error.response.data.error);
+        alert("Error: " + error.message);
       }
-    } else if (error.request) {
-      // The request was made but no response was received
-      alert("No response from server");
-    } else {
-      // Something else happened while setting up the request
-      alert("Error: " + error.message);
     }
-  }
   };
 
   const handleFranchiseInputChange = (e) => {
     const { name, value } = e.target;
+
+
+
     setFranchiseData({ ...franchiseData, [name]: value });
 
-    // Validate franchise name
     if (name === "franchisename") {
       if (value.trim() === "") {
-        // Clear the error message if the input is empty
         setErrors((prevErrors) => ({ ...prevErrors, franchisename: "" }));
       } else if (value.length < 10) {
         setErrors((prevErrors) => ({
           ...prevErrors,
-          franchisename:
-            "Franchise name should consists of a minimum of 10 characters",
+          franchisename: "Franchise name should consist of a minimum of 10 characters",
         }));
       } else if (value.length > 100) {
         setErrors((prevErrors) => ({
           ...prevErrors,
-          franchisename: "Franchise name should consists only 100 characters",
+          franchisename: "Franchise name should consist of only 100 characters",
         }));
       } else {
         setErrors((prevErrors) => ({ ...prevErrors, franchisename: "" }));
       }
     }
 
-   
-
     if (name === "franchiseID") {
       if (value.trim() === "") {
-        // Clear the error message if the field is empty
         setErrors((prevErrors) => ({ ...prevErrors, franchiseID: "" }));
       } else if (!/^[a-zA-Z]{3}\d{3}$/.test(value)) {
-        // Check if the franchiseID does not match the pattern of 3 alphabetic characters followed by 3 numeric characters
         setErrors((prevErrors) => ({
           ...prevErrors,
           franchiseID: "Franchise ID must consist of 3 alphabetical characters followed by 3 numeric characters.",
         }));
       } else {
-        // Clear the error message if the franchiseID meets the requirements
         setErrors((prevErrors) => ({ ...prevErrors, franchiseID: "" }));
       }
     }
 
-    // Validate mobile number
     if (name === "mobileNumber") {
       if (value.trim() === "") {
-        // Clear the error message if the input is empty
         setErrors((prevErrors) => ({ ...prevErrors, mobileNumber: "" }));
       } else {
-        const mobileRegex = /^[6-9]\d{9}$/; // Regex to check if mobile number starts with 6 and has 10 digits
+        const mobileRegex = /^[6]\d{0,9}$/; // Starts with 6 and allows up to 10 digits
         if (!mobileRegex.test(value)) {
           setErrors((prevErrors) => ({
             ...prevErrors,
-            mobileNumber:
-              "Mobile number should start 6-9 and consists of 10 digits.",
+            mobileNumber: "Mobile number must start with 6 and contain up to 10 digits.",
           }));
         } else {
-          // Clear the error message if the mobile number format is valid
           setErrors((prevErrors) => ({ ...prevErrors, mobileNumber: "" }));
         }
       }
     }
 
-  
+
+    if (name === "address") {
+      if (value.trim() === "") {
+        setErrors((prevErrors) => ({ ...prevErrors, address: "" }));
+      } else if (value.length < 10) {
+        setErrors((prevErrors) => ({
+          ...prevErrors,
+          address: "Address should consist of a minimum of 10 characters.",
+        }));
+      } else {
+        setErrors((prevErrors) => ({ ...prevErrors, address: "" }));
+      }
+    }
 
     if (name === "pincode") {
-      // Remove unwanted characters from the input value
-      const sanitizedValue = value.replace(/[.,]/g, "");
-    
-      if (sanitizedValue.trim() === "") {
-        // Clear the error message if the input is empty
+      if (value.trim() === "") {
         setErrors((prevErrors) => ({ ...prevErrors, pincode: "" }));
       } else {
-        const pincodeRegex = /^[1-9]\d{5}$/;
-        if (!pincodeRegex.test(sanitizedValue) || sanitizedValue.includes("e-") || sanitizedValue.includes("-e")) {
+        // Remove non-numeric characters
+        const numericValue = value.replace(/\D/g, '');
+        setFranchiseData({ ...franchiseData, [name]: numericValue });
+
+        // Validate pincode format
+        const pincodeRegex = /^[5]\d{5}$/; // Regex to match exactly 6 digits starting with a non-zero digit
+        if (!pincodeRegex.test(numericValue)) {
           setErrors((prevErrors) => ({
             ...prevErrors,
             pincode: "Pincode must be 6 digits starting with a non-zero digit.",
           }));
         } else {
-          // Clear the error message if the pincode format is valid
           setErrors((prevErrors) => ({ ...prevErrors, pincode: "" }));
         }
       }
     }
-    
+  };
 
-    // Validate address
-    if (name === "address") {
+
+
+  const handleMobileNumberChange = (e) => {
+    const { name, value } = e.target;
+    setFranchiseData({ ...franchiseData, [name]: value });
+
+    if (name === "mobileNumber") {
       if (value.trim() === "") {
-        // Clear the error message if the input is empty
-        setErrors((prevErrors) => ({ ...prevErrors, address: "" }));
-      } else if (value.length < 10 || value.length > 250) {
-        // Check if the value length is within the specified range
-        setErrors((prevErrors) => ({
-          ...prevErrors,
-          address: "Address consists of (10-250 characters).",
-        }));
+        setErrors((prevErrors) => ({ ...prevErrors, mobileNumber: "" }));
       } else {
-        // Clear the error message if the input is not empty and length is valid
-        setErrors((prevErrors) => ({ ...prevErrors, address: "" }));
+        const numericValue = value.replace(/\D/g, '');  // Remove non-numeric characters
+        setFranchiseData({ ...franchiseData, [name]: numericValue });
+
+        const mobileRegex = /^[6-9]\d{0,9}$/; // Starts with 6 and allows up to 10 digits
+        if (!mobileRegex.test(value)) {
+          setErrors((prevErrors) => ({
+            ...prevErrors,
+            mobileNumber: "Mobile number must start with 6 to 9 and contain up to 10 digits.",
+          }));
+        } else {
+          setErrors((prevErrors) => ({ ...prevErrors, mobileNumber: "" }));
+        }
       }
     }
   };
 
   const handleAdminInputChange = (e) => {
     const { name, value } = e.target;
+
+
+
     setAdminData({ ...adminData, [name]: value });
-    //password validation
-    if (name === "password") {
-      const passwordRegex =
-        /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&])[A-Za-z\d!@#$%^&*]{8,16}$/;
-      // Explanation:
-      // (?=.*[A-Z]) - At least one uppercase letter
-      // (?=.*\d) - At least one digit
-      // (?=.*[!@#$%^&]) - At least one special character
-      // [A-Za-z\d!@#$%^&*]{8,16} - Password must be between 8 and 16 characters long, containing only specified characters
 
-      // Check if the value is empty or matches the password requirements
-      if (value === "" || passwordRegex.test(value)) {
-        // If the value is valid or empty, clear the error message
-        setErrors((prevErrors) => ({ ...prevErrors, password: "" }));
-      } else {
-        // If the value is invalid, set the error message
-        setErrors((prevErrors) => ({
-          ...prevErrors,
-          password:
-            "Password must be 8-16 characters with at least one uppercase letter, one number, and one special character.",
-        }));
-      }
-    }
-
-    //email validation
-    if (name === "email") {
-      // Check if the value is empty or within the valid length range
-      if (value === "" || (value.length >= 10 && value.length <= 60)) {
-        // If the value is valid, clear the error message
-        setErrors((prevErrors) => ({ ...prevErrors, email: "" }));
-      } else {
-        // If the value is invalid, set the error message
-        setErrors((prevErrors) => ({
-          ...prevErrors,
-          email: "email address consists of (10-60 characters)",
-        }));
-      }
-    }
-
-    // Validate fullname
     if (name === "fullname") {
       if (value.trim() === "") {
-        // Clear the error message if the field is empty
         setErrors((prevErrors) => ({ ...prevErrors, fullname: "" }));
-      } else if (value.length < 3 || value.length > 50) {
-        // Check if the length is within the specified range
+      } else if (!/^[a-zA-Z\s]+$/.test(value)) {
         setErrors((prevErrors) => ({
           ...prevErrors,
-          fullname: "Full name must be between 3 and 50 characters long.",
+          fullname: "Full name should contain only alphabets.",
+        }));
+      } else if (value.length > 50) {
+        setErrors((prevErrors) => ({
+          ...prevErrors,
+          fullname: "Full name should not exceed 50 characters.",
         }));
       } else {
-        // Count the number of alphabetic characters in the fullname
-        const alphabeticChars = value.match(/[a-zA-Z]/g);
-        if (!alphabeticChars || alphabeticChars.length < 3) {
-          setErrors((prevErrors) => ({
-            ...prevErrors,
-            fullname: "Full name must contain at least 3 alphabetic characters.",
-          }));
-        } else {
-          // Clear the error message if the fullname meets the requirements
-          setErrors((prevErrors) => ({ ...prevErrors, fullname: "" }));
-        }
+        setErrors((prevErrors) => ({ ...prevErrors, fullname: "" }));
       }
     }
+
+    if (name === "email") {
+      if (value.trim() === "") {
+        setErrors((prevErrors) => ({ ...prevErrors, email: "" }));
+      } else if (!/^[\w-.]+@[a-zA-Z\d-]+\.[a-zA-Z\d-.]+$/.test(value)) {
+        setErrors((prevErrors) => ({
+          ...prevErrors,
+          email: "Please enter a valid email address.",
+        }));
+      } else {
+        setErrors((prevErrors) => ({ ...prevErrors, email: "" }));
+      }
+    }
+
+    if (name === "password") {
+      if (value.trim() === "") {
+        setErrors((prevErrors) => ({ ...prevErrors, password: "" }));
+      } else if (value.length < 8) {
+        setErrors((prevErrors) => ({
+          ...prevErrors,
+          password: "Password should consist of a minimum of 8 characters.",
+        }));
+      } else if (value.length > 15) {
+        setErrors((prevErrors) => ({
+          ...prevErrors,
+          password: "Password should not exceed 15 characters.",
+        }));
+      } else {
+        setErrors((prevErrors) => ({ ...prevErrors, password: "" }));
+      }
+    }
+
   };
+
   return (
     <div className="addfr-franchise-Reg">
       <Navbarlanding />
@@ -506,11 +476,13 @@ const FranchiseReg = () => {
                   <div className="addfr-input-wrap">
                     <input
                       className="addfr-input"
-                      type="number"
+                      type="text"
                       name="mobileNumber"
                       value={franchiseData.mobileNumber}
-                      onChange={handleFranchiseInputChange}
+                      onChange={handleMobileNumberChange}
                       placeholder=""
+                      pattern="\d{10}"
+                      maxLength="10"
                       required
                     />
                     <label>
@@ -649,11 +621,12 @@ const FranchiseReg = () => {
                     <div className="addfr-input-wrap">
                       <input
                         className="addfr-input"
-                        type="number"
+                        type="text"
                         name="pincode"
                         value={franchiseData.pincode}
                         onChange={handleFranchiseInputChange}
                         placeholder=""
+                        maxLength={6} // Add maxLength attribute to limit input to 6 characters
                         required
                       />
                       <label>

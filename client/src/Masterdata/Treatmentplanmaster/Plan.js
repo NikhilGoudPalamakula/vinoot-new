@@ -178,6 +178,13 @@ const TreatmentPlan = () => {
           modifiedAt: presentTime,
           modifiedBy: userId, // Set modifiedBy field
         });
+        toast.success("Plan Updated Successful", {
+          position: "top-right",
+          autoClose: 1500,
+          onClose: () => {
+            navigate("/TreatmentCategory");
+          },
+        });
       } else {
         await axios.post(`${VINOOTNEW}/api/treatment-plan`, {
           plan_id: plan_id,
@@ -194,14 +201,14 @@ const TreatmentPlan = () => {
           modifiedAt: presentTime, // Set modifiedAt field
           status: "active",
         });
+        toast.success("Plan Added Successful", {
+          position: "top-right",
+          autoClose: 1500,
+          onClose: () => {
+            navigate("/TreatmentCategory");
+          },
+        });
       }
-      toast.success("Plan Added Successful", {
-        position: "top-right",
-        autoClose: 1500,
-        onClose: () => {
-          navigate("/TreatmentCategory");
-        },
-      });
     } catch (error) {
       console.error(error);
     }

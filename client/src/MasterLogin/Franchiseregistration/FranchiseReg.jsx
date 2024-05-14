@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { ToastContainer, toast } from "react-toastify"; // Import ToastContainer and toast from react-toastify
+import "react-toastify/dist/ReactToastify.css"; // Import the default styles for React Toastify
 import { Link } from "react-router-dom";
 import "../Franchiseregistration/FranchiseReg.css";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import Navbarlanding from '../../../src/Landingpage/Components/Navbar'
+import Navbarlanding from "../../../src/Landingpage/Components/Navbar";
 
 const FranchiseReg = () => {
   const [states, setStates] = useState([]);
@@ -27,6 +27,7 @@ const FranchiseReg = () => {
     area: "",
     address: "",
     pincode: "",
+    createdBy: "",
   });
 
   const [adminData, setAdminData] = useState({
@@ -37,6 +38,7 @@ const FranchiseReg = () => {
     designation: "FranchiseAdmin",
     email: "",
     password: "",
+    createdBy: "",
   });
 
   const [errors, setErrors] = useState({
@@ -54,10 +56,13 @@ const FranchiseReg = () => {
     const fetchStates = async () => {
       try {
         const response = await axios.get("http://localhost:5001/api/states");
-        setStates(response.data);
-        setFilteredStates(response.data); // Initialize filteredStates with all states
+        const activeStates = response.data.filter(
+          (state) => state.status === "active"
+        );
+        setStates(activeStates);
+        setFilteredStates(activeStates); // Initialize filteredStates with active states
       } catch (error) {
-        console.error("Failed to fetch states", error);
+        // console.error("Failed to fetch states", error);
       }
     };
     fetchStates();
@@ -67,10 +72,13 @@ const FranchiseReg = () => {
     const fetchCities = async () => {
       try {
         const response = await axios.get("http://localhost:5001/api/cities");
-        setCities(response.data);
-        setFilteredCities(response.data); // Initialize filteredCities with all cities
+        const activeCities = response.data.filter(
+          (city) => city.status === "active"
+        );
+        setCities(activeCities);
+        setFilteredCities(activeCities); // Initialize filteredCities with active cities
       } catch (error) {
-        console.error("Failed to fetch cities", error);
+        // console.error("Failed to fetch cities", error);
       }
     };
     fetchCities();
@@ -83,44 +91,11 @@ const FranchiseReg = () => {
         setAreas(response.data);
         setFilteredAreas(response.data); // Initialize filteredAreas with all areas
       } catch (error) {
-        console.error("Failed to fetch areas", error);
+        // console.error("Failed to fetch areas", error);
       }
     };
     fetchAreas();
   }, []);
-
-  useEffect(() => {
-    if (stateInput.trim() === "") {
-      setFilteredStates(states); // Show all states if input is empty
-    } else {
-      const filteredStates = states.filter((state) =>
-        state.name.toLowerCase().includes(stateInput.toLowerCase())
-      );
-      setFilteredStates(filteredStates);
-    }
-  }, [stateInput, states]);
-
-  useEffect(() => {
-    if (city.trim() === "") {
-      setFilteredCities(cities); // Show all cities if input is empty
-    } else {
-      const filteredCities = cities.filter((cityItem) =>
-        cityItem.name.toLowerCase().includes(city.toLowerCase())
-      );
-      setFilteredCities(filteredCities);
-    }
-  }, [city, cities]);
-
-  useEffect(() => {
-    if (area.trim() === "") {
-      setFilteredAreas(areas); // Show all areas if input is empty
-    } else {
-      const filteredAreas = areas.filter((areaItem) =>
-        areaItem.name.toLowerCase().includes(area.toLowerCase())
-      );
-      setFilteredAreas(filteredAreas);
-    }
-  }, [area, areas]);
 
   const handleStateChange = (event) => {
     const value = event.target.value;
@@ -139,14 +114,48 @@ const FranchiseReg = () => {
     setArea(value);
     setFocusedInput("area");
   };
+  useEffect(() => {
+    if (stateInput.trim() === "") {
+      setFilteredCities([]); // Clear city suggestions if state input is empty
+      setFilteredAreas([]); // Clear area suggestions if state input is empty
+    } else {
+      const filteredCities = cities.filter(
+        (cite) =>
+          cite.state_id === franchiseData.state.state_id &&
+          cite.name.toLowerCase().includes(city.toLowerCase())
+      );
+      setFilteredCities(filteredCities);
 
-  const handleStateSelection = (selectedState) => {
-    setStateInput(selectedState);
+      const filteredAreas = areas.filter(
+        (are) =>
+          are.state_id === franchiseData.state.state_id &&
+          are.name.toLowerCase().includes(area.toLowerCase())
+      );
+      setFilteredAreas(filteredAreas);
+    }
+  }, [stateInput, cities, areas, franchiseData.state]);
+
+  const handleStateSelection = (selectedStateId, selectedStateName) => {
+    setStateInput(selectedStateName);
     setFranchiseData({
       ...franchiseData,
-      state: selectedState,
+      state: { state_id: selectedStateId, name: selectedStateName }, // Update state with ID and name
     });
+    setCity(""); // Clear the city input
+    setArea(""); // Clear the area input
     setFocusedInput(null);
+
+    // Filter cities based on the selected state's ID
+    const filteredCities = cities.filter(
+      (city) => city.state_id === selectedStateId
+    );
+    setFilteredCities(filteredCities);
+
+    // Filter areas based on the selected state's ID
+    const filteredAreas = areas.filter(
+      (area) => area.state_id === selectedStateId
+    );
+    setFilteredAreas(filteredAreas);
   };
 
   const handleCitySelection = (selectedCity) => {
@@ -170,88 +179,98 @@ const FranchiseReg = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    // Check for errors
     for (const error in errors) {
       if (errors[error] !== "") {
-        alert("Please fix all errors before submitting the form.");
+        toast.error("Please fix the errors before submitting", {
+          position: "top-right",
+          autoClose: 1500,
+        });
         return;
       }
     }
 
-    // // const mobileRegex = /^[1-9]\d{6}$/;
-    // // if (!mobileRegex.test(franchiseData.mobileNumber)) {
-    // //   alert("Mobile number should start with 6 and consist of 10 digits.");
-    // //   return;
-    // }
-
-    if (franchiseData.address.trim().length < 10) {
-      alert("Address should consist of a minimum of 10 characters.");
-      return;
-    }
-
-    const pincodeRegex = /^[1-6]\d{5}$/;
-    if (!pincodeRegex.test(franchiseData.pincode)) {
-      alert("Pincode must be 6 digits starting with a non-zero digit.");
-      return;
-    }
-
     try {
+      // Prepare data for API request
       const createdBy = localStorage.getItem("userId");
-
+      // console.log(createdBy);
       const updatedAdminData = {
         ...adminData,
         franchisename: franchiseData.franchisename,
         franchiseID: franchiseData.franchiseID,
         createdBy: createdBy,
       };
-
       const updatedFranchiseData = {
         ...franchiseData,
+        state: franchiseData.state.name, // Pass state_id instead of the entire state object
         createdBy: createdBy,
       };
 
+      // Send a request to create admin
       await axios.post("http://localhost:5001/api/admin", updatedAdminData);
-      console.log("admin Data:", updatedAdminData);
+      // console.log("admin Data:", updatedAdminData);
 
-      await axios.post("http://localhost:5001/api/franchise", updatedFranchiseData);
-      console.log("Franchise Data:", updatedFranchiseData);
-      toast.success("Franchise registered successfully.", {
+      // Send a request to create franchise
+      await axios.post(
+        "http://localhost:5001/api/franchise",
+        updatedFranchiseData
+      );
+      // Clear form values after successful submission
+      setAdminData({
+        fullname: "",
+        userId: "",
+        franchisename: "",
+        franchiseID: "",
+        designation: "FranchiseAdmin",
+        email: "",
+        password: "",
+        createdBy: "",
+      });
+      setStateInput("");
+      setCity("");
+      setArea("");
+
+      setFranchiseData({
+        franchisename: "",
+        franchiseID: "",
+        mobileNumber: "",
+        country: "",
+        state: "",
+        city: "",
+        area: "",
+        address: "",
+        pincode: "",
+        createdBy: "",
+      });
+
+      toast.success("Franchise created successfully", {
         position: "top-right",
-        autoClose: 3000,
-        onClose: () => {
-          // Optionally, you can navigate to another page after the toast closes
-        }
+        autoClose: 1500,
       });
     } catch (error) {
-      toast.error("Failed to register franchise. Please try again later.", {
-        position: "top-right",
-        autoClose: 3000,
-      });
       if (error.response) {
-        if (error.response.status === 400) {
-          const errorMessage = error.response.data.error;
-          if (
-            errorMessage === "Admin with this User ID already exists" ||
-            errorMessage === "Admin with this email already exists"
-          ) {
-            alert(errorMessage);
-          } else {
-            alert("Failed to create admin: " + errorMessage);
-          }
-        } else {
-          alert("Failed to create admin: " + error.response.data.error);
-        }
+        const errorMessage =
+          error.response.data.message || "Failed to create admin";
+        toast.error(errorMessage, {
+          position: "top-right",
+          autoClose: 1500,
+        });
       } else if (error.request) {
-        alert("No response from server");
+        toast.error("No response from server", {
+          position: "top-right",
+          autoClose: 1500,
+        });
       } else {
-        alert("Error: " + error.message);
+        toast.error("Error" + errors.message, {
+          position: "top-right",
+          autoClose: 1500,
+        });
       }
     }
   };
 
   const handleFranchiseInputChange = (e) => {
     const { name, value } = e.target;
-
-
 
     setFranchiseData({ ...franchiseData, [name]: value });
 
@@ -261,7 +280,8 @@ const FranchiseReg = () => {
       } else if (value.length < 10) {
         setErrors((prevErrors) => ({
           ...prevErrors,
-          franchisename: "Franchise name should consist of a minimum of 10 characters",
+          franchisename:
+            "Franchise name should consist of a minimum of 10 characters",
         }));
       } else if (value.length > 100) {
         setErrors((prevErrors) => ({
@@ -279,29 +299,30 @@ const FranchiseReg = () => {
       } else if (!/^[a-zA-Z]{3}\d{3}$/.test(value)) {
         setErrors((prevErrors) => ({
           ...prevErrors,
-          franchiseID: "Franchise ID must consist of 3 alphabetical characters followed by 3 numeric characters.",
+          franchiseID:
+            "Franchise ID must consist of 3 alphabetical characters followed by 3 numeric characters.",
         }));
       } else {
         setErrors((prevErrors) => ({ ...prevErrors, franchiseID: "" }));
       }
     }
 
-    // if (name === "mobileNumber") {
-    //   if (value.trim() === "") {
-    //     setErrors((prevErrors) => ({ ...prevErrors, mobileNumber: "" }));
-    //   } else {
-    //     const mobileRegex = /^[6]\d{0,9}$/; // Starts with 6 and allows up to 10 digits
-    //     if (!mobileRegex.test(value)) {
-    //       setErrors((prevErrors) => ({
-    //         ...prevErrors,
-    //         mobileNumber: "Mobile number must start with 6 and contain up to 10 digits.",
-    //       }));
-    //     } else {
-    //       setErrors((prevErrors) => ({ ...prevErrors, mobileNumber: "" }));
-    //     }
-    //   }
-    // }
-
+    if (name === "mobileNumber") {
+      if (value.trim() === "") {
+        setErrors((prevErrors) => ({ ...prevErrors, mobileNumber: "" }));
+      } else {
+        const mobileRegex = /^[1-9]\d{5}$/; // Starts with 6 and allows up to 10 digits
+        if (!mobileRegex.test(value)) {
+          setErrors((prevErrors) => ({
+            ...prevErrors,
+            mobileNumber:
+              "Mobile number must start with 6 and contain up to 10 digits.",
+          }));
+        } else {
+          setErrors((prevErrors) => ({ ...prevErrors, mobileNumber: "" }));
+        }
+      }
+    }
 
     if (name === "address") {
       if (value.trim() === "") {
@@ -321,11 +342,11 @@ const FranchiseReg = () => {
         setErrors((prevErrors) => ({ ...prevErrors, pincode: "" }));
       } else {
         // Remove non-numeric characters
-        const numericValue = value.replace(/\D/g, '');
+        const numericValue = value.replace(/\D/g, "");
         setFranchiseData({ ...franchiseData, [name]: numericValue });
 
         // Validate pincode format
-        const pincodeRegex = /^[5]\d{5}$/; // Regex to match exactly 6 digits starting with a non-zero digit
+        const pincodeRegex = /^[1-9]\d{5}$/; // Regex to match exactly 6 digits starting with a non-zero digit
         if (!pincodeRegex.test(numericValue)) {
           setErrors((prevErrors) => ({
             ...prevErrors,
@@ -338,32 +359,30 @@ const FranchiseReg = () => {
     }
   };
 
-
-
   const handleMobileNumberChange = (e) => {
     const { name, value } = e.target;
-  
+    setFranchiseData({ ...franchiseData, [name]: value });
+
     if (name === "mobileNumber") {
       if (value.trim() === "") {
         setErrors((prevErrors) => ({ ...prevErrors, mobileNumber: "" }));
       } else {
-        const numericValue = value.replace(/\D/g, '');  // Remove non-numeric characters
-  
-        const mobileRegex = /^[6-9]\d{0,9}$/; // Starts with 6 to 9 and allows up to 10 digits
+        const numericValue = value.replace(/\D/g, ""); // Remove non-numeric characters
+        setFranchiseData({ ...franchiseData, [name]: numericValue });
+
+        const mobileRegex = /^[6-9]\d{0,9}$/; // Starts with 6 and allows up to 10 digits
         if (!mobileRegex.test(value)) {
           setErrors((prevErrors) => ({
             ...prevErrors,
-            mobileNumber: "Mobile number must start with 6-9 and contain up to 10 digits.",
+            mobileNumber:
+              "Mobile number must start with 6 to 9 and contain up to 10 digits.",
           }));
         } else {
           setErrors((prevErrors) => ({ ...prevErrors, mobileNumber: "" }));
         }
-        setFranchiseData({ ...franchiseData, [name]: numericValue });
       }
     }
   };
-
-  
 
   const handleAdminInputChange = (e) => {
     const { name, value } = e.target;
@@ -418,13 +437,12 @@ const FranchiseReg = () => {
         setErrors((prevErrors) => ({ ...prevErrors, password: "" }));
       }
     }
-
   };
 
   return (
     <div className="addfr-franchise-Reg">
-      <Navbarlanding />
       <ToastContainer />
+      <Navbarlanding />
       {/* <div className="addfr-franchise-Logo">
         <div className="addfr-image">
           <img
@@ -438,7 +456,6 @@ const FranchiseReg = () => {
       </div> */}
       <div className="addfr-total">
         <h2 className="addfr-franchise-details">Franchise Form</h2>
-        
         <form onSubmit={handleSubmit} className="addfr-franchiseReg-form">
           <div className="addfr-franchise-column">
             <div className="addfr-franchise-admin">
@@ -538,8 +555,9 @@ const FranchiseReg = () => {
                         {filteredStates.map((state) => (
                           <li
                             key={state._id}
-                            onClick={() => handleStateSelection(state.name)}
-                          >
+                            onClick={() =>
+                              handleStateSelection(state.state_id, state.name)
+                            }>
                             {state.name}
                           </li>
                         ))}
@@ -568,8 +586,7 @@ const FranchiseReg = () => {
                         {filteredCities.map((city) => (
                           <li
                             key={city._id}
-                            onClick={() => handleCitySelection(city.name)}
-                          >
+                            onClick={() => handleCitySelection(city.name)}>
                             {city.name}
                           </li>
                         ))}
@@ -597,8 +614,7 @@ const FranchiseReg = () => {
                           {filteredAreas.map((area) => (
                             <li
                               key={area._id}
-                              onClick={() => handleAreaSelection(area.name)}
-                            >
+                              onClick={() => handleAreaSelection(area.name)}>
                               {area.name}
                             </li>
                           ))}
@@ -767,7 +783,6 @@ const FranchiseReg = () => {
             Submit
           </button>
         </form>
-        
       </div>
     </div>
   );

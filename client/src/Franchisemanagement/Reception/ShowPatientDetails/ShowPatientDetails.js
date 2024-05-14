@@ -180,6 +180,7 @@ const ShowPatientDetails = () => {
               width: 150px;
               justify-content:center;
               align-items:center;
+             margin-left:-9px;
             }
           </style>
         </head>

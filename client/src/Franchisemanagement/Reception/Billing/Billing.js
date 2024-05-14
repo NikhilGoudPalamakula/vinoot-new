@@ -462,10 +462,20 @@ useEffect(() => {
           th {
             background-color: #f2f2f2;
           }
+          .print-logo img {
+            height: 100px; 
+            width: 150px;
+            justify-content:center;
+            align-items:center;
+           margin-left:-9px;
+          }
         </style>
       </head>
       <body>
         <h1>Billing Details</h1>
+        <div class="print-logo">
+        <img src="https://vinootherbal.com/wp-content/uploads/2024/02/grrb-1-1536x804.png" alt="logo" />
+      </div>
         <table>
          
           <tr>

@@ -5,6 +5,8 @@ import axios from "axios";
 import "./Addpatient.css";
 // import ReceptionSidebar from "../ReceptionSidebar/ReceptionSidebar";
 import Patientdetails1 from "./Patientdetails1";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const PatientForm = () => {
   const [states, setStates] = useState([]);
@@ -374,12 +376,13 @@ const PatientForm = () => {
         setStateInput(""); // Clear the state input
         setCity(""); // Clear the city input
         setArea(""); // Clear the area input
-        alert("patient added successfully!");
+        toast.success("Patient added successfully!");
       } catch (error) {
         console.error("Failed to submit data", error);
+        toast.error("Failed to add patient. Please try again.");
       }
     } else {
-      alert("Form has errors. Please fix them before submitting.");
+      toast.error("Form has errors. Please fix them before submitting.");
     }
   };
 

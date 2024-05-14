@@ -249,11 +249,11 @@
 
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import FranchiseadminSidebar from "../Franchiseadminsidebar/Franchiseadminsidebar";
 import "./FranchiseAdmin.css";
 
-import { saveAs } from "file-saver";
+// import { saveAs } from "file-saver";
 import { FaFileCsv } from "react-icons/fa6";
 
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";

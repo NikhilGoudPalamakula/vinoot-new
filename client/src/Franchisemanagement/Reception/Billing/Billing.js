@@ -3,6 +3,8 @@ import { VINOOTNEW } from "../../../Helper/Helper";
 import axios from "axios";
 import ReceptionSidebar from "../ReceptionSidebar/ReceptionSidebar";
 import "./Billing.css";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Billing = () => {
   // --------------patient details fetch---------------
@@ -570,10 +572,28 @@ useEffect(() => {
     printWindow.close();
 };
 
-  const handleSaveAndPrint = () => {
-    saveData(); // Call the saveData function to save the data
-    printDetails(); // Call the printDetails function to print the data
+  // const handleSaveAndPrint = () => {
+  //   saveData(); // Call the saveData function to save the data
+  //   printDetails(); // Call the printDetails function to print the data
+  // };
+
+  const handleSaveAndPrint = async () => {
+    try {
+      await saveData(); // Call the saveData function to save the data
+  
+      // If saveData succeeds, display success toast and then print the details
+      toast.success("Data saved successfully!", {
+        onClose: () => {
+          printDetails(); // Call the printDetails function to print the data
+        }
+      });
+    } catch (error) {
+      console.error("Error saving data:", error);
+      // If saveData fails, display error toast
+      toast.error("Error saving data. Please try again.");
+    }
   };
+  
 
   return (
     <div className="billing-total">
@@ -889,7 +909,8 @@ useEffect(() => {
                   <td>
                     <select
                       value={paymentType}
-                      onChange={(e) => setPaymentType(e.target.value)}>
+                      onChange={(e) => setPaymentType(e.target.value)}
+                      required>
                       <option value="">Select Payment Type</option>
                       <option value="Cash">Cash</option>
                       <option value="Card">Card</option>

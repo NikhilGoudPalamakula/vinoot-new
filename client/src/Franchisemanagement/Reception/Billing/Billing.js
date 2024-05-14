@@ -569,7 +569,7 @@ useEffect(() => {
     // Close the print window after printing
     printWindow.close();
 };
-s
+
   const handleSaveAndPrint = () => {
     saveData(); // Call the saveData function to save the data
     printDetails(); // Call the printDetails function to print the data

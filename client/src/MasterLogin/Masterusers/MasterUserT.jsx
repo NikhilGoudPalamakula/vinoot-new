@@ -385,6 +385,7 @@ const MasterUserT = () => {
         fullName: updatedAdmin.fullName, // Use updatedAdmin.fullName instead of updatedAdmin.fullname
         email: updatedAdmin.email, // Use updatedAdmin.email instead of updatedAdmin.email
         password: updatedAdmin.password,
+        confirmPassword: updatedAdmin.confirmPassword,
         updatedBy,
       });
       setCurrentEditIndex(-1);
@@ -497,48 +498,71 @@ const MasterUserT = () => {
                 className="close"
                 style={{ cursor: "pointer", fontSize: "medium" }}
                 onClick={handleCancel}
-              >
-                &times;
-              </span>
+              ></span>
               <h2>Edit User Details</h2>
               <div className="modal-content-div">
-                <input
-                  type="text"
-                  value={users[currentEditIndex].fullName || ""}
-                  onChange={(e) =>
-                    handleInputChange(e, currentEditIndex, "fullName")
-                  }
-                  placeholder="fullname"
-                />
-                <input
-                  type="number"
-                  value={users[currentEditIndex].phoneNumber || ""}
-                  onChange={(e) =>
-                    handleInputChange(e, currentEditIndex, "phoneNumber")
-                  }
-                  placeholder="mobilenumber"
-                />
-                <input
-                  type="email"
-                  value={users[currentEditIndex].email || ""}
-                  onChange={(e) =>
-                    handleInputChange(e, currentEditIndex, "email")
-                  }
-                  placeholder="email"
-                />
-                <input
-                  type="text"
-                  value={users[currentEditIndex].password || ""}
-                  onChange={(e) =>
-                    handleInputChange(e, currentEditIndex, "password")
-                  }
-                  placeholder="password"
-                />
+                <div>
+                  <label htmlFor="">fullName</label>
+                  <input
+                    type="text"
+                    value={users[currentEditIndex].fullName || ""}
+                    onChange={(e) =>
+                      handleInputChange(e, currentEditIndex, "fullName")
+                    }
+                    placeholder="fullname"
+                  />
+                </div>
+                <div>
+                  <label htmlFor="">PhoneNumber</label>
+                  <input
+                    type="number"
+                    value={users[currentEditIndex].phoneNumber || ""}
+                    onChange={(e) =>
+                      handleInputChange(e, currentEditIndex, "phoneNumber")
+                    }
+                    placeholder="mobilenumber"
+                  />
+                </div>
+                <div>
+                  <label htmlFor="">Email</label>
+                  <input
+                    type="email"
+                    value={users[currentEditIndex].email || ""}
+                    onChange={(e) =>
+                      handleInputChange(e, currentEditIndex, "email")
+                    }
+                    placeholder="email"
+                  />
+                </div>
+                <div>
+                  <label htmlFor="">Password</label>
+                  <input
+                    type="text"
+                    value={users[currentEditIndex].password || ""}
+                    onChange={(e) =>
+                      handleInputChange(e, currentEditIndex, "password")
+                    }
+                    placeholder="password"
+                  />
+                </div>
+                <div>
+                  <label htmlFor="">ConfirmPassword</label>
+                  <input
+                    type="text"
+                    value={users[currentEditIndex].confirmPassword || ""}
+                    onChange={(e) =>
+                      handleInputChange(e, currentEditIndex, "confirmPassword")
+                    }
+                    placeholder="confirmPassword"
+                  />
+                </div>
 
-                <button onClick={() => handleUpdate(currentEditIndex)}>
-                  Update
-                </button>
-                <button onClick={handleCancel}>Cancel</button>
+                <div className="update">
+                  <button onClick={() => handleUpdate(currentEditIndex)}>
+                    Update
+                  </button>
+                  <button onClick={handleCancel}>Cancel</button>
+                </div>
               </div>
             </div>
           </div>

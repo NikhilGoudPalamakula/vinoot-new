@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import "../Franchiseregistration/FranchiseReg.css";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import Navbarlanding from '../../../src/Landingpage/Components/Navbar'
 
 const FranchiseReg = () => {
@@ -175,11 +177,11 @@ const FranchiseReg = () => {
       }
     }
 
-    const mobileRegex = /^[1-9]\d{6}$/;
-    if (!mobileRegex.test(franchiseData.mobileNumber)) {
-      alert("Mobile number should start with 6 and consist of 10 digits.");
-      return;
-    }
+    // // const mobileRegex = /^[1-9]\d{6}$/;
+    // // if (!mobileRegex.test(franchiseData.mobileNumber)) {
+    // //   alert("Mobile number should start with 6 and consist of 10 digits.");
+    // //   return;
+    // }
 
     if (franchiseData.address.trim().length < 10) {
       alert("Address should consist of a minimum of 10 characters.");
@@ -212,8 +214,18 @@ const FranchiseReg = () => {
 
       await axios.post("http://localhost:5001/api/franchise", updatedFranchiseData);
       console.log("Franchise Data:", updatedFranchiseData);
-      alert("Franchise registered successfully.");
+      toast.success("Franchise registered successfully.", {
+        position: "top-right",
+        autoClose: 3000,
+        onClose: () => {
+          // Optionally, you can navigate to another page after the toast closes
+        }
+      });
     } catch (error) {
+      toast.error("Failed to register franchise. Please try again later.", {
+        position: "top-right",
+        autoClose: 3000,
+      });
       if (error.response) {
         if (error.response.status === 400) {
           const errorMessage = error.response.data.error;
@@ -274,21 +286,21 @@ const FranchiseReg = () => {
       }
     }
 
-    if (name === "mobileNumber") {
-      if (value.trim() === "") {
-        setErrors((prevErrors) => ({ ...prevErrors, mobileNumber: "" }));
-      } else {
-        const mobileRegex = /^[6]\d{0,9}$/; // Starts with 6 and allows up to 10 digits
-        if (!mobileRegex.test(value)) {
-          setErrors((prevErrors) => ({
-            ...prevErrors,
-            mobileNumber: "Mobile number must start with 6 and contain up to 10 digits.",
-          }));
-        } else {
-          setErrors((prevErrors) => ({ ...prevErrors, mobileNumber: "" }));
-        }
-      }
-    }
+    // if (name === "mobileNumber") {
+    //   if (value.trim() === "") {
+    //     setErrors((prevErrors) => ({ ...prevErrors, mobileNumber: "" }));
+    //   } else {
+    //     const mobileRegex = /^[6]\d{0,9}$/; // Starts with 6 and allows up to 10 digits
+    //     if (!mobileRegex.test(value)) {
+    //       setErrors((prevErrors) => ({
+    //         ...prevErrors,
+    //         mobileNumber: "Mobile number must start with 6 and contain up to 10 digits.",
+    //       }));
+    //     } else {
+    //       setErrors((prevErrors) => ({ ...prevErrors, mobileNumber: "" }));
+    //     }
+    //   }
+    // }
 
 
     if (name === "address") {
@@ -330,32 +342,31 @@ const FranchiseReg = () => {
 
   const handleMobileNumberChange = (e) => {
     const { name, value } = e.target;
-    setFranchiseData({ ...franchiseData, [name]: value });
-
+  
     if (name === "mobileNumber") {
       if (value.trim() === "") {
         setErrors((prevErrors) => ({ ...prevErrors, mobileNumber: "" }));
       } else {
         const numericValue = value.replace(/\D/g, '');  // Remove non-numeric characters
-        setFranchiseData({ ...franchiseData, [name]: numericValue });
-
-        const mobileRegex = /^[6-9]\d{0,9}$/; // Starts with 6 and allows up to 10 digits
+  
+        const mobileRegex = /^[6-9]\d{0,9}$/; // Starts with 6 to 9 and allows up to 10 digits
         if (!mobileRegex.test(value)) {
           setErrors((prevErrors) => ({
             ...prevErrors,
-            mobileNumber: "Mobile number must start with 6 to 9 and contain up to 10 digits.",
+            mobileNumber: "Mobile number must start with 6-9 and contain up to 10 digits.",
           }));
         } else {
           setErrors((prevErrors) => ({ ...prevErrors, mobileNumber: "" }));
         }
+        setFranchiseData({ ...franchiseData, [name]: numericValue });
       }
     }
   };
 
+  
+
   const handleAdminInputChange = (e) => {
     const { name, value } = e.target;
-
-
 
     setAdminData({ ...adminData, [name]: value });
 
@@ -413,6 +424,7 @@ const FranchiseReg = () => {
   return (
     <div className="addfr-franchise-Reg">
       <Navbarlanding />
+      <ToastContainer />
       {/* <div className="addfr-franchise-Logo">
         <div className="addfr-image">
           <img
@@ -426,6 +438,7 @@ const FranchiseReg = () => {
       </div> */}
       <div className="addfr-total">
         <h2 className="addfr-franchise-details">Franchise Form</h2>
+        
         <form onSubmit={handleSubmit} className="addfr-franchiseReg-form">
           <div className="addfr-franchise-column">
             <div className="addfr-franchise-admin">
@@ -754,6 +767,7 @@ const FranchiseReg = () => {
             Submit
           </button>
         </form>
+        
       </div>
     </div>
   );

@@ -179,8 +179,8 @@
 
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { toast } from "react-toastify"; 
-import "react-toastify/dist/ReactToastify.css"; 
+import { ToastContainer, toast } from "react-toastify"; // Import ToastContainer and toast from react-toastify
+import "react-toastify/dist/ReactToastify.css"; // Import the default styles for React Toastify
 import { useNavigate } from "react-router-dom";
 import { VINOOTNEW } from "../../Helper/Helper";
 import Sidebar from "../Sidebar/Sidebar";
@@ -217,7 +217,7 @@ const Cities = () => {
       const response = await axios.get(`${VINOOTNEW}/api/cities`);
       setCities(response.data);
     } catch (error) {
-      console.error("Failed to fetch cities", error);
+      // console.error("Failed to fetch cities", error);
     } finally {
       setIsLoading(false);
     }
@@ -233,7 +233,7 @@ const Cities = () => {
       );
       setStates(activeStates);
     } catch (error) {
-      console.error("Failed to fetch states", error);
+      // console.error("Failed to fetch states", error);
     }
   };
 
@@ -300,7 +300,7 @@ const Cities = () => {
         modifiedAt: presentTime, // Set modifiedAt field
       });
       if (response.status === 201) {
-        console.log("City added successfully");
+        // console.log("City added successfully");
         toast.success("City added successfully", {
           position: "top-right",
           autoClose: 1500,
@@ -310,15 +310,21 @@ const Cities = () => {
         });
         return;
       } else {
-        console.error("Failed to add city");
+        // console.error("Failed to add city");
+        toast.error("Failed to add city", {
+          position: "top-right",
+          autoClose: 1500,
+        });
+        return;
       }
     } catch (error) {
-      console.error("Failed to add city", error);
+      // console.error("Failed to add city", error);
       if (error.response && error.response.status === 400) {
         toast.error("City already exists in this state", {
           position: "top-right",
           autoClose: 1500,
         });
+        return;
       }
     }
   };
@@ -346,10 +352,10 @@ const Cities = () => {
         // Update the state with the new array
         setCities(updatedCities);
       } else {
-        console.error("Failed to toggle city status");
+        // console.error("Failed to toggle city status");
       }
     } catch (error) {
-      console.error("Failed to toggle city status:", error);
+      // console.error("Failed to toggle city status:", error);
     }
   };
 
@@ -374,6 +380,7 @@ const Cities = () => {
   const totalPages = Math.ceil(cities.length / itemsPerPage);
   return (
     <div className="city-total">
+      <ToastContainer />
       <div>
         <Sidebar />
       </div>

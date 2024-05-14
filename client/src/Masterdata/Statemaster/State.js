@@ -155,7 +155,7 @@ const States = () => {
       const response = await axios.get(`${VINOOTNEW}/api/states`);
       setStates(response.data);
     } catch (error) {
-      console.error("Failed to fetch states", error);
+      // console.error("Failed to fetch states", error);
     }
   };
 
@@ -192,7 +192,7 @@ const States = () => {
         modifiedAt: presentTime, // Set modifiedAt field
       });
       if (response.status === 201) {
-        console.log("State added successfully");
+        // console.log("State added successfully");
         toast.success("State added successfully", {
           position: "top-right",
           autoClose: 1500,
@@ -202,10 +202,14 @@ const States = () => {
         });
         return;
       } else {
-        console.error("Failed to add state");
+        toast.error("Failed to add State", {
+          position: "top-right",
+          autoClose: 1500,
+        });
+        return;
       }
     } catch (error) {
-      console.error("Failed to add state", error);
+      // console.error("Failed to add state", error);
       if (error.response && error.response.status === 400) {
         toast.error("State already exists", {
           position: "top-right",
@@ -226,7 +230,7 @@ const States = () => {
       });
       fetchStates(); // Refresh states after status update
     } catch (error) {
-      console.error("Failed to toggle state status", error);
+      // console.error("Failed to toggle state status", error);
       toast.error("Failed to toggle state status", {
         position: "top-right",
         autoClose: 1500,

@@ -188,6 +188,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./Area.css";
+import { ToastContainer, toast } from "react-toastify"; // Import ToastContainer and toast from react-toastify
+import "react-toastify/dist/ReactToastify.css"; // Import the default styles for React Toastify
 // import { useNavigate } from "react-router-dom";
 import { VINOOTNEW } from "../../Helper/Helper";
 import Sidebar from "../Sidebar/Sidebar";
@@ -226,7 +228,7 @@ const Area = () => {
       const response = await axios.get(`${VINOOTNEW}/api/areas`);
       setAreas(response.data);
     } catch (error) {
-      console.error("Failed to fetch areas", error);
+      // console.error("Failed to fetch areas", error);
     } finally {
       setIsLoading(false);
     }
@@ -242,7 +244,7 @@ const Area = () => {
       setCities(activeCities);
       // setCities(response.data);
     } catch (error) {
-      console.error("Failed to fetch cities", error);
+      // console.error("Failed to fetch cities", error);
     }
   };
 
@@ -279,13 +281,26 @@ const Area = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (cityError || areaError) {
-      alert("Please fix the errors before submitting.");
+      toast.error("Please fix the errors before submitting", {
+        position: "top-right",
+        autoClose: 1500,
+      });
+      return;
+    }
+    if (!areaName.trim()) {
+      toast.error("Please enter the area name.", {
+        position: "top-right",
+        autoClose: 1500,
+      });
       return;
     }
     try {
       const selectedCity = cities.find((city) => city.name === cityName);
       if (!selectedCity) {
-        console.error("Selected city not found");
+        toast.error("Please select a City", {
+          position: "top-right",
+          autoClose: 1500,
+        });
         return;
       }
       const existingAreas = await axios.get(`${VINOOTNEW}/api/areas`);
@@ -304,16 +319,28 @@ const Area = () => {
       });
 
       if (response.status === 201) {
-        console.log("Area added successfully");
-        alert("Area added successfully");
+        // console.log("Area added successfully");
+        toast.success("Area added successfully", {
+          position: "top-right",
+          autoClose: 1500,
+        });
+        return;
         // navigate("/");
       } else {
-        console.error("Failed to add area");
+        toast.error("Failed to add area", {
+          position: "top-right",
+          autoClose: 1500,
+        });
+        return;
       }
     } catch (error) {
-      console.error("Failed to add area", error);
+      // console.error("Failed to add area", error);
       if (error.response && error.response.status === 400) {
-        alert("Area already exists in this city");
+        toast.error("area already exists in this city", {
+          position: "top-right",
+          autoClose: 1500,
+        });
+        return;
       }
     }
   };
@@ -341,10 +368,10 @@ const Area = () => {
         // Update the state with the new array
         setAreas(updatedAreas);
       } else {
-        console.error("Failed to toggle area status");
+        // console.error("Failed to toggle area status");
       }
     } catch (error) {
-      console.error("Failed to toggle area status:", error);
+      // console.error("Failed to toggle area status:", error);
     }
   };
 
@@ -370,6 +397,7 @@ const Area = () => {
 
   return (
     <div className="area-total">
+      <ToastContainer />
       <div>
         <Sidebar />
       </div>

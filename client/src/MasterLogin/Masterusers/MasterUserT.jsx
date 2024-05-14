@@ -371,7 +371,8 @@ const MasterUserT = () => {
     setCurrentPage(pageNumber);
   };
 
-  const handleEdit = (index) => {
+  const handleEdit = (userId) => {
+    const index = users.findIndex((user) => user.userId === userId);
     setCurrentEditIndex(index);
   };
 
@@ -489,16 +490,7 @@ const MasterUserT = () => {
                 </td>
                 <td>{user.modifiedBy}</td>
                 <td className="master-user-edit">
-                  {currentEditIndex === index ? (
-                    <>
-                      <button onClick={() => handleUpdate(index)}>
-                        Update
-                      </button>
-                      <button onClick={handleCancel}>Cancel</button>
-                    </>
-                  ) : (
-                    <button onClick={() => handleEdit(index)}>Edit</button>
-                  )}
+                  <button onClick={() => handleEdit(user.userId)}>Edit</button>
                 </td>
               </tr>
             ))}
@@ -527,6 +519,53 @@ const MasterUserT = () => {
             <KeyboardDoubleArrowRightIcon />
           </span>
         </div>
+        {currentEditIndex > -1 && (
+          <div className="modal  master-user-users">
+            <div className="modal-content">
+              <span
+                className="close"
+                style={{ cursor: "pointer", fontSize: "medium" }}
+                onClick={handleCancel}
+              >
+                &times;
+              </span>
+              <h2>Edit User Details</h2>
+              <input
+                type="text"
+                value={users[currentEditIndex].fullName || ""}
+                onChange={(e) =>
+                  handleInputChange(e, currentEditIndex, "fullName")
+                }
+              />
+              <input
+                type="number"
+                value={users[currentEditIndex].phoneNumber || ""}
+                onChange={(e) =>
+                  handleInputChange(e, currentEditIndex, "phoneNumber")
+                }
+              />
+              <input
+                type="email"
+                value={users[currentEditIndex].email || ""}
+                onChange={(e) =>
+                  handleInputChange(e, currentEditIndex, "email")
+                }
+              />
+              <input
+                type="text"
+                value={users[currentEditIndex].password || ""}
+                onChange={(e) =>
+                  handleInputChange(e, currentEditIndex, "password")
+                }
+              />
+
+              <button onClick={() => handleUpdate(currentEditIndex)}>
+                Update
+              </button>
+              <button onClick={handleCancel}>Cancel</button>
+            </div>
+          </div>
+        )}
       </div>
     </>
   );

@@ -49,3 +49,24 @@
   gap: 10px;
   height: 4vh;
 }
+.master-user-users {
+  button {
+    color: white;
+    background-color: #0aa506;
+    cursor: pointer;
+    border: none;
+    outline: none;
+    border-radius: 6px;
+    gap: 10px;
+    height: 4vh;
+    margin-left: 1vw;
+  }
+  input {
+    height: 4vh;
+    margin-left: 1vw;
+    border-radius: 6px;
+    border: none;
+    outline: none;
+    border: 1px solid #0aa506;
+  }
+}

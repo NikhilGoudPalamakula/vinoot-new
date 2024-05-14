@@ -1,9 +1,8 @@
-
 import React, { useState, useEffect } from "react";
 import ReceptionSidebar from "./ReceptionSidebar/ReceptionSidebar";
 import axios from "axios";
 import "./Recepttion.css";
-import { useNavigate } from "react-router-dom"; 
+import { useNavigate } from "react-router-dom";
 
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
@@ -17,13 +16,13 @@ const Reception = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(3);
   const [filters, setFilters] = useState({
-         fromDate: "",
-         toDate: "",
-         mobileNumber: "",
-         planType: "",
-         patientname: "",
-         remainingAmount: ""
-      });
+    fromDate: "",
+    toDate: "",
+    mobileNumber: "",
+    planType: "",
+    patientname: "",
+    remainingAmount: "",
+  });
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -54,36 +53,33 @@ const Reception = () => {
     navigate(`/showPatient/${patientId}`);
   };
 
-
-  const filteredData = billingData.filter(billing => {
+  const filteredData = billingData.filter((billing) => {
     const remainingAmount = parseFloat(billing.remainingAmount);
     const filterValue = parseFloat(filters.remainingAmount);
     const lowercaseName = filters.patientname.toLowerCase();
     const lowercaseBillingName = billing.patient_name.toLowerCase();
-    
+    // const lowercasefranchise = filters.franchisename.toLowerCase();
+    // const lowercaseFranchsieName = billing.franchiseName.toLowerCase();
     // Parse the date values for comparison
     const currentDate = new Date(billing.currentDate);
     const fromDate = filters.fromDate ? new Date(filters.fromDate) : null;
     const toDate = filters.toDate ? new Date(filters.toDate) : null;
 
     return (
-        (!fromDate || currentDate >= fromDate) && 
-        (!toDate || currentDate <= toDate) &&
-        billing.mobile_number.toString().includes(filters.mobileNumber) &&
-        (filters.planType ? billing.plan_name.includes(filters.planType) : true) &&
-        lowercaseBillingName.includes(lowercaseName) &&
-        !isNaN(filterValue) && remainingAmount >= filterValue
+      (!fromDate || currentDate >= fromDate) &&
+      (!toDate || currentDate <= toDate) &&
+      billing.mobile_number.toString().includes(filters.mobileNumber) &&
+      billing.plan_name.includes(filters.planType) &&
+      lowercaseBillingName.includes(lowercaseName) &&
+      billing.plan_name.includes(filters.planType) &&
+      (isNaN(filterValue) || remainingAmount >= filterValue)
     );
-});
+  });
 
-  // Get current plans
   const indexOfLastPlan = currentPage * itemsPerPage;
   const indexOfFirstPlan = indexOfLastPlan - itemsPerPage;
-  const currentPlans = billingData.slice(indexOfFirstPlan, indexOfLastPlan);
-
-  // Calculate total pages
-  const totalPages = Math.ceil(billingData.length / itemsPerPage);
-
+  const currentPlans = filteredData.slice(indexOfFirstPlan, indexOfLastPlan);
+  const totalPages = Math.ceil(filteredData.length / itemsPerPage);
 
   const handleFilterChange = (e) => {
     const { name, value } = e.target;
@@ -95,7 +91,7 @@ const Reception = () => {
         <ReceptionSidebar />
       </div>
       <div className="recp-dash-table">
-      <div className="recep-dash-fi">
+        <div className="recep-dash-fi">
           <h1>Patients Billing Details</h1>
           {/* <button onClick={exportToExcel}><TbFileTypeXls className="xlsiocn2" /></button> */}
         </div>
@@ -231,8 +227,6 @@ const Reception = () => {
 
 export default Reception;
 
-
-
 // import React, { useState, useEffect } from "react";
 // import ReceptionSidebar from "./ReceptionSidebar/ReceptionSidebar";
 // import axios from "axios";
@@ -311,20 +305,19 @@ export default Reception;
 //   //   );
 //   // });
 
-
 //   const filteredData = billingData.filter(billing => {
 //     const remainingAmount = parseFloat(billing.remainingAmount);
 //     const filterValue = parseFloat(filters.remainingAmount);
 //     const lowercaseName = filters.patientname.toLowerCase();
 //     const lowercaseBillingName = billing.patient_name.toLowerCase();
-    
+
 //     // Parse the date values for comparison
 //     const currentDate = new Date(billing.currentDate);
 //     const fromDate = filters.fromDate ? new Date(filters.fromDate) : null;
 //     const toDate = filters.toDate ? new Date(filters.toDate) : null;
 
 //     return (
-//         (!fromDate || currentDate >= fromDate) && 
+//         (!fromDate || currentDate >= fromDate) &&
 //         (!toDate || currentDate <= toDate) &&
 //         billing.mobile_number.toString().includes(filters.mobileNumber) &&
 //         (filters.planType ? billing.plan_name.includes(filters.planType) : true) &&
@@ -332,7 +325,6 @@ export default Reception;
 //         !isNaN(filterValue) && remainingAmount >= filterValue
 //     );
 // });
-
 
 //   const indexOfLastPlan = currentPage * itemsPerPage;
 //   const indexOfFirstPlan = indexOfLastPlan - itemsPerPage;
@@ -366,7 +358,6 @@ export default Reception;
 //     const excelBlob = new Blob([excelBuffer], { type: "application/octet-stream" });
 //     saveAs(excelBlob, "Billing_data.xlsx");
 //   };
-
 
 //   return (
 //     <div className="recp-total">
@@ -508,4 +499,3 @@ export default Reception;
 // };
 
 // export default Reception;
-

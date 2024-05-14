@@ -76,6 +76,7 @@ const ShowFranchiseUsers = () => {
               <th>Fullname</th>
               <th>Designation</th>
               <th>Email</th>
+              <th>Mobile Number</th>
               <th>Modified By</th>
               <th>Created By</th>
               <th>Action</th>
@@ -91,6 +92,7 @@ const ShowFranchiseUsers = () => {
                 <td>{admin.fullname}</td>
                 <td>{admin.designation}</td>
                 <td>{admin.email}</td>
+                <td>{admin.mobileNumber}</td>
                 <td>{admin.modifiedBy}</td>
                 <td>{admin.createdBy}</td>
                 <td>{admin.isActive ? "Active" : "Inactive"}</td>

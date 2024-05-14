@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify"; // Import ToastContainer and toast from react-toastify
 import "react-toastify/dist/ReactToastify.css"; // Import the default styles for React Toastify
 import "./Plan.css";
@@ -34,7 +34,7 @@ const TreatmentPlan = () => {
   });
   const [editId, setEditId] = useState(""); // Category ID being edited
   const presentTime = new Date().toLocaleString();
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const userId = localStorage.getItem("userId");
 
   // Fetch categories
@@ -178,11 +178,11 @@ const TreatmentPlan = () => {
           modifiedAt: presentTime,
           modifiedBy: userId, // Set modifiedBy field
         });
-        toast.success("Plan Updated Successful", {
+        toast.success("Treatment Plan Updated Successful", {
           position: "top-right",
           autoClose: 1500,
           onClose: () => {
-            navigate("/TreatmentCategory");
+            // navigate("/TreatmentCategory");
           },
         });
       } else {
@@ -201,11 +201,11 @@ const TreatmentPlan = () => {
           modifiedAt: presentTime, // Set modifiedAt field
           status: "active",
         });
-        toast.success("Plan Added Successful", {
+        toast.success("Treatment Plan Added Successful", {
           position: "top-right",
           autoClose: 1500,
           onClose: () => {
-            navigate("/TreatmentCategory");
+            // navigate("/TreatmentCategory");
           },
         });
       }

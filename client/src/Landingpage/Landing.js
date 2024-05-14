@@ -15,7 +15,7 @@ function Landingvinoot() {
       <Work />
        {/* <Regrowth/> */}
       <Consultants/>
-      <Contact />
+      {/* <Contact /> */}
       <Footer />
     </div>
   );

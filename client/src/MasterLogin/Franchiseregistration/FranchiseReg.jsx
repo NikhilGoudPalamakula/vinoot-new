@@ -5,7 +5,7 @@ import "react-toastify/dist/ReactToastify.css"; // Import the default styles for
 import { Link } from "react-router-dom";
 import "../Franchiseregistration/FranchiseReg.css";
 import Navbarlanding from "../../../src/Landingpage/Components/Navbar";
-
+import { VINOOTNEW } from "../../Helper/Helper";
 const FranchiseReg = () => {
   const [states, setStates] = useState([]);
   const [cities, setCities] = useState([]);
@@ -57,7 +57,7 @@ const FranchiseReg = () => {
   useEffect(() => {
     const fetchStates = async () => {
       try {
-        const response = await axios.get("http://localhost:5001/api/states");
+        const response = await axios.get(`${VINOOTNEW}/api/states`);
         const activeStates = response.data.filter(
           (state) =>
             state.status === "active" &&
@@ -75,7 +75,7 @@ const FranchiseReg = () => {
   useEffect(() => {
     const fetchCities = async () => {
       try {
-        const response = await axios.get("http://localhost:5001/api/cities");
+        const response = await axios.get(`${VINOOTNEW}/api/cities`);
         const activeCities = response.data.filter(
           (city) => city.status === "active"
         );
@@ -91,7 +91,7 @@ const FranchiseReg = () => {
   useEffect(() => {
     const fetchAreas = async () => {
       try {
-        const response = await axios.get("http://localhost:5001/api/areas");
+        const response = await axios.get(`${VINOOTNEW}/api/areas`);
         setAreas(response.data);
         setFilteredAreas(response.data); // Initialize filteredAreas with all areas
       } catch (error) {
@@ -216,12 +216,12 @@ const FranchiseReg = () => {
       };
 
       // Send a request to create admin
-      await axios.post("http://localhost:5001/api/admin", updatedAdminData);
+      await axios.post(`${VINOOTNEW}/api/admin`, updatedAdminData);
       // console.log("admin Data:", updatedAdminData);
 
       // Send a request to create franchise
       await axios.post(
-        "http://localhost:5001/api/franchise",
+        `${VINOOTNEW}/api/franchise`,
         updatedFranchiseData
       );
       // Clear form values after successful submission

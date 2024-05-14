@@ -7,7 +7,7 @@ import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import KeyboardDoubleArrowLeftIcon from "@mui/icons-material/KeyboardDoubleArrowLeft";
 import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArrowRight";
-
+import { VINOOTNEW } from "../../Helper/Helper";
 const MasterUserT = () => {
   const [users, setUsers] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -21,7 +21,7 @@ const MasterUserT = () => {
 
   const fetchUsers = async () => {
     try {
-      const response = await axios.get(`http://localhost:5001/api/users`);
+      const response = await axios.get(`${VINOOTNEW}/api/users`);
       setUsers(response.data);
     } catch (error) {
       console.error("Error fetching users:", error);
@@ -31,7 +31,7 @@ const MasterUserT = () => {
   const toggleActiveState = async (id, isActive) => {
     try {
       const updatedBy = localStorage.getItem("userId");
-      await axios.patch(`http://localhost:5001/api/users/${id}`, {
+      await axios.patch(`${VINOOTNEW}/api/users/${id}`, {
         isActive: !isActive,
         updatedBy,
       });
@@ -54,7 +54,7 @@ const MasterUserT = () => {
     try {
       const updatedBy = localStorage.getItem("userId");
       const updatedAdmin = users[index];
-      await axios.patch(`http://localhost:5001/api/users/${updatedAdmin._id}`, {
+      await axios.patch(`${VINOOTNEW}/api/users/${updatedAdmin._id}`, {
         fullName: updatedAdmin.fullName, // Use updatedAdmin.fullName instead of updatedAdmin.fullname
         email: updatedAdmin.email, // Use updatedAdmin.email instead of updatedAdmin.email
         password: updatedAdmin.password,

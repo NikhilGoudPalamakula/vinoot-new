@@ -5,7 +5,6 @@ import ReceptionSidebar from "../ReceptionSidebar/ReceptionSidebar";
 import "./Billing.css";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
 const Billing = () => {
   // --------------patient details fetch---------------
 
@@ -160,7 +159,7 @@ useEffect(() => {
         const frid = localStorage.getItem("franchiseID");
         if (frid) {
           const response = await axios.get(
-            `http://localhost:5001/api/franchisefetchusers/${frid}`
+            `${VINOOTNEW}/api/franchisefetchusers/${frid}`
           );
           // Filter doctors from the response data
           const doctorList = response.data.filter(
@@ -196,7 +195,7 @@ useEffect(() => {
         const frid = localStorage.getItem("franchiseID");
         if (frid) {
           const response = await axios.get(
-            `http://localhost:5001/api/franchisefetchusers/${frid}`
+            `${VINOOTNEW}/api/franchisefetchusers/${frid}`
           );
           // Filter doctors from the response data
           const therapitsList = response.data.filter(
@@ -242,7 +241,7 @@ useEffect(() => {
       setIsLoading(true);
       try {
         const response = await axios.get(
-          "http://localhost:5001/api/treatment-plan"
+          `${VINOOTNEW}/api/treatment-plan`
         );
         const activePlans = response.data.filter(
           (plan) => plan.status === "active"
@@ -363,7 +362,7 @@ useEffect(() => {
       const paymentStatus = amountPaid >= price ? "Paid" : "Unpaid";
 
       // Send the data to the backend API endpoint for saving
-      await axios.post("http://localhost:5001/api/billing", {
+      await axios.post(`${VINOOTNEW}/api/billing`, {
         bill_number: newBillNumber, // Use the newly generated bill number
         doctor: selectedDoctor,
         therapist: selectedTherapist,
@@ -406,7 +405,7 @@ useEffect(() => {
 
       if (frid) {
         const response = await axios.get(
-          `http://localhost:5001/api/billing${frid}`
+          `${VINOOTNEW}/api/billing${frid}`
         );
         setBill_numbers(response.data);
       } else {

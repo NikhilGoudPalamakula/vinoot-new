@@ -9,7 +9,8 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 // import { saveAs } from "file-saver";
 import SuperSidebar from "../../Masterdata/Sidebar/Sidebar";
-import './Franchisepatientbilling.css'
+import './Franchisepatientbilling.css';
+import { VINOOTNEW } from "../../Helper/Helper";
 const Franchisepatientbilling = () => {
   const [billingData, setBillingData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -31,7 +32,7 @@ const Franchisepatientbilling = () => {
 
   const fetchBillingData = async () => {
     try {
-      const response = await axios.get("http://localhost:5001/api/billing");
+      const response = await axios.get(`${VINOOTNEW}/api/billing`);
       setBillingData(response.data);
     } catch (error) {
       console.error("Error fetching billing data:", error);

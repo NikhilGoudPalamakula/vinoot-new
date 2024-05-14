@@ -7,7 +7,7 @@ import "./Addpatient.css";
 import Patientdetails1 from "./Patientdetails1";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
+import { VINOOTNEW } from "../../../Helper/Helper";
 const PatientForm = () => {
   const [states, setStates] = useState([]);
   const [cities, setCities] = useState([]);
@@ -43,7 +43,7 @@ const PatientForm = () => {
     // Fetch states data when component mounts
     const fetchStates = async () => {
       try {
-        const response = await axios.get("http://localhost:5001/api/states");
+        const response = await axios.get(`${VINOOTNEW}/api/states`);
         setStates(response.data);
         setFilteredStates(response.data); // Initialize filteredStates with all states
       } catch (error) {
@@ -57,7 +57,7 @@ const PatientForm = () => {
     // Fetch cities data when component mounts
     const fetchCities = async () => {
       try {
-        const response = await axios.get("http://localhost:5001/api/cities");
+        const response = await axios.get(`${VINOOTNEW}/api/cities`);
         setCities(response.data);
         setFilteredCities(response.data); // Initialize filteredCities with all cities
       } catch (error) {
@@ -71,7 +71,7 @@ const PatientForm = () => {
     // Fetch areas data when component mounts
     const fetchAreas = async () => {
       try {
-        const response = await axios.get("http://localhost:5001/api/areas");
+        const response = await axios.get(`${VINOOTNEW}/api/areas`);
         setAreas(response.data);
         setFilteredAreas(response.data); // Initialize filteredAreas with all areas
       } catch (error) {
@@ -351,7 +351,7 @@ const PatientForm = () => {
         const franchiseName = localStorage.getItem("franchisename");
         const franchiseID = localStorage.getItem("franchiseID");
 
-        const response = await axios.post("http://localhost:5001/api/patient", {
+        const response = await axios.post(`${VINOOTNEW}/api/patient`, {
           ...formData,
           createdBy: createdBy,
           franchiseName: franchiseName,
@@ -400,7 +400,7 @@ const PatientForm = () => {
 
       if (frid) {
         const response = await axios.get(
-          `http://localhost:5001/api/patients${frid}`
+          `${VINOOTNEW}/api/patients${frid}`
         );
         setPatients(response.data);
       } else {

@@ -5,29 +5,9 @@ import "react-toastify/dist/ReactToastify.css";
 import { useParams } from "react-router-dom";
 import "./ShowPatientDetails.css";
 import ReceptionSidebar from "../ReceptionSidebar/ReceptionSidebar";
-
+import { VINOOTNEW } from "../../../Helper/Helper";
 const ShowPatientDetails = () => {
-  // const [patientDetails, setPatientDetails] = useState(null);
-  // const { patientId } = useParams();
-
-  // useEffect(() => {
-  //   const fetchPatientDetails = async () => {
-  //     try {
-  //       const response = await axios.get(
-  //        ` http://localhost:5001/api/billings/${patientId}`
-  //       );
-  //       setPatientDetails(response.data);
-  //     } catch (error) {
-  //       console.error("Error fetching patient details:", error);
-  //     }
-  //   };
-
-  //   fetchPatientDetails();
-  // }, [patientId]);
-
-  // if (!patientDetails) {
-  //   return <div>Loading...</div>;
-  // }
+  
 
   // ---------------
 
@@ -44,7 +24,7 @@ const ShowPatientDetails = () => {
     const fetchPatientDetails = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:5001/api/billings/${patientId}`
+          `${VINOOTNEW}/api/billings/${patientId}`
         );
         setPatientDetails(response.data);
         // setUpdatedRemainingAmount(response.data?.remainingAmount.toFixed(2)); // Initialize with remaining amount
@@ -60,7 +40,7 @@ const ShowPatientDetails = () => {
     const fetchPatientInstallments = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:5001/api/installment/${patientId}`
+          `${VINOOTNEW}/api/installment/${patientId}`
         );
         setPatientInstallments(response.data);
         // console.log(response.data)
@@ -131,16 +111,14 @@ const ShowPatientDetails = () => {
       };
 
       const response = await axios.post(
-        `http://localhost:5001/api/installments`,
+        `${VINOOTNEW}/api/installments`,
         newInstallmentData
       );
 
       console.log("New installment created:", response.data);
       toast.success("New installment paid successfully!");
 
-      // await axios.post(`http://localhost:5001/api/installment/update`, updatedInstallment);
-      // alert("Remaining amount updated successfully!");
-      // You can also fetch the updated installments again here to reflect the changes
+    
     } catch (error) {
       console.error("Error to pay new installment:", error);
       toast.error("Error to pay new installment. Please try again.");

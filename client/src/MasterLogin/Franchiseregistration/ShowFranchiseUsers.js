@@ -7,6 +7,7 @@ import KeyboardDoubleArrowLeftIcon from "@mui/icons-material/KeyboardDoubleArrow
 import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArrowRight";
 import './ShowFranchiseUsers.css'
 import SuperSidebar from "../../Masterdata/Sidebar/Sidebar";
+import { VINOOTNEW } from "../../Helper/Helper";
 const ShowFranchiseUsers = () => {
   const { franchiseID } = useParams();
   const [franchiseAdmins, setFranchiseAdmins] = useState([]);
@@ -17,7 +18,7 @@ const ShowFranchiseUsers = () => {
     const fetchFranchiseAdmins = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:5001/api/franchisefetchAdmins/${franchiseID}`
+          `${VINOOTNEW}/api/franchisefetchAdmins/${franchiseID}`
         );
         const filteredAdmins = response.data.filter(
           (admin) => admin.designation === "FranchiseAdmin"
@@ -34,7 +35,7 @@ const ShowFranchiseUsers = () => {
     try {
       const updatedBy = localStorage.getItem("userId");
       await axios.patch(
-        `http://localhost:5001/api/franchisestateupdate/${id}`,
+        `${VINOOTNEW}/api/franchisestateupdate/${id}`,
         { isActive: !isActive, updatedBy }
       );
       setFranchiseAdmins((prevAdmins) =>

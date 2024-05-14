@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-
+import { VINOOTNEW } from "../Helper/Helper";
 const FranchiseLogin = () => {
   //  const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -19,7 +19,7 @@ const FranchiseLogin = () => {
     e.preventDefault();
     try {
       const res = await axios.post(
-        "http://localhost:5001/api/franchiselogin",
+        `${VINOOTNEW}/api/franchiselogin`,
         formData
       );
       const { franchisename, FranchiseID, userId, designation } = res.data;

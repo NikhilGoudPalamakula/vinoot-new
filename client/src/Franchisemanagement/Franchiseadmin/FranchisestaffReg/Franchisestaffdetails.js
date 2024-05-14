@@ -6,7 +6,7 @@ import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import KeyboardDoubleArrowLeftIcon from "@mui/icons-material/KeyboardDoubleArrowLeft";
 import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArrowRight";
-
+import { VINOOTNEW } from "../../../Helper/Helper";
 const Franchisestaffdetails = () => {
   const [admins, setAdmins] = useState([]);
 
@@ -21,7 +21,7 @@ const Franchisestaffdetails = () => {
       const frid = localStorage.getItem("franchiseID");
       if (frid) {
         const response = await axios.get(
-          `http://localhost:5001/api/franchisefetchusers/${frid}`
+          `${VINOOTNEW}/api/franchisefetchusers/${frid}`
         );
         setAdmins(response.data);
       } else {
@@ -40,7 +40,7 @@ const Franchisestaffdetails = () => {
     try {
       const updatedBy = localStorage.getItem("username"); // Get username from localStorage
       await axios.patch(
-        `http://localhost:5001/api/franchisestateupdate/${id}`,
+        `${VINOOTNEW}/api/franchisestateupdate/${id}`,
         { isActive: !isActive, updatedBy }
       );
       // Refresh user list after updating active state
@@ -60,7 +60,7 @@ const Franchisestaffdetails = () => {
       const updatedBy = localStorage.getItem("username");
       const updatedAdmin = admins[index];
       const response = await axios.patch(
-        `http://localhost:5001/api/franchisestateupdate/${updatedAdmin._id}`,
+        `${VINOOTNEW}/api/franchisestateupdate/${updatedAdmin._id}`,
         {
           fullname: updatedAdmin.fullname,
           password: updatedAdmin.password,

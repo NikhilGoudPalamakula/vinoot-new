@@ -168,7 +168,7 @@ exports.createAdmin = async (req, res) => {
       } else if (existingAdmin.email === req.body.email) {
         return res.status(400).json({ error: "email already exists" });
       } else if (existingAdmin.franchiseID === req.body.franchiseID) {
-        return res.status(400).json({ error: "franchiseID already exists" });
+        // return res.status(400).json({ error: "franchiseID already exists" });
       }
     }
 
@@ -182,7 +182,7 @@ exports.createAdmin = async (req, res) => {
     } else if (error.code === 11000 && error.keyPattern.email) {
       return res.status(400).json({ error: "email already exists" });
     } else if (error.code === 11000 && error.keyPattern.franchiseID) {
-      return res.status(400).json({ error: "franchiseID already exists" });
+      // return res.status(400).json({ error: "franchiseID already exists" });
     } else {
       res.status(500).json({
         success: false,

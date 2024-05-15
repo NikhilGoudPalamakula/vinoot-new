@@ -305,3 +305,21 @@ exports.getFranchiseAdminsByFranchiseID = async (req, res) => {
     res.status(500).json({ error: "Server Error" });
   }
 };
+
+
+exports.updateFranchiseAdminActiveStatepart2 = async (req, res) => {
+  const { id } = req.params;
+  const { isActive, updatedBy } = req.body; // Updated by information
+  try {
+    // Update active state and updated by information
+    await Admin.findByIdAndUpdate(id, {
+      isActive,
+      modifiedBy: updatedBy,
+       modifiedAt: new Date().toLocaleString(),
+    });
+    res.status(200).json({ message: "User active state updated successfully" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Server Error" });
+  }
+};

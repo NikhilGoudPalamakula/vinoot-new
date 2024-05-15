@@ -88,6 +88,9 @@ function App() {
           />
           <Route path="/Franchisetogglepatients" element={<Togglepatients />} />
         </Route>
+
+
+        
         <Route
           path="/Franchisepatientbilling"
           element={<Franchisepatientbilling />}

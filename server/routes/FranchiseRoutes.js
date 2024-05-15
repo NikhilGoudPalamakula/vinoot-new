@@ -13,6 +13,11 @@ router.patch(
   "/franchisestateupdate/:id",
   adminController.updateFranchiseAdminActiveState
 );
+router.patch(
+  "/franchisestateupdatepart2/:id",
+  adminController.updateFranchiseAdminActiveStatepart2
+);
+
 router.get(
   "/franchisefetchusers/:frid",
   adminController.getExceptAllFranchiseAmins

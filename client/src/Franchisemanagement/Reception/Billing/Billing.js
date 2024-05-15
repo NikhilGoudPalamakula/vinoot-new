@@ -3,7 +3,8 @@ import { VINOOTNEW } from "../../../Helper/Helper";
 import axios from "axios";
 import ReceptionSidebar from "../ReceptionSidebar/ReceptionSidebar";
 import "./Billing.css";
-
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 const Billing = () => {
   // --------------patient details fetch---------------
 
@@ -158,7 +159,7 @@ useEffect(() => {
         const frid = localStorage.getItem("franchiseID");
         if (frid) {
           const response = await axios.get(
-            `http://localhost:5001/api/franchisefetchusers/${frid}`
+            `${VINOOTNEW}/api/franchisefetchusers/${frid}`
           );
           // Filter doctors from the response data
           const doctorList = response.data.filter(
@@ -194,7 +195,7 @@ useEffect(() => {
         const frid = localStorage.getItem("franchiseID");
         if (frid) {
           const response = await axios.get(
-            `http://localhost:5001/api/franchisefetchusers/${frid}`
+            `${VINOOTNEW}/api/franchisefetchusers/${frid}`
           );
           // Filter doctors from the response data
           const therapitsList = response.data.filter(
@@ -240,7 +241,7 @@ useEffect(() => {
       setIsLoading(true);
       try {
         const response = await axios.get(
-          "http://localhost:5001/api/treatment-plan"
+          `${VINOOTNEW}/api/treatment-plan`
         );
         const activePlans = response.data.filter(
           (plan) => plan.status === "active"
@@ -361,7 +362,7 @@ useEffect(() => {
       const paymentStatus = amountPaid >= price ? "Paid" : "Unpaid";
 
       // Send the data to the backend API endpoint for saving
-      await axios.post("http://localhost:5001/api/billing", {
+      await axios.post(`${VINOOTNEW}/api/billing`, {
         bill_number: newBillNumber, // Use the newly generated bill number
         doctor: selectedDoctor,
         therapist: selectedTherapist,
@@ -404,7 +405,7 @@ useEffect(() => {
 
       if (frid) {
         const response = await axios.get(
-          `http://localhost:5001/api/billing${frid}`
+          `${VINOOTNEW}/api/billing${frid}`
         );
         setBill_numbers(response.data);
       } else {
@@ -569,11 +570,29 @@ useEffect(() => {
     // Close the print window after printing
     printWindow.close();
 };
-// s
-  const handleSaveAndPrint = () => {
-    saveData(); // Call the saveData function to save the data
-    printDetails(); // Call the printDetails function to print the data
+
+  // const handleSaveAndPrint = () => {
+  //   saveData(); // Call the saveData function to save the data
+  //   printDetails(); // Call the printDetails function to print the data
+  // };
+
+  const handleSaveAndPrint = async () => {
+    try {
+      await saveData(); // Call the saveData function to save the data
+  
+      // If saveData succeeds, display success toast and then print the details
+      toast.success("Data saved successfully!", {
+        onClose: () => {
+          printDetails(); // Call the printDetails function to print the data
+        }
+      });
+    } catch (error) {
+      console.error("Error saving data:", error);
+      // If saveData fails, display error toast
+      toast.error("Error saving data. Please try again.");
+    }
   };
+  
 
   return (
     <div className="billing-total">
@@ -889,7 +908,8 @@ useEffect(() => {
                   <td>
                     <select
                       value={paymentType}
-                      onChange={(e) => setPaymentType(e.target.value)}>
+                      onChange={(e) => setPaymentType(e.target.value)}
+                      required>
                       <option value="">Select Payment Type</option>
                       <option value="Cash">Cash</option>
                       <option value="Card">Card</option>
@@ -899,7 +919,13 @@ useEffect(() => {
                     <input
                       type="number"
                       value={amountPaid}
-                      onChange={(e) => setAmountPaid(e.target.value)}
+                      // onChange={(e) => setAmountPaid(e.target.value)}
+                      onChange={(e) => {
+                        const inputAmount = parseFloat(e.target.value); // Convert the input value to a number
+                        const totalAmount = parseFloat(selectedPlan?.TotalAmount || 0); // Get the total amount as a number
+                        // If the input amount is greater than the total amount, set amountPaid to the total amount; otherwise, set it to the input amount
+                        setAmountPaid(Math.min(inputAmount, totalAmount));
+                      }}
                     />
                   </td>
                   <td>

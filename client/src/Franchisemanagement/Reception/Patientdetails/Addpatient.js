@@ -1,9 +1,13 @@
+
+
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./Addpatient.css";
 // import ReceptionSidebar from "../ReceptionSidebar/ReceptionSidebar";
 import Patientdetails1 from "./Patientdetails1";
-
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { VINOOTNEW } from "../../../Helper/Helper";
 const PatientForm = () => {
   const [states, setStates] = useState([]);
   const [cities, setCities] = useState([]);
@@ -34,54 +38,102 @@ const PatientForm = () => {
     email: "",
     address: "",
   });
-  const presentTime = new Date().toLocaleString();
 
   useEffect(() => {
+    // Fetch states data when component mounts
     const fetchStates = async () => {
       try {
-        const response = await axios.get("http://localhost:5001/api/states");
-        const activeStates = response.data.filter(
-          (state) =>
-            state.status === "active" &&
-            state.name.toLowerCase().includes(stateInput.toLowerCase())
-        );
-        setStates(activeStates);
-        setFilteredStates(activeStates);
+        const response = await axios.get(`${VINOOTNEW}/api/states`);
+        setStates(response.data);
+        setFilteredStates(response.data); // Initialize filteredStates with all states
       } catch (error) {
         console.error("Failed to fetch states", error);
       }
     };
     fetchStates();
-  }, [stateInput]); // Add stateInput to dependency array
+  }, []);
 
   useEffect(() => {
+    // Fetch cities data when component mounts
     const fetchCities = async () => {
       try {
-        const response = await axios.get("http://localhost:5001/api/cities");
-        const activeCities = response.data.filter(
-          (city) => city.status === "active"
-        );
-        setCities(activeCities);
-        setFilteredCities(activeCities); // Initialize filteredCities with active cities
+        const response = await axios.get(`${VINOOTNEW}/api/cities`);
+        setCities(response.data);
+        setFilteredCities(response.data); // Initialize filteredCities with all cities
       } catch (error) {
-        // console.error("Failed to fetch cities", error);
+        console.error("Failed to fetch cities", error);
       }
     };
     fetchCities();
   }, []);
 
   useEffect(() => {
+    // Fetch areas data when component mounts
     const fetchAreas = async () => {
       try {
-        const response = await axios.get("http://localhost:5001/api/areas");
+        const response = await axios.get(`${VINOOTNEW}/api/areas`);
         setAreas(response.data);
         setFilteredAreas(response.data); // Initialize filteredAreas with all areas
       } catch (error) {
-        // console.error("Failed to fetch areas", error);
+        console.error("Failed to fetch areas", error);
       }
     };
     fetchAreas();
   }, []);
+
+  useEffect(() => {
+    // Filter states based on input value
+    if (stateInput.trim() === "") {
+      setFilteredStates(states); // Show all states if input is empty
+    } else {
+      const filteredStates = states.filter((state) =>
+        state.name.toLowerCase().includes(stateInput.toLowerCase())
+      );
+      setFilteredStates(filteredStates);
+    }
+  }, [stateInput, states]);
+
+  useEffect(() => {
+    // Filter cities based on input value
+    if (city.trim() === "") {
+      setFilteredCities(cities); // Show all cities if input is empty
+    } else {
+      const filteredCities = cities.filter((cityItem) =>
+        cityItem.name.toLowerCase().includes(city.toLowerCase())
+      );
+      setFilteredCities(filteredCities);
+    }
+  }, [city, cities]);
+
+  useEffect(() => {
+    // Filter areas based on input value
+    if (area.trim() === "") {
+      setFilteredAreas(areas); // Show all areas if input is empty
+    } else {
+      const filteredAreas = areas.filter((areaItem) =>
+        areaItem.name.toLowerCase().includes(area.toLowerCase())
+      );
+      setFilteredAreas(filteredAreas);
+    }
+  }, [area, areas]);
+
+  const generatePatientID = (patients) => {
+    if (patients.length === 0) {
+      // If there are no existing patients, start with the first ID
+      return "PAT001";
+    } else {
+      // Extract the numeric part of the last patient ID
+      const lastIDNumeric = parseInt(
+        patients[patients.length - 1].patient_id.substr(3),
+        10
+      );
+      // Increment the numeric part by 1
+      const nextIDNumeric = lastIDNumeric + 1;
+      // Pad the numeric part with zeros to maintain the format "PAT001"
+      const nextID = "PAT" + nextIDNumeric.toString().padStart(3, "0");
+      return nextID;
+    }
+  };
 
   const handleStateChange = (event) => {
     const value = event.target.value;
@@ -100,87 +152,32 @@ const PatientForm = () => {
     setArea(value);
     setFocusedInput("area");
   };
-  // Update useEffect hook to filter cities based on state input and city name
-  useEffect(() => {
-    if (stateInput.trim() === "") {
-      setFilteredCities([]); // Clear city suggestions if state input is empty
-      setFilteredAreas([]); // Clear area suggestions if state input is empty
-    } else {
-      const filteredCities = cities.filter(
-        (cit) =>
-          cit.state_id === formData.state.state_id &&
-          cit.name.toLowerCase().includes(city.toLowerCase())
-      );
-      setFilteredCities(filteredCities);
-    }
-  }, [stateInput, cities, formData.state, city]); // Add city to dependency array
 
-  // Update useEffect hook to filter areas based on area name
-  useEffect(() => {
-    const filteredAreas = areas.filter(
-      (are) =>
-        are.state_id === formData.state.state_id &&
-        are.name.toLowerCase().includes(area.toLowerCase())
-    );
-    setFilteredAreas(filteredAreas);
-  }, [area, areas, formData.state]); // Add area to dependency array
-
-  const handleStateSelection = (selectedStateId, selectedStateName) => {
-    setStateInput(selectedStateName);
+  const handleStateSelection = (selectedState) => {
+    setStateInput(selectedState);
     setFormData({
       ...formData,
-      state: { state_id: selectedStateId, name: selectedStateName }, // Update state with ID and name
+      state: selectedState, // Add selected state to formData
     });
-    setCity(""); // Clear the city input
-    setArea(""); // Clear the area input
-    setFocusedInput(null);
-
-    // Filter cities based on the selected state's ID
-    const filteredCities = cities.filter(
-      (city) => city.state_id === selectedStateId
-    );
-    setFilteredCities(filteredCities);
-
-    // Filter areas based on the selected state's ID
-    const filteredAreas = areas.filter(
-      (area) => area.state_id === selectedStateId
-    );
-    setFilteredAreas(filteredAreas);
+    setFocusedInput(null); // Hide suggestion list when a suggestion is clicked
   };
 
   const handleCitySelection = (selectedCity) => {
     setCity(selectedCity);
     setFormData({
       ...formData,
-      city: selectedCity,
+      city: selectedCity, // Add selected city to formData
     });
-    setFocusedInput(null);
+    setFocusedInput(null); // Hide suggestion list when a suggestion is clicked
   };
 
   const handleAreaSelection = (selectedArea) => {
     setArea(selectedArea);
     setFormData({
       ...formData,
-      area: selectedArea,
+      area: selectedArea, // Add selected area to formData
     });
-    setFocusedInput(null);
-  };
-  const generatePatientID = (patients) => {
-    if (patients.length === 0) {
-      // If there are no existing patients, start with the first ID
-      return "PAT001";
-    } else {
-      // Extract the numeric part of the last patient ID
-      const lastIDNumeric = parseInt(
-        patients[patients.length - 1].patient_id.substr(3),
-        10
-      );
-      // Increment the numeric part by 1
-      const nextIDNumeric = lastIDNumeric + 1;
-      // Pad the numeric part with zeros to maintain the format "PAT001"
-      const nextID = "PAT" + nextIDNumeric.toString().padStart(3, "0");
-      return nextID;
-    }
+    setFocusedInput(null); // Hide suggestion list when a suggestion is clicked
   };
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -191,6 +188,8 @@ const PatientForm = () => {
 
     // Validate input values
     switch (name) {
+    
+
       case "patient_name":
         if (value.trim() === "") {
           // Clear the error message when the input field is empty
@@ -208,7 +207,7 @@ const PatientForm = () => {
             ...prevErrors,
             [name]: "Patient name should consists only 50 characters",
           }));
-        } else if (!/^[\w\d\s\S]*[a-zA-Z]{3,}[\w\d\s\S]*$/.test(value)) {
+        } else if (!/^[\w\d\s\S]*[a-zA-Z]{3,}[\w\d\s\S]*$/.test(value))  {
           setErrors((prevErrors) => ({
             ...prevErrors,
             [name]:
@@ -223,57 +222,33 @@ const PatientForm = () => {
         break;
 
       case "mobile_number":
-        // if (value === "") {
-        //   // Clear the error message when the input field is empty
-        //   setErrors((prevErrors) => ({
-        //     ...prevErrors,
-        //     [name]: "",
-        //   }));
-        // } else if (!/^[6-9]\d{9}$/.test(value)) {
-        //   if (!/^[6-9]/.test(value)) {
-        //     setErrors((prevErrors) => ({
-        //       ...prevErrors,
-        //       [name]: "Mobile number must start with 6-9",
-        //     }));
-        //   } else if (value.length !== 10) {
-        //     setErrors((prevErrors) => ({
-        //       ...prevErrors,
-        //       [name]: "Mobile number should have 10 digits",
-        //     }));
-        //   }
-        // } else {
-        //   setErrors((prevErrors) => ({
-        //     ...prevErrors,
-        //     [name]: "",
-        //   }));
-        // }
-        if (value.trim() === "") {
-          setErrors((prevErrors) => ({ ...prevErrors, [name]: "" }));
-        } else {
-          const numericValue = value.replace(/\D/g, ""); // Remove non-numeric characters
-
-          if (numericValue.length !== 10) {
+        if (value === "") {
+          // Clear the error message when the input field is empty
+          setErrors((prevErrors) => ({
+            ...prevErrors,
+            [name]: "",
+          }));
+        } else if (!/^[6-9]\d{9}$/.test(value)) {
+          if (!/^[6-9]/.test(value)) {
             setErrors((prevErrors) => ({
               ...prevErrors,
-              [name]: "Mobile number must contain exactly 10 digits.",
+              [name]: "Mobile number must start with 6-9",
             }));
-          } else {
-            const mobileRegex = /^[6-9]\d{9}$/; // Starts with 6 and allows exactly 10 digits
-            if (!mobileRegex.test(numericValue)) {
-              setErrors((prevErrors) => ({
-                ...prevErrors,
-                [name]:
-                  "Mobile number must start with 6 to 9 and contain exactly 10 digits.",
-              }));
-            } else {
-              setFormData({ ...formData, [name]: numericValue });
-              setErrors((prevErrors) => ({ ...prevErrors, [name]: "" }));
-            }
+          } else if (value.length !== 10) {
+            setErrors((prevErrors) => ({
+              ...prevErrors,
+              [name]: "Mobile number should have 10 digits",
+            }));
           }
+        } else {
+          setErrors((prevErrors) => ({
+            ...prevErrors,
+            [name]: "",
+          }));
         }
         break;
       case "dob":
-        // const dobDateOnly = value.split("T")[0];
+        const dobDateOnly = value.split("T")[0];
         if (value.trim() === "") {
           // Clear the error message when the input field is empty
           setErrors((prevErrors) => ({
@@ -330,28 +305,29 @@ const PatientForm = () => {
         break;
 
       case "address":
-        if (value.trim() === "") {
-          setErrors((prevErrors) => ({
-            ...prevErrors,
-            [name]: "",
-          }));
-        } else if (value.length < 10 || value.length > 250) {
-          setErrors((prevErrors) => ({
-            ...prevErrors,
-            [name]: "Address must be between 10 and 250 characters",
-          }));
-        } else if (!/[a-zA-Z]{5,}/.test(value)) {
-          setErrors((prevErrors) => ({
-            ...prevErrors,
-            [name]: "Address must contain at least 5 alphabetic characters",
-          }));
-        } else {
-          setErrors((prevErrors) => ({
-            ...prevErrors,
-            [name]: "",
-          }));
-        }
-        break;
+  if (value.trim() === "") {
+    setErrors((prevErrors) => ({
+      ...prevErrors,
+      [name]: "",
+    }));
+  } else if (value.length < 10 || value.length > 250) {
+    setErrors((prevErrors) => ({
+      ...prevErrors,
+      [name]: "Address must be between 10 and 250 characters",
+    }));
+  } else if (!/[a-zA-Z]{5,}/.test(value)) {
+    setErrors((prevErrors) => ({
+      ...prevErrors,
+      [name]: "Address must contain at least 5 alphabetic characters",
+    }));
+  } else {
+    setErrors((prevErrors) => ({
+      ...prevErrors,
+      [name]: "",
+    }));
+  }
+  break;
+
 
       default:
         break;
@@ -370,21 +346,17 @@ const PatientForm = () => {
     const formValid = Object.values(errors).every((error) => error === "");
     if (formValid) {
       try {
-        // const dobDateOnly = formData.dob.split("T")[0];
-
+        const dobDateOnly = formData.dob.split("T")[0];
         const createdBy = localStorage.getItem("userId");
         const franchiseName = localStorage.getItem("franchisename");
         const franchiseID = localStorage.getItem("franchiseID");
 
-        const response = await axios.post("http://localhost:5001/api/patient", {
+        const response = await axios.post(`${VINOOTNEW}/api/patient`, {
           ...formData,
           createdBy: createdBy,
-          createdAt: presentTime,
           franchiseName: franchiseName,
           franchiseID: franchiseID,
-          modifiedAt: presentTime,
-          modifiedBy: createdBy,
-          // dob: dobDateOnly, // Extract only the date part
+          dob: dobDateOnly, // Extract only the date part
         });
 
         console.log(response.data); // Assuming response.data contains the newly created patient data
@@ -404,12 +376,13 @@ const PatientForm = () => {
         setStateInput(""); // Clear the state input
         setCity(""); // Clear the city input
         setArea(""); // Clear the area input
-        alert("patient added successfully!");
+        toast.success("Patient added successfully!");
       } catch (error) {
         console.error("Failed to submit data", error);
+        toast.error("Failed to add patient. Please try again.");
       }
     } else {
-      alert("Form has errors. Please fix them before submitting.");
+      toast.error("Form has errors. Please fix them before submitting.");
     }
   };
 
@@ -427,7 +400,7 @@ const PatientForm = () => {
 
       if (frid) {
         const response = await axios.get(
-          `http://localhost:5001/api/patients${frid}`
+          `${VINOOTNEW}/api/patients${frid}`
         );
         setPatients(response.data);
       } else {
@@ -473,6 +446,7 @@ const PatientForm = () => {
                   />
                 </div>
 
+                
                 <div className="input-wrapper">
                   <label htmlFor="patient_name">
                     Patient Name:<span className="mandatory">*</span>
@@ -523,16 +497,7 @@ const PatientForm = () => {
                     id="mobile_number"
                     type="number"
                     placeholder="888 888 8888"
-                    pattern="\d{10}"
-                    maxLength="10"
-                    onKeyDown={(evt) =>
-                      (evt.key === "." ||
-                        evt.key === "e" ||
-                        evt.key === "E" ||
-                        evt.key === "+" ||
-                        evt.key === "-") &&
-                      evt.preventDefault()
-                    }
+                    pattern="[0-9]{10}"
                     title="Ten digits code"
                     name="mobile_number"
                     value={formData.mobile_number}
@@ -555,7 +520,8 @@ const PatientForm = () => {
                     name="gender"
                     value={formData.gender}
                     onChange={handleInputChange}
-                    required>
+                    required
+                  >
                     <option value="">select the gender</option>
                     <option value="Male">Male</option>
                     <option value="Female">Female</option>
@@ -579,9 +545,8 @@ const PatientForm = () => {
                       {filteredStates.map((state) => (
                         <li
                           key={state._id}
-                          onClick={() =>
-                            handleStateSelection(state.state_id, state.name)
-                          }>
+                          onClick={() => handleStateSelection(state.name)}
+                        >
                           {state.name}
                         </li>
                       ))}
@@ -605,7 +570,8 @@ const PatientForm = () => {
                       {filteredCities.map((city) => (
                         <li
                           key={city._id}
-                          onClick={() => handleCitySelection(city.name)}>
+                          onClick={() => handleCitySelection(city.name)}
+                        >
                           {city.name}
                         </li>
                       ))}
@@ -629,7 +595,8 @@ const PatientForm = () => {
                       {filteredAreas.map((area) => (
                         <li
                           key={area._id}
-                          onClick={() => handleAreaSelection(area.name)}>
+                          onClick={() => handleAreaSelection(area.name)}
+                        >
                           {area.name}
                         </li>
                       ))}

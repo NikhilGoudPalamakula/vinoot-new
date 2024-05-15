@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { FaFacebook,FaTwitter} from "react-icons/fa6";
 import { FiInstagram } from "react-icons/fi";
 import { IoLogoYoutube } from "react-icons/io";
+import { FaLinkedin } from "react-icons/fa6";
 
 const Footer = () => {
   const handleEmailClick = () => {
@@ -20,26 +21,26 @@ const Footer = () => {
           </div>
           <div className="footer-icons">
           <ul class="wrapper">
-          <a href="https://www.facebook.com" target="_blank" rel="noopener noreferrer">
+          <a href="https://www.facebook.com/people/Vinootherbals24/61559348361216/" target="_blank" rel="noopener noreferrer">
               <li class="icon1 facebook">
                 <span class="tooltip1">Facebook</span>
                 <FaFacebook />
               </li>
           </a>
-          <a href="https://www.twitter.com" target="_blank" rel="noopener noreferrer">
+          <a href="https://www.linkedin.com/in/vinoot-herbal-9ba5682b6/" target="_blank" rel="noopener noreferrer">
             <li class="icon1 twitter">
-              <span class="tooltip1">Twitter</span>
-              <FaTwitter />
+              <span class="tooltip1">Linkedin</span>
+              <FaLinkedin />
             </li>
           </a>
-          <a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer">
+          <a href="https://www.instagram.com/vinootherbals24/" target="_blank" rel="noopener noreferrer">
 
             <li class="icon1 instagram">
               <span class="tooltip1">Instagram</span>
               <FiInstagram />
             </li>
           </a>
-          <a href="https://www.youtube.com" target="_blank" rel="noopener noreferrer">
+          <a href="https://www.youtube.com/@vinootherbal/featured" target="_blank" rel="noopener noreferrer">
             <li class="icon1 youtube">
               <span class="tooltip1">YouTube</span>
               <IoLogoYoutube/>

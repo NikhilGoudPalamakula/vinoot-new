@@ -118,7 +118,7 @@ const Franchisestaffdetails = () => {
               <th>Designation</th>
               <th>Email</th>
               <th>Password</th>
-              <th>mobileNumber</th>
+              <th>Mobile Number</th>
               <th>Modified By</th>
               <th>Modified At</th>
               <th>Created At</th>
@@ -194,7 +194,7 @@ const Franchisestaffdetails = () => {
               onClick={handleCancel}
             ></span>
             <h2>Edit Staff Details</h2>
-            <div className="" style={{ display: "flex", gap: "3px" }}>
+            <div className="frabchisestaff-editfileds" style={{ display: "flex", gap: "3px" }}>
               <div>
                 <div>
                   <label>fullname</label>
@@ -212,13 +212,18 @@ const Franchisestaffdetails = () => {
                   {" "}
                   <label>designation</label>
                 </div>
-                <input
+                <select
                   type="text"
                   value={admins[currentEditIndex].designation || ""}
                   onChange={(e) =>
                     handleInputChange(e, currentEditIndex, "designation")
                   }
-                />
+                >
+                  <option value="Doctor">Doctor</option>
+                  <option value="Reception">Reception</option>
+                  <option value="Therapist">Therapist</option>
+                  <option value="FranchiseAdmin">Franchise Admin</option>
+                  </select>
               </div>
               <div>
                 <div>

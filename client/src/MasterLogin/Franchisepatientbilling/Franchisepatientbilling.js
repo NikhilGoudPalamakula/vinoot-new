@@ -117,7 +117,7 @@ const toDate = filters.toDate ? new Date(filters.toDate) : null;
       </div>
       <div className="franbill-right">
         <div className="franbill-123">
-       <h1> Billing Data</h1>
+       <h1> Patients Billing Data</h1>
        <button onClick={exportToCSV}><  FaFileCsv    className="xlsiocn"/></button>   
        </div>
        <div  className="franbill-filterss">

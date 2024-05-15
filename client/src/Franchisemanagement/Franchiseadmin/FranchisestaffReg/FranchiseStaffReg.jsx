@@ -221,6 +221,7 @@ const FranchiseStaffReg = () => {
                   onChange={handleAdminInputChange}
                   placeholder=""
                   required
+                  readOnly
                 />
                 <label>
                   <span>userId </span>

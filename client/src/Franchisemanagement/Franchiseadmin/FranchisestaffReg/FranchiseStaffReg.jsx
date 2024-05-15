@@ -214,6 +214,7 @@ const FranchiseStaffReg = () => {
               {errors.fullname && <p className="error">{errors.fullname}</p>}
               <div className="addfr-inputs-wraps">
                 <input
+                 style={{zIndex:"-1"}}
                   className="addfr-inputs"
                   type="text"
                   name="userId"
@@ -221,7 +222,6 @@ const FranchiseStaffReg = () => {
                   onChange={handleAdminInputChange}
                   placeholder=""
                   required
-                  readOnly
                 />
                 <label>
                   <span>userId </span>

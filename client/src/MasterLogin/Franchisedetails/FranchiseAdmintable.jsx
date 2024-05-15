@@ -8,7 +8,6 @@ import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import KeyboardDoubleArrowLeftIcon from "@mui/icons-material/KeyboardDoubleArrowLeft";
 import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArrowRight";
-import { VINOOTNEW } from "../../Helper/Helper";
 const FranchiseAdmintable = () => {
   const [admins, setAdmins] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -21,7 +20,7 @@ const FranchiseAdmintable = () => {
   const fetchAdmins = async () => {
     try {
       const response = await axios.get(
-        `${VINOOTNEW}/api/franchisefetchAdmin`
+        "http://localhost:5001/api/franchisefetchAdmin"
       );
       // Filter admins whose designation is "FranchiseAdmin"
       const filteredAdmins = response.data.filter(
@@ -37,7 +36,7 @@ const FranchiseAdmintable = () => {
     try {
       const updatedBy = localStorage.getItem("userId");
       await axios.patch(
-        `${VINOOTNEW}/api/franchisestateupdate/${id}`,
+        `http://localhost:5001/api/franchisestateupdate/${id}`,
         { isActive: !isActive, updatedBy }
       );
       fetchAdmins();

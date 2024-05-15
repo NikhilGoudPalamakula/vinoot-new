@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { useNavigate } from "react-router-dom";
-import { VINOOTNEW } from '../Helper/Helper';
+
 import axios from 'axios';
 
 const LoginPage = () => {
@@ -22,7 +22,7 @@ const LoginPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post(`${VINOOTNEW}/api/login`, formData);
+      const res = await axios.post('http://localhost:5001/api/login', formData);
       console.log('User logged in:', res.data);
       localStorage.setItem('userId', res.data.userId);
         navigate("/FrSidebar");

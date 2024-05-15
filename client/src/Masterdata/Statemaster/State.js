@@ -159,26 +159,10 @@ const States = () => {
     }
   };
 
-  // const handleSelect = (event) => {
-  //   const inputValue = event.target.value;
-  //   setStateName(inputValue);
-  //   if (inputValue.length < 3 || inputValue.length > 60) {
-  //     setError("State name must be between 3 and 60 characters.");
-  //   } else {
-  //     setError("");
-  //   }
-  // };
-
   const handleSelect = (event) => {
     const inputValue = event.target.value;
     setStateName(inputValue);
-    
-    // Regular expression to match alphabetic characters only
-    const alphabeticRegex = /^[a-zA-Z\s]*$/;
-    
-    if (!alphabeticRegex.test(inputValue)) {
-      setError("State name must contain only alphabetic characters.");
-    } else if (inputValue.length < 3 || inputValue.length > 60) {
+    if (inputValue.length < 3 || inputValue.length > 60) {
       setError("State name must be between 3 and 60 characters.");
     } else {
       setError("");

@@ -10,15 +10,10 @@ const franchiseSchema = new mongoose.Schema({
   address: String,
   pincode: String,
   modifiedBy: String,
-  modifiedAt: { type: String, set: setDate, default: Date.now },
-  createdAt: { type: String, set: setDate, default: Date.now },
+  modifiedAt: { type: Date, default: Date.now },
+  createdAt: { type: Date, default: Date.now },
   createdBy: { type: String },
   isActive: { type: Boolean, default: true },
 });
-
-
-function setDate(date) {
-  return new Date(date).toLocaleString();
-}
 
 module.exports = mongoose.model("Franchiseregmodel", franchiseSchema);

@@ -46,8 +46,7 @@ exports.getAllUsers = async (req, res) => {
 
 exports.updateUserActiveState = async (req, res) => {
   const { id } = req.params;
-  const { isActive, updatedBy, fullName, email, password, confirmPassword } =
-    req.body; // Updated by information
+  const { isActive, updatedBy, fullName, email, password } = req.body; // Updated by information
   try {
     // Update active state and updated by information
     const updatedAdmin = await User.findByIdAndUpdate(
@@ -59,7 +58,6 @@ exports.updateUserActiveState = async (req, res) => {
         fullName,
         email,
         password,
-        confirmPassword,
       },
       { new: true }
     );

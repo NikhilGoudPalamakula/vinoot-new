@@ -57,11 +57,9 @@
     border: none;
     outline: none;
     border-radius: 6px;
-    padding: 0 8px;
     gap: 10px;
     height: 4vh;
-    margin-right: 1vw;
-    margin-top: 3vh;
+    margin-left: 1vw;
   }
   input {
     height: 4vh;
@@ -82,8 +80,4 @@
 .error {
   color: red;
   font-size: 0.2rem;
-}
-.update {
-  display: flex;
-  margin-right: 2vh;
 }

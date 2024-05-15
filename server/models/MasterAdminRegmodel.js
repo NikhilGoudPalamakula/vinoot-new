@@ -12,16 +12,10 @@ const userSchema = new mongoose.Schema({
   userType: { type: String, required: true },
   isActive: { type: Boolean, default: true },
   modifiedBy: { type: String },
-  modifiedAt: { type: String, set: setDate, default: Date.now },
-  createdAt: { type: String, set: setDate, default: Date.now },
+  modifiedAt: { type: Date, default: Date.now },
   createdAt: { type: Date, default: Date.now },
   createdBy: { type: String },
 });
-
-function setDate(date) {
-  return new Date(date).toLocaleString();
-}
-
 
 const MasterAdminRegmodel = mongoose.model('MasterUser', userSchema);
 

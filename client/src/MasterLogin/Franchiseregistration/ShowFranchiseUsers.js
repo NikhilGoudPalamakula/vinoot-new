@@ -7,28 +7,26 @@ import KeyboardDoubleArrowLeftIcon from "@mui/icons-material/KeyboardDoubleArrow
 import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArrowRight";
 import './ShowFranchiseUsers.css'
 import SuperSidebar from "../../Masterdata/Sidebar/Sidebar";
-import { VINOOTNEW } from "../../Helper/Helper";
 const ShowFranchiseUsers = () => {
   const { franchiseID } = useParams();
   const [franchiseAdmins, setFranchiseAdmins] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(6);
 
-  const fetchFranchiseAdmins = async () => {
-    try {
-      const response = await axios.get(
-        `${VINOOTNEW}/api/franchisefetchAdmins/${franchiseID}`
-      );
-      const filteredAdmins = response.data.filter(
-        (admin) => admin.designation === "FranchiseAdmin"
-      );
-      setFranchiseAdmins(filteredAdmins);
-    } catch (error) {
-      console.error("Error fetching franchise admins:", error);
-    }
-  };
-
   useEffect(() => {
+    const fetchFranchiseAdmins = async () => {
+      try {
+        const response = await axios.get(
+          `http://localhost:5001/api/franchisefetchAdmins/${franchiseID}`
+        );
+        const filteredAdmins = response.data.filter(
+          (admin) => admin.designation === "FranchiseAdmin"
+        );
+        setFranchiseAdmins(filteredAdmins);
+      } catch (error) {
+        console.error("Error fetching franchise admins:", error);
+      }
+    };
     fetchFranchiseAdmins();
   }, [franchiseID]);
 
@@ -36,7 +34,7 @@ const ShowFranchiseUsers = () => {
     try {
       const updatedBy = localStorage.getItem("userId");
       await axios.patch(
-        `${VINOOTNEW}/api/franchisestateupdatepart2/${id}`,
+        `http://localhost:5001/api/franchisestateupdate/${id}`,
         { isActive: !isActive, updatedBy }
       );
       setFranchiseAdmins((prevAdmins) =>
@@ -44,10 +42,6 @@ const ShowFranchiseUsers = () => {
           admin._id === id ? { ...admin, isActive: !isActive } : admin
         )
       );
-      
-      // Fetch updated values after state update
-      fetchFranchiseAdmins();
-      
     } catch (error) {
       console.error("Error updating active state:", error);
     }
@@ -82,7 +76,6 @@ const ShowFranchiseUsers = () => {
               <th>Fullname</th>
               <th>Designation</th>
               <th>Email</th>
-              <th>Mobile Number</th>
               <th>Modified By</th>
               <th>Created By</th>
               <th>Action</th>
@@ -98,7 +91,6 @@ const ShowFranchiseUsers = () => {
                 <td>{admin.fullname}</td>
                 <td>{admin.designation}</td>
                 <td>{admin.email}</td>
-                <td>{admin.mobileNumber}</td>
                 <td>{admin.modifiedBy}</td>
                 <td>{admin.createdBy}</td>
                 <td>{admin.isActive ? "Active" : "Inactive"}</td>

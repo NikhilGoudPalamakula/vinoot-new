@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-// import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify"; // Import ToastContainer and toast from react-toastify
 import "react-toastify/dist/ReactToastify.css"; // Import the default styles for React Toastify
 import "./Plan.css";
@@ -34,7 +34,7 @@ const TreatmentPlan = () => {
   });
   const [editId, setEditId] = useState(""); // Category ID being edited
   const presentTime = new Date().toLocaleString();
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
   const userId = localStorage.getItem("userId");
 
   // Fetch categories
@@ -178,11 +178,11 @@ const TreatmentPlan = () => {
           modifiedAt: presentTime,
           modifiedBy: userId, // Set modifiedBy field
         });
-        toast.success("Treatment Plan Updated Successful", {
+        toast.success("Plan Updated Successful", {
           position: "top-right",
           autoClose: 1500,
           onClose: () => {
-            // navigate("/TreatmentCategory");
+            navigate("/TreatmentCategory");
           },
         });
       } else {
@@ -201,11 +201,11 @@ const TreatmentPlan = () => {
           modifiedAt: presentTime, // Set modifiedAt field
           status: "active",
         });
-        toast.success("Treatment Plan Added Successful", {
+        toast.success("Plan Added Successful", {
           position: "top-right",
           autoClose: 1500,
           onClose: () => {
-            // navigate("/TreatmentCategory");
+            navigate("/TreatmentCategory");
           },
         });
       }
@@ -337,14 +337,6 @@ const TreatmentPlan = () => {
                           className="tplan-input"
                           type="number"
                           value={price}
-                          pattern="\d{6}"
-                          maxLength="6"
-                          onKeyDown={(evt) =>
-                            (evt.key === "." ||
-                              evt.key === "e" ||
-                              evt.key === "E") &&
-                            evt.preventDefault()
-                          }
                           onChange={handlePriceChange}
                           required
                           placeholder=""
@@ -362,10 +354,6 @@ const TreatmentPlan = () => {
                           className="tplan-input"
                           type="number"
                           value={days}
-                          onKeyDown={(evt) =>
-                            ["e", "E", "+", "-"].includes(evt.key) &&
-                            evt.preventDefault()
-                          }
                           onChange={handleDaysChange}
                           placeholder=""
                           required
@@ -384,10 +372,6 @@ const TreatmentPlan = () => {
                           className="tplan-input"
                           type="number"
                           value={GST}
-                          onKeyDown={(evt) =>
-                            ["e", "E", "+", "-"].includes(evt.key) &&
-                            evt.preventDefault()
-                          }
                           onChange={handleGSTChange}
                           placeholder=""
                           required
@@ -453,7 +437,6 @@ const TreatmentPlan = () => {
             <table className="tabp">
               <thead>
                 <tr>
-                  <th>Category</th>
                   <th>Plan Name</th>
                   <th>UpdatedTime</th>
                   <th>Status</th>
@@ -464,7 +447,6 @@ const TreatmentPlan = () => {
               <tbody>
                 {currentPlans.map((plan) => (
                   <tr key={plan.plan_id}>
-                    <td>{plan.category_name}</td>
                     <td>{plan.plan_name}</td>
                     <td>{plan.modifiedAt}</td>
                     <td>{plan.status}</td>

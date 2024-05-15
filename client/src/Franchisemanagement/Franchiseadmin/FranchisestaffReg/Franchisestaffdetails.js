@@ -6,7 +6,7 @@ import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import KeyboardDoubleArrowLeftIcon from "@mui/icons-material/KeyboardDoubleArrowLeft";
 import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArrowRight";
-import { VINOOTNEW } from "../../../Helper/Helper";
+
 const Franchisestaffdetails = () => {
   const [admins, setAdmins] = useState([]);
 
@@ -21,7 +21,7 @@ const Franchisestaffdetails = () => {
       const frid = localStorage.getItem("franchiseID");
       if (frid) {
         const response = await axios.get(
-          `${VINOOTNEW}/api/franchisefetchusers/${frid}`
+          `http://localhost:5001/api/franchisefetchusers/${frid}`
         );
         setAdmins(response.data);
       } else {
@@ -40,7 +40,7 @@ const Franchisestaffdetails = () => {
     try {
       const updatedBy = localStorage.getItem("username"); // Get username from localStorage
       await axios.patch(
-        `${VINOOTNEW}/api/franchisestateupdate/${id}`,
+        `http://localhost:5001/api/franchisestateupdate/${id}`,
         { isActive: !isActive, updatedBy }
       );
       // Refresh user list after updating active state
@@ -60,12 +60,12 @@ const Franchisestaffdetails = () => {
       const updatedBy = localStorage.getItem("username");
       const updatedAdmin = admins[index];
       const response = await axios.patch(
-        `${VINOOTNEW}/api/franchisestateupdate/${updatedAdmin._id}`,
+        `http://localhost:5001/api/franchisestateupdate/${updatedAdmin._id}`,
         {
           fullname: updatedAdmin.fullname,
           password: updatedAdmin.password,
           designation: updatedAdmin.designation,
-          mobileNumber: updatedAdmin.mobileNumber,
+          email: updatedAdmin.email,
           updatedBy,
         }
       );
@@ -118,7 +118,6 @@ const Franchisestaffdetails = () => {
               <th>Designation</th>
               <th>Email</th>
               <th>Password</th>
-              <th>mobileNumber</th>
               <th>Modified By</th>
               <th>Modified At</th>
               <th>Created At</th>
@@ -137,7 +136,6 @@ const Franchisestaffdetails = () => {
                 <td>{admin.designation}</td>
                 <td>{admin.email}</td>
                 <td>{admin.password}</td>
-                <td>{admin.mobileNumber}</td>
 
                 <td>{admin.modifiedBy}</td>
                 <td>{admin.modifiedAt}</td>
@@ -184,73 +182,46 @@ const Franchisestaffdetails = () => {
       </div>
       {currentEditIndex > -1 && (
         <div className="modal  master-user-users">
-          <div
-            className="modal-content-div"
-            style={{ display: "flex", flexDirection: "column" }}
-          >
+          <div className="modal-content">
             <span
               className="close"
               style={{ cursor: "pointer", fontSize: "medium" }}
               onClick={handleCancel}
-            ></span>
-            <h2>Edit Staff Details</h2>
-            <div className="" style={{ display: "flex", gap: "3px" }}>
-              <div>
-                <div>
-                  <label>fullname</label>
-                </div>
-                <input
-                  type="text"
-                  value={admins[currentEditIndex].fullname || ""}
-                  onChange={(e) =>
-                    handleInputChange(e, currentEditIndex, "fullname")
-                  }
-                />
-              </div>
-              <div>
-                <div>
-                  {" "}
-                  <label>designation</label>
-                </div>
-                <input
-                  type="text"
-                  value={admins[currentEditIndex].designation || ""}
-                  onChange={(e) =>
-                    handleInputChange(e, currentEditIndex, "designation")
-                  }
-                />
-              </div>
-              <div>
-                <div>
-                  <label>mobileNumber</label>
-                </div>
-                <input
-                  type="number"
-                  value={admins[currentEditIndex].mobileNumber || ""}
-                  onChange={(e) =>
-                    handleInputChange(e, currentEditIndex, "mobileNumber")
-                  }
-                />
-              </div>
+            >
+              &times;
+            </span>
+            <h2>Edit User Details</h2>
+            <input
+              type="text"
+              value={admins[currentEditIndex].fullname || ""}
+              onChange={(e) =>
+                handleInputChange(e, currentEditIndex, "fullname")
+              }
+            />
+            <input
+              type="text"
+              value={admins[currentEditIndex].designation || ""}
+              onChange={(e) =>
+                handleInputChange(e, currentEditIndex, "designation")
+              }
+            />
+            <input
+              type="number"
+              value={admins[currentEditIndex].email || ""}
+              onChange={(e) => handleInputChange(e, currentEditIndex, "email")}
+            />
+            <input
+              type="text"
+              value={admins[currentEditIndex].password || ""}
+              onChange={(e) =>
+                handleInputChange(e, currentEditIndex, "password")
+              }
+            />
 
-              <div>
-                <div>
-                  <label>password</label>
-                </div>
-                <input
-                  type="text"
-                  value={admins[currentEditIndex].password || ""}
-                  onChange={(e) =>
-                    handleInputChange(e, currentEditIndex, "password")
-                  }
-                />
-              </div>
-
-              <button onClick={() => handleUpdate(currentEditIndex)}>
-                Update
-              </button>
-              <button onClick={handleCancel}>Cancel</button>
-            </div>
+            <button onClick={() => handleUpdate(currentEditIndex)}>
+              Update
+            </button>
+            <button onClick={handleCancel}>Cancel</button>
           </div>
         </div>
       )}

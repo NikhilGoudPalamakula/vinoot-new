@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify"; // Import ToastContainer and toast from react-toastify
 import "react-toastify/dist/ReactToastify.css"; // Import the default styles for React Toastify
-// import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { VINOOTNEW } from "../../Helper/Helper";
 import "./Category.css";
 import Sidebar from "../../Masterdata/Sidebar/Sidebar";
@@ -13,7 +13,7 @@ import KeyboardDoubleArrowLeftIcon from "@mui/icons-material/KeyboardDoubleArrow
 import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArrowRight";
 
 const TreatmentCategory = () => {
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const [value, setValue] = useState("");
   const [categories, setCategories] = useState([]);
@@ -96,7 +96,7 @@ const TreatmentCategory = () => {
           position: "top-right",
           autoClose: 1500,
           onClose: () => {
-            // navigate("/TreatmentPlan");
+            navigate("/TreatmentPlan");
           },
         });
       } else {
@@ -114,7 +114,7 @@ const TreatmentCategory = () => {
           position: "top-right",
           autoClose: 1500,
           onClose: () => {
-            // navigate("/TreatmentPlan");
+            navigate("/TreatmentPlan");
           },
         });
       }

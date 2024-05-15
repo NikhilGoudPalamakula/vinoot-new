@@ -7,7 +7,7 @@ import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import KeyboardDoubleArrowLeftIcon from "@mui/icons-material/KeyboardDoubleArrowLeft";
 import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArrowRight";
-import { VINOOTNEW } from "../../Helper/Helper";
+
 const Franchisepatients = () => {
   const [patients, setPatients] = useState([]);
 
@@ -18,7 +18,7 @@ const Franchisepatients = () => {
     const fetchPatients = async () => {
       try {
         const response = await axios.get(
-          `${VINOOTNEW}/api/allfranchisepatients`
+          "http://localhost:5001/api/allfranchisepatients"
         ); // Assuming your server exposes a route '/api/patients' to fetch patients
         setPatients(response.data);
       } catch (error) {

@@ -254,7 +254,7 @@ exports.loginfranchiseUser = async (req, res) => {
 
 exports.updateFranchiseAdminActiveState = async (req, res) => {
   const { id } = req.params;
-  const { isActive, updatedBy, fullname, password, designation, mobileNumber } =
+  const { isActive, updatedBy, fullname, password, designation, email } =
     req.body; // Updated by information
   try {
     // Update active state and updated by information
@@ -265,9 +265,9 @@ exports.updateFranchiseAdminActiveState = async (req, res) => {
         modifiedBy: updatedBy,
         modifiedAt: Date.now(),
         fullname,
+        email,
         designation,
         password,
-        mobileNumber,
       },
       { new: true } // Set { new: true } to return the updated document
     );
@@ -300,24 +300,6 @@ exports.getFranchiseAdminsByFranchiseID = async (req, res) => {
     const FranchiseID = franchise.franchiseID;
     const users = await Admin.find({ franchiseID: FranchiseID });
     res.status(200).json(users);
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: "Server Error" });
-  }
-};
-
-
-exports.updateFranchiseAdminActiveStatepart2 = async (req, res) => {
-  const { id } = req.params;
-  const { isActive, updatedBy } = req.body; // Updated by information
-  try {
-    // Update active state and updated by information
-    await Admin.findByIdAndUpdate(id, {
-      isActive,
-      modifiedBy: updatedBy,
-       modifiedAt: new Date().toLocaleString(),
-    });
-    res.status(200).json({ message: "User active state updated successfully" });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Server Error" });

@@ -43,6 +43,7 @@
 .bottom-content1s{
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
     margin-left: 10px;
     margin-top: -10px;
 }
@@ -75,5 +76,31 @@
     background: transparent;
     border-radius: 50px;
     justify-content: center;
-    margin-left: 50px;
+}
+
+@media screen and (max-width: 425px) {
+    .part1s {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+        width: 100%;
+    }
+    .bottom-content1s {
+        /* display: flex; */
+        flex-direction: row;
+        margin-left: 10px;
+        margin-top: -10px;
+    }
+    .hair-regrowth1s {
+        height: auto;
+        background-color: #dcf1e5d2;
+        /* background-color: rgb(177, 234, 192); */
+        border-radius: 40px;
+        width: 90%;
+        margin-left: 5%;
+        margin-top: -60px;
+    }
+    
 }

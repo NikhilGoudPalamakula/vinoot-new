@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Staffregistration from '../FranchisestaffReg/FranchiseStaffReg'
 import Franchisestaffdetails from '../FranchisestaffReg/Franchisestaffdetails'
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { IoPersonAdd } from "react-icons/io5";
 import { FaUsers } from "react-icons/fa";
 import FranchiseadminSidebar from '../Franchiseadminsidebar/Franchiseadminsidebar';

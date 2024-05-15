@@ -244,34 +244,15 @@ const Cities = () => {
     }
   };
 
-  // const handleCityChange = (e) => {
-  //   const inputValue = e.target.value;
-  //   setCityName(inputValue);
-  //   if (inputValue.length < 3 || inputValue.length > 60) {
-  //     setError("City name must be between 3 and 60 characters.");
-  //   } else {
-  //     setError("");
-  //   }
-  // };
-
   const handleCityChange = (e) => {
     const inputValue = e.target.value;
     setCityName(inputValue);
-    
-    // Regular expression to match at least 3 alphabetic characters
-    const alphaRegex = /[a-zA-Z]/g;
-    const alphaCount = (inputValue.match(alphaRegex) || []).length;
-    
-    if (alphaCount < 3) {
-      setError("City name must contain at least 3 alphabetical characters.");
-    } else if (inputValue.length < 3 || inputValue.length > 60) {
+    if (inputValue.length < 3 || inputValue.length > 60) {
       setError("City name must be between 3 and 60 characters.");
     } else {
       setError("");
     }
   };
-  
-  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -438,7 +419,6 @@ const Cities = () => {
             <table className="cities-table">
               <thead>
                 <tr>
-                  <th>State Name</th>
                   <th>City</th>
                   <th>Status</th>
                   <th>Action</th>
@@ -447,7 +427,6 @@ const Cities = () => {
               <tbody>
                 {currentPlans.map((city) => (
                   <tr key={city._id}>
-                    <td>{city.StateName}</td>
                     <td>{city.name}</td>
                     <td>{city.status}</td>
                     <td>

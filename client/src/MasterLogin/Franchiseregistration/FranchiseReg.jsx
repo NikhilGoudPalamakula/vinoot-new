@@ -5,7 +5,7 @@ import "react-toastify/dist/ReactToastify.css"; // Import the default styles for
 import { Link } from "react-router-dom";
 import "../Franchiseregistration/FranchiseReg.css";
 import Navbarlanding from "../../../src/Landingpage/Components/Navbar";
-import { VINOOTNEW } from "../../Helper/Helper";
+
 const FranchiseReg = () => {
   const [states, setStates] = useState([]);
   const [cities, setCities] = useState([]);
@@ -37,7 +37,6 @@ const FranchiseReg = () => {
     franchiseID: "",
     designation: "FranchiseAdmin",
     email: "",
-    mobileNumber: "",
     password: "",
     createdBy: "",
   });
@@ -50,14 +49,13 @@ const FranchiseReg = () => {
     pincode: "",
     password: "",
     fullname: "",
-    userId: "",
     email: "",
   });
 
   useEffect(() => {
     const fetchStates = async () => {
       try {
-        const response = await axios.get(`${VINOOTNEW}/api/states`);
+        const response = await axios.get("http://localhost:5001/api/states");
         const activeStates = response.data.filter(
           (state) =>
             state.status === "active" &&
@@ -75,7 +73,7 @@ const FranchiseReg = () => {
   useEffect(() => {
     const fetchCities = async () => {
       try {
-        const response = await axios.get(`${VINOOTNEW}/api/cities`);
+        const response = await axios.get("http://localhost:5001/api/cities");
         const activeCities = response.data.filter(
           (city) => city.status === "active"
         );
@@ -91,7 +89,7 @@ const FranchiseReg = () => {
   useEffect(() => {
     const fetchAreas = async () => {
       try {
-        const response = await axios.get(`${VINOOTNEW}/api/areas`);
+        const response = await axios.get("http://localhost:5001/api/areas");
         setAreas(response.data);
         setFilteredAreas(response.data); // Initialize filteredAreas with all areas
       } catch (error) {
@@ -207,7 +205,6 @@ const FranchiseReg = () => {
         franchisename: franchiseData.franchisename,
         franchiseID: franchiseData.franchiseID,
         createdBy: createdBy,
-        mobileNumber: franchiseData.mobileNumber,
       };
       const updatedFranchiseData = {
         ...franchiseData,
@@ -216,12 +213,12 @@ const FranchiseReg = () => {
       };
 
       // Send a request to create admin
-      await axios.post(`${VINOOTNEW}/api/admin`, updatedAdminData);
+      await axios.post("http://localhost:5001/api/admin", updatedAdminData);
       // console.log("admin Data:", updatedAdminData);
 
       // Send a request to create franchise
       await axios.post(
-        `${VINOOTNEW}/api/franchise`,
+        "http://localhost:5001/api/franchise",
         updatedFranchiseData
       );
       // Clear form values after successful submission
@@ -285,20 +282,16 @@ const FranchiseReg = () => {
     if (name === "franchisename") {
       if (value.trim() === "") {
         setErrors((prevErrors) => ({ ...prevErrors, franchisename: "" }));
-      } else if (
-        !/^(?=.*[A-Z].*[A-Z].*[A-Z].*[A-Z].*[A-Z].*[A-Z].*[A-Z])[A-Z0-9]{10,}$/.test(
-          value
-        )
-      ) {
+      } else if (value.length < 10) {
         setErrors((prevErrors) => ({
           ...prevErrors,
           franchisename:
-            "Franchise name should contain at least 7 uppercase alphabet characters in any order and be at least 10 characters long.",
+            "Franchise name should consist of a minimum of 10 characters",
         }));
       } else if (value.length > 100) {
         setErrors((prevErrors) => ({
           ...prevErrors,
-          franchisename: "Franchise name should not exceed 100 characters",
+          franchisename: "Franchise name should consist of only 100 characters",
         }));
       } else {
         setErrors((prevErrors) => ({ ...prevErrors, franchisename: "" }));
@@ -404,27 +397,18 @@ const FranchiseReg = () => {
     if (name === "fullname") {
       if (value.trim() === "") {
         setErrors((prevErrors) => ({ ...prevErrors, fullname: "" }));
-      } else if (!/^[a-zA-Z\s']{3,50}$/.test(value)) {
+      } else if (!/^[a-zA-Z\s]+$/.test(value)) {
         setErrors((prevErrors) => ({
           ...prevErrors,
-          fullname:
-            "Full name should contain only alphabets and be between 3 and 50 characters long.",
+          fullname: "Full name should contain only alphabets.",
+        }));
+      } else if (value.length > 50) {
+        setErrors((prevErrors) => ({
+          ...prevErrors,
+          fullname: "Full name should not exceed 50 characters.",
         }));
       } else {
         setErrors((prevErrors) => ({ ...prevErrors, fullname: "" }));
-      }
-    }
-    if (name === "userId") {
-      if (value.trim() === "") {
-        setErrors((prevErrors) => ({ ...prevErrors, userId: "" }));
-      } else if (!/^[a-zA-Z]{3}\d{3}$/.test(value)) {
-        setErrors((prevErrors) => ({
-          ...prevErrors,
-          userId:
-            "userId must consist of 3 alphabetical characters followed by 3 numeric characters.",
-        }));
-      } else {
-        setErrors((prevErrors) => ({ ...prevErrors, userId: "" }));
       }
     }
 
@@ -444,13 +428,15 @@ const FranchiseReg = () => {
     if (name === "password") {
       if (value.trim() === "") {
         setErrors((prevErrors) => ({ ...prevErrors, password: "" }));
-      } else if (
-        !/^(?=.*\d)(?=.*[a-zA-Z])(?=.*[^a-zA-Z0-9\s]).{8,16}$/.test(value)
-      ) {
+      } else if (value.length < 8) {
         setErrors((prevErrors) => ({
           ...prevErrors,
-          password:
-            "Password should contain at least one number, one alphabet, one special character, and be between 8 and 16 characters long.",
+          password: "Password should consist of a minimum of 8 characters.",
+        }));
+      } else if (value.length > 15) {
+        setErrors((prevErrors) => ({
+          ...prevErrors,
+          password: "Password should not exceed 15 characters.",
         }));
       } else {
         setErrors((prevErrors) => ({ ...prevErrors, password: "" }));

@@ -160,13 +160,9 @@ exports.createAdmin = async (req, res) => {
 
     if (existingAdmin) {
       if (existingAdmin.userId === req.body.userId) {
-        return res
-          .status(400)
-          .json({ error: "Admin with this User ID already exists" });
+        return res.status(400).json({ error: "userId already exists" });
       } else if (existingAdmin.email === req.body.email) {
-        return res
-          .status(400)
-          .json({ error: "Admin with this email already exists" });
+        return res.status(400).json({ error: "email already exists" });
       }
     }
 
@@ -177,7 +173,7 @@ exports.createAdmin = async (req, res) => {
   } catch (error) {
     res.status(500).json({
       success: false,
-      message: "Failed to create admin.",
+      message: "Failed create admin.",
       error: error.message,
     });
   }
@@ -306,7 +302,6 @@ exports.getFranchiseAdminsByFranchiseID = async (req, res) => {
   }
 };
 
-
 exports.updateFranchiseAdminActiveStatepart2 = async (req, res) => {
   const { id } = req.params;
   const { isActive, updatedBy } = req.body; // Updated by information
@@ -315,7 +310,7 @@ exports.updateFranchiseAdminActiveStatepart2 = async (req, res) => {
     await Admin.findByIdAndUpdate(id, {
       isActive,
       modifiedBy: updatedBy,
-       modifiedAt: new Date().toLocaleString(),
+      modifiedAt: new Date().toLocaleString(),
     });
     res.status(200).json({ message: "User active state updated successfully" });
   } catch (error) {

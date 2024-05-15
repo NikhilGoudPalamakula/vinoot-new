@@ -220,10 +220,7 @@ const FranchiseReg = () => {
       // console.log("admin Data:", updatedAdminData);
 
       // Send a request to create franchise
-      await axios.post(
-        `${VINOOTNEW}/api/franchise`,
-        updatedFranchiseData
-      );
+      await axios.post(`${VINOOTNEW}/api/franchise`, updatedFranchiseData);
       // Clear form values after successful submission
       setAdminData({
         fullname: "",
@@ -256,20 +253,32 @@ const FranchiseReg = () => {
         autoClose: 1500,
       });
     } catch (error) {
-      if (error.response) {
-        const errorMessage =
-          error.response.data.message || "Failed to create admin";
-        toast.error(errorMessage, {
-          position: "top-right",
-          autoClose: 1500,
-        });
+      if (error.message) {
+        const errorMessage = error.message;
+        console.log(errorMessage);
+        if (errorMessage.includes("userId already exists")) {
+          toast.error("Admin with this User ID already exists", {
+            position: "top-right",
+            autoClose: 1500,
+          });
+        } else if (errorMessage.includes("email already exists")) {
+          toast.error("Admin with this email already exists", {
+            position: "top-right",
+            autoClose: 1500,
+          });
+        } else {
+          toast.error(errorMessage, {
+            position: "top-right",
+            autoClose: 1500,
+          });
+        }
       } else if (error.request) {
         toast.error("No response from server", {
           position: "top-right",
           autoClose: 1500,
         });
       } else {
-        toast.error("Error" + errors.message, {
+        toast.error("Error: " + error.message, {
           position: "top-right",
           autoClose: 1500,
         });

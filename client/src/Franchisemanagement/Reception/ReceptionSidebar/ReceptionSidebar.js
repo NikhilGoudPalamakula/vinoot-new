@@ -6,6 +6,7 @@ import { MdLogout } from "react-icons/md";
 import { RiBillFill } from "react-icons/ri";
 import { TbListDetails } from "react-icons/tb";
 import { IoPersonAddSharp } from "react-icons/io5";
+import FranchiseLoginDetailsIcon from "../../Franchiseadmin/FranchiseLoginDetailsIcon";
 
 const ReceptionSidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -27,6 +28,9 @@ const ReceptionSidebar = () => {
 
   return (
     <div>
+
+<FranchiseLoginDetailsIcon/>
+
       <div className={`side-bar-container ${isOpen ? "open" : ""}`}>
         <div className="v-logo">
           <img

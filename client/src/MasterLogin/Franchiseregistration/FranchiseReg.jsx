@@ -201,7 +201,6 @@ const FranchiseReg = () => {
     try {
       // Prepare data for API request
       const createdBy = localStorage.getItem("userId");
-      // console.log(createdBy);
       const updatedAdminData = {
         ...adminData,
         franchisename: franchiseData.franchisename,
@@ -217,10 +216,10 @@ const FranchiseReg = () => {
 
       // Send a request to create admin
       await axios.post(`${VINOOTNEW}/api/admin`, updatedAdminData);
-      // console.log("admin Data:", updatedAdminData);
 
       // Send a request to create franchise
       await axios.post(`${VINOOTNEW}/api/franchise`, updatedFranchiseData);
+
       // Clear form values after successful submission
       setAdminData({
         fullname: "",
@@ -254,19 +253,57 @@ const FranchiseReg = () => {
       });
     } catch (error) {
       if (error.response) {
-        const errorMessage =
-          error.response.data.message || "Admin with this mail alredy exists try with another mail";
-        toast.error(errorMessage, {
-          position: "top-right",
-          autoClose: 1500,
-        });
+        // The request was made and the server responded with a status code
+        // that falls out of the range of 2xx
+        // console.error("Server Error:", error.response.data);
+        if (error.response.status === 400) {
+          // Handle specific error messages
+          if (error.response.data.error === "userId already exists") {
+            // Handle userId already exists error
+            // Display appropriate message to the user
+            toast.error("User ID already exists", {
+              position: "top-right",
+              autoClose: 1500,
+            });
+          } else if (error.response.data.error === "email already exists") {
+            // Handle email already exists error
+            // Display appropriate message to the user
+            toast.error("Email already exists", {
+              position: "top-right",
+              autoClose: 1500,
+            });
+          } else if (
+            error.response.data.error === "franchiseID already exists"
+          ) {
+            // Handle email already exists error
+            // Display appropriate message to the user
+            toast.error("franchiseID already exists", {
+              position: "top-right",
+              autoClose: 1500,
+            });
+          }
+        } else {
+          // Handle other server errors
+          // Display generic error message to the user
+          toast.error("Server Error. Please try again later.", {
+            position: "top-right",
+            autoClose: 1500,
+          });
+        }
       } else if (error.request) {
-        toast.error("No response from server", {
-          position: "top-right",
-          autoClose: 1500,
-        });
+        // The request was made but no response was received
+        // Display appropriate message to the user
+        toast.error(
+          "No response received from server. Please try again later.",
+          {
+            position: "top-right",
+            autoClose: 1500,
+          }
+        );
       } else {
-        toast.error("Error: " + error.message, {
+        // Something happened in setting up the request that triggered an Error
+        // Display generic error message to the user
+        toast.error("Unexpected error occurred. Please try again later.", {
           position: "top-right",
           autoClose: 1500,
         });

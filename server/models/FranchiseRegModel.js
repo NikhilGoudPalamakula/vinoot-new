@@ -13,7 +13,7 @@ const franchiseSchema = new mongoose.Schema({
   modifiedAt: { type: String, set: setDate, default: Date.now },
   createdAt: { type: String, set: setDate, default: Date.now },
   createdBy: { type: String },
-  isActive: { type: Boolean, default: true },
+  isActive: { type: Boolean, default: false },
 });
 
 

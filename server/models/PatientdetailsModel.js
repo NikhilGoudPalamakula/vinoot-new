@@ -1,10 +1,10 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const patientSchema = new mongoose.Schema({
   patient_id: String,
   patient_name: String,
   gender: String,
-  dob: Date,
+  dob: String,
   email: String,
   mobile_number: String,
   state: String,
@@ -15,9 +15,8 @@ const patientSchema = new mongoose.Schema({
   franchiseID: String,
   createdBy: String,
   modifiedBy: { type: String },
-  modifiedAt: { type: Date, default: Date.now },
-  createdAt: { type: Date, default: Date.now }, 
-
+  modifiedAt: { type: String, required: true },
+  createdAt: { type: String, required: true },
 });
 
 const Patient = mongoose.model("Patientdetails", patientSchema);

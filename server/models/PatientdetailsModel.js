@@ -15,10 +15,16 @@ const patientSchema = new mongoose.Schema({
   franchiseID: String,
   createdBy: String,
   modifiedBy: { type: String },
-  modifiedAt: { type: Date, default: Date.now },
-  createdAt: { type: Date, default: Date.now }, 
+  modifiedAt:{ type: String, set: setDate, default: Date.now },
+  createdAt: { type: String, set: setDate, default: Date.now },
 
 });
+
+
+
+function setDate(date) {
+  return new Date(date).toLocaleString();
+}
 
 const Patient = mongoose.model("Patientdetails", patientSchema);
 

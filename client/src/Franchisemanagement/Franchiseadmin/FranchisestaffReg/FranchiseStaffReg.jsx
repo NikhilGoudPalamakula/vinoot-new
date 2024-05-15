@@ -3,6 +3,8 @@ import "./FranchiseStaffReg.css";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { VINOOTNEW } from "../../../Helper/Helper";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const FranchiseStaffReg = () => {
   const navigate = useNavigate();
@@ -37,7 +39,8 @@ const FranchiseStaffReg = () => {
       };
       await axios.post(`${VINOOTNEW}/api/admin`, updatedAdminData);
       console.log("admin Data:", updatedAdminData);
-      alert("Data submitted successfully.");
+      toast.success("Staff Added successfully.");
+      // alert("Data submitted successfully.");
       // Reset adminData state after successful submission
       setAdminData({
         ...adminData,
@@ -49,6 +52,7 @@ const FranchiseStaffReg = () => {
         password: "",
       });
       navigate("/Franchisetogglebutton");
+      window.location.reload();
     } catch (error) {
       console.error("Registration failed:", error.response.data.error);
     }
@@ -193,6 +197,7 @@ const FranchiseStaffReg = () => {
 
   return (
     <div className="fraddstaff-total">
+      <ToastContainer/>
       <div className="fradmin-right">
         <form onSubmit={handleSubmit} className="fr-admin-form">
           <div className="fr-for-flex">

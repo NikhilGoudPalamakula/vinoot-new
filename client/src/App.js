@@ -54,8 +54,8 @@ function App() {
           <Route path="/Sidebar" element={<Sidebar />} />
           <Route path="/MasterUsert" element={<MasterUserT />} />
           {/* <Route path="/reg" element={<RegisterPage />} /> */}
-          <Route path="/reg" element={<RegisterPage />} />
-          <Route path="/fsr" element={<FranchiseStaffReg />} />
+          {/* <Route path="/reg" element={<RegisterPage />} /> */}
+          {/* <Route path="/fsr" element={<FranchiseStaffReg />} /> */}
 
           <Route path="/States" element={<States />} />
           <Route path="/Cities" element={<Cities />} />

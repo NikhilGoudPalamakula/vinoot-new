@@ -1,5 +1,3 @@
-
-
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -75,20 +73,33 @@ const RegisterPage = () => {
         }));
       }
     }
+    // Compare password and confirm password
+    if (name === "confirmPassword") {
+      if (value !== formData.password) {
+        setErrors((prevErrors) => ({
+          ...prevErrors,
+          confirmPassword: "Passwords do not match.",
+        }));
+      }
+    }
 
     // Mobile number validation
-    if (name === "phoneNumber" && value.trim() !== "") {
-      if (!/^[6-9]\d{9}$/.test(value)) {
-        if (!/^[6-9]/.test(value)) {
+    if (name === "phoneNumber") {
+      if (value.trim() === "") {
+        setErrors((prevErrors) => ({ ...prevErrors, phoneNumber: "" }));
+      } else {
+        const numericValue = value.replace(/\D/g, ""); // Remove non-numeric characters
+        setFormData({ ...formData, [name]: numericValue });
+
+        const mobileRegex = /^[6-9]\d{0,9}$/; // Starts with 6 and allows up to 10 digits
+        if (!mobileRegex.test(value)) {
           setErrors((prevErrors) => ({
             ...prevErrors,
-            phoneNumber: "Mobile number should start with 6-9",
+            phoneNumber:
+              "Mobile number must start with 6 to 9 and contain up to 10 digits.",
           }));
-        } else if (value.length !== 10) {
-          setErrors((prevErrors) => ({
-            ...prevErrors,
-            phoneNumber: "Mobile number should have 10 digits",
-          }));
+        } else {
+          setErrors((prevErrors) => ({ ...prevErrors, phoneNumber: "" }));
         }
       }
     }
@@ -146,18 +157,14 @@ const RegisterPage = () => {
     e.preventDefault();
 
     // Check if password and confirm password match
-    if (formData.password !== formData.confirmPassword) {
-      setErrors((prevErrors) => ({
-        ...prevErrors,
-        confirmPassword: "Passwords do not match.",
-      }));
-      return; // Exit the function early if passwords don't match
-    }
 
     // Check for any errors before submission
     for (const key in errors) {
       if (errors[key]) {
-        toast.error("Errors are there. Please fix before submitting.");
+        toast.error("Errors are there. Please fix before submitting.", {
+          position: "top-right",
+          autoClose: 1500,
+        });
         return;
       }
     }
@@ -174,11 +181,16 @@ const RegisterPage = () => {
         ...formData,
         userId: newUserID,
       });
-      console.log("User registered:", res.data);
-      toast.error("Super Admin added sucessfully.");
-      navigate("/");
+      // console.log("User registered:", res.data);
+      toast.success("Super Admin added sucessfully.", {
+        position: "top-right",
+        autoClose: 1500,
+        onClose: () => {
+          navigate("/");
+        },
+      });
     } catch (error) {
-      console.error("Registration failed:", error.response.data.error);
+      // console.error("Registration failed:", error.response.data.error);
     }
   };
 
@@ -199,7 +211,7 @@ const RegisterPage = () => {
       const response = await axios.get(`${VINOOTNEW}/api/users`);
       setUsers(response.data);
     } catch (error) {
-      console.error("Error fetching users:", error);
+      // console.error("Error fetching users:", error);
     }
   };
 
@@ -211,6 +223,7 @@ const RegisterPage = () => {
 
   return (
     <div className="super-regtoatl">
+      <ToastContainer />
       {/* <div>
         <Sidebar />
       </div> */}
@@ -280,6 +293,15 @@ const RegisterPage = () => {
                       name="phoneNumber"
                       value={formData.phoneNumber}
                       onChange={handleChange}
+                      onKeyDown={(evt) =>
+                        (evt.key === "." ||
+                          evt.key === "e" ||
+                          evt.key === "E" ||
+                          evt.key === "+" ||
+                          evt.key === "-") &&
+                        evt.preventDefault()
+                      }
+                      maxLength="10"
                       placeholder=""
                       required
                     />
@@ -320,8 +342,7 @@ const RegisterPage = () => {
                       name="gender"
                       value={formData.gender}
                       onChange={handleChange}
-                      required
-                    >
+                      required>
                       <option value="">Select Gender</option>
                       <option value="male">Male</option>
                       <option value="female">Female</option>
@@ -336,6 +357,7 @@ const RegisterPage = () => {
                       name="password"
                       value={formData.password}
                       onChange={handleChange}
+                      maxLength="16"
                       placeholder=""
                       required
                     />

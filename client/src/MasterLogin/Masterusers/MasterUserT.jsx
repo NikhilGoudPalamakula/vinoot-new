@@ -95,7 +95,7 @@ const MasterUserT = () => {
               <th>Full Name</th>
               <th>userId</th>
               <th>Email</th>
-              <th>Phone Number</th>
+              <th>Mobile Number</th>
               <th>password</th>
               <th>Date of Birth</th>
               <th>Gender</th>

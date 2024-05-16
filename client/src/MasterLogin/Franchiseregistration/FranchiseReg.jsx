@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify"; // Import ToastContainer and toast from react-toastify
 import "react-toastify/dist/ReactToastify.css"; // Import the default styles for React Toastify
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import "../Franchiseregistration/FranchiseReg.css";
 import Navbarlanding from "../../../src/Landingpage/Components/Navbar";
 import { VINOOTNEW } from "../../Helper/Helper";
@@ -14,7 +14,7 @@ const FranchiseReg = () => {
   const [stateInput, setStateInput] = useState("");
   const [city, setCity] = useState("");
   const [focusedInput, setFocusedInput] = useState(null);
-  const [filteredStates, setFilteredStates] = useState([]);
+  // const [filteredStates, setFilteredStates] = useState([]);
   const [filteredCities, setFilteredCities] = useState([]);
   const [filteredAreas, setFilteredAreas] = useState([]);
   const [franchiseData, setFranchiseData] = useState({
@@ -64,7 +64,7 @@ const FranchiseReg = () => {
             state.name.toLowerCase().includes(stateInput.toLowerCase())
         );
         setStates(activeStates);
-        setFilteredStates(activeStates);
+        // setFilteredStates(activeStates);
       } catch (error) {
         console.error("Failed to fetch states", error);
       }
@@ -584,7 +584,7 @@ const FranchiseReg = () => {
                     />
                     {focusedInput === "state" && (
                       <ul className="suggestion-list1">
-                        {filteredStates.map((state) => (
+                        {states.map((state) => (
                           <li
                             key={state._id}
                             onClick={() =>

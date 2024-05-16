@@ -1,5 +1,3 @@
-
-
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "./MasterUserT.css";
@@ -13,7 +11,7 @@ const MasterUserT = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(3);
   const [currentEditIndex, setCurrentEditIndex] = useState(-1);
-  const [errors, setErrors] = useState({});
+  // const [errors, setErrors] = useState({});
 
   useEffect(() => {
     fetchUsers();
@@ -121,14 +119,16 @@ const MasterUserT = () => {
                 <td className="master-user-action">
                   {user.isActive ? (
                     <button
-                      onClick={() => toggleActiveState(user._id, user.isActive)}
-                    >
+                      onClick={() =>
+                        toggleActiveState(user._id, user.isActive)
+                      }>
                       Deactivate
                     </button>
                   ) : (
                     <button
-                      onClick={() => toggleActiveState(user._id, user.isActive)}
-                    >
+                      onClick={() =>
+                        toggleActiveState(user._id, user.isActive)
+                      }>
                       Activate
                     </button>
                   )}
@@ -152,8 +152,7 @@ const MasterUserT = () => {
             <span
               key={index}
               onClick={() => handlePageChange(index + 1)}
-              className={currentPage === index + 1 ? "pageactive-page" : ""}
-            >
+              className={currentPage === index + 1 ? "pageactive-page" : ""}>
               {index + 1}
             </span>
           ))}
@@ -170,8 +169,7 @@ const MasterUserT = () => {
               <span
                 className="close"
                 style={{ cursor: "pointer", fontSize: "medium" }}
-                onClick={handleCancel}
-              ></span>
+                onClick={handleCancel}></span>
               <h2>Edit User Details</h2>
               <div className="modal-content-div">
                 <div>

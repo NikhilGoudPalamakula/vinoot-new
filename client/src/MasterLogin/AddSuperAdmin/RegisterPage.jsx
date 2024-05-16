@@ -177,7 +177,7 @@ const RegisterPage = () => {
     });
 
     try {
-      const res = await axios.post(`${VINOOTNEW}/api/register`, {
+      await axios.post(`${VINOOTNEW}/api/register`, {
         ...formData,
         userId: newUserID,
       });

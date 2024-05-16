@@ -1,5 +1,3 @@
-
-
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./Area.css";
@@ -97,16 +95,17 @@ const Area = () => {
     // Regular expression to match at least 3 alphabetic characters
     const alphaRegex = /[a-zA-Z]/g;
     const alphaCount = (value.match(alphaRegex) || []).length;
-    
+
     if (alphaCount < 3) {
-      setAreaError("Area name must contain at least 3 alphabetical characters.");
+      setAreaError(
+        "Area name must contain at least 3 alphabetical characters."
+      );
     } else if (value.length < 3 || value.length > 60) {
       setAreaError("Area name must be between 3 and 60 characters.");
     } else {
       setAreaError("");
     }
   };
-  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -138,39 +137,38 @@ const Area = () => {
       const area_id = generateUniqueId(areaName, count + 0);
 
       const response = await axios.post(`${VINOOTNEW}/api/areas`, {
-        cityId: selectedCity._id,
+        cityId: cityId,
         areaName: areaName,
         city_id: selectedCity.city_id,
         area_id: area_id,
-        createdBy: userId, // Set createdBy field
-        createdAt: presentTime, // Set createdAt field
-        modifiedBy: userId, // Set modifiedBy field
-        modifiedAt: presentTime, // Set modifiedAt field
+        createdBy: userId,
+        createdAt: presentTime,
+        modifiedBy: userId,
+        modifiedAt: presentTime,
       });
-
       if (response.status === 201) {
-        // console.log("Area added successfully");
         toast.success("Area added successfully", {
           position: "top-right",
           autoClose: 1500,
         });
-        return;
-        // navigate("/");
+        setCityName("");
+        // Clear the areaName input field
+        setAreaName("");
+
+        // Fetch the updated areas again
+        fetchAreas();
       } else {
         toast.error("Failed to add area", {
           position: "top-right",
           autoClose: 1500,
         });
-        return;
       }
     } catch (error) {
-      // console.error("Failed to add area", error);
       if (error.response && error.response.status === 400) {
         toast.error("area already exists in this city", {
           position: "top-right",
           autoClose: 1500,
         });
-        return;
       }
     }
   };
@@ -253,7 +251,11 @@ const Area = () => {
               Area Name: <span style={{ color: "red" }}>*</span>
               <input type="text" value={areaName} onChange={handleAreaChange} />
             </label>
-            {areaError && <div  style={{ color: "red" }} className="error-message">{areaError}</div>}
+            {areaError && (
+              <div style={{ color: "red" }} className="error-message">
+                {areaError}
+              </div>
+            )}
           </div>
           <button type="submit">Submit</button>
         </form>

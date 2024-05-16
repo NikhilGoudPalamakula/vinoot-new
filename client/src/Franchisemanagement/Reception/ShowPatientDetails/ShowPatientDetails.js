@@ -86,10 +86,10 @@ const ShowPatientDetails = () => {
     setPaymentType(e.target.value);
   };
 
-  const handleAmountChange = (e) => {
-    const enteredAmount = Number(e.target.value);
-    setSubtractedAmount(parseFloat(enteredAmount));
-  };
+  // const handleAmountChange = (e) => {
+  //   const enteredAmount = Number(e.target.value);
+  //   setSubtractedAmount(parseFloat(enteredAmount));
+  // };
   
   const handleSubmit = async (e) => {
     e.preventDefault();

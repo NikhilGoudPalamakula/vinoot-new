@@ -107,6 +107,16 @@ const FranchiseAdmin = () => {
         setErrors({ ...errors, patientname: "" });
       }
     }
+
+    if (name === "remainingAmount") {
+      const amountRegex = /^\d*\.?\d{0,2}$/; // Regular expression to allow positive numbers with up to two decimal places
+  
+      if (!amountRegex.test(value)) {
+        setErrors({ ...errors, remainingAmount: "Invalid amount. Only positive numbers with up to two decimal places are allowed." });
+      } else {
+        setErrors({ ...errors, remainingAmount: "" });
+      }
+    }
   };
 
   const exportToCSV = () => {
@@ -210,6 +220,9 @@ const FranchiseAdmin = () => {
                 value={filters.remainingAmount}
                 onChange={handleFilterChange}
               />
+               {errors.remainingAmount && (
+              <span className="error" style={{ color: "red" }}>{errors.remainingAmount}</span>
+            )}
             </label>
           </div>
         </div>

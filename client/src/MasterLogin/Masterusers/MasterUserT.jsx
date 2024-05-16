@@ -12,6 +12,7 @@ const MasterUserT = () => {
   const [itemsPerPage] = useState(3);
   const [currentEditIndex, setCurrentEditIndex] = useState(-1);
   // const [errors, setErrors] = useState({});
+  const [validationErrors, setValidationErrors] = useState({});
 
   useEffect(() => {
     fetchUsers();
@@ -52,6 +53,28 @@ const MasterUserT = () => {
     try {
       const updatedBy = localStorage.getItem("userId");
       const updatedAdmin = users[index];
+
+        // Validate fields
+        const errors = {};
+        if (!updatedAdmin.fullName) {
+          errors.fullName = "Full Name is required";
+        }
+        if (!updatedAdmin.phoneNumber) {
+          errors.phoneNumber = "Phone Number is required";
+        }
+        if (!updatedAdmin.email) {
+          errors.email = "Email is required";
+        }
+        if (!updatedAdmin.password) {
+          errors.password = "Password is required";
+        }
+        if (!updatedAdmin.confirmPassword) {
+          errors.confirmPassword = "Confirm Password is required";
+        }
+        if (Object.keys(errors).length > 0) {
+          setValidationErrors(errors);
+          return;
+        }
       await axios.patch(`${VINOOTNEW}/api/users/${updatedAdmin._id}`, {
         fullName: updatedAdmin.fullName, // Use updatedAdmin.fullName instead of updatedAdmin.fullname
         email: updatedAdmin.email, // Use updatedAdmin.email instead of updatedAdmin.email
@@ -182,6 +205,9 @@ const MasterUserT = () => {
                     }
                     placeholder="fullname"
                   />
+                   {validationErrors.fullName && (
+                  <span className="error-message" style={{color:"red"}}>{validationErrors.fullName}</span>
+                )}
                 </div>
                 <div>
                   <label htmlFor="">PhoneNumber</label>
@@ -193,6 +219,9 @@ const MasterUserT = () => {
                     }
                     placeholder="mobilenumber"
                   />
+                    {validationErrors.phoneNumber && (
+                  <span className="error-message" style={{color:"red"}}>{validationErrors.phoneNumber}</span>
+                )}
                 </div>
                 <div>
                   <label htmlFor="">Email</label>
@@ -204,6 +233,9 @@ const MasterUserT = () => {
                     }
                     placeholder="email"
                   />
+                   {validationErrors.email && (
+                  <span className="error-message" style={{color:"red"}}>{validationErrors.email}</span>
+                )}
                 </div>
                 <div>
                   <label htmlFor="">Password</label>
@@ -215,6 +247,9 @@ const MasterUserT = () => {
                     }
                     placeholder="password"
                   />
+                   {validationErrors.password && (
+                  <span className="error-message" style={{color:"red"}}>{validationErrors.password}</span>
+                )}
                 </div>
                 <div>
                   <label htmlFor="">ConfirmPassword</label>
@@ -226,6 +261,9 @@ const MasterUserT = () => {
                     }
                     placeholder="confirmPassword"
                   />
+                     {validationErrors.confirmPassword && (
+                  <span className="error-message" style={{color:"red"}}>{validationErrors.confirmPassword}</span>
+                )}
                 </div>
 
                 <div className="update">

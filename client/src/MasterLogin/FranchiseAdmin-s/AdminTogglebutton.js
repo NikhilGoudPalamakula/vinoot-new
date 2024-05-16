@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import RegisterPage from "../AddSuperAdmin/RegisterPage";
 // import Franchisestaffdetails from "../FranchisestaffReg/Franchisestaffdetails";
 import MasterUserT from "../Masterusers/MasterUserT";
-import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { IoPersonAdd } from "react-icons/io5";
 import { FaUsers } from "react-icons/fa";
 // import FranchiseadminSidebar from "../../Franchisemanagement/Franchiseadmin/Franchiseadminsidebar/Franchiseadminsidebar";

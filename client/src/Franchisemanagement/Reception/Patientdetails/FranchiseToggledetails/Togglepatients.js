@@ -3,7 +3,7 @@ import React, { useState } from "react";
 // import Franchisestaffdetails from "../FranchisestaffReg/Franchisestaffdetails";
 import PatientForm from "../Addpatient";
 import Patientdetails1 from "../Patientdetails1";
-import { FaEye, FaEyeSlash } from "react-icons/fa";
+// import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { IoPersonAdd } from "react-icons/io5";
 import { FaUsers } from "react-icons/fa";
 // import FranchiseadminSidebar from "../Franchiseadminsidebar/Franchiseadminsidebar";

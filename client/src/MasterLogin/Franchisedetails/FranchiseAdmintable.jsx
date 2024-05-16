@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./FranchiseAdmintable.css";
 import axios from "axios";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import Sidebar from "../../Masterdata/Sidebar/Sidebar";
 import "./FranchiseAdmintable.css";
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
@@ -20,9 +20,7 @@ const FranchiseAdmintable = () => {
 
   const fetchAdmins = async () => {
     try {
-      const response = await axios.get(
-        `${VINOOTNEW}/api/franchisefetchAdmin`
-      );
+      const response = await axios.get(`${VINOOTNEW}/api/franchisefetchAdmin`);
       // Filter admins whose designation is "FranchiseAdmin"
       const filteredAdmins = response.data.filter(
         (admin) => admin.designation === "FranchiseAdmin"
@@ -36,10 +34,10 @@ const FranchiseAdmintable = () => {
   const toggleActiveState = async (id, isActive) => {
     try {
       const updatedBy = localStorage.getItem("userId");
-      await axios.patch(
-        `${VINOOTNEW}/api/franchisestateupdate/${id}`,
-        { isActive: !isActive, updatedBy }
-      );
+      await axios.patch(`${VINOOTNEW}/api/franchisestateupdate/${id}`, {
+        isActive: !isActive,
+        updatedBy,
+      });
       fetchAdmins();
     } catch (error) {
       console.error("Error updating active state:", error);
@@ -96,8 +94,9 @@ const FranchiseAdmintable = () => {
                 <td>
                   <button
                     className="farnchiseadmin-activebtn"
-                    onClick={() => toggleActiveState(admin._id, admin.isActive)}
-                  >
+                    onClick={() =>
+                      toggleActiveState(admin._id, admin.isActive)
+                    }>
                     {admin.isActive ? "Deactivate" : "Activate"}
                   </button>
                 </td>
@@ -120,8 +119,7 @@ const FranchiseAdmintable = () => {
             <span
               key={index}
               onClick={() => handlePageChange(index + 1)}
-              className={currentPage === index + 1 ? "pageactive-page" : ""}
-            >
+              className={currentPage === index + 1 ? "pageactive-page" : ""}>
               {index + 1}
             </span>
           ))}

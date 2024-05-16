@@ -26,6 +26,9 @@ const FranchiseAdmin = () => {
     patientname: "",
     remainingAmount: ""
   });
+  const [errors, setErrors] = useState({
+    mobileNumber: "",
+  });
 
   useEffect(() => {
     const fetchBillingData = async () => {
@@ -81,6 +84,19 @@ const FranchiseAdmin = () => {
   const handleFilterChange = (e) => {
     const { name, value } = e.target;
     setFilters({ ...filters, [name]: value });
+
+    if (name === "mobileNumber") {
+      const mobileNumberRegex = /^[0-9]{0,10}$/;
+      const specialCharRegex = /[^0-9]/; // Regular expression to check for special characters
+
+      if (specialCharRegex.test(value)) {
+        setErrors({ ...errors, mobileNumber: "Special characters are not allowed." });
+      } else if (!mobileNumberRegex.test(value)) {
+        setErrors({ ...errors, mobileNumber: "Invalid mobile number. Only 10 digits are allowed." });
+      } else {
+        setErrors({ ...errors, mobileNumber: "" });
+      }
+    }
   };
 
   const exportToCSV = () => {
@@ -151,6 +167,9 @@ const FranchiseAdmin = () => {
                 value={filters.mobileNumber}
                 onChange={handleFilterChange}
               />
+               {errors.mobileNumber && (
+                <span className="error" style={{ color: "red" }}>{errors.mobileNumber}</span>
+              )}
             </label>
             <label>
               <span>Patient Name:</span>

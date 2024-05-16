@@ -77,3 +77,26 @@
     justify-content: center;
     margin-left: 50px;
 }
+
+@media (max-width: 424px){
+    .hair-regrowth1s{
+        width: 99%;
+        margin-left: 2px;
+    }
+    .heading-h2s{
+        font-size: 15px;
+        font-weight: 500;
+    }
+    .para-about1s{
+        font-size: 10px;
+        text-align: center;
+    }
+    .part1s{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 20px;
+        width: 23%;
+    }
+}

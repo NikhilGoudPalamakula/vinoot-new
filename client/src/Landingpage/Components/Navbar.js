@@ -28,7 +28,7 @@ const Navbar = () => {
       path: "/",
     },
     {
-      text: "Register for Franchise Form",
+      text: "Register for Franchise",
       icon: <MdAppRegistration />,
       path: "/fr",
     },
@@ -67,7 +67,7 @@ const Navbar = () => {
           <List>
             {menuOptions.map((item) => (
               <ListItem key={item.text} disablePadding>
-                <ListItemButton>
+                <ListItemButton component={Link} to={item.path} >
                   <ListItemIcon>{item.icon}</ListItemIcon>
                   <ListItemText primary={item.text} />
                 </ListItemButton>

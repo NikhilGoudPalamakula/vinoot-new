@@ -97,6 +97,16 @@ const FranchiseAdmin = () => {
         setErrors({ ...errors, mobileNumber: "" });
       }
     }
+
+    if (name === "patientname") {
+      const nameRegex = /^[a-zA-Z\s]{1,50}$/; // Regular expression to allow letters and spaces only, between 1 and 50 characters
+  
+      if (!nameRegex.test(value)) {
+        setErrors({ ...errors, patientname: "Invalid name. Only letters and spaces are allowed, up to 50 characters." });
+      } else {
+        setErrors({ ...errors, patientname: "" });
+      }
+    }
   };
 
   const exportToCSV = () => {
@@ -179,6 +189,9 @@ const FranchiseAdmin = () => {
                 value={filters.patientname}
                 onChange={handleFilterChange}
               />
+                {errors.patientname && (
+              <span className="error" style={{ color: "red" }}>{errors.patientname}</span>
+            )}
             </label>
             <label>
               <span>Plan Type:</span>

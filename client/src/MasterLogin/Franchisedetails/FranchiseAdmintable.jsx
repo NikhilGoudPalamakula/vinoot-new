@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./FranchiseAdmintable.css";
 import axios from "axios";
+import { Link } from "react-router-dom";
 import Sidebar from "../../Masterdata/Sidebar/Sidebar";
 import "./FranchiseAdmintable.css";
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";

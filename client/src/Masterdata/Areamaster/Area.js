@@ -16,7 +16,7 @@ import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArro
 
 const Area = () => {
   const [cityName, setCityName] = useState("");
-  const [, setCityId] = useState("");
+  const [cityId, setCityId] = useState("");
   const [areaName, setAreaName] = useState("");
   const [cities, setCities] = useState([]);
   const [areas, setAreas] = useState([]);

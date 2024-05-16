@@ -13,7 +13,7 @@ const MasterUserT = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(3);
   const [currentEditIndex, setCurrentEditIndex] = useState(-1);
-  // const [errors, setErrors] = useState({});
+  const [errors, setErrors] = useState({});
 
   useEffect(() => {
     fetchUsers();

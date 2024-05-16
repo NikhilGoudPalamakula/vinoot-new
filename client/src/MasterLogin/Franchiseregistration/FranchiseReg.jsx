@@ -2,11 +2,12 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify"; // Import ToastContainer and toast from react-toastify
 import "react-toastify/dist/ReactToastify.css"; // Import the default styles for React Toastify
+import { Link } from "react-router-dom";
 import "../Franchiseregistration/FranchiseReg.css";
 import Navbarlanding from "../../../src/Landingpage/Components/Navbar";
 import { VINOOTNEW } from "../../Helper/Helper";
 const FranchiseReg = () => {
-  const [, setStates] = useState([]);
+  const [states, setStates] = useState([]);
   const [cities, setCities] = useState([]);
   const [areas, setAreas] = useState([]);
   const [area, setArea] = useState("");

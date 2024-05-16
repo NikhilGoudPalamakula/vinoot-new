@@ -25,6 +25,10 @@ const Reception = () => {
     patientname: "",
     remainingAmount: "",
   });
+
+  const [errors, setErrors] = useState({
+    mobileNumber: "",
+  });
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -83,6 +87,40 @@ const Reception = () => {
   const handleFilterChange = (e) => {
     const { name, value } = e.target;
     setFilters({ ...filters, [name]: value });
+
+    if (name === "mobileNumber") {
+      const mobileNumberRegex = /^[0-9]{0,10}$/;
+      const specialCharRegex = /[^0-9]/; // Regular expression to check for special characters
+
+      if (specialCharRegex.test(value)) {
+        setErrors({ ...errors, mobileNumber: "Special characters are not allowed." });
+      } else if (!mobileNumberRegex.test(value)) {
+        setErrors({ ...errors, mobileNumber: "Invalid mobile number. Only 10 digits are allowed." });
+      } else {
+        setErrors({ ...errors, mobileNumber: "" });
+      }
+    }
+
+    if (name === "patientname") {
+      const nameRegex = /^[a-zA-Z\s]{1,50}$/; // Regular expression to allow letters and spaces only, between 1 and 50 characters
+  
+      if (!nameRegex.test(value)) {
+        setErrors({ ...errors, patientname: "Invalid name. Only letters and spaces are allowed, up to 50 characters." });
+      } else {
+        setErrors({ ...errors, patientname: "" });
+      }
+    }
+
+    if (name === "remainingAmount") {
+      const amountRegex = /^\d*\.?\d{0,2}$/; // Regular expression to allow positive numbers with up to two decimal places
+  
+      if (!amountRegex.test(value)) {
+        setErrors({ ...errors, remainingAmount: "Invalid amount. Only positive numbers with up to two decimal places are allowed." });
+      } else {
+        setErrors({ ...errors, remainingAmount: "" });
+      }
+    }
+
   };
 
   const exportToCSV = () => {
@@ -156,15 +194,21 @@ const Reception = () => {
                 value={filters.mobileNumber}
                 onChange={handleFilterChange}
               />
+              {errors.mobileNumber && (
+                <span className="error" style={{ color: "red" }}>{errors.mobileNumber}</span>
+              )}
             </label>
             <label>
-              <span>Name:</span>
+              <span>Name</span>
               <input
                 type="text"
                 name="patientname"
                 value={filters.patientname}
                 onChange={handleFilterChange}
               />
+              {errors.patientname && (
+              <span className="error" style={{ color: "red" }}>{errors.patientname}</span>
+            )}
             </label>
             <label>
               <span>Plan Type:</span>
@@ -183,6 +227,9 @@ const Reception = () => {
                 value={filters.remainingAmount}
                 onChange={handleFilterChange}
               />
+               {errors.remainingAmount && (
+              <span className="error" style={{ color: "red" }}>{errors.remainingAmount}</span>
+            )}
             </label>
           </div>
         </div>

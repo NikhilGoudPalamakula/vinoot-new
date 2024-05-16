@@ -253,28 +253,24 @@ const FranchiseReg = () => {
       });
     } catch (error) {
       if (error.response) {
-        // The request was made and the server responded with a status code
-        // that falls out of the range of 2xx
-        // console.error("Server Error:", error.response.data);
         if (error.response.status === 400) {
           // Handle specific error messages
-          if (error.response.data.error === "userId already exists") {
-            // Handle userId already exists error
-            // Display appropriate message to the user
-            toast.error("User ID already exists", {
-              position: "top-right",
-              autoClose: 1500,
-            });
-          } else if (error.response.data.error === "email already exists") {
-            // Handle email already exists error
-            // Display appropriate message to the user
-            toast.error("Email already exists", {
-              position: "top-right",
-              autoClose: 1500,
-            });
-          } else if (
-            error.response.data.error === "franchiseID already exists"
-          ) {
+          // if (error.response.data.error === "userId already exists") {
+          //   // Handle userId already exists error
+          //   // Display appropriate message to the user
+          //   toast.error("User ID already exists", {
+          //     position: "top-right",
+          //     autoClose: 1500,
+          //   });
+          // } else if (error.response.data.error === "email already exists") {
+          //   // Handle email already exists error
+          //   // Display appropriate message to the user
+          //   toast.error("Email already exists", {
+          //     position: "top-right",
+          //     autoClose: 1500,
+          //   });
+          // }
+          if (error.response.data.error === "franchiseID already exists") {
             // Handle email already exists error
             // Display appropriate message to the user
             toast.error("franchiseID already exists", {
@@ -320,7 +316,7 @@ const FranchiseReg = () => {
       if (value.trim() === "") {
         setErrors((prevErrors) => ({ ...prevErrors, franchisename: "" }));
       } else if (
-        !/^(?=.*[A-Z].*[A-Z].*[A-Z].*[A-Z].*[A-Z].*[A-Z].*[A-Z])[A-Z0-9]{10,}$/.test(
+        !/^(?=.*[A-Z].*[A-Z].*[A-Z].*[A-Z].*[A-Z].*[A-Z].*[A-Z])[A-Z0-9\s]{10,}$/.test(
           value
         )
       ) {
@@ -342,7 +338,7 @@ const FranchiseReg = () => {
     if (name === "franchiseID") {
       if (value.trim() === "") {
         setErrors((prevErrors) => ({ ...prevErrors, franchiseID: "" }));
-      } else if (!/^[a-zA-Z]{3}\d{3}$/.test(value)) {
+      } else if (!/^[A-Z]{3}\d{3}$/.test(value)) {
         setErrors((prevErrors) => ({
           ...prevErrors,
           franchiseID:
@@ -350,23 +346,6 @@ const FranchiseReg = () => {
         }));
       } else {
         setErrors((prevErrors) => ({ ...prevErrors, franchiseID: "" }));
-      }
-    }
-
-    if (name === "mobileNumber") {
-      if (value.trim() === "") {
-        setErrors((prevErrors) => ({ ...prevErrors, mobileNumber: "" }));
-      } else {
-        const mobileRegex = /^[1-9]\d{5}$/; // Starts with 6 and allows up to 10 digits
-        if (!mobileRegex.test(value)) {
-          setErrors((prevErrors) => ({
-            ...prevErrors,
-            mobileNumber:
-              "Mobile number must start with 6 and contain up to 10 digits.",
-          }));
-        } else {
-          setErrors((prevErrors) => ({ ...prevErrors, mobileNumber: "" }));
-        }
       }
     }
 
@@ -451,7 +430,7 @@ const FranchiseReg = () => {
     if (name === "userId") {
       if (value.trim() === "") {
         setErrors((prevErrors) => ({ ...prevErrors, userId: "" }));
-      } else if (!/^[a-zA-Z]{3}\d{3}$/.test(value)) {
+      } else if (!/^[A-Z]{3}\d{3}$/.test(value)) {
         setErrors((prevErrors) => ({
           ...prevErrors,
           userId:

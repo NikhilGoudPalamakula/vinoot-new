@@ -154,42 +154,42 @@ exports.createAdmin = async (req, res) => {
     const admin = new Admin(req.body);
 
     // Check for unique userId and email
-    const existingAdmin = await Admin.findOne({
-      $or: [
-        { userId: req.body.userId },
-        { email: req.body.email },
-        { franchiseID: req.body.franchiseID },
-      ],
-    });
+    // const existingAdmin = await Admin.findOne({
+    //   $or: [
+    //     { userId: req.body.userId },
+    //     { email: req.body.email },
+    //     { franchiseID: req.body.franchiseID },
+    //   ],
+    // });
 
-    if (existingAdmin) {
-      if (existingAdmin.userId === req.body.userId) {
-        return res.status(400).json({ error: "userId already exists" });
-      } else if (existingAdmin.email === req.body.email) {
-        return res.status(400).json({ error: "email already exists" });
-      } else if (existingAdmin.franchiseID === req.body.franchiseID) {
-        // return res.status(400).json({ error: "franchiseID already exists" });
-      }
-    }
+    // if (existingAdmin) {
+    //   if (existingAdmin.userId === req.body.userId) {
+    //     return res.status(400).json({ error: "userId already exists" });
+    //   } else if (existingAdmin.email === req.body.email) {
+    //     return res.status(400).json({ error: "email already exists" });
+    //   } else if (existingAdmin.franchiseID === req.body.franchiseID) {
+    //     // return res.status(400).json({ error: "franchiseID already exists" });
+    //   }
+    // }
 
     await admin.save();
     res
       .status(201)
       .json({ success: true, message: "Admin created successfully." });
   } catch (error) {
-    if (error.code === 11000 && error.keyPattern.userId) {
-      return res.status(400).json({ error: "userId already exists" });
-    } else if (error.code === 11000 && error.keyPattern.email) {
-      return res.status(400).json({ error: "email already exists" });
-    } else if (error.code === 11000 && error.keyPattern.franchiseID) {
-      // return res.status(400).json({ error: "franchiseID already exists" });
-    } else {
-      res.status(500).json({
-        success: false,
-        message: "Failed create admin.",
-        error: error.message,
-      });
-    }
+    // if (error.code === 11000 && error.keyPattern.userId) {
+    //   return res.status(400).json({ error: "userId already exists" });
+    // } else if (error.code === 11000 && error.keyPattern.email) {
+    //   return res.status(400).json({ error: "email already exists" });
+    // } else if (error.code === 11000 && error.keyPattern.franchiseID) {
+    //   // return res.status(400).json({ error: "franchiseID already exists" });
+    // } else {
+    res.status(500).json({
+      success: false,
+      message: "Failed create admin.",
+      error: error.message,
+    });
+    // }
   }
 };
 

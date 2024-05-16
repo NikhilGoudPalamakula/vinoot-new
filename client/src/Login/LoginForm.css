@@ -221,3 +221,23 @@
 .link:hover {
 	color: var(--primary);
 }
+
+@media (max-width: 724px){
+	.total{
+		margin-left: 1px;
+	}
+	.btn{
+			letter-spacing: 0.07rem;
+			padding: 1rem 1rem;
+	
+	}
+	.form{
+		/* display: flex; */
+		/* background-color: var(--white); */
+		/* align-items: center; */
+		/* justify-content: center; */
+		/* flex-direction: column; */
+		padding: 0 1.5rem;
+		height: 100%;
+	}
+}

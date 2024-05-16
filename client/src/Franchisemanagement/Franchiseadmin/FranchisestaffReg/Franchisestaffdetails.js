@@ -12,6 +12,7 @@ const Franchisestaffdetails = () => {
 
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(3);
+  const [errors, setErrors] = useState({});
 
   // const [originalAdmins, setOriginalAdmins] = useState([]);
   const [currentEditIndex, setCurrentEditIndex] = useState(-1); // Define currentEditIndex state
@@ -56,20 +57,29 @@ const Franchisestaffdetails = () => {
   };
 
   const handleUpdate = async (index) => {
+    const updatedBy = localStorage.getItem("username");
+    const updatedAdmin = admins[index];
+
+    // Validate form fields
+    const newErrors = {};
+    if (!updatedAdmin.fullname) newErrors.fullname = "Full name is required";
+    if (!updatedAdmin.designation) newErrors.designation = "Designation is required";
+    if (!updatedAdmin.mobileNumber) newErrors.mobileNumber = "Mobile number is required";
+    if (!updatedAdmin.password) newErrors.password = "Password is required";
+
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
+      return;
+    }
+
     try {
-      const updatedBy = localStorage.getItem("username");
-      const updatedAdmin = admins[index];
-      const response = await axios.patch(
-        `${VINOOTNEW}/api/franchisestateupdate/${updatedAdmin._id}`,
-        {
-          fullname: updatedAdmin.fullname,
-          password: updatedAdmin.password,
-          designation: updatedAdmin.designation,
-          mobileNumber: updatedAdmin.mobileNumber,
-          updatedBy,
-        }
-      );
-      // Reset edit state and fetch updated data
+      await axios.patch(`${VINOOTNEW}/api/franchisestateupdate/${updatedAdmin._id}`, {
+        fullname: updatedAdmin.fullname,
+        password: updatedAdmin.password,
+        designation: updatedAdmin.designation,
+        mobileNumber: updatedAdmin.mobileNumber,
+        updatedBy,
+      });
       setCurrentEditIndex(-1);
       fetchAdmins();
     } catch (error) {
@@ -82,26 +92,25 @@ const Franchisestaffdetails = () => {
     const updatedAdmins = [...admins];
     updatedAdmins[index][key] = value;
     setAdmins(updatedAdmins);
+
+    // Clear the error for the field that is being edited
+    setErrors({ ...errors, [key]: "" });
   };
 
   const handleCancel = () => {
-    // Revert back to original admins
     setAdmins([...admins]);
     fetchAdmins();
-    setCurrentEditIndex(-1); // Reset edit index
+    setCurrentEditIndex(-1);
+    setErrors({});
   };
 
-  // Pagination handlers
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
 
-  // Get current plans
   const indexOfLastPlan = currentPage * itemsPerPage;
   const indexOfFirstPlan = indexOfLastPlan - itemsPerPage;
   const currentPlans = admins.slice(indexOfFirstPlan, indexOfLastPlan);
-
-  // Calculate total pages
   const totalPages = Math.ceil(admins.length / itemsPerPage);
 
   return (
@@ -206,6 +215,7 @@ const Franchisestaffdetails = () => {
                     handleInputChange(e, currentEditIndex, "fullname")
                   }
                 />
+                 {errors.fullname && <span className="error" style={{ color: "red" }}>{errors.fullname}</span>}
               </div>
               <div>
                 <div>
@@ -224,6 +234,7 @@ const Franchisestaffdetails = () => {
                   <option value="Therapist">Therapist</option>
                   <option value="FranchiseAdmin">Franchise Admin</option>
                   </select>
+                  {errors.designation && <span className="error" style={{ color: "red" }}>{errors.designation}</span>}
               </div>
               <div>
                 <div>
@@ -236,6 +247,7 @@ const Franchisestaffdetails = () => {
                     handleInputChange(e, currentEditIndex, "mobileNumber")
                   }
                 />
+                 {errors.mobileNumber && <span className="error" style={{ color: "red" }}>{errors.mobileNumber}</span>}
               </div>
 
               <div>
@@ -249,6 +261,7 @@ const Franchisestaffdetails = () => {
                     handleInputChange(e, currentEditIndex, "password")
                   }
                 />
+                 {errors.password && <span className="error" style={{ color: "red" }}>{errors.password}</span>}
               </div>
 
               <button onClick={() => handleUpdate(currentEditIndex)}>

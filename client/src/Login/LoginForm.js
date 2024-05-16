@@ -74,13 +74,52 @@ const LoginForm = () => {
           }
         },
       });
-    } catch (error) {
-      // console.error("Login failed:", error.response.data.error);
-      // Optionally, you can display an error message to the user
-      toast.error("Invalid Credentials!", {
-        position: "top-right",
-        autoClose: 1500,
-      });
+    // } catch (error) {
+    //   // console.error("Login failed:", error.response.data.error);
+    //   // Optionally, you can display an error message to the user
+    //   toast.error("Invalid Credentials!", {
+    //     position: "top-right",
+    //     autoClose: 1500,
+    //   });
+
+    }catch (error) {
+      if (error.response) {
+        if (error.response.status === 400) {
+          if (error.response.data.error === "Franchise is not active") {
+            // Handle franchiseID already exists error
+            // Display appropriate message to the user
+            toast.error("Franchise is not active", {
+              position: "top-right",
+              autoClose: 1500,
+            });
+          }
+          else if (error.response.data.error === "Password Doesn't Match") {
+            // Handle franchiseID already exists error
+            // Display appropriate message to the user
+            toast.error("Password Doesn't Match", {
+              position: "top-right",
+              autoClose: 1500,
+            });
+          }
+          else if (error.response.data.error === "Invalid Credentials") {
+            // Handle franchiseID already exists error
+            // Display appropriate message to the user
+            toast.error("Invalid Credentials", {
+              position: "top-right",
+              autoClose: 1500,
+            });
+          }
+          else if (error.response.data.error === "User is not active") {
+            // Handle franchiseID already exists error
+            // Display appropriate message to the user
+            toast.error("User is not active", {
+              position: "top-right",
+              autoClose: 1500,
+            });
+          }
+        }
+      }
+
     }
   };
   const [formData1, setFormData1] = useState({

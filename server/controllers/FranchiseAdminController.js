@@ -224,13 +224,17 @@ exports.loginfranchiseUser = async (req, res) => {
     );
 
     if (!user) {
-      return res.status(400).json({ error: "Invalid credentials" });
+      return res.status(400).json({ error: "Invalid Credentials" });
     }
 
     // Check if the password matches
     if (user.password !== password) {
-      return res.status(400).json({ error: "Invalid credentials" });
+      return res.status(400).json({ error: "Password Doesn't Match" });
     }
+
+    // if (!user && user.password !== password){
+    //   return res.status(400).json({ error: "Invalid Credentials" });
+    // }
 
     // Check if the user is active
     if (!user.isActive) {

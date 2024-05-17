@@ -22,13 +22,63 @@ const FranchiseStaffReg = () => {
   const [errors, setErrors] = useState({
     mobileNumber: "",
   });
-
   useEffect(() => {
     fetchAdmins();
   }, []);
 
+  const fetchAdmins = async () => {
+    try {
+      const frid = localStorage.getItem("franchiseID");
+      if (frid) {
+        const response = await axios.get(
+          `${VINOOTNEW}/api/franchisefetchusers/${frid}`
+        );
+        setAdmins(response.data);
+      } else {
+        console.error("FranchiseID not found in localStorage");
+      }
+    } catch (error) {
+      console.error("Error fetching admins:", error);
+    }
+  };
+  const generateAdminID = (admins) => {
+    if (admins.length === 0) {
+      // If there are no existing admins, start with the first ID
+      return "STAFF001";
+    } else {
+      // Extract the numeric part of the last patient ID
+      const lastIDNumeric = parseInt(
+        admins[admins.length - 1].userId.substr(5),
+        10
+      );
+      // Increment the numeric part by 1
+      const nextIDNumeric = lastIDNumeric + 1;
+      // Pad the numeric part with zeros to maintain the format "PAT001"
+      const nextID = "STAFF" + nextIDNumeric.toString().padStart(3, "0");
+      return nextID;
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const hasErrors = Object.values(errors).some((error) => error !== "");
+
+    if (hasErrors) {
+      toast.error("Please fix the errors before submitting", {
+        position: "top-right",
+        autoClose: 1500,
+      });
+      return;
+    }
+    // Generate the patient ID
+    const newAdminID = generateAdminID(admins);
+    // Update the form data with the generated patient ID
+    setAdminData({
+      ...adminData,
+      userId: newAdminID,
+    });
+    // Update the form data with the generated patient ID
+
     try {
       const createdBy = localStorage.getItem("userId");
       const franchiseName = localStorage.getItem("franchisename");
@@ -40,8 +90,11 @@ const FranchiseStaffReg = () => {
         createdBy: createdBy,
       };
       await axios.post(`${VINOOTNEW}/api/admin`, updatedAdminData);
-      console.log("admin Data:", updatedAdminData);
-      toast.success("Staff Added successfully.");
+      // console.log("admin Data:", updatedAdminData);
+      toast.success("Staff Added successfully.", {
+        position: "top-right",
+        autoClose: 1000,
+      });
       // alert("Data submitted successfully.");
       // Reset adminData state after successful submission
       setAdminData({
@@ -53,12 +106,18 @@ const FranchiseStaffReg = () => {
         email: "",
         password: "",
       });
-      navigate("/Franchisetogglebutton");
-      window.location.reload();
+      fetchAdmins();
     } catch (error) {
       console.error("Registration failed:", error.response.data.error);
     }
   };
+  useEffect(() => {
+    const newAdminID = generateAdminID(admins);
+    setAdminData({
+      ...adminData,
+      userId: newAdminID,
+    });
+  }, [admins]);
 
   const handleAdminInputChange = (e) => {
     const { name, value } = e.target;
@@ -159,28 +218,6 @@ const FranchiseStaffReg = () => {
           setErrors((prevErrors) => ({ ...prevErrors, mobileNumber: "" }));
         }
       }
-    }
-  };
-
-  const fetchAdmins = async () => {
-    try {
-      const frid = localStorage.getItem("franchiseID");
-      if (frid) {
-        const response = await axios.get(
-          `${VINOOTNEW}/api/franchisefetchusers/${frid}`
-        );
-        setAdmins(response.data);
-
-        // Auto-generate userId
-        const nextUserId = `STAFF${response.data.length + 1}`
-          .toString()
-          .padStart(3, "0");
-        setAdminData({ ...adminData, userId: nextUserId });
-      } else {
-        console.error("FranchiseID not found in localStorage");
-      }
-    } catch (error) {
-      console.error("Error fetching admins:", error);
     }
   };
 

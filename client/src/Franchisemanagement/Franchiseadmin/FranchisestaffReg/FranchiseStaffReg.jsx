@@ -19,7 +19,9 @@ const FranchiseStaffReg = () => {
     password: "",
   });
   const [admins, setAdmins] = useState([]);
-  const [errors, setErrors] = useState({});
+  const [errors, setErrors] = useState({
+    mobileNumber: "",
+  });
 
   useEffect(() => {
     fetchAdmins();
@@ -80,35 +82,6 @@ const FranchiseStaffReg = () => {
       }
     }
 
-    // Validation for mobileNumber
-    if (name === "mobileNumber") {
-      if (value.trim().length === 0) {
-        delete errorsCopy.mobileNumber; // Step 2: Remove error message if field is empty
-      } else {
-        // Step 3: Validate mobile number format - Start with digit between 6 and 9
-        const startsWithSixToNine = /^[6-9]/.test(value);
-
-        // Step 4: Validate mobile number format - Consists of exactly 10 digits
-        const consistsOfTenDigits = /^[0-9]{10}$/.test(value);
-
-        // Step 5: Validate mobile number format - Check if value consists only of numeric characters
-        const consistsOnlyOfNumeric = /^\d+$/.test(value);
-
-        if (!startsWithSixToNine) {
-          errorsCopy.mobileNumber =
-            "Mobile Number should start with a digit between 6 and 9";
-        } else if (!consistsOfTenDigits) {
-          errorsCopy.mobileNumber =
-            "Mobile Number should consist of exactly 10 digits";
-        } else if (!consistsOnlyOfNumeric) {
-          errorsCopy.mobileNumber =
-            "Mobile Number should contain only numeric characters";
-        } else {
-          delete errorsCopy.mobileNumber;
-        }
-      }
-    }
-
     // Validation for email
     if (name === "email") {
       if (value.trim().length === 0) {
@@ -159,6 +132,35 @@ const FranchiseStaffReg = () => {
     setErrors(errorsCopy);
     setAdminData({ ...adminData, [name]: value });
   };
+  const handleMobileNumberChange = (e) => {
+    const { name, value } = e.target;
+    setAdminData({ ...adminData, [name]: value });
+
+    if (name === "mobileNumber") {
+      if (value.trim() === "") {
+        setErrors((prevErrors) => ({ ...prevErrors, mobileNumber: "" }));
+      } else {
+        const numericValue = value.replace(/\D/g, ""); // Remove non-numeric characters
+        setAdminData({ ...adminData, [name]: numericValue });
+
+        const mobileRegex = /^[6-9]\d{0,9}$/; // Starts with 6 and allows up to 10 digits
+        if (!mobileRegex.test(value)) {
+          setErrors((prevErrors) => ({
+            ...prevErrors,
+            mobileNumber:
+              "Mobile number must start with 6 to 9 and contain up to 10 digits.",
+          }));
+        } else if (value.length < 10) {
+          setErrors((prevErrors) => ({
+            ...prevErrors,
+            mobileNumber: "Mobile number must be 10 digits",
+          }));
+        } else {
+          setErrors((prevErrors) => ({ ...prevErrors, mobileNumber: "" }));
+        }
+      }
+    }
+  };
 
   const fetchAdmins = async () => {
     try {
@@ -197,7 +199,7 @@ const FranchiseStaffReg = () => {
 
   return (
     <div className="fraddstaff-total">
-      <ToastContainer/>
+      <ToastContainer />
       <div className="fradmin-right">
         <form onSubmit={handleSubmit} className="fr-admin-form">
           <div className="fr-for-flex">
@@ -219,7 +221,7 @@ const FranchiseStaffReg = () => {
               {errors.fullname && <p className="error">{errors.fullname}</p>}
               <div className="addfr-inputs-wraps">
                 <input
-                 style={{zIndex:"-1"}}
+                  style={{ zIndex: "-1" }}
                   className="addfr-inputs"
                   type="text"
                   name="userId"
@@ -256,11 +258,12 @@ const FranchiseStaffReg = () => {
               <div className="addfr-inputs-wraps">
                 <input
                   className="addfr-inputs"
-                  type="number"
+                  type="text"
                   name="mobileNumber"
                   value={adminData.mobileNumber}
-                  onChange={handleAdminInputChange}
-                  placeholder=""
+                  onChange={handleMobileNumberChange}
+                  pattern="\d{10}"
+                  maxLength="10"
                   required
                 />
                 <label>

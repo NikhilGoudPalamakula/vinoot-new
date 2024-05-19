@@ -792,6 +792,7 @@ const FranchiseReg = () => {
                       name="password"
                       value={adminData.password}
                       onChange={handleAdminInputChange}
+                      maxLength={16}
                       placeholder=""
                       required
                     />

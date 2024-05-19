@@ -217,6 +217,7 @@ const MasterUserT = () => {
                     onChange={(e) =>
                       handleInputChange(e, currentEditIndex, "phoneNumber")
                     }
+                    maxLength={10}
                     placeholder="mobilenumber"
                   />
                     {validationErrors.phoneNumber && (
@@ -245,6 +246,7 @@ const MasterUserT = () => {
                     onChange={(e) =>
                       handleInputChange(e, currentEditIndex, "password")
                     }
+                    maxLength={16}
                     placeholder="password"
                   />
                    {validationErrors.password && (
@@ -259,6 +261,7 @@ const MasterUserT = () => {
                     onChange={(e) =>
                       handleInputChange(e, currentEditIndex, "confirmPassword")
                     }
+                    maxLength={16}
                     placeholder="confirmPassword"
                   />
                      {validationErrors.confirmPassword && (

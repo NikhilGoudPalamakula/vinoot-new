@@ -289,10 +289,11 @@ const RegisterPage = () => {
                   <label>
                     <input
                       className="input1_rp"
-                      type="number"
+                      type="text"
                       name="phoneNumber"
                       value={formData.phoneNumber}
                       onChange={handleChange}
+                      maxLength={10}
                       onKeyDown={(evt) =>
                         (evt.key === "." ||
                           evt.key === "e" ||
@@ -301,7 +302,7 @@ const RegisterPage = () => {
                           evt.key === "-") &&
                         evt.preventDefault()
                       }
-                      maxLength="10"
+                      
                       placeholder=""
                       required
                     />
@@ -357,7 +358,7 @@ const RegisterPage = () => {
                       name="password"
                       value={formData.password}
                       onChange={handleChange}
-                      maxLength="16"
+                      maxLength={16}
                       placeholder=""
                       required
                     />
@@ -378,6 +379,7 @@ const RegisterPage = () => {
                       name="confirmPassword"
                       value={formData.confirmPassword}
                       onChange={handleChange}
+                      maxLength={16}
                       placeholder=""
                       required
                     />

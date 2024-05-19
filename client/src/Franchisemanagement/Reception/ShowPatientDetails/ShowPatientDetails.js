@@ -98,7 +98,8 @@ const ShowPatientDetails = () => {
       //   ...patientInstallments[0], // Assuming you're updating the first installment
       //   remainingAmount: updatedRemainingAmount
       // };
-
+      // const presentTime = new Date().toLocaleString();
+      const currentDate = new Date().toISOString().split('T')[0];
       const newInstallmentData = {
         patient_id: patientDetails.patient_id,
         remainingAmount: updatedRemainingAmount,
@@ -108,6 +109,7 @@ const ShowPatientDetails = () => {
         paymentType: paymentType,
         amountPaid: subtractedAmount,
         status: paymentStatus,
+        currentDate: currentDate,
       };
 
       const response = await axios.post(

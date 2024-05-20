@@ -28,8 +28,7 @@ const ReceptionSidebar = () => {
 
   return (
     <div>
-
-<FranchiseLoginDetailsIcon/>
+      <FranchiseLoginDetailsIcon />
 
       <div className={`side-bar-container ${isOpen ? "open" : ""}`}>
         <div className="v-logo">
@@ -43,17 +42,15 @@ const ReceptionSidebar = () => {
             <Link to="/Recepttion" className="sidebar-links">
               <li
                 className={activeItem === "dashboard" ? "active" : ""}
-                onClick={() => handleItemClick("dashboard")}
-              >
+                onClick={() => handleItemClick("dashboard")}>
                 <TbListDetails className="icon" />
-                 Billing Details
+                Billing Details
               </li>
             </Link>
             <Link to="/Franchisetogglepatients" className="sidebar-links">
               <li
                 className={activeItem === "Patientdetails" ? "active" : ""}
-                onClick={() => handleItemClick("Patientdetails")}
-              >
+                onClick={() => handleItemClick("Patientdetails")}>
                 <IoPersonAddSharp className="icon" />
                 Add Patient{" "}
               </li>
@@ -62,8 +59,7 @@ const ReceptionSidebar = () => {
               {" "}
               <li
                 className={activeItem === "Billng" ? "active" : ""}
-                onClick={() => handleItemClick("Billng")}
-              >
+                onClick={() => handleItemClick("Billng")}>
                 <RiBillFill className="icon" />
                 Billing
               </li>{" "}
@@ -77,8 +73,7 @@ const ReceptionSidebar = () => {
               {" "}
               <li
                 className={activeItem === "logout" ? "active" : ""}
-                onClick={() => handleItemClick("logout") || handleLogOut}
-              >
+                onClick={() => handleLogOut() || handleItemClick("logout")}>
                 <MdLogout className="icon" />
                 Logout
               </li>

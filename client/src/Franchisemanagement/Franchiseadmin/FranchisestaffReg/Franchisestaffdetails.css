@@ -1,11 +1,11 @@
 .franchisestaffdetail{
-    margin-top: 5vh;
+    /* margin-top: 3vh; */
     border: 2px solid #0aa506;
     border-radius: 5px;
     padding: 10px;
     table {
         border-collapse: collapse;
-        width: 80%;
+        width: 100%;
       }
       th {
         text-align: center;
@@ -29,4 +29,36 @@
         transform: 0.3s ease;
         background-color: #0aa506;
       }
+}
+
+.frabchisestaff-editfileds{
+  input{
+    height: 4vh;
+    width: 12vw;
+    border-radius: 6px;
+    border: none;
+    outline: none;
+    border: 1px solid #0aa506;
+  }
+  select{
+    height: 4.5vh;
+    width: 12vw;
+    /* margin-left: 1vw; */
+    border-radius: 6px;
+    border: none;
+    outline: none;
+    border: 1px solid #0aa506;
+  }
+  button{
+    color: white;
+    background-color: #0aa506;
+    cursor: pointer;
+    border: none;
+    outline: none;
+    border-radius: 6px;
+    padding: 0 10px;
+    gap: 10px;
+    height: 5vh;
+    margin-top: 3vh;
+  }
 }

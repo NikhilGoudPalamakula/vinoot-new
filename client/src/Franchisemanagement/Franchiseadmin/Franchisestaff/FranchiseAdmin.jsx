@@ -1,20 +1,21 @@
+
+
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import FranchiseadminSidebar from "../Franchiseadminsidebar/Franchiseadminsidebar";
 import "./FranchiseAdmin.css";
 
-import { saveAs } from "file-saver";
-import * as XLSX from "xlsx";
+// import { saveAs } from "file-saver";
+import { FaFileCsv } from "react-icons/fa6";
 
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import KeyboardDoubleArrowLeftIcon from "@mui/icons-material/KeyboardDoubleArrowLeft";
 import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArrowRight";
-import { TbFileTypeXls } from "react-icons/tb";
+import { VINOOTNEW } from "../../../Helper/Helper";
 const FranchiseAdmin = () => {
   const [billingData, setBillingData] = useState([]);
-
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(3);
   const [filters, setFilters] = useState({
@@ -25,6 +26,9 @@ const FranchiseAdmin = () => {
     patientname: "",
     remainingAmount: ""
   });
+  const [errors, setErrors] = useState({
+    mobileNumber: "",
+  });
 
   useEffect(() => {
     const fetchBillingData = async () => {
@@ -32,7 +36,7 @@ const FranchiseAdmin = () => {
         const frid = localStorage.getItem("franchiseID");
         if (frid) {
           const response = await axios.get(
-            `http://localhost:5001/api/billing${frid}`
+            `${ VINOOTNEW }/api/billing${frid}`
           );
           setBillingData(response.data);
         } else {
@@ -46,7 +50,6 @@ const FranchiseAdmin = () => {
     fetchBillingData();
   }, []);
 
-  // Pagination handlers
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
@@ -58,55 +61,90 @@ const FranchiseAdmin = () => {
     const lowercaseName = filters.patientname.toLowerCase();
     const lowercaseBillingName = billing.patient_name.toLowerCase();
 
-    // Parse the date values for comparison
-const currentDate = new Date(billing.currentDate);
-const fromDate = filters.fromDate ? new Date(filters.fromDate) : null;
-const toDate = filters.toDate ? new Date(filters.toDate) : null;
+    const currentDate = new Date(billing.currentDate);
+    const fromDate = filters.fromDate ? new Date(filters.fromDate) : null;
+    const toDate = filters.toDate ? new Date(filters.toDate) : null;
+    
     return (
       (!fromDate || currentDate >= fromDate) && 
       (!toDate || currentDate <= toDate) &&
       billing.mobile_number.toString().includes(filters.mobileNumber) &&
       billing.plan_name.includes(filters.planType) &&
       lowercaseBillingName.includes(lowercaseName) &&
-      // billing.remainingAmount.toString().includes(filters.remainingAmount)
       billing.plan_name.includes(filters.planType) &&
       (isNaN(filterValue) || remainingAmount >= filterValue)
     );
   });
 
-  // Get current plans
   const indexOfLastPlan = currentPage * itemsPerPage;
   const indexOfFirstPlan = indexOfLastPlan - itemsPerPage;
-  // const currentPlans = billingData.slice(indexOfFirstPlan, indexOfLastPlan);
   const currentPlans = filteredData.slice(indexOfFirstPlan, indexOfLastPlan);
-  const totalPages = Math.ceil(billingData.length / itemsPerPage);
+  const totalPages = Math.ceil(filteredData.length / itemsPerPage);
 
   const handleFilterChange = (e) => {
     const { name, value } = e.target;
     setFilters({ ...filters, [name]: value });
+
+    if (name === "mobileNumber") {
+      const mobileNumberRegex = /^[0-9]{0,10}$/;
+      const specialCharRegex = /[^0-9]/; // Regular expression to check for special characters
+
+      if (specialCharRegex.test(value)) {
+        setErrors({ ...errors, mobileNumber: "Special characters are not allowed." });
+      } else if (!mobileNumberRegex.test(value)) {
+        setErrors({ ...errors, mobileNumber: "Invalid mobile number. Only 10 digits are allowed." });
+      } else {
+        setErrors({ ...errors, mobileNumber: "" });
+      }
+    }
+
+    if (name === "patientname") {
+      const nameRegex = /^[a-zA-Z\s]{1,50}$/; // Regular expression to allow letters and spaces only, between 1 and 50 characters
+  
+      if (!nameRegex.test(value)) {
+        setErrors({ ...errors, patientname: "Invalid name. Only letters and spaces are allowed, up to 50 characters." });
+      } else {
+        setErrors({ ...errors, patientname: "" });
+      }
+    }
+
+    if (name === "remainingAmount") {
+      const amountRegex = /^\d*\.?\d{0,2}$/; // Regular expression to allow positive numbers with up to two decimal places
+  
+      if (!amountRegex.test(value)) {
+        setErrors({ ...errors, remainingAmount: "Invalid amount. Only positive numbers with up to two decimal places are allowed." });
+      } else {
+        setErrors({ ...errors, remainingAmount: "" });
+      }
+    }
   };
 
-  const exportToExcel = () => {
-    const header = ["Date", "Bill Number", "Patient Name", "Patient Mobile Number", "Doctor", "Plan Type", "Days", "Price", "Amount Paid", "Remaining Amount"];
-    const data = currentPlans.map(billing => [
-      billing.currentDate,
-      billing.bill_number,
-      billing.patient_name,
-      billing.mobile_number,
-      billing.doctor,
-      billing.plan_name,
-      billing.days,
-      billing.TotalAmount,
-      billing.amountPaid,
-      billing.remainingAmount
-    ]);
+  const exportToCSV = () => {
+    const csvData = currentPlans.map((billing) => ({
+      Date: billing.currentDate,
+      "Bill Number": billing.bill_number,
+      "Patient Name": billing.patient_name,
+      "Patient Mobile Number": billing.mobile_number,
+      Doctor: billing.doctor,
+      "Plan Type": billing.plan_name,
+      Days: billing.days,
+      Price: billing.TotalAmount,
+      "Amount Paid": billing.amountPaid,
+      "Remaining Amount": billing.remainingAmount,
+    }));
 
-    const ws = XLSX.utils.aoa_to_sheet([header, ...data]);
-    const wb = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(wb, ws, "Billing Data");
-    const excelBuffer = XLSX.write(wb, { bookType: "xlsx", type: "array" });
-    const excelBlob = new Blob([excelBuffer], { type: "application/octet-stream" });
-    saveAs(excelBlob, "Billing_data.xlsx");
+    const csvContent =
+      "data:text/csv;charset=utf-8," +
+      Object.keys(csvData[0]).join(",") +
+      "\n" +
+      csvData.map((row) => Object.values(row).join(",")).join("\n");
+
+    const encodedUri = encodeURI(csvContent);
+    const link = document.createElement("a");
+    link.setAttribute("href", encodedUri);
+    link.setAttribute("download", "billing_data.csv");
+    document.body.appendChild(link);
+    link.click();
   };
 
   return (
@@ -116,68 +154,77 @@ const toDate = filters.toDate ? new Date(filters.toDate) : null;
       </div>
       <div className="fradmin-staffri">
         <div className="franadmin-123">
-        <h1>Patients Billing Details</h1>
-        <button onClick={exportToExcel}><TbFileTypeXls  className="xlsiocn1"/></button>
+          <h1>Patients Billing Details</h1>
+          <button onClick={exportToCSV}><FaFileCsv  className="xlsiocn1"/></button>
         </div>
         <div className="fradmin-filters">
-        <div className="fradmin-filters-1">
-        <label>
-          <span>From Date:</span>
-          <input
-            type="date"
-            name="fromDate"
-            value={filters.fromDate}
-            onChange={handleFilterChange}
-          />
-        </label>
-        <label>
-          <span>To Date:</span>
-          <input
-            type="date"
-            name="toDate"
-            value={filters.toDate}
-            onChange={handleFilterChange}
-          />
-        </label>
-        </div>
-        <div className="fradmin-filters-11">
-        <label>
-          <span>Mobile Number:</span>
-          <input
-            type="text"
-            name="mobileNumber"
-            value={filters.mobileNumber}
-            onChange={handleFilterChange}
-          />
-        </label>
-        <label>
-          <span>Patient Name:</span>
-          <input
-            type="text"
-            name="patientname"
-            value={filters.patientname}
-            onChange={handleFilterChange}
-          />
-        </label>
-        <label>
-          <span>Plan Type:</span>
-          <input
-            type="text"
-            name="planType"
-            value={filters.planType}
-            onChange={handleFilterChange}
-          />
-        </label>
-        <label>
-          <span>Remaining Amount above :</span>
-          <input
-            type="text"
-            name="remainingAmount"
-            value={filters.remainingAmount}
-            onChange={handleFilterChange}
-          />
-        </label>
-        </div>
+          <div className="fradmin-filters-1">
+            <label>
+              <span>From Date:</span>
+              <input
+                type="date"
+                name="fromDate"
+                value={filters.fromDate}
+                onChange={handleFilterChange}
+              />
+            </label>
+            <label>
+              <span>To Date:</span>
+              <input
+                type="date"
+                name="toDate"
+                value={filters.toDate}
+                onChange={handleFilterChange}
+              />
+            </label>
+          </div>
+          <div className="fradmin-filters-11">
+            <label>
+              <span>Mobile Number:</span>
+              <input
+                type="text"
+                name="mobileNumber"
+                value={filters.mobileNumber}
+                onChange={handleFilterChange}
+              />
+               {errors.mobileNumber && (
+                <span className="error" style={{ color: "red" }}>{errors.mobileNumber}</span>
+              )}
+            </label>
+            <label>
+              <span>Patient Name:</span>
+              <input
+                type="text"
+                name="patientname"
+                value={filters.patientname}
+                onChange={handleFilterChange}
+              />
+                {errors.patientname && (
+              <span className="error" style={{ color: "red" }}>{errors.patientname}</span>
+            )}
+            </label>
+            <label>
+              <span>Plan Type:</span>
+              <input
+                type="text"
+                name="planType"
+                value={filters.planType}
+                onChange={handleFilterChange}
+              />
+            </label>
+            <label>
+              <span>Remaining Amount above:</span>
+              <input
+                type="text"
+                name="remainingAmount"
+                value={filters.remainingAmount}
+                onChange={handleFilterChange}
+              />
+               {errors.remainingAmount && (
+              <span className="error" style={{ color: "red" }}>{errors.remainingAmount}</span>
+            )}
+            </label>
+          </div>
         </div>
 
         <table>
@@ -194,7 +241,6 @@ const toDate = filters.toDate ? new Date(filters.toDate) : null;
               <th>Price</th>
               <th>Amount Paid</th>
               <th>Remaining Amount</th>
-              {/* <th>Remaining Amount</th> */}
             </tr>
           </thead>
           <tbody>
@@ -211,7 +257,6 @@ const toDate = filters.toDate ? new Date(filters.toDate) : null;
                 <td>{billing.TotalAmount}</td>
                 <td>{billing.amountPaid}</td>
                 <td>{billing.remainingAmount}</td>
-                {/* <td>{billing.remainingAmount}</td> */}
               </tr>
             ))}
           </tbody>
@@ -227,7 +272,8 @@ const toDate = filters.toDate ? new Date(filters.toDate) : null;
             <span
               key={index}
               onClick={() => handlePageChange(index + 1)}
-              className={currentPage === index + 1 ? "pageactive-page" : ""}>
+              className={currentPage === index + 1 ? "pageactive-page" : ""}
+            >
               {index + 1}
             </span>
           ))}

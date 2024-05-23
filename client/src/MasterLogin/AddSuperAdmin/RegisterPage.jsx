@@ -1,194 +1,12 @@
-// // // RegisterPage.js
-
-// import React, { useState } from "react";
-// import axios from "axios";
-// import { useNavigate } from "react-router-dom";
-// import "./RegisterPage.css";
-// // import Sidebar from "../../Masterdata/Sidebar/Sidebar";
-// // import MasterUserT from "../Masterusers/MasterUserT";
-
-// const RegisterPage = () => {
-//   const createdby = localStorage.getItem("userId");
-
-//   const navigate = useNavigate();
-//   const [formData, setFormData] = useState({
-//     fullName: "",
-//     userId: "",
-//     email: "",
-//     phoneNumber: "",
-//     dateOfBirth: "",
-//     password: "",
-//     confirmPassword: "",
-//     gender: "",
-//     userType: "SuperAdmin",
-//     activeChangedBy: "none",
-//     createdBy: createdby,
-//   });
-
-//   const handleChange = (e) => {
-//     setFormData({ ...formData, [e.target.name]: e.target.value });
-//   };
-
-//   const handleSubmit = async (e) => {
-//     e.preventDefault();
-//     try {
-//       const res = await axios.post(
-//         "http://localhost:5001/api/register",
-//         formData
-//       );
-//       console.log("User registered:", res.data);
-//       navigate("/");
-//     } catch (error) {
-//       console.error("Registration failed:", error.response.data.error);
-//     }
-//   };
-
-//   return (
-//     <div className="super-regtoatl">
-//       {/* <div>
-//         <Sidebar />
-//       </div> */}
-//       <div className="super-regright">
-//         <div className="super-regright22">
-//           {/* <h2 className="super-rheading">Add Super Admin </h2> */}
-//           <div className="super-regright-1">
-//             <form className="super-regfrom" onSubmit={handleSubmit}>
-//               <div className="superflex-high">
-//                 <div className="super-flex">
-//                   <label>
-//                     <input
-//                       className="input1_rp"
-//                       type="text"
-//                       name="fullName"
-//                       value={formData.fullName}
-//                       onChange={handleChange}
-//                       placeholder=""
-//                       required
-//                     />
-//                     <span>Full Name</span>
-//                   </label>
-
-//                   <label>
-//                     <input
-//                       className="input1_rp"
-//                       type="text"
-//                       name="userId"
-//                       value={formData.userId}
-//                       onChange={handleChange}
-//                       placeholder=""
-//                       required
-//                     />
-//                     <span>UserId</span>
-//                   </label>
-
-//                   <label>
-//                     <input
-//                       className="input1_rp"
-//                       type="email"
-//                       name="email"
-//                       value={formData.email}
-//                       onChange={handleChange}
-//                       placeholder=""
-//                       required
-//                     />
-//                     <span>Email</span>
-//                   </label>
-
-//                   <label>
-//                     <input
-//                       className="input1_rp"
-//                       type="text"
-//                       name="phoneNumber"
-//                       value={formData.phoneNumber}
-//                       onChange={handleChange}
-//                       placeholder=""
-//                       required
-//                     />
-//                     <span>Phone Number</span>
-//                   </label>
-//                 </div>
-
-//                 {/* .......................................... */}
-
-//                 <div className="super-flex">
-//                   <label>
-//                     <input
-//                       className="input1_rp"
-//                       type="date"
-//                       name="dateOfBirth"
-//                       value={formData.dateOfBirth}
-//                       onChange={handleChange}
-//                       placeholder="date of birth"
-//                       required
-//                     />
-//                     <span>Date of Birth</span>
-//                   </label>
-
-//                   <label>
-//                     <select
-//                       className="input1_rp"
-//                       name="gender"
-//                       value={formData.gender}
-//                       onChange={handleChange}
-//                       required
-//                     >
-//                       <option value="">Select Gender</option>
-//                       <option value="male">Male</option>
-//                       <option value="female">Female</option>
-//                       <option value="other">Other</option>
-//                     </select>
-//                     <span>Gender</span>
-//                   </label>
-//                   <label>
-//                     <input
-//                       className="input1_rp"
-//                       type="password"
-//                       name="password"
-//                       value={formData.password}
-//                       onChange={handleChange}
-//                       placeholder=""
-//                       required
-//                     />
-//                     <span>Password</span>
-//                   </label>
-
-//                   <label>
-//                     <input
-//                       className="input1_rp"
-//                       type="password"
-//                       name="confirmPassword"
-//                       value={formData.confirmPassword}
-//                       onChange={handleChange}
-//                       placeholder=""
-//                       required
-//                     />
-//                     <span>Confirm Password</span>
-//                   </label>
-//                 </div>
-//               </div>
-//               <button className="submit_rp" type="submit">
-//                 Register
-//               </button>
-//             </form>
-//           </div>
-//         </div>
-//         <div className="below-table-admins">{/* <MasterUserT /> */}</div>
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default RegisterPage;
-
-// // RegisterPage.js
-
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import "./RegisterPage.css";
-import Sidebar from "../../Masterdata/Sidebar/Sidebar";
-import MasterUserT from "../Masterusers/MasterUserT";
+// import Sidebar from "../../Masterdata/Sidebar/Sidebar";
+// import MasterUserT from "../Masterusers/MasterUserT";
 import { VINOOTNEW } from "../../Helper/Helper";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 const RegisterPage = () => {
   const createdby = localStorage.getItem("userId");
 
@@ -255,20 +73,33 @@ const RegisterPage = () => {
         }));
       }
     }
+    // Compare password and confirm password
+    if (name === "confirmPassword") {
+      if (value !== formData.password) {
+        setErrors((prevErrors) => ({
+          ...prevErrors,
+          confirmPassword: "Passwords do not match.",
+        }));
+      }
+    }
 
     // Mobile number validation
-    if (name === "phoneNumber" && value.trim() !== "") {
-      if (!/^[6-9]\d{9}$/.test(value)) {
-        if (!/^[6-9]/.test(value)) {
+    if (name === "phoneNumber") {
+      if (value.trim() === "") {
+        setErrors((prevErrors) => ({ ...prevErrors, phoneNumber: "" }));
+      } else {
+        const numericValue = value.replace(/\D/g, ""); // Remove non-numeric characters
+        setFormData({ ...formData, [name]: numericValue });
+
+        const mobileRegex = /^[6-9]\d{0,9}$/; // Starts with 6 and allows up to 10 digits
+        if (!mobileRegex.test(value)) {
           setErrors((prevErrors) => ({
             ...prevErrors,
-            phoneNumber: "Mobile number should start with 6-9",
+            phoneNumber:
+              "Mobile number must start with 6 to 9 and contain up to 10 digits.",
           }));
-        } else if (value.length !== 10) {
-          setErrors((prevErrors) => ({
-            ...prevErrors,
-            phoneNumber: "Mobile number should have 10 digits",
-          }));
+        } else {
+          setErrors((prevErrors) => ({ ...prevErrors, phoneNumber: "" }));
         }
       }
     }
@@ -326,18 +157,14 @@ const RegisterPage = () => {
     e.preventDefault();
 
     // Check if password and confirm password match
-    if (formData.password !== formData.confirmPassword) {
-      setErrors((prevErrors) => ({
-        ...prevErrors,
-        confirmPassword: "Passwords do not match.",
-      }));
-      return; // Exit the function early if passwords don't match
-    }
 
     // Check for any errors before submission
     for (const key in errors) {
       if (errors[key]) {
-        alert("Errors are there. Please fix before submitting.");
+        toast.error("Errors are there. Please fix before submitting.", {
+          position: "top-right",
+          autoClose: 1500,
+        });
         return;
       }
     }
@@ -350,15 +177,20 @@ const RegisterPage = () => {
     });
 
     try {
-      const res = await axios.post(`${VINOOTNEW}/api/register`, {
+      await axios.post(`${VINOOTNEW}/api/register`, {
         ...formData,
         userId: newUserID,
       });
-      console.log("User registered:", res.data);
-      alert("registration successful");
-      navigate("/");
+      // console.log("User registered:", res.data);
+      toast.success("Super Admin added sucessfully.", {
+        position: "top-right",
+        autoClose: 1500,
+        onClose: () => {
+          navigate("/");
+        },
+      });
     } catch (error) {
-      console.error("Registration failed:", error.response.data.error);
+      // console.error("Registration failed:", error.response.data.error);
     }
   };
 
@@ -379,7 +211,7 @@ const RegisterPage = () => {
       const response = await axios.get(`${VINOOTNEW}/api/users`);
       setUsers(response.data);
     } catch (error) {
-      console.error("Error fetching users:", error);
+      // console.error("Error fetching users:", error);
     }
   };
 
@@ -391,6 +223,7 @@ const RegisterPage = () => {
 
   return (
     <div className="super-regtoatl">
+      <ToastContainer />
       {/* <div>
         <Sidebar />
       </div> */}
@@ -456,10 +289,20 @@ const RegisterPage = () => {
                   <label>
                     <input
                       className="input1_rp"
-                      type="number"
+                      type="text"
                       name="phoneNumber"
                       value={formData.phoneNumber}
                       onChange={handleChange}
+                      maxLength={10}
+                      onKeyDown={(evt) =>
+                        (evt.key === "." ||
+                          evt.key === "e" ||
+                          evt.key === "E" ||
+                          evt.key === "+" ||
+                          evt.key === "-") &&
+                        evt.preventDefault()
+                      }
+                      
                       placeholder=""
                       required
                     />
@@ -500,8 +343,7 @@ const RegisterPage = () => {
                       name="gender"
                       value={formData.gender}
                       onChange={handleChange}
-                      required
-                    >
+                      required>
                       <option value="">Select Gender</option>
                       <option value="male">Male</option>
                       <option value="female">Female</option>
@@ -516,6 +358,7 @@ const RegisterPage = () => {
                       name="password"
                       value={formData.password}
                       onChange={handleChange}
+                      maxLength={16}
                       placeholder=""
                       required
                     />
@@ -536,6 +379,7 @@ const RegisterPage = () => {
                       name="confirmPassword"
                       value={formData.confirmPassword}
                       onChange={handleChange}
+                      maxLength={16}
                       placeholder=""
                       required
                     />

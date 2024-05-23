@@ -154,32 +154,42 @@ exports.createAdmin = async (req, res) => {
     const admin = new Admin(req.body);
 
     // Check for unique userId and email
-    const existingAdmin = await Admin.findOne({
-      $or: [{ userId: req.body.userId }, { email: req.body.email }],
-    });
+    // const existingAdmin = await Admin.findOne({
+    //   $or: [
+    //     { userId: req.body.userId },
+    //     { email: req.body.email },
+    //     { franchiseID: req.body.franchiseID },
+    //   ],
+    // });
 
-    if (existingAdmin) {
-      if (existingAdmin.userId === req.body.userId) {
-        return res
-          .status(400)
-          .json({ error: "Admin with this User ID already exists" });
-      } else if (existingAdmin.email === req.body.email) {
-        return res
-          .status(400)
-          .json({ error: "Admin with this email already exists" });
-      }
-    }
+    // if (existingAdmin) {
+    //   if (existingAdmin.userId === req.body.userId) {
+    //     return res.status(400).json({ error: "userId already exists" });
+    //   } else if (existingAdmin.email === req.body.email) {
+    //     return res.status(400).json({ error: "email already exists" });
+    //   } else if (existingAdmin.franchiseID === req.body.franchiseID) {
+    //     // return res.status(400).json({ error: "franchiseID already exists" });
+    //   }
+    // }
 
     await admin.save();
     res
       .status(201)
       .json({ success: true, message: "Admin created successfully." });
   } catch (error) {
+    // if (error.code === 11000 && error.keyPattern.userId) {
+    //   return res.status(400).json({ error: "userId already exists" });
+    // } else if (error.code === 11000 && error.keyPattern.email) {
+    //   return res.status(400).json({ error: "email already exists" });
+    // } else if (error.code === 11000 && error.keyPattern.franchiseID) {
+    //   // return res.status(400).json({ error: "franchiseID already exists" });
+    // } else {
     res.status(500).json({
       success: false,
-      message: "Failed to create admin.",
+      message: "Failed create admin.",
       error: error.message,
     });
+    // }
   }
 };
 
@@ -214,13 +224,17 @@ exports.loginfranchiseUser = async (req, res) => {
     );
 
     if (!user) {
-      return res.status(400).json({ error: "Invalid credentials" });
+      return res.status(400).json({ error: "Invalid Credentials" });
     }
 
     // Check if the password matches
     if (user.password !== password) {
-      return res.status(400).json({ error: "Invalid credentials" });
+      return res.status(400).json({ error: "Password Doesn't Match" });
     }
+
+    // if (!user && user.password !== password){
+    //   return res.status(400).json({ error: "Invalid Credentials" });
+    // }
 
     // Check if the user is active
     if (!user.isActive) {
@@ -254,7 +268,7 @@ exports.loginfranchiseUser = async (req, res) => {
 
 exports.updateFranchiseAdminActiveState = async (req, res) => {
   const { id } = req.params;
-  const { isActive, updatedBy, fullname, password, designation, email } =
+  const { isActive, updatedBy, fullname, password, designation, mobileNumber } =
     req.body; // Updated by information
   try {
     // Update active state and updated by information
@@ -265,9 +279,9 @@ exports.updateFranchiseAdminActiveState = async (req, res) => {
         modifiedBy: updatedBy,
         modifiedAt: Date.now(),
         fullname,
-        email,
         designation,
         password,
+        mobileNumber,
       },
       { new: true } // Set { new: true } to return the updated document
     );
@@ -300,6 +314,23 @@ exports.getFranchiseAdminsByFranchiseID = async (req, res) => {
     const FranchiseID = franchise.franchiseID;
     const users = await Admin.find({ franchiseID: FranchiseID });
     res.status(200).json(users);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Server Error" });
+  }
+};
+
+exports.updateFranchiseAdminActiveStatepart2 = async (req, res) => {
+  const { id } = req.params;
+  const { isActive, updatedBy } = req.body; // Updated by information
+  try {
+    // Update active state and updated by information
+    await Admin.findByIdAndUpdate(id, {
+      isActive,
+      modifiedBy: updatedBy,
+      modifiedAt: new Date().toLocaleString(),
+    });
+    res.status(200).json({ message: "User active state updated successfully" });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Server Error" });

@@ -19,13 +19,18 @@ const billingSchema = new mongoose.Schema({
   franchiseID: String,
   createdBy: String,
   modifiedBy: { type: String },
-  modifiedAt: { type: Date, default: Date.now },
-  createdAt: { type: Date, default: Date.now },
+  modifiedAt: { type: String, set: setDate, default: Date.now },
+  createdAt: { type: String, set: setDate, default: Date.now },
   mobile_number:{ type: Number, required: true },
   patient_id:{ type: String, required: true },
   patient_name:{ type: String, required: true },
   address:{ type: String, required: true },
 });
+
+
+function setDate(date) {
+  return new Date(date).toLocaleString();
+}
 
 
 billingSchema.pre('save', function(next) {

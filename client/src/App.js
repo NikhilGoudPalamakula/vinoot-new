@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Sidebar from "./Reception/sidebar";
 import NotFound from "./pages/NotFound";
 import PrivateRoute from "./MasterLogin/PrivateRoute";
-import RegisterPage from "./MasterLogin/AddSuperAdmin/RegisterPage";
+// import RegisterPage from "./MasterLogin/AddSuperAdmin/RegisterPage";
 import LoginPage from "./MasterLogin/LoginPage";
 import MasterUserT from "./MasterLogin/Masterusers/MasterUserT";
 import FranchiseReg from "./MasterLogin/Franchiseregistration/FranchiseReg";
@@ -15,7 +15,7 @@ import FranchiseAdmintable from "./MasterLogin/Franchisedetails/FranchiseAdminta
 import TreatmentCategory from "./Masterdata/Categorymasterdata/Category";
 import TreatmentPlan from "./Masterdata/Treatmentplanmaster/Plan";
 import PatientForm from "./Franchisemanagement/Reception/Patientdetails/Addpatient";
-import FranchiseStaffReg from "./Franchisemanagement/Franchiseadmin/FranchisestaffReg/FranchiseStaffReg";
+// import FranchiseStaffReg from "./Franchisemanagement/Franchiseadmin/FranchisestaffReg/FranchiseStaffReg";
 import SuperSidebar from "./Masterdata/Sidebar/Sidebar";
 import LoginForm from "./Login/LoginForm";
 import Thearpy from "./Franchisemanagement/Thearpy";
@@ -54,8 +54,8 @@ function App() {
           <Route path="/Sidebar" element={<Sidebar />} />
           <Route path="/MasterUsert" element={<MasterUserT />} />
           {/* <Route path="/reg" element={<RegisterPage />} /> */}
-          <Route path="/reg" element={<RegisterPage />} />
-          <Route path="/fsr" element={<FranchiseStaffReg />} />
+          {/* <Route path="/reg" element={<RegisterPage />} /> */}
+          {/* <Route path="/fsr" element={<FranchiseStaffReg />} /> */}
 
           <Route path="/States" element={<States />} />
           <Route path="/Cities" element={<Cities />} />
@@ -88,6 +88,7 @@ function App() {
           />
           <Route path="/Franchisetogglepatients" element={<Togglepatients />} />
         </Route>
+
         <Route
           path="/Franchisepatientbilling"
           element={<Franchisepatientbilling />}

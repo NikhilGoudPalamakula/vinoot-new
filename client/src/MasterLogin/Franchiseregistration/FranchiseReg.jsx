@@ -2,10 +2,10 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify"; // Import ToastContainer and toast from react-toastify
 import "react-toastify/dist/ReactToastify.css"; // Import the default styles for React Toastify
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import "../Franchiseregistration/FranchiseReg.css";
 import Navbarlanding from "../../../src/Landingpage/Components/Navbar";
-
+import { VINOOTNEW } from "../../Helper/Helper";
 const FranchiseReg = () => {
   const [states, setStates] = useState([]);
   const [cities, setCities] = useState([]);
@@ -14,7 +14,7 @@ const FranchiseReg = () => {
   const [stateInput, setStateInput] = useState("");
   const [city, setCity] = useState("");
   const [focusedInput, setFocusedInput] = useState(null);
-  const [filteredStates, setFilteredStates] = useState([]);
+  // const [filteredStates, setFilteredStates] = useState([]);
   const [filteredCities, setFilteredCities] = useState([]);
   const [filteredAreas, setFilteredAreas] = useState([]);
   const [franchiseData, setFranchiseData] = useState({
@@ -37,6 +37,7 @@ const FranchiseReg = () => {
     franchiseID: "",
     designation: "FranchiseAdmin",
     email: "",
+    mobileNumber: "",
     password: "",
     createdBy: "",
   });
@@ -49,20 +50,21 @@ const FranchiseReg = () => {
     pincode: "",
     password: "",
     fullname: "",
+    userId: "",
     email: "",
   });
 
   useEffect(() => {
     const fetchStates = async () => {
       try {
-        const response = await axios.get("http://localhost:5001/api/states");
+        const response = await axios.get(`${VINOOTNEW}/api/states`);
         const activeStates = response.data.filter(
           (state) =>
             state.status === "active" &&
             state.name.toLowerCase().includes(stateInput.toLowerCase())
         );
         setStates(activeStates);
-        setFilteredStates(activeStates);
+        // setFilteredStates(activeStates);
       } catch (error) {
         console.error("Failed to fetch states", error);
       }
@@ -73,7 +75,7 @@ const FranchiseReg = () => {
   useEffect(() => {
     const fetchCities = async () => {
       try {
-        const response = await axios.get("http://localhost:5001/api/cities");
+        const response = await axios.get(`${VINOOTNEW}/api/cities`);
         const activeCities = response.data.filter(
           (city) => city.status === "active"
         );
@@ -89,7 +91,7 @@ const FranchiseReg = () => {
   useEffect(() => {
     const fetchAreas = async () => {
       try {
-        const response = await axios.get("http://localhost:5001/api/areas");
+        const response = await axios.get(`${VINOOTNEW}/api/areas`);
         setAreas(response.data);
         setFilteredAreas(response.data); // Initialize filteredAreas with all areas
       } catch (error) {
@@ -199,12 +201,12 @@ const FranchiseReg = () => {
     try {
       // Prepare data for API request
       const createdBy = localStorage.getItem("userId");
-      // console.log(createdBy);
       const updatedAdminData = {
         ...adminData,
         franchisename: franchiseData.franchisename,
         franchiseID: franchiseData.franchiseID,
         createdBy: createdBy,
+        mobileNumber: franchiseData.mobileNumber,
       };
       const updatedFranchiseData = {
         ...franchiseData,
@@ -213,14 +215,11 @@ const FranchiseReg = () => {
       };
 
       // Send a request to create admin
-      await axios.post("http://localhost:5001/api/admin", updatedAdminData);
-      // console.log("admin Data:", updatedAdminData);
+      await axios.post(`${VINOOTNEW}/api/admin`, updatedAdminData);
 
       // Send a request to create franchise
-      await axios.post(
-        "http://localhost:5001/api/franchise",
-        updatedFranchiseData
-      );
+      await axios.post(`${VINOOTNEW}/api/franchise`, updatedFranchiseData);
+
       // Clear form values after successful submission
       setAdminData({
         fullname: "",
@@ -254,19 +253,53 @@ const FranchiseReg = () => {
       });
     } catch (error) {
       if (error.response) {
-        const errorMessage =
-          error.response.data.message || "Failed to create admin";
-        toast.error(errorMessage, {
-          position: "top-right",
-          autoClose: 1500,
-        });
+        if (error.response.status === 400) {
+          // Handle specific error messages
+          // if (error.response.data.error === "userId already exists") {
+          //   // Handle userId already exists error
+          //   // Display appropriate message to the user
+          //   toast.error("User ID already exists", {
+          //     position: "top-right",
+          //     autoClose: 1500,
+          //   });
+          // } else if (error.response.data.error === "email already exists") {
+          //   // Handle email already exists error
+          //   // Display appropriate message to the user
+          //   toast.error("Email already exists", {
+          //     position: "top-right",
+          //     autoClose: 1500,
+          //   });
+          // }
+          if (error.response.data.error === "franchiseID already exists") {
+            // Handle email already exists error
+            // Display appropriate message to the user
+            toast.error("franchiseID already exists", {
+              position: "top-right",
+              autoClose: 1500,
+            });
+          }
+        } else {
+          // Handle other server errors
+          // Display generic error message to the user
+          toast.error("Server Error. Please try again later.", {
+            position: "top-right",
+            autoClose: 1500,
+          });
+        }
       } else if (error.request) {
-        toast.error("No response from server", {
-          position: "top-right",
-          autoClose: 1500,
-        });
+        // The request was made but no response was received
+        // Display appropriate message to the user
+        toast.error(
+          "No response received from server. Please try again later.",
+          {
+            position: "top-right",
+            autoClose: 1500,
+          }
+        );
       } else {
-        toast.error("Error" + errors.message, {
+        // Something happened in setting up the request that triggered an Error
+        // Display generic error message to the user
+        toast.error("Unexpected error occurred. Please try again later.", {
           position: "top-right",
           autoClose: 1500,
         });
@@ -282,16 +315,20 @@ const FranchiseReg = () => {
     if (name === "franchisename") {
       if (value.trim() === "") {
         setErrors((prevErrors) => ({ ...prevErrors, franchisename: "" }));
-      } else if (value.length < 10) {
+      } else if (
+        !/^(?=.*[A-Z].*[A-Z].*[A-Z].*[A-Z].*[A-Z].*[A-Z].*[A-Z])[A-Z0-9\s]{10,}$/.test(
+          value
+        )
+      ) {
         setErrors((prevErrors) => ({
           ...prevErrors,
           franchisename:
-            "Franchise name should consist of a minimum of 10 characters",
+            "Franchise name should contain at least 7 uppercase alphabet characters in any order and be at least 10 characters long.",
         }));
       } else if (value.length > 100) {
         setErrors((prevErrors) => ({
           ...prevErrors,
-          franchisename: "Franchise name should consist of only 100 characters",
+          franchisename: "Franchise name should not exceed 100 characters",
         }));
       } else {
         setErrors((prevErrors) => ({ ...prevErrors, franchisename: "" }));
@@ -301,7 +338,7 @@ const FranchiseReg = () => {
     if (name === "franchiseID") {
       if (value.trim() === "") {
         setErrors((prevErrors) => ({ ...prevErrors, franchiseID: "" }));
-      } else if (!/^[a-zA-Z]{3}\d{3}$/.test(value)) {
+      } else if (!/^[A-Z]{3}\d{3}$/.test(value)) {
         setErrors((prevErrors) => ({
           ...prevErrors,
           franchiseID:
@@ -309,23 +346,6 @@ const FranchiseReg = () => {
         }));
       } else {
         setErrors((prevErrors) => ({ ...prevErrors, franchiseID: "" }));
-      }
-    }
-
-    if (name === "mobileNumber") {
-      if (value.trim() === "") {
-        setErrors((prevErrors) => ({ ...prevErrors, mobileNumber: "" }));
-      } else {
-        const mobileRegex = /^[1-9]\d{5}$/; // Starts with 6 and allows up to 10 digits
-        if (!mobileRegex.test(value)) {
-          setErrors((prevErrors) => ({
-            ...prevErrors,
-            mobileNumber:
-              "Mobile number must start with 6 and contain up to 10 digits.",
-          }));
-        } else {
-          setErrors((prevErrors) => ({ ...prevErrors, mobileNumber: "" }));
-        }
       }
     }
 
@@ -397,18 +417,27 @@ const FranchiseReg = () => {
     if (name === "fullname") {
       if (value.trim() === "") {
         setErrors((prevErrors) => ({ ...prevErrors, fullname: "" }));
-      } else if (!/^[a-zA-Z\s]+$/.test(value)) {
+      } else if (!/^[a-zA-Z\s']{3,50}$/.test(value)) {
         setErrors((prevErrors) => ({
           ...prevErrors,
-          fullname: "Full name should contain only alphabets.",
-        }));
-      } else if (value.length > 50) {
-        setErrors((prevErrors) => ({
-          ...prevErrors,
-          fullname: "Full name should not exceed 50 characters.",
+          fullname:
+            "Full name should contain only alphabets and be between 3 and 50 characters long.",
         }));
       } else {
         setErrors((prevErrors) => ({ ...prevErrors, fullname: "" }));
+      }
+    }
+    if (name === "userId") {
+      if (value.trim() === "") {
+        setErrors((prevErrors) => ({ ...prevErrors, userId: "" }));
+      } else if (!/^[A-Z]{3}\d{3}$/.test(value)) {
+        setErrors((prevErrors) => ({
+          ...prevErrors,
+          userId:
+            "userId must consist of 3 alphabetical characters followed by 3 numeric characters.",
+        }));
+      } else {
+        setErrors((prevErrors) => ({ ...prevErrors, userId: "" }));
       }
     }
 
@@ -428,15 +457,13 @@ const FranchiseReg = () => {
     if (name === "password") {
       if (value.trim() === "") {
         setErrors((prevErrors) => ({ ...prevErrors, password: "" }));
-      } else if (value.length < 8) {
+      } else if (
+        !/^(?=.*\d)(?=.*[a-zA-Z])(?=.*[^a-zA-Z0-9\s]).{8,16}$/.test(value)
+      ) {
         setErrors((prevErrors) => ({
           ...prevErrors,
-          password: "Password should consist of a minimum of 8 characters.",
-        }));
-      } else if (value.length > 15) {
-        setErrors((prevErrors) => ({
-          ...prevErrors,
-          password: "Password should not exceed 15 characters.",
+          password:
+            "Password should contain at least one number, one alphabet, one special character, and be between 8 and 16 characters long.",
         }));
       } else {
         setErrors((prevErrors) => ({ ...prevErrors, password: "" }));
@@ -557,7 +584,7 @@ const FranchiseReg = () => {
                     />
                     {focusedInput === "state" && (
                       <ul className="suggestion-list1">
-                        {filteredStates.map((state) => (
+                        {states.map((state) => (
                           <li
                             key={state._id}
                             onClick={() =>
@@ -765,6 +792,7 @@ const FranchiseReg = () => {
                       name="password"
                       value={adminData.password}
                       onChange={handleAdminInputChange}
+                      maxLength={16}
                       placeholder=""
                       required
                     />

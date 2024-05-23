@@ -17,8 +17,14 @@ const billinginstallmentSchema = new mongoose.Schema({
   amountPaid: { type: Number, required: true },
   status: { type: String, required: true },
   currentDate: {type:String},
-  createdAt: { type: Date, default: Date.now },
+  createdAt: { type: String, set: setDate, default: Date.now },
 });
+
+
+function setDate(date) {
+  return new Date(date).toLocaleString();
+}
+
 
 const Installment = mongoose.model('Billinginstallment', billinginstallmentSchema);
 

@@ -43,7 +43,6 @@
 .bottom-content1s{
     display: flex;
     flex-direction: row;
-    flex-wrap: wrap;
     margin-left: 10px;
     margin-top: -10px;
 }
@@ -76,31 +75,28 @@
     background: transparent;
     border-radius: 50px;
     justify-content: center;
+    margin-left: 50px;
 }
 
-@media screen and (max-width: 425px) {
-    .part1s {
+@media (max-width: 424px){
+    .hair-regrowth1s{
+        width: 99%;
+        margin-left: 2px;
+    }
+    .heading-h2s{
+        font-size: 15px;
+        font-weight: 500;
+    }
+    .para-about1s{
+        font-size: 10px;
+        text-align: center;
+    }
+    .part1s{
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        gap: 10px;
-        width: 100%;
+        gap: 20px;
+        width: 23%;
     }
-    .bottom-content1s {
-        /* display: flex; */
-        flex-direction: row;
-        margin-left: 10px;
-        margin-top: -10px;
-    }
-    .hair-regrowth1s {
-        height: auto;
-        background-color: #dcf1e5d2;
-        /* background-color: rgb(177, 234, 192); */
-        border-radius: 40px;
-        width: 90%;
-        margin-left: 5%;
-        margin-top: -60px;
-    }
-    
 }

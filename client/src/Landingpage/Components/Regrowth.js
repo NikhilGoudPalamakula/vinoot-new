@@ -36,7 +36,7 @@ const Regrowthpage = () => {
             <p className='para-about1s'>Cleaning follicles with seed paste by adsorption.</p>
             </div>
             <div className='part1s'  data-aos='fade-up' data-aos-delay='100'>
-            <div className='image-bg2s'>
+            <div className='image-bg1s'>
             <img src={Image4}  className='img-icon1s'/>
             </div>
             <h2 className='heading-h2s'>Spraying Herbal Solution</h2>

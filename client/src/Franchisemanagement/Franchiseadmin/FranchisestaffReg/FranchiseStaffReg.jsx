@@ -1,61 +1,10 @@
-import "./FranchiseStaffReg.css";
 import React, { useState, useEffect } from "react";
+import "./FranchiseStaffReg.css";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import FranchiseadminSidebar from "../Franchiseadminsidebar/Franchiseadminsidebar";
-
-// Function to validate input fields
-const validateInputs = (data) => {
-  const errors = {};
-
-  if (data.fullname.trim() === "") {
-    // Clear the error message if the input is empty
-    errors.fullname = "";
-  } else if (data.fullname.length < 3) {
-    // Check if the length of the input is within the specified range
-    errors.fullname = "Full name should consists minimum of 3 characters";
-  } else if (!/^[a-zA-Z]{3,}$/.test(data.fullname)) {
-    // Check if the full name consists of at least 3 alphabetic characters
-    errors.fullname =
-      "Full name should consist of at least 3 alphabetic characters";
-  } else if (data.fullname.length > 50) {
-    // Check if the length of the input is within the specified range
-    errors.fullname = "Full name must should consists only 50 characters";
-  } else {
-    // Clear the error message if the input is valid
-    errors.fullname = "";
-  }
-
-  if (data.email.trim() === "") {
-    // Clear the error message if the input is empty
-    errors.email = "";
-  } else if (!/^[6-9]/.test(data.email)) {
-    // Check if the email starts with a digit between 6 and 9
-    errors.email = "Mobile number should start with 6-9";
-  } else if (!/^\d{10}$/.test(data.email)) {
-    // Check if the email consists of exactly 10 digits
-    errors.email = "Mobile number should have 10 digits";
-  } else {
-    // Clear the error message if the input is valid
-    errors.email = "";
-  }
-
-  // Validate password
-  if (data.password.trim() !== "") {
-    if (
-      !/(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&])[A-Za-z\d!@#$%^&*]{8,}$/.test(
-        data.password
-      )
-    ) {
-      errors.password =
-        "Password must contain at least one uppercase letter, one number, one special character, and be 8 characters long";
-    } else {
-      // Clear the error message if the input is valid
-      errors.password = "";
-    }
-  }
-  return errors;
-};
+import { VINOOTNEW } from "../../../Helper/Helper";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const FranchiseStaffReg = () => {
   const navigate = useNavigate();
@@ -65,83 +14,24 @@ const FranchiseStaffReg = () => {
     franchisename: "",
     franchiseID: "",
     designation: "",
+    mobileNumber: "",
     email: "",
     password: "",
   });
   const [admins, setAdmins] = useState([]);
-
+  const [errors, setErrors] = useState({
+    mobileNumber: "",
+  });
   useEffect(() => {
     fetchAdmins();
   }, []);
-  // State to manage error messages for each input field
-  const [errors, setErrors] = useState({});
-
-  // If inputs are valid, proceed with form submission
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const validationErrors = validateInputs(adminData); // Validate inputs
-    if (Object.keys(validationErrors).length > 0) {
-      setErrors(validationErrors); // Set errors if validation fails
-      alert("Please enter valid Details."); // Alert message
-      return;
-    }
-    try {
-      // Update adminData and franchiseData with the current values from state and localStorage
-      const createdBy = localStorage.getItem("userId");
-      const franchiseName = localStorage.getItem("franchisename");
-      const franchiseID = localStorage.getItem("franchiseID");
-      // Update adminData
-      const updatedAdminData = {
-        ...adminData,
-        franchisename: franchiseName,
-        franchiseID: franchiseID,
-        createdBy: createdBy, // Add CreatedBy from localStorage
-      };
-
-      // Make the POST request with updated adminData
-      await axios.post("http://localhost:5001/api/admin", updatedAdminData);
-      console.log("admin Data:", updatedAdminData);
-
-      alert("Data submitted successfully.");
-      navigate("/Franchisetogglebutton");
-    } catch (error) {
-      console.error("Registration failed:", error.response.data.error);
-    }
-  };
-
-  // const handleAdminInputChange = (e) => {
-  //   setAdminData({ ...adminData, [e.target.name]: e.target.value });
-  //   setErrors({ ...errors, [e.target.name]: "" });
-  // };
-  const handleAdminInputChange = (e) => {
-    const { name, value } = e.target;
-
-    // Update adminData with the new input value
-    setAdminData({ ...adminData, [name]: value });
-
-    // Validate the input field dynamically
-    const validationErrors = validateInputs({ ...adminData, [name]: value });
-
-    // Update the errors state with the validation result
-    setErrors((prevErrors) => {
-      // Remove the error message if the input is valid
-      if (!validationErrors[name]) {
-        const { [name]: removedError, ...rest } = prevErrors;
-        return rest;
-      }
-      // Add or update the error message if the input is invalid
-      return { ...prevErrors, [name]: validationErrors[name] };
-    });
-  };
-
-  // ---------------------fetching of staff---------------
 
   const fetchAdmins = async () => {
     try {
-      const frid = localStorage.getItem("franchiseID"); // Corrected localStorage key
+      const frid = localStorage.getItem("franchiseID");
       if (frid) {
         const response = await axios.get(
-          `http://localhost:5001/api/franchisefetchusers/${frid}`
+          `${VINOOTNEW}/api/franchisefetchusers/${frid}`
         );
         setAdmins(response.data);
       } else {
@@ -151,15 +41,193 @@ const FranchiseStaffReg = () => {
       console.error("Error fetching admins:", error);
     }
   };
+  const generateAdminID = (admins) => {
+    if (admins.length === 0) {
+      // If there are no existing admins, start with the first ID
+      return "STAFF001";
+    } else {
+      // Extract the numeric part of the last patient ID
+      const lastIDNumeric = parseInt(
+        admins[admins.length - 1].userId.substr(5),
+        10
+      );
+      // Increment the numeric part by 1
+      const nextIDNumeric = lastIDNumeric + 1;
+      // Pad the numeric part with zeros to maintain the format "PAT001"
+      const nextID = "STAFF" + nextIDNumeric.toString().padStart(3, "0");
+      return nextID;
+    }
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const hasErrors = Object.values(errors).some((error) => error !== "");
+
+    if (hasErrors) {
+      toast.error("Please fix the errors before submitting", {
+        position: "top-right",
+        autoClose: 1500,
+      });
+      return;
+    }
+    // Generate the patient ID
+    const newAdminID = generateAdminID(admins);
+    // Update the form data with the generated patient ID
+    setAdminData({
+      ...adminData,
+      userId: newAdminID,
+    });
+    // Update the form data with the generated patient ID
+
+    try {
+      const createdBy = localStorage.getItem("userId");
+      const franchiseName = localStorage.getItem("franchisename");
+      const franchiseID = localStorage.getItem("franchiseID");
+      const updatedAdminData = {
+        ...adminData,
+        franchisename: franchiseName,
+        franchiseID: franchiseID,
+        createdBy: createdBy,
+      };
+      await axios.post(`${VINOOTNEW}/api/admin`, updatedAdminData);
+      // console.log("admin Data:", updatedAdminData);
+      toast.success("Staff Added successfully.", {
+        position: "top-right",
+        autoClose: 1000,
+      });
+      // alert("Data submitted successfully.");
+      // Reset adminData state after successful submission
+      setAdminData({
+        ...adminData,
+        fullname: "",
+        // userId: "",
+        designation: "",
+        mobileNumber: "",
+        email: "",
+        password: "",
+      });
+      fetchAdmins();
+    } catch (error) {
+      console.error("Registration failed:", error.response.data.error);
+    }
+  };
+  useEffect(() => {
+    const newAdminID = generateAdminID(admins);
+    setAdminData({
+      ...adminData,
+      userId: newAdminID,
+    });
+  }, [admins]);
+
+  const handleAdminInputChange = (e) => {
+    const { name, value } = e.target;
+    let errorsCopy = { ...errors };
+
+    // Validation for fullname
+    if (name === "fullname") {
+      const alphabeticCharacters = value.replace(/[^a-zA-Z]/g, ""); // Remove non-alphabetic characters
+      if (value.trim().length === 0) {
+        delete errorsCopy.fullname; // Remove error message if field is empty
+      } else if (value.length < 3) {
+        errorsCopy.fullname = "Fullname should consist of minimum 3 characters";
+      } else if (alphabeticCharacters.length < 3) {
+        errorsCopy.fullname =
+          "Fullname should contain at least 3 alphabetic characters";
+      } else if (value.length > 50) {
+        errorsCopy.fullname =
+          "Fullname should consist of maximum 50 characters";
+      } else {
+        delete errorsCopy.fullname;
+      }
+    }
+
+    // Validation for email
+    if (name === "email") {
+      if (value.trim().length === 0) {
+        delete errorsCopy.email; // Remove error message if field is empty
+      } else if (value.length < 10 || value.length > 60) {
+        errorsCopy.email = "Email should be between (10-60 characters)";
+      } else {
+        delete errorsCopy.email;
+      }
+    }
+
+    // Validation for password
+    if (name === "password") {
+      if (value.trim().length === 0) {
+        delete errorsCopy.password; // Step 1: Remove error message if field is empty
+      } else {
+        // Step 2: Validate password length (8-16 characters)
+        const isLengthValid = value.length >= 8 && value.length <= 16;
+
+        // Step 3: Validate uppercase letter
+        const hasUppercase = /[A-Z]/.test(value);
+
+        // Step 4: Validate number
+        const hasNumber = /\d/.test(value);
+
+        // Step 5: Validate special character
+        const hasSpecialChar = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/.test(
+          value
+        );
+
+        // Step 6: Set error message if any validation fails
+        if (!isLengthValid) {
+          errorsCopy.password = "Password should be 8-16 characters long";
+        } else if (!hasUppercase) {
+          errorsCopy.password =
+            "Password should contain at least one uppercase letter";
+        } else if (!hasNumber) {
+          errorsCopy.password = "Password should contain at least one number";
+        } else if (!hasSpecialChar) {
+          errorsCopy.password =
+            "Password should contain at least one special character";
+        } else {
+          delete errorsCopy.password;
+        }
+      }
+    }
+
+    setErrors(errorsCopy);
+    setAdminData({ ...adminData, [name]: value });
+  };
+  const handleMobileNumberChange = (e) => {
+    const { name, value } = e.target;
+    setAdminData({ ...adminData, [name]: value });
+
+    if (name === "mobileNumber") {
+      if (value.trim() === "") {
+        setErrors((prevErrors) => ({ ...prevErrors, mobileNumber: "" }));
+      } else {
+        const numericValue = value.replace(/\D/g, ""); // Remove non-numeric characters
+        setAdminData({ ...adminData, [name]: numericValue });
+
+        const mobileRegex = /^[6-9]\d{0,9}$/; // Starts with 6 and allows up to 10 digits
+        if (!mobileRegex.test(value)) {
+          setErrors((prevErrors) => ({
+            ...prevErrors,
+            mobileNumber:
+              "Mobile number must start with 6 to 9 and contain up to 10 digits.",
+          }));
+        } else if (value.length < 10) {
+          setErrors((prevErrors) => ({
+            ...prevErrors,
+            mobileNumber: "Mobile number must be 10 digits",
+          }));
+        } else {
+          setErrors((prevErrors) => ({ ...prevErrors, mobileNumber: "" }));
+        }
+      }
+    }
+  };
 
   const toggleActiveState = async (id, isActive) => {
     try {
-      const updatedBy = localStorage.getItem("username"); // Get username from localStorage
-      await axios.patch(
-        `http://localhost:5001/api/franchisestateupdate/${id}`,
-        { isActive: !isActive, updatedBy }
-      );
-      // Refresh user list after updating active state
+      const updatedBy = localStorage.getItem("username");
+      await axios.patch(` ${VINOOTNEW}/api/franchisestateupdate/${id}`, {
+        isActive: !isActive,
+        updatedBy,
+      });
       fetchAdmins();
     } catch (error) {
       console.error("Error updating active state:", error);
@@ -168,14 +236,9 @@ const FranchiseStaffReg = () => {
 
   return (
     <div className="fraddstaff-total">
-      {/* <div>
-        <FranchiseadminSidebar />
-      </div> */}
-
+      <ToastContainer />
       <div className="fradmin-right">
-        {/* <h2 className="addfr-franchise-from-Name">Franchise Form</h2> */}
         <form onSubmit={handleSubmit} className="fr-admin-form">
-          {/* <h2>Add Staff</h2> */}
           <div className="fr-for-flex">
             <div>
               <div className="addfr-inputs-wraps">
@@ -192,12 +255,10 @@ const FranchiseStaffReg = () => {
                   <span>fullname </span>
                 </label>
               </div>
-              {/* Render error messages */}
-              {errors.fullname && (
-                <div className="error">{errors.fullname}</div>
-              )}
+              {errors.fullname && <p className="error">{errors.fullname}</p>}
               <div className="addfr-inputs-wraps">
                 <input
+                  style={{ zIndex: "-1" }}
                   className="addfr-inputs"
                   type="text"
                   name="userId"
@@ -217,8 +278,7 @@ const FranchiseStaffReg = () => {
                   value={adminData.designation}
                   onChange={handleAdminInputChange}
                   placeholder="Select Designation"
-                  required
-                >
+                  required>
                   <option value=""></option>
                   <option value="Doctor">Doctor</option>
                   <option value="Reception">Reception</option>
@@ -235,7 +295,25 @@ const FranchiseStaffReg = () => {
               <div className="addfr-inputs-wraps">
                 <input
                   className="addfr-inputs"
-                  type="number"
+                  type="text"
+                  name="mobileNumber"
+                  value={adminData.mobileNumber}
+                  onChange={handleMobileNumberChange}
+                  pattern="\d{10}"
+                  maxLength="10"
+                  required
+                />
+                <label>
+                  <span>Mobile Number </span>
+                </label>
+              </div>
+              {errors.mobileNumber && (
+                <p className="error">{errors.mobileNumber}</p>
+              )}
+              <div className="addfr-inputs-wraps">
+                <input
+                  className="addfr-inputs"
+                  type="email"
                   name="email"
                   value={adminData.email}
                   onChange={handleAdminInputChange}
@@ -243,11 +321,10 @@ const FranchiseStaffReg = () => {
                   required
                 />
                 <label>
-                  <span>Mobile Number </span>
+                  <span>Email </span>
                 </label>
               </div>
-              {/* Render error messages */}
-              {errors.email && <div className="error">{errors.email}</div>}
+              {errors.email && <p className="error">{errors.email}</p>}
               <div className="addfr-inputs-wraps">
                 <input
                   className="addfr-inputs"
@@ -255,6 +332,7 @@ const FranchiseStaffReg = () => {
                   name="password"
                   value={adminData.password}
                   onChange={handleAdminInputChange}
+                  maxLength={16}
                   placeholder=""
                   required
                 />
@@ -262,67 +340,13 @@ const FranchiseStaffReg = () => {
                   <span>Password </span>
                 </label>
               </div>
-              {/* Render error messages */}
-              {errors.password && (
-                <div className="error">{errors.password}</div>
-              )}
+              {errors.password && <p className="error">{errors.password}</p>}
             </div>
           </div>
-
           <button className="franchisereg-staff" type="submit">
             Submit
           </button>
         </form>
-
-        {/* <div className="franchisestaff-table">
-          <h1>Staff Details</h1>
-          <table>
-            <thead>
-              <tr>
-                <th>Fullnmae</th>
-                <th>UserId</th>
-                <th>Franchise Name</th>
-                <th>Franchise ID</th>
-                <th>Designation</th>
-                <th>Email</th>
-                <th>Password</th>
-                <th>Is Active</th>
-                <th>Action</th>
-                <th>Modified By</th>
-                <th>Modified At</th>
-                <th>Created At</th>
-                <th>Created By</th>
-              </tr>
-            </thead>
-            <tbody>
-              {admins.map((admin) => (
-                <tr key={admin._id}>
-                  <td>{admin.fullname}</td>
-                  <td>{admin.userId}</td>
-                  <td>{admin.franchisename}</td>
-                  <td>{admin.FranchiseID}</td>
-                  <td>{admin.designation}</td>
-                  <td>{admin.email}</td>
-                  <td>{admin.password}</td>
-                  <td>{admin.isActive ? "Active" : "Inactive"}</td>
-                  <td>
-                    <button
-                      onClick={() =>
-                        toggleActiveState(admin._id, admin.isActive)
-                      }
-                    >
-                      {admin.isActive ? "Deactivate" : "Activate"}
-                    </button>
-                  </td>
-                  <td>{admin.modifiedBy}</td>
-                  <td>{admin.modifiedAt}</td>
-                  <td>{admin.createdAt}</td>
-                  <td>{admin.createdBy}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div> */}
       </div>
     </div>
   );

@@ -1,37 +1,19 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { useParams } from "react-router-dom";
-import './ShowPatientDetails.css';
+import "./ShowPatientDetails.css";
 import ReceptionSidebar from "../ReceptionSidebar/ReceptionSidebar";
+import { VINOOTNEW } from "../../../Helper/Helper";
 const ShowPatientDetails = () => {
-  // const [patientDetails, setPatientDetails] = useState(null);
-  // const { patientId } = useParams();
-
-  // useEffect(() => {
-  //   const fetchPatientDetails = async () => {
-  //     try {
-  //       const response = await axios.get(
-  //        ` http://localhost:5001/api/billings/${patientId}`
-  //       );
-  //       setPatientDetails(response.data);
-  //     } catch (error) {
-  //       console.error("Error fetching patient details:", error);
-  //     }
-  //   };
-
-  //   fetchPatientDetails();
-  // }, [patientId]);
-
-  // if (!patientDetails) {
-  //   return <div>Loading...</div>;
-  // }
+  
 
   // ---------------
 
-
-
   const [patientDetails, setPatientDetails] = useState(null);
   const [patientInstallments, setPatientInstallments] = useState(null);
+
   const [subtractedAmount, setSubtractedAmount] = useState(0);
   const [updatedRemainingAmount, setUpdatedRemainingAmount] = useState(null);
   const [paymentStatus, setPaymentStatus] = useState("Unpaid");
@@ -42,7 +24,7 @@ const ShowPatientDetails = () => {
     const fetchPatientDetails = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:5001/api/billings/${patientId}`
+          `${VINOOTNEW}/api/billings/${patientId}`
         );
         setPatientDetails(response.data);
         // setUpdatedRemainingAmount(response.data?.remainingAmount.toFixed(2)); // Initialize with remaining amount
@@ -58,7 +40,7 @@ const ShowPatientDetails = () => {
     const fetchPatientInstallments = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:5001/api/installment/${patientId}`
+          `${VINOOTNEW}/api/installment/${patientId}`
         );
         setPatientInstallments(response.data);
         // console.log(response.data)
@@ -80,15 +62,17 @@ const ShowPatientDetails = () => {
     // Check if patientInstallments is not null and not empty
     if (patientInstallments && patientInstallments.length > 0) {
       // Get the last installment
-      const lastInstallment = patientInstallments[patientInstallments.length - 1];
+      const lastInstallment =
+        patientInstallments[patientInstallments.length - 1];
       // Calculate updated remaining amount whenever subtractedAmount changes
-      const newRemainingAmount = lastInstallment.remainingAmount - subtractedAmount;
+      const newRemainingAmount =
+        lastInstallment.remainingAmount - subtractedAmount;
       // Round up to the nearest amount if the difference is 0.99
       const roundedAmount = Math.round(newRemainingAmount * 100) / 100;
       setUpdatedRemainingAmount(roundedAmount.toFixed(2));
 
       // Check if the remaining amount is zero or less to update payment status
-      if (newRemainingAmount <= 0) {
+      if ((newRemainingAmount === 0)) {
         setPaymentStatus("Paid");
       } else {
         setPaymentStatus("Unpaid");
@@ -96,18 +80,17 @@ const ShowPatientDetails = () => {
     }
   }, [subtractedAmount, patientInstallments]);
 
-
-
-
-  const handleAmountChange = (e) => {
-    setSubtractedAmount(Number(e.target.value)); // Convert input value to a number
-  };
-
+  
 
   const handlePaymentTypeChange = (e) => {
     setPaymentType(e.target.value);
   };
 
+  // const handleAmountChange = (e) => {
+  //   const enteredAmount = Number(e.target.value);
+  //   setSubtractedAmount(parseFloat(enteredAmount));
+  // };
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -115,7 +98,8 @@ const ShowPatientDetails = () => {
       //   ...patientInstallments[0], // Assuming you're updating the first installment
       //   remainingAmount: updatedRemainingAmount
       // };
-
+      // const presentTime = new Date().toLocaleString();
+      const currentDate = new Date().toISOString().split('T')[0];
       const newInstallmentData = {
         patient_id: patientDetails.patient_id,
         remainingAmount: updatedRemainingAmount,
@@ -125,23 +109,21 @@ const ShowPatientDetails = () => {
         paymentType: paymentType,
         amountPaid: subtractedAmount,
         status: paymentStatus,
-
+        currentDate: currentDate,
       };
 
       const response = await axios.post(
-        `http://localhost:5001/api/installments`,
+        `${VINOOTNEW}/api/installments`,
         newInstallmentData
       );
 
       console.log("New installment created:", response.data);
-      alert("New installment paid successfully!");
+      toast.success("New installment paid successfully!");
 
-      // await axios.post(`http://localhost:5001/api/installment/update`, updatedInstallment);
-      // alert("Remaining amount updated successfully!");
-      // You can also fetch the updated installments again here to reflect the changes
+    
     } catch (error) {
       console.error("Error to pay new installment:", error);
-      alert("Error to pay new installment. Please try again.");
+      toast.error("Error to pay new installment. Please try again.");
     }
   };
 
@@ -154,7 +136,7 @@ const ShowPatientDetails = () => {
   };
   const printDetails = () => {
     const printWindow = window.open("", "_blank");
-  
+
     const htmlContent = `
       <html>
         <head>
@@ -242,7 +224,9 @@ const ShowPatientDetails = () => {
               </tr>
             </thead>
             <tbody>
-              ${patientInstallments.map((installment, index) => `
+              ${patientInstallments
+                .map(
+                  (installment, index) => `
                 <tr key=${index}>
                   <td>${installment.currentDate}</td>
                   <td>${installment.patient_id}</td>
@@ -254,32 +238,31 @@ const ShowPatientDetails = () => {
                   <td>${installment.remainingAmount}</td>
                   <td>${installment.status}</td>
                 </tr>
-              `).join('')}
+              `
+                )
+                .join("")}
             </tbody>
           </table>
         </body>
       </html>
     `;
-  
+
     printWindow.document.open();
     printWindow.document.write(htmlContent);
     printWindow.document.close();
-  
+
     printWindow.print();
     printWindow.close();
   };
-  
-  
-  
+
   return (
     <div>
       <div className="showpat-total">
         <div>
-
           <ReceptionSidebar />
         </div>
         <div className="showpat-right">
-          <div  className="sowpat-above-t1">
+          <div className="sowpat-above-t1">
             <h1>Patient Billing Details</h1>
 
             <table>
@@ -324,7 +307,7 @@ const ShowPatientDetails = () => {
             <table>
               <thead>
                 <tr>
-                <th>Paid Date</th>
+                  <th>Paid Date</th>
                   <th>Patient ID</th>
                   <th>Patient Name</th>
                   <th>Mobile Number</th>
@@ -333,7 +316,6 @@ const ShowPatientDetails = () => {
                   <th>Last Amount Paid</th>
                   <th>Remaining Amount</th>
                   <th>Payment Status</th>
-                  
                 </tr>
               </thead>
               <tbody>
@@ -348,12 +330,12 @@ const ShowPatientDetails = () => {
                     <td>{installment.amountPaid}</td>
                     <td>{installment.remainingAmount}</td>
                     <td>{installment.status}</td>
-                    
                   </tr>
                 ))}
               </tbody>
             </table>
-        
+            <ToastContainer />
+
             <form className="shwopat-belowdet" onSubmit={handleSubmit}>
               <table>
                 <thead>
@@ -364,11 +346,12 @@ const ShowPatientDetails = () => {
                 </thead>
                 <tbody>
                   <td>
-                    <select value={paymentType} onChange={handlePaymentTypeChange}>
+                    <select
+                      value={paymentType}
+                      onChange={handlePaymentTypeChange}>
                       <option value="">Select Payment Type</option>
                       <option value="Cash">Cash</option>
                       <option value="Credit Card">Credit Card</option>
-
                     </select>
                   </td>
                   <td>
@@ -376,9 +359,23 @@ const ShowPatientDetails = () => {
                       type="number"
                       name="amountPaid"
                       step="any"
-                      onChange={handleAmountChange}
+                      // onChange={handleAmountChange}
+                      value={subtractedAmount === 0 ? '' : subtractedAmount}
+                      onChange={(e) => {
+                        const enteredAmount = parseFloat(e.target.value); // Convert the entered value to a number
+                        const currentInstallment = patientInstallments[patientInstallments.length - 1]; // Get the current installment
+                        const remainingAmount = parseFloat(currentInstallment.remainingAmount); // Get the remaining amount from the current installment
+                    
+                        // If the entered amount is greater than the remaining amount, set the entered amount to the remaining amount; otherwise, set it to the entered amount
+                        const updatedAmount = Math.min(enteredAmount, remainingAmount);
+                        setSubtractedAmount(updatedAmount);
+                      }}
+                  
+                      pattern="[0-9]*"
                       required
+                     
                     />
+                    
                   </td>
                   <td>
                     <input
@@ -388,7 +385,6 @@ const ShowPatientDetails = () => {
                       readOnly
                     />
                   </td>
-
 
                   <td>
                     <input
@@ -401,7 +397,9 @@ const ShowPatientDetails = () => {
                 </tbody>
               </table>
               <button type="submit">Submit</button>
-              <button onClick={handlePrint} style={{cursor:"pointer"}}>Print</button>
+              <button onClick={handlePrint} style={{ cursor: "pointer" }}>
+                Print
+              </button>
             </form>
           </div>
         </div>

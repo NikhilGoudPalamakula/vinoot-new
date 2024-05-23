@@ -6,12 +6,13 @@ import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import KeyboardDoubleArrowLeftIcon from "@mui/icons-material/KeyboardDoubleArrowLeft";
 import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArrowRight";
-
+import { VINOOTNEW } from "../../../Helper/Helper";
 const Franchisestaffdetails = () => {
   const [admins, setAdmins] = useState([]);
 
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(3);
+  const [errors, setErrors] = useState({});
 
   // const [originalAdmins, setOriginalAdmins] = useState([]);
   const [currentEditIndex, setCurrentEditIndex] = useState(-1); // Define currentEditIndex state
@@ -21,7 +22,7 @@ const Franchisestaffdetails = () => {
       const frid = localStorage.getItem("franchiseID");
       if (frid) {
         const response = await axios.get(
-          `http://localhost:5001/api/franchisefetchusers/${frid}`
+          `${VINOOTNEW}/api/franchisefetchusers/${frid}`
         );
         setAdmins(response.data);
       } else {
@@ -40,7 +41,7 @@ const Franchisestaffdetails = () => {
     try {
       const updatedBy = localStorage.getItem("username"); // Get username from localStorage
       await axios.patch(
-        `http://localhost:5001/api/franchisestateupdate/${id}`,
+        `${VINOOTNEW}/api/franchisestateupdate/${id}`,
         { isActive: !isActive, updatedBy }
       );
       // Refresh user list after updating active state
@@ -56,20 +57,29 @@ const Franchisestaffdetails = () => {
   };
 
   const handleUpdate = async (index) => {
+    const updatedBy = localStorage.getItem("username");
+    const updatedAdmin = admins[index];
+
+    // Validate form fields
+    const newErrors = {};
+    if (!updatedAdmin.fullname) newErrors.fullname = "Full name is required";
+    if (!updatedAdmin.designation) newErrors.designation = "Designation is required";
+    if (!updatedAdmin.mobileNumber) newErrors.mobileNumber = "Mobile number is required";
+    if (!updatedAdmin.password) newErrors.password = "Password is required";
+
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
+      return;
+    }
+
     try {
-      const updatedBy = localStorage.getItem("username");
-      const updatedAdmin = admins[index];
-      const response = await axios.patch(
-        `http://localhost:5001/api/franchisestateupdate/${updatedAdmin._id}`,
-        {
-          fullname: updatedAdmin.fullname,
-          password: updatedAdmin.password,
-          designation: updatedAdmin.designation,
-          email: updatedAdmin.email,
-          updatedBy,
-        }
-      );
-      // Reset edit state and fetch updated data
+      await axios.patch(`${VINOOTNEW}/api/franchisestateupdate/${updatedAdmin._id}`, {
+        fullname: updatedAdmin.fullname,
+        password: updatedAdmin.password,
+        designation: updatedAdmin.designation,
+        mobileNumber: updatedAdmin.mobileNumber,
+        updatedBy,
+      });
       setCurrentEditIndex(-1);
       fetchAdmins();
     } catch (error) {
@@ -82,26 +92,25 @@ const Franchisestaffdetails = () => {
     const updatedAdmins = [...admins];
     updatedAdmins[index][key] = value;
     setAdmins(updatedAdmins);
+
+    // Clear the error for the field that is being edited
+    setErrors({ ...errors, [key]: "" });
   };
 
   const handleCancel = () => {
-    // Revert back to original admins
     setAdmins([...admins]);
     fetchAdmins();
-    setCurrentEditIndex(-1); // Reset edit index
+    setCurrentEditIndex(-1);
+    setErrors({});
   };
 
-  // Pagination handlers
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
 
-  // Get current plans
   const indexOfLastPlan = currentPage * itemsPerPage;
   const indexOfFirstPlan = indexOfLastPlan - itemsPerPage;
   const currentPlans = admins.slice(indexOfFirstPlan, indexOfLastPlan);
-
-  // Calculate total pages
   const totalPages = Math.ceil(admins.length / itemsPerPage);
 
   return (
@@ -118,6 +127,7 @@ const Franchisestaffdetails = () => {
               <th>Designation</th>
               <th>Email</th>
               <th>Password</th>
+              <th>Mobile Number</th>
               <th>Modified By</th>
               <th>Modified At</th>
               <th>Created At</th>
@@ -136,6 +146,7 @@ const Franchisestaffdetails = () => {
                 <td>{admin.designation}</td>
                 <td>{admin.email}</td>
                 <td>{admin.password}</td>
+                <td>{admin.mobileNumber}</td>
 
                 <td>{admin.modifiedBy}</td>
                 <td>{admin.modifiedAt}</td>
@@ -182,46 +193,82 @@ const Franchisestaffdetails = () => {
       </div>
       {currentEditIndex > -1 && (
         <div className="modal  master-user-users">
-          <div className="modal-content">
+          <div
+            className="modal-content-div"
+            style={{ display: "flex", flexDirection: "column" }}
+          >
             <span
               className="close"
               style={{ cursor: "pointer", fontSize: "medium" }}
               onClick={handleCancel}
-            >
-              &times;
-            </span>
-            <h2>Edit User Details</h2>
-            <input
-              type="text"
-              value={admins[currentEditIndex].fullname || ""}
-              onChange={(e) =>
-                handleInputChange(e, currentEditIndex, "fullname")
-              }
-            />
-            <input
-              type="text"
-              value={admins[currentEditIndex].designation || ""}
-              onChange={(e) =>
-                handleInputChange(e, currentEditIndex, "designation")
-              }
-            />
-            <input
-              type="number"
-              value={admins[currentEditIndex].email || ""}
-              onChange={(e) => handleInputChange(e, currentEditIndex, "email")}
-            />
-            <input
-              type="text"
-              value={admins[currentEditIndex].password || ""}
-              onChange={(e) =>
-                handleInputChange(e, currentEditIndex, "password")
-              }
-            />
+            ></span>
+            <h2>Edit Staff Details</h2>
+            <div className="frabchisestaff-editfileds" style={{ display: "flex", gap: "3px" }}>
+              <div>
+                <div>
+                  <label>fullname</label>
+                </div>
+                <input
+                  type="text"
+                  value={admins[currentEditIndex].fullname || ""}
+                  onChange={(e) =>
+                    handleInputChange(e, currentEditIndex, "fullname")
+                  }
+                />
+                 {errors.fullname && <span className="error" style={{ color: "red" }}>{errors.fullname}</span>}
+              </div>
+              <div>
+                <div>
+                  {" "}
+                  <label>designation</label>
+                </div>
+                <select
+                  type="text"
+                  value={admins[currentEditIndex].designation || ""}
+                  onChange={(e) =>
+                    handleInputChange(e, currentEditIndex, "designation")
+                  }
+                >
+                  <option value="Doctor">Doctor</option>
+                  <option value="Reception">Reception</option>
+                  <option value="Therapist">Therapist</option>
+                  <option value="FranchiseAdmin">Franchise Admin</option>
+                  </select>
+                  {errors.designation && <span className="error" style={{ color: "red" }}>{errors.designation}</span>}
+              </div>
+              <div>
+                <div>
+                  <label>mobileNumber</label>
+                </div>
+                <input
+                  type="number"
+                  value={admins[currentEditIndex].mobileNumber || ""}
+                  onChange={(e) =>
+                    handleInputChange(e, currentEditIndex, "mobileNumber")
+                  }
+                />
+                 {errors.mobileNumber && <span className="error" style={{ color: "red" }}>{errors.mobileNumber}</span>}
+              </div>
 
-            <button onClick={() => handleUpdate(currentEditIndex)}>
-              Update
-            </button>
-            <button onClick={handleCancel}>Cancel</button>
+              <div>
+                <div>
+                  <label>password</label>
+                </div>
+                <input
+                  type="text"
+                  value={admins[currentEditIndex].password || ""}
+                  onChange={(e) =>
+                    handleInputChange(e, currentEditIndex, "password")
+                  }
+                />
+                 {errors.password && <span className="error" style={{ color: "red" }}>{errors.password}</span>}
+              </div>
+
+              <button onClick={() => handleUpdate(currentEditIndex)}>
+                Update
+              </button>
+              <button onClick={handleCancel}>Cancel</button>
+            </div>
           </div>
         </div>
       )}

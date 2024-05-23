@@ -222,6 +222,13 @@
 	color: var(--primary);
 }
 
+
+@media (max-width: 465px){
+	.total {
+		font-family: "Open Sans", sans-serif;
+	}
+}		
+
 @media (max-width: 724px){
 	.total{
 		margin-left: 1px;
@@ -239,5 +246,6 @@
 		/* flex-direction: column; */
 		padding: 0 1.5rem;
 		height: 100%;
+
 	}
 }

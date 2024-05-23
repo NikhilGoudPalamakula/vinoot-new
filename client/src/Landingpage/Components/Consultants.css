@@ -203,7 +203,7 @@ body {
     }
 } */
 
-@media (max-width: 424px) {
+@media (max-width: 425px) {
     .tot-contain621s {
         display: flex;
         flex-direction: column;
@@ -216,6 +216,7 @@ body {
         display: flex;
         flex-direction: column;
         justify-content: center;
+        align-items: center;
         margin-bottom: 3%;
         margin-top: -8%;
         color: #000; 

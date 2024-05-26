@@ -8,7 +8,7 @@ import { VINOOTNEW } from "../../../../src/Helper/Helper";
 // import Patientdetails1 from "./Patientdetails1";
 
 const PatientForm = () => {
-  const [states, setStates] = useState([]);
+  const [states,setStates] = useState([]);
   const [cities, setCities] = useState([]);
   const [areas, setAreas] = useState([]);
   const [area, setArea] = useState("");
@@ -58,7 +58,7 @@ const PatientForm = () => {
       }
     };
     fetchStates();
-  }, [stateInput]); // Add stateInput to dependency array
+  }, [stateInput,setStates]); // Add stateInput to dependency array
 
   useEffect(() => {
     const fetchCities = async () => {
@@ -456,7 +456,7 @@ const PatientForm = () => {
       ...formData,
       patient_id: newPatientID,
     });
-  }, [patients]);
+  }, [patients,formData]);
 
   return (
     <div className="addpa-total">

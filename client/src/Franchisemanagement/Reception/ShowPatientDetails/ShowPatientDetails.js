@@ -37,7 +37,11 @@ const ShowPatientDetails = () => {
   }, [patientId]);
 
   useEffect(() => {
+
+   
+
     const fetchPatientInstallments = async () => {
+
       try {
         const response = await axios.get(
           `${VINOOTNEW}/api/installment/${patientId}`
@@ -99,6 +103,7 @@ const ShowPatientDetails = () => {
       //   remainingAmount: updatedRemainingAmount
       // };
       // const presentTime = new Date().toLocaleString();
+      const franchiseID =localStorage.getItem("franchiseID");
       const currentDate = new Date().toISOString().split('T')[0];
       const newInstallmentData = {
         patient_id: patientDetails.patient_id,
@@ -110,6 +115,7 @@ const ShowPatientDetails = () => {
         amountPaid: subtractedAmount,
         status: paymentStatus,
         currentDate: currentDate,
+        franchiseID:franchiseID,
       };
 
       const response = await axios.post(

@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 import "./FranchiseStaffReg.css";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import { VINOOTNEW } from "../../../Helper/Helper";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const FranchiseStaffReg = () => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const [adminData, setAdminData] = useState({
     fullname: "",
     userId: "",
@@ -117,7 +117,7 @@ const FranchiseStaffReg = () => {
       ...adminData,
       userId: newAdminID,
     });
-  }, [admins]);
+  }, [admins,adminData]);
 
   const handleAdminInputChange = (e) => {
     const { name, value } = e.target;
@@ -221,18 +221,18 @@ const FranchiseStaffReg = () => {
     }
   };
 
-  const toggleActiveState = async (id, isActive) => {
-    try {
-      const updatedBy = localStorage.getItem("username");
-      await axios.patch(` ${VINOOTNEW}/api/franchisestateupdate/${id}`, {
-        isActive: !isActive,
-        updatedBy,
-      });
-      fetchAdmins();
-    } catch (error) {
-      console.error("Error updating active state:", error);
-    }
-  };
+  // const toggleActiveState = async (id, isActive) => {
+  //   try {
+  //     const updatedBy = localStorage.getItem("username");
+  //     await axios.patch(` ${VINOOTNEW}/api/franchisestateupdate/${id}`, {
+  //       isActive: !isActive,
+  //       updatedBy,
+  //     });
+  //     fetchAdmins();
+  //   } catch (error) {
+  //     console.error("Error updating active state:", error);
+  //   }
+  // };
 
   return (
     <div className="fraddstaff-total">

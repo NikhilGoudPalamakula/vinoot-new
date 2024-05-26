@@ -71,6 +71,9 @@ const LoginForm = () => {
               // default:
               navigate("/defaultDashboard");
               break;
+              default:
+               // Handle other designations here, if needed
+               break;
           }
         },
       });

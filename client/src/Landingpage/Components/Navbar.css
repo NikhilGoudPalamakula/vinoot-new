@@ -1,0 +1,12 @@
+
+.nav-logo-container img {
+    height: 15vh;
+    transition: height 0.3s ease; /* For smooth transition */
+  }
+  
+  /* Media query for mobile view */
+  @media (max-width: 425px) {
+    .nav-logo-container img {
+      height: 10vh; 
+    }
+  }

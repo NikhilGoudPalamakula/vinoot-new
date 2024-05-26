@@ -19,6 +19,7 @@ import { MdAppRegistration } from "react-icons/md";
 // import PhoneRoundedIcon from "@mui/icons-material/PhoneRounded";
 // import ShoppingCartRoundedIcon from "@mui/icons-material/ShoppingCartRounded";
 import { Link } from "react-router-dom";
+import "./Navbar.css"
 const Navbar = () => {
   const [openMenu, setOpenMenu] = useState(false);
   const menuOptions = [
@@ -41,7 +42,7 @@ const Navbar = () => {
   return (
     <nav className="lan-navbar">
       <div className="nav-logo-container">
-        <img src={Logo} style={{height:'15vh'}} alt="" />
+        <img src={Logo}  alt="" />
       </div>
       <div className="navbar-links-container">
        <Link to="/"><button className="primary-button">Home</button></Link> 

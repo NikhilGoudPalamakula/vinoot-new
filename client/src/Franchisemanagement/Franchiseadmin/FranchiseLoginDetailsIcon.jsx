@@ -7,7 +7,7 @@ import { FaRegCircleUser } from "react-icons/fa6";
 const FranchiseLoginDetailsIcon = () => {
 
     const [showDropdown, setShowDropdown] = useState(false);
-    const createdBy = localStorage.getItem("userId");
+    // const createdBy = localStorage.getItem("userId");
     const franchiseName = localStorage.getItem("franchisename");
     const franchiseiD = localStorage.getItem("franchiseID");
     const userId = localStorage.getItem("userId");

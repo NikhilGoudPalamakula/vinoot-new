@@ -8,7 +8,7 @@ import { VINOOTNEW } from "../../../../src/Helper/Helper";
 // import Patientdetails1 from "./Patientdetails1";
 
 const PatientForm = () => {
-  const [states,setStates] = useState([]);
+  // const [states,setStates] = useState([]);
   const [cities, setCities] = useState([]);
   const [areas, setAreas] = useState([]);
   const [area, setArea] = useState("");
@@ -51,14 +51,14 @@ const PatientForm = () => {
             state.status === "active" &&
             state.name.toLowerCase().includes(stateInput.toLowerCase())
         );
-        setStates(activeStates);
+        // setStates(activeStates);
         setFilteredStates(activeStates);
       } catch (error) {
         console.error("Failed to fetch states", error);
       }
     };
     fetchStates();
-  }, [stateInput,setStates]); // Add stateInput to dependency array
+  }, [stateInput]); // Add stateInput to dependency array
 
   useEffect(() => {
     const fetchCities = async () => {

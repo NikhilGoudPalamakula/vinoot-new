@@ -78,10 +78,11 @@
     margin-left: 50px;
 }
 
-@media (max-width: 424px){
+@media (max-width: 425px){
     .hair-regrowth1s{
         width: 99%;
-        margin-left: 2px;
+        margin-left: 5px;
+        margin-top: 3%;
     }
     .heading-h2s{
         font-size: 15px;

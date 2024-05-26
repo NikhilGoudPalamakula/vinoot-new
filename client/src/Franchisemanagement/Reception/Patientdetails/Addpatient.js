@@ -15,6 +15,9 @@ const PatientForm = () => {
   const [stateInput, setStateInput] = useState("");
   const [city, setCity] = useState("");
   const [focusedInput, setFocusedInput] = useState(null);
+  // Add state variables to track input field states
+  const [cityDisabled, setCityDisabled] = useState(true);
+  const [areaDisabled, setAreaDisabled] = useState(true);
   const [filteredStates, setFilteredStates] = useState([]);
   const [filteredCities, setFilteredCities] = useState([]);
   const [filteredAreas, setFilteredAreas] = useState([]);
@@ -137,6 +140,8 @@ const PatientForm = () => {
     setCity(""); // Clear the city input
     setArea(""); // Clear the area input
     setFocusedInput(null);
+    setCityDisabled(false); // Enable city input when state is selected
+    setAreaDisabled(true); // Disable area input when state is selected
 
     // Filter cities based on the selected state's ID
     const filteredCities = cities.filter(
@@ -158,6 +163,7 @@ const PatientForm = () => {
       city: selectedCity,
     });
     setFocusedInput(null);
+    setAreaDisabled(false); // Enable area input when city is selected
   };
 
   const handleAreaSelection = (selectedArea) => {
@@ -238,6 +244,11 @@ const PatientForm = () => {
               ...prevErrors,
               [name]:
                 "Mobile number must start with 6 to 9 and contain up to 10 digits.",
+            }));
+          } else if (value.length < 10) {
+            setErrors((prevErrors) => ({
+              ...prevErrors,
+              [name]: "Mobile number must contain 10 digits.",
             }));
           } else {
             setErrors((prevErrors) => ({ ...prevErrors, [name]: "" }));
@@ -332,6 +343,26 @@ const PatientForm = () => {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
+    // Check if state, city, and area are selected
+    if (!formData.state) {
+      toast.error("Please select state from suggestions", {
+        position: "top-right",
+        autoClose: 1500,
+      });
+      return;
+    } else if (!formData.city) {
+      toast.error("Please select city from suggestions", {
+        position: "top-right",
+        autoClose: 1500,
+      });
+      return;
+    } else if (!formData.area) {
+      toast.error("Please select area from suggestions", {
+        position: "top-right",
+        autoClose: 1500,
+      });
+      return;
+    }
     // Generate the patient ID
     const newPatientID = generatePatientID(patients);
     // Update the form data with the generated patient ID
@@ -577,6 +608,7 @@ const PatientForm = () => {
                     value={city}
                     onChange={handleCityChange}
                     onFocus={() => setFocusedInput("city")}
+                    disabled={cityDisabled} // Disable city input initially
                     required
                   />
                   {focusedInput === "city" && (
@@ -607,6 +639,7 @@ const PatientForm = () => {
                     value={area}
                     onChange={handleAreaChange}
                     onFocus={() => setFocusedInput("area")}
+                    disabled={areaDisabled} // Disable area input initially
                     required
                   />
                   {focusedInput === "area" && (

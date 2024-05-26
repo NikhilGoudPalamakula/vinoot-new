@@ -2,7 +2,7 @@ import React from "react";
 import Logo from "../Assets/logo.png";
 import "./Footer.css";
 import { Link } from "react-router-dom";
-import { FaFacebook,FaTwitter} from "react-icons/fa6";
+import { FaFacebook } from "react-icons/fa6";
 import { FiInstagram } from "react-icons/fi";
 import { IoLogoYoutube } from "react-icons/io";
 import { FaLinkedin } from "react-icons/fa6";
@@ -17,36 +17,35 @@ const Footer = () => {
       <div className="footer-wrapper">
         <div className="footer-section-one">
           <div className="footer-logo-container">
-            <img src={Logo} style={{height:'15vh',width:'20vw'}} alt="" />
+            <img src={Logo} style={{ height: '15vh', width: '20vw' }} alt="Logo" />
           </div>
           <div className="footer-icons">
-          <ul class="wrapper">
-          <a href="https://www.facebook.com/people/Vinootherbals24/61559348361216/" target="_blank" rel="noopener noreferrer">
-              <li class="icon1 facebook">
-                <span class="tooltip1">Facebook</span>
-                <FaFacebook />
-              </li>
-          </a>
-          <a href="https://www.linkedin.com/in/vinoot-herbal-9ba5682b6/" target="_blank" rel="noopener noreferrer">
-            <li class="icon1 twitter">
-              <span class="tooltip1">Linkedin</span>
-              <FaLinkedin />
-            </li>
-          </a>
-          <a href="https://www.instagram.com/vinootherbals24/" target="_blank" rel="noopener noreferrer">
-
-            <li class="icon1 instagram">
-              <span class="tooltip1">Instagram</span>
-              <FiInstagram />
-            </li>
-          </a>
-          <a href="https://www.youtube.com/@vinootherbal/featured" target="_blank" rel="noopener noreferrer">
-            <li class="icon1 youtube">
-              <span class="tooltip1">YouTube</span>
-              <IoLogoYoutube/>
-          </li>
-          </a>
-          </ul>
+            <ul className="wrapper">
+              <a href="https://www.facebook.com/people/Vinootherbals24/61559348361216/" target="_blank" rel="noopener noreferrer">
+                <li className="icon1 facebook">
+                  <span className="tooltip1">Facebook</span>
+                  <FaFacebook />
+                </li>
+              </a>
+              <a href="https://www.linkedin.com/in/vinoot-herbal-9ba5682b6/" target="_blank" rel="noopener noreferrer">
+                <li className="icon1 linkedin">
+                  <span className="tooltip1">Linkedin</span>
+                  <FaLinkedin />
+                </li>
+              </a>
+              <a href="https://www.instagram.com/vinootherbals24/" target="_blank" rel="noopener noreferrer">
+                <li className="icon1 instagram">
+                  <span className="tooltip1">Instagram</span>
+                  <FiInstagram />
+                </li>
+              </a>
+              <a href="https://www.youtube.com/@vinootherbal/featured" target="_blank" rel="noopener noreferrer">
+                <li className="icon1 youtube">
+                  <span className="tooltip1">YouTube</span>
+                  <IoLogoYoutube />
+                </li>
+              </a>
+            </ul>
           </div>
         </div>
         <div className="footer-section-two">
@@ -63,7 +62,7 @@ const Footer = () => {
       </div>
       <div className="matrical">
         <span>© Company 2024. All rights reserved.
-          Developed By <a  href="https://www.matrical.in/" target="_blank">Matrical Technologies PVT LTD</a></span>
+          Developed By <a href="https://www.matrical.in/" target="_blank" rel="noopener noreferrer">Matrical Technologies PVT LTD</a></span>
       </div>
     </div>
   );

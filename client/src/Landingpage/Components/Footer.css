@@ -119,6 +119,10 @@
 .footer-section-colimns-link{
   text-decoration: dotted;
 }
+.footer-logo-container img{
+  height:15vh;
+  width:20vw;
+}
 
 @media (max-width: 425px) {
   .footer-wrapper {
@@ -133,7 +137,7 @@
 
   .footer-logo-container img {
     height: 10vh;
-    width: 70vw;
+    width: 50vw;
   }
 
   .footer-icons .wrapper {

@@ -17,7 +17,7 @@ const Footer = () => {
       <div className="footer-wrapper">
         <div className="footer-section-one">
           <div className="footer-logo-container">
-            <img src={Logo} style={{ height: '15vh', width: '20vw' }} alt="Logo" />
+            <img src={Logo}  alt="Logo" />
           </div>
           <div className="footer-icons">
             <ul className="wrapper">

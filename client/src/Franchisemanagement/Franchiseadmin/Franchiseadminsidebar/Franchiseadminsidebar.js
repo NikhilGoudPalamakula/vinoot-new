@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 // import './Sidebar.css';
 import { MdDashboard } from "react-icons/md";
-import { IoIosPeople } from "react-icons/io";
+// import { IoIosPeople } from "react-icons/io";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 

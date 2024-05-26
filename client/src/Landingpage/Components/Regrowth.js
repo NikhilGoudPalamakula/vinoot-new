@@ -13,7 +13,7 @@ const Regrowthpage = () => {
             <div className='bottom-content'>
               <div className='part' data-aos='fade-up' data-aos-delay='50'>
                 <div className='image-bg'>
-                  <img src={Image1} className='img-icon' alt='Scalp cleaning'/>
+                  <img src={Image1} className='img-icon'  alt='Scalp cleaning'/>
                 </div>
                 <h2 className='heading'>Scalp cleaning</h2>
                 <p className='para-about'>Scalp cleaning with pure herbal powder.</p>

@@ -62,7 +62,7 @@ const Footer = () => {
       </div>
       <div className="matrical">
         <span>© Company 2024. All rights reserved.
-          Developed By <a href="https://www.matrical.in/" target="_blank" rel="noopener noreferrer">Matrical Technologies PVT LTD</a></span>
+          Developed By <a href="https://www.matrical.in/" target="_blank"  rel="noopener noreferrer">Matrical Technologies PVT LTD</a></span>
       </div>
     </div>
   );

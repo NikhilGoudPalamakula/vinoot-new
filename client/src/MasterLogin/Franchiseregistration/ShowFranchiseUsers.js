@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect , useCallback } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
@@ -14,7 +14,7 @@ const ShowFranchiseUsers = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(6);
 
-  const fetchFranchiseAdmins = async () => {
+  const fetchFranchiseAdmins = useCallback(async () => {
     try {
       const response = await axios.get(
         `${VINOOTNEW}/api/franchisefetchAdmins/${franchiseID}`
@@ -26,11 +26,11 @@ const ShowFranchiseUsers = () => {
     } catch (error) {
       console.error("Error fetching franchise admins:", error);
     }
-  };
+  },[franchiseID]);
 
   useEffect(() => {
     fetchFranchiseAdmins();
-  }, [franchiseID]);
+  }, [franchiseID , fetchFranchiseAdmins]);
 
   const toggleActiveState = async (id, isActive) => {
     try {

@@ -3,17 +3,17 @@ import { VINOOTNEW } from "../../../Helper/Helper";
 import axios from "axios";
 import ReceptionSidebar from "../ReceptionSidebar/ReceptionSidebar";
 import "./Billing.css";
-import { toast } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 const Billing = () => {
   // --------------patient details fetch---------------
 
   const [phoneInput, setPhoneInput] = useState(""); 
   const [selectedNumber, setSelectedNumber] = useState(null); 
-  // const [suggestions1, setSuggestions1] = useState([]); 
+  const [suggestions1, setSuggestions1] = useState([]); 
   const [filteredSuggestions1, setFilteredSuggestions1] = useState([]); 
   const [focusedInput1, setFocusedInput1] = useState(null);
-  // const [isLoading1, setIsLoading1] = useState(false); 
+  const [isLoading1, setIsLoading1] = useState(false); 
   const [patientError, setPatientError] = useState(""); 
 
   const [patients, setPatients] = useState([]);
@@ -30,15 +30,15 @@ const Billing = () => {
             mobileNumberSet.add(patient.mobile_number); // Add mobile number to the set
           });
 
-          // setSuggestions1(mobileNumberSet);
+          setSuggestions1(mobileNumberSet);
           setFilteredSuggestions1(mobileNumberSet);
-          // setIsLoading1(false);
+          setIsLoading1(false);
         } else {
           console.error("FranchiseID not found in localStorage");
         }
       } catch (error) {
         console.error("Failed to fetch details", error);
-        // setIsLoading1(false);
+        setIsLoading1(false);
       }
     };
     fetchNumbers();
@@ -215,11 +215,11 @@ useEffect(() => {
 
   // -------------------posting of all data ----------------
 
-  // const [gst, setGST] = useState("");
-  // const [price, setPrice] = useState("");
-  // const [days, setDays] = useState(0);
-  // const [GSTamount, setGSTamount] = useState("");
-  // const [TotalAmount, setTotalAmount] = useState("");
+  const [gst, setGST] = useState("");
+  const [price, setPrice] = useState("");
+  const [days, setDays] = useState(0);
+  const [GSTamount, setGSTamount] = useState("");
+  const [TotalAmount, setTotalAmount] = useState("");
   const [status, setStatus] = useState("");
   const [remaining, setRemainingAmount] = useState(0);
   const [planName, setPlanName] = useState("");
@@ -229,7 +229,7 @@ useEffect(() => {
   const [focusedInput, setFocusedInput] = useState(null);
   const [focusedInput2, setFocusedInput2] = useState(null);
   const [isLoading, setIsLoading] = useState(false); // Loading indicator
-  // const [mobile_number, setMobile_number] = useState(false); // Loading indicator
+  const [mobile_number, setMobile_number] = useState(false); // Loading indicator
   const [patient_id, setPatient_id] = useState(false); // Loading indicator
   const [patient_name, setPatient_name] = useState(false); // Loading indicator
   const [address, setAddress] = useState(false); // Loading indicator
@@ -347,7 +347,7 @@ useEffect(() => {
     }
   };
 
-  // const [installments, setInstallments] = useState([]);
+  const [installments, setInstallments] = useState([]);
   const saveData = async () => {
     const newBillNumber = generateBillNumber(bill_numbers);
     setBillingNumber(newBillNumber);
@@ -359,7 +359,7 @@ useEffect(() => {
         ? parseFloat(selectedPlan.TotalAmount) - parseFloat(amountPaid)
         : 0; // Calculate remaining
       const currentDate = new Date().toISOString().split("T")[0];
-      // const paymentStatus = amountPaid >= price ? "Paid" : "Unpaid";
+      const paymentStatus = amountPaid >= price ? "Paid" : "Unpaid";
 
       // Send the data to the backend API endpoint for saving
       await axios.post(`${VINOOTNEW}/api/billing`, {

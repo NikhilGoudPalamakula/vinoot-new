@@ -1,11 +1,8 @@
-
-
 import React, { useState, useEffect } from "react";
 import ReceptionSidebar from "./ReceptionSidebar/ReceptionSidebar";
 import axios from "axios";
 import "./Recepttion.css";
 import { useNavigate } from "react-router-dom";
-
 
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
@@ -36,9 +33,7 @@ const Reception = () => {
       try {
         const frid = localStorage.getItem("franchiseID");
         if (frid) {
-          const response = await axios.get(
-            `${VINOOTNEW}/api/billing${frid}`
-          );
+          const response = await axios.get(`${VINOOTNEW}/api/billing${frid}`);
           setBillingData(response.data);
         } else {
           console.error("FranchiseID not found in localStorage");
@@ -55,8 +50,15 @@ const Reception = () => {
     setCurrentPage(pageNumber);
   };
 
-  const handleDetailsClick = async (patientId) => {
-    navigate(`/showPatient/${patientId}`);
+  const handleDetailsClick = async (patientId,billNumber) => {
+    // Fetch billing details based on franchise ID from local storage
+    const frid = localStorage.getItem("franchiseID");
+    if (frid) {
+      // Navigate to the details page with franchise ID and patient ID as params
+      navigate(`/showPatient/${frid}/${patientId}/${billNumber}`);
+    } else {
+      console.error("FranchiseID not found in localStorage");
+    }
   };
 
   const filteredData = billingData.filter((billing) => {
@@ -93,9 +95,15 @@ const Reception = () => {
       const specialCharRegex = /[^0-9]/; // Regular expression to check for special characters
 
       if (specialCharRegex.test(value)) {
-        setErrors({ ...errors, mobileNumber: "Special characters are not allowed." });
+        setErrors({
+          ...errors,
+          mobileNumber: "Special characters are not allowed.",
+        });
       } else if (!mobileNumberRegex.test(value)) {
-        setErrors({ ...errors, mobileNumber: "Invalid mobile number. Only 10 digits are allowed." });
+        setErrors({
+          ...errors,
+          mobileNumber: "Invalid mobile number. Only 10 digits are allowed.",
+        });
       } else {
         setErrors({ ...errors, mobileNumber: "" });
       }
@@ -103,9 +111,13 @@ const Reception = () => {
 
     if (name === "patientname") {
       const nameRegex = /^[a-zA-Z\s]{1,50}$/; // Regular expression to allow letters and spaces only, between 1 and 50 characters
-  
+
       if (!nameRegex.test(value)) {
-        setErrors({ ...errors, patientname: "Invalid name. Only letters and spaces are allowed, up to 50 characters." });
+        setErrors({
+          ...errors,
+          patientname:
+            "Invalid name. Only letters and spaces are allowed, up to 50 characters.",
+        });
       } else {
         setErrors({ ...errors, patientname: "" });
       }
@@ -113,14 +125,17 @@ const Reception = () => {
 
     if (name === "remainingAmount") {
       const amountRegex = /^\d*\.?\d{0,2}$/; // Regular expression to allow positive numbers with up to two decimal places
-  
+
       if (!amountRegex.test(value)) {
-        setErrors({ ...errors, remainingAmount: "Invalid amount. Only positive numbers with up to two decimal places are allowed." });
+        setErrors({
+          ...errors,
+          remainingAmount:
+            "Invalid amount. Only positive numbers with up to two decimal places are allowed.",
+        });
       } else {
         setErrors({ ...errors, remainingAmount: "" });
       }
     }
-
   };
 
   const exportToCSV = () => {
@@ -161,7 +176,9 @@ const Reception = () => {
       <div className="recp-dash-table">
         <div className="recep-dash-fi">
           <h1>Patients Billing Details</h1>
-        <button  onClick={exportToCSV}><FaFileCsv className="xlsiocn2" /></button> 
+          <button onClick={exportToCSV}>
+            <FaFileCsv className="xlsiocn2" />
+          </button>
           {/* <button  onClick={exportToCSV}><FaFileCsv/></button> */}
         </div>
         <div className="recep-dash-filter">
@@ -195,7 +212,9 @@ const Reception = () => {
                 onChange={handleFilterChange}
               />
               {errors.mobileNumber && (
-                <span className="error" style={{ color: "red" }}>{errors.mobileNumber}</span>
+                <span className="error" style={{ color: "red" }}>
+                  {errors.mobileNumber}
+                </span>
               )}
             </label>
             <label>
@@ -207,8 +226,10 @@ const Reception = () => {
                 onChange={handleFilterChange}
               />
               {errors.patientname && (
-              <span className="error" style={{ color: "red" }}>{errors.patientname}</span>
-            )}
+                <span className="error" style={{ color: "red" }}>
+                  {errors.patientname}
+                </span>
+              )}
             </label>
             <label>
               <span>Plan Type:</span>
@@ -227,9 +248,11 @@ const Reception = () => {
                 value={filters.remainingAmount}
                 onChange={handleFilterChange}
               />
-               {errors.remainingAmount && (
-              <span className="error" style={{ color: "red" }}>{errors.remainingAmount}</span>
-            )}
+              {errors.remainingAmount && (
+                <span className="error" style={{ color: "red" }}>
+                  {errors.remainingAmount}
+                </span>
+              )}
             </label>
           </div>
         </div>
@@ -268,8 +291,12 @@ const Reception = () => {
                 <td>{billing.remainingAmount}</td>
                 <td>
                   <button
-                    onClick={() => handleDetailsClick(billing.patient_id)}
-                  >
+                    onClick={() =>
+                      handleDetailsClick(
+                        billing.patient_id,
+                        billing.bill_number
+                      )
+                    }>
                     Details
                   </button>
                 </td>
@@ -288,8 +315,7 @@ const Reception = () => {
             <span
               key={index}
               onClick={() => handlePageChange(index + 1)}
-              className={currentPage === index + 1 ? "pageactive-page" : ""}
-            >
+              className={currentPage === index + 1 ? "pageactive-page" : ""}>
               {index + 1}
             </span>
           ))}
@@ -306,4 +332,3 @@ const Reception = () => {
 };
 
 export default Reception;
-

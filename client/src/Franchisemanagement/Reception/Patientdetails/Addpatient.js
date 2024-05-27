@@ -456,7 +456,7 @@ const PatientForm = () => {
       ...formData,
       patient_id: newPatientID,
     });
-  }, [patients,formData]);
+  }, [patients, formData]);
 
   return (
     <div className="addpa-total">

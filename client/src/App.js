@@ -107,7 +107,7 @@ function App() {
           element={<ShowFranchiseUsers />}
         />
         <Route
-          path="/ShowPatient/:patientId"
+          path="/showPatient/:franchiseId/:patientId/:billNumber"
           element={<ShowPatientDetails />}
         />
 

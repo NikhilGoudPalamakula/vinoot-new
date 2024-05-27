@@ -7,8 +7,6 @@ import "./ShowPatientDetails.css";
 import ReceptionSidebar from "../ReceptionSidebar/ReceptionSidebar";
 import { VINOOTNEW } from "../../../Helper/Helper";
 const ShowPatientDetails = () => {
-  
-
   // ---------------
 
   const [patientDetails, setPatientDetails] = useState(null);
@@ -18,13 +16,14 @@ const ShowPatientDetails = () => {
   const [updatedRemainingAmount, setUpdatedRemainingAmount] = useState(null);
   const [paymentStatus, setPaymentStatus] = useState("Unpaid");
   const [paymentType, setPaymentType] = useState("Cash");
-  const { patientId } = useParams();
+  const { patientId, billNumber } = useParams();
 
   useEffect(() => {
     const fetchPatientDetails = async () => {
       try {
+        const franchiseID = localStorage.getItem("franchiseID");
         const response = await axios.get(
-          `${VINOOTNEW}/api/billings/${patientId}`
+          `${VINOOTNEW}/api/billings/${franchiseID}/${patientId}/${billNumber}`
         );
         setPatientDetails(response.data);
         // setUpdatedRemainingAmount(response.data?.remainingAmount.toFixed(2)); // Initialize with remaining amount
@@ -37,14 +36,11 @@ const ShowPatientDetails = () => {
   }, [patientId]);
 
   useEffect(() => {
-
-   
-
     const fetchPatientInstallments = async () => {
-
       try {
+        const franchiseID = localStorage.getItem("franchiseID");
         const response = await axios.get(
-          `${VINOOTNEW}/api/installment/${patientId}`
+          `${VINOOTNEW}/api/installment/${franchiseID}/${patientId}/${billNumber}`
         );
         setPatientInstallments(response.data);
         // console.log(response.data)
@@ -76,15 +72,13 @@ const ShowPatientDetails = () => {
       setUpdatedRemainingAmount(roundedAmount.toFixed(2));
 
       // Check if the remaining amount is zero or less to update payment status
-      if ((newRemainingAmount === 0)) {
+      if (newRemainingAmount === 0) {
         setPaymentStatus("Paid");
       } else {
         setPaymentStatus("Unpaid");
       }
     }
   }, [subtractedAmount, patientInstallments]);
-
-  
 
   const handlePaymentTypeChange = (e) => {
     setPaymentType(e.target.value);
@@ -94,7 +88,7 @@ const ShowPatientDetails = () => {
   //   const enteredAmount = Number(e.target.value);
   //   setSubtractedAmount(parseFloat(enteredAmount));
   // };
-  
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -103,8 +97,10 @@ const ShowPatientDetails = () => {
       //   remainingAmount: updatedRemainingAmount
       // };
       // const presentTime = new Date().toLocaleString();
-      const franchiseID =localStorage.getItem("franchiseID");
-      const currentDate = new Date().toISOString().split('T')[0];
+      const franchiseName = localStorage.getItem("franchisename");
+      const createdBy = localStorage.getItem("userId");
+      const franchiseID = localStorage.getItem("franchiseID");
+      const currentDate = new Date().toLocaleString();
       const newInstallmentData = {
         patient_id: patientDetails.patient_id,
         remainingAmount: updatedRemainingAmount,
@@ -115,7 +111,9 @@ const ShowPatientDetails = () => {
         amountPaid: subtractedAmount,
         status: paymentStatus,
         currentDate: currentDate,
-        franchiseID:franchiseID,
+        franchiseID: franchiseID,
+        franchiseName: franchiseName,
+        createdBy: createdBy,
       };
 
       const response = await axios.post(
@@ -124,12 +122,15 @@ const ShowPatientDetails = () => {
       );
 
       console.log("New installment created:", response.data);
-      toast.success("New installment paid successfully!");
-
-    
+      toast.success("New installment paid successfully!", {
+        autoClose: 1000,
+      });
+      window.location.reload();
     } catch (error) {
       console.error("Error to pay new installment:", error);
-      toast.error("Error to pay new installment. Please try again.");
+      toast.error("Error to pay new installment. Please try again.", {
+        autoClose: 1500,
+      });
     }
   };
 
@@ -366,22 +367,30 @@ const ShowPatientDetails = () => {
                       name="amountPaid"
                       step="any"
                       // onChange={handleAmountChange}
-                      value={subtractedAmount === 0 ? '' : subtractedAmount}
+                      value={subtractedAmount === 0 ? "" : subtractedAmount}
                       onChange={(e) => {
                         const enteredAmount = parseFloat(e.target.value); // Convert the entered value to a number
-                        const currentInstallment = patientInstallments[patientInstallments.length - 1]; // Get the current installment
-                        const remainingAmount = parseFloat(currentInstallment.remainingAmount); // Get the remaining amount from the current installment
-                    
+                        const currentInstallment =
+                          patientInstallments[patientInstallments.length - 1]; // Get the current installment
+                        const remainingAmount = parseFloat(
+                          currentInstallment.remainingAmount
+                        ); // Get the remaining amount from the current installment
+
                         // If the entered amount is greater than the remaining amount, set the entered amount to the remaining amount; otherwise, set it to the entered amount
-                        const updatedAmount = Math.min(enteredAmount, remainingAmount);
+                        const updatedAmount = Math.min(
+                          enteredAmount,
+                          remainingAmount
+                        );
                         setSubtractedAmount(updatedAmount);
                       }}
-                  
+                      onKeyDown={(e) => {
+                        if (e.key === "-" || e.key === "e" || e.key === ".") {
+                          e.preventDefault();
+                        }
+                      }}
                       pattern="[0-9]*"
                       required
-                     
                     />
-                    
                   </td>
                   <td>
                     <input

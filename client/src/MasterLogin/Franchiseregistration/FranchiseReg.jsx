@@ -108,6 +108,11 @@ const FranchiseReg = () => {
     const value = event.target.value;
     setStateInput(value);
     setFocusedInput("state");
+
+    setCityDisabled(true); // Enable city input when state is selected
+    setAreaDisabled(true); // Disable area input when state is selected
+    setCity("");
+    setArea("");
   };
 
   const handleCityChange = (event) => {

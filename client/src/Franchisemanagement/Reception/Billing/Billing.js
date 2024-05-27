@@ -3,18 +3,18 @@ import { VINOOTNEW } from "../../../Helper/Helper";
 import axios from "axios";
 import ReceptionSidebar from "../ReceptionSidebar/ReceptionSidebar";
 import "./Billing.css";
-import { toast } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 const Billing = () => {
   // --------------patient details fetch---------------
 
-  const [phoneInput, setPhoneInput] = useState(""); 
-  const [selectedNumber, setSelectedNumber] = useState(null); 
-  // const [suggestions1, setSuggestions1] = useState([]); 
-  const [filteredSuggestions1, setFilteredSuggestions1] = useState([]); 
+  const [phoneInput, setPhoneInput] = useState("");
+  const [selectedNumber, setSelectedNumber] = useState(null);
+  // const [suggestions1, setSuggestions1] = useState([]);
+  const [filteredSuggestions1, setFilteredSuggestions1] = useState([]);
   const [focusedInput1, setFocusedInput1] = useState(null);
-  // const [isLoading1, setIsLoading1] = useState(false); 
-  const [patientError, setPatientError] = useState(""); 
+  // const [isLoading1, setIsLoading1] = useState(false);
+  const [patientError, setPatientError] = useState("");
 
   const [patients, setPatients] = useState([]);
   useEffect(() => {
@@ -44,34 +44,33 @@ const Billing = () => {
     fetchNumbers();
   }, []);
 
-useEffect(() => {
-  const filterSuggestions = () => {
-    if (typeof phoneInput !== "string" || phoneInput.trim() === "") {
-      setFilteredSuggestions1([]); 
-      setSelectedNumber(null); // Reset selected number
-      setPatientError(""); // Clear patient error
-    } else {
-      const filtered = patients.filter((patient, index, self) =>
-        patient.mobile_number.includes(phoneInput) && self.findIndex(p => p.mobile_number === patient.mobile_number) === index
-      );
-
-      setFilteredSuggestions1(filtered);
-      if (
-        phoneInput.trim() !== "" &&
-        filtered.length === 0
-      ) {
-        setSelectedNumber(null);
-        setPatientError(
-          "Mobile number not registered. Please add the patient."
-        );
+  useEffect(() => {
+    const filterSuggestions = () => {
+      if (typeof phoneInput !== "string" || phoneInput.trim() === "") {
+        setFilteredSuggestions1([]);
+        setSelectedNumber(null); // Reset selected number
+        setPatientError(""); // Clear patient error
       } else {
-        setPatientError("");
-      }
-    }
-  };
-  filterSuggestions();
-}, [phoneInput, patients]);
+        const filtered = patients.filter(
+          (patient, index, self) =>
+            patient.mobile_number.includes(phoneInput) &&
+            self.findIndex((p) => p.mobile_number === patient.mobile_number) ===
+              index
+        );
 
+        setFilteredSuggestions1(filtered);
+        if (phoneInput.trim() !== "" && filtered.length === 0) {
+          setSelectedNumber(null);
+          setPatientError(
+            "Mobile number not registered. Please add the patient."
+          );
+        } else {
+          setPatientError("");
+        }
+      }
+    };
+    filterSuggestions();
+  }, [phoneInput, patients]);
 
   const handlePlanChange1 = (e) => {
     const newPhoneInput = e.target.value;
@@ -101,7 +100,6 @@ useEffect(() => {
   const [patientName, setPatientName] = useState("");
 
   const handlePlanSelection1 = (mobileNumber) => {
-
     const associatedPatients = mobileNumberMap[mobileNumber] || [];
     if (associatedPatients.length > 1) {
       const selectedPatient = associatedPatients[0];
@@ -240,9 +238,7 @@ useEffect(() => {
     const fetchPlans = async () => {
       setIsLoading(true);
       try {
-        const response = await axios.get(
-          `${VINOOTNEW}/api/treatment-plan`
-        );
+        const response = await axios.get(`${VINOOTNEW}/api/treatment-plan`);
         const activePlans = response.data.filter(
           (plan) => plan.status === "active"
         );
@@ -283,7 +279,6 @@ useEffect(() => {
       !suggestionBoxRef.current.contains(event.target)
     ) {
       setFocusedInput1(null); // Reset focus for other input fields
-      
     }
   };
   useEffect(() => {
@@ -404,9 +399,7 @@ useEffect(() => {
       const frid = localStorage.getItem("franchiseID");
 
       if (frid) {
-        const response = await axios.get(
-          `${VINOOTNEW}/api/billing${frid}`
-        );
+        const response = await axios.get(`${VINOOTNEW}/api/billing${frid}`);
         setBill_numbers(response.data);
       } else {
         console.error("FranchiseID not found in localStorage");
@@ -569,7 +562,7 @@ useEffect(() => {
 
     // Close the print window after printing
     printWindow.close();
-};
+  };
 
   // const handleSaveAndPrint = () => {
   //   saveData(); // Call the saveData function to save the data
@@ -579,12 +572,12 @@ useEffect(() => {
   const handleSaveAndPrint = async () => {
     try {
       await saveData(); // Call the saveData function to save the data
-  
+
       // If saveData succeeds, display success toast and then print the details
       toast.success("Data saved successfully!", {
         onClose: () => {
           printDetails(); // Call the printDetails function to print the data
-        }
+        },
       });
     } catch (error) {
       console.error("Error saving data:", error);
@@ -592,12 +585,12 @@ useEffect(() => {
       toast.error("Error saving data. Please try again.");
     }
   };
-  
 
   return (
     <div className="billing-total">
       <div>
         <ReceptionSidebar />
+        <ToastContainer />
       </div>
       <div className="billing-right">
         <article>Billing</article>
@@ -638,7 +631,7 @@ useEffect(() => {
               )}
               {focusedInput1 === "number" &&
                 filteredSuggestions1.length > 0 && (
-                  <div 
+                  <div
                     ref={suggestionBoxRef}
                     className="suggestions-fetch-mblsss"
                     style={{
@@ -755,17 +748,17 @@ useEffect(() => {
 
         <div className="billig-below">
           {/* ----------------------doctor selection ------------------ */}
-          <div  className="billing-below-11">
+          <div className="billing-below-11">
             <table className="plan-table">
               <thead>
                 <tr>
                   <th>
-                    Select Doctor / Therapist <span style={{ color: "red" }}>*</span>
+                    Select Doctor / Therapist{" "}
+                    <span style={{ color: "red" }}>*</span>
                   </th>
                   <th>
                     Plan Name <span style={{ color: "red" }}>*</span>
                   </th>
-                  
                 </tr>
               </thead>
               <tbody>
@@ -817,7 +810,7 @@ useEffect(() => {
                             width: "25.6%",
                             height: "15vh",
                             overflowY: "auto",
-                            marginLeft:"45px",
+                            marginLeft: "45px",
                           }}>
                           {filteredSuggestions.map((suggestion) => (
                             <p
@@ -834,7 +827,6 @@ useEffect(() => {
                         </div>
                       )}
                   </td>
-                  
                 </tr>
               </tbody>
             </table>
@@ -843,48 +835,48 @@ useEffect(() => {
           <div className="billin-below-1">
             <table className="billing-last-table">
               <thead>
-              <th>GST</th>
-                  <th>GST Amount</th>
-                  <th>Days</th>
-                  <th>Price</th>
-                  <th>Total Amount</th>
+                <th>GST</th>
+                <th>GST Amount</th>
+                <th>Days</th>
+                <th>Price</th>
+                <th>Total Amount</th>
               </thead>
               <tbody>
-              <td>
-                    <input
-                      type="text"
-                      value={selectedPlan ? selectedPlan.GST : ""}
-                      disabled
-                    />
-                  </td>
-                  <td>
-                    <input
-                      type="text"
-                      value={selectedPlan ? selectedPlan.GSTamount : ""}
-                      disabled
-                    />
-                  </td>
-                  <td>
-                    <input
-                      type="text"
-                      value={selectedPlan ? selectedPlan.days : ""}
-                      disabled
-                    />
-                  </td>
-                  <td>
-                    <input
-                      type="text"
-                      value={selectedPlan ? selectedPlan.price : ""}
-                      disabled
-                    />
-                  </td>
-                  <td>
-                    <input
-                      type="text"
-                      value={selectedPlan ? selectedPlan.TotalAmount : ""}
-                      disabled
-                    />
-                  </td>
+                <td>
+                  <input
+                    type="text"
+                    value={selectedPlan ? selectedPlan.GST : ""}
+                    disabled
+                  />
+                </td>
+                <td>
+                  <input
+                    type="text"
+                    value={selectedPlan ? selectedPlan.GSTamount : ""}
+                    disabled
+                  />
+                </td>
+                <td>
+                  <input
+                    type="text"
+                    value={selectedPlan ? selectedPlan.days : ""}
+                    disabled
+                  />
+                </td>
+                <td>
+                  <input
+                    type="text"
+                    value={selectedPlan ? selectedPlan.price : ""}
+                    disabled
+                  />
+                </td>
+                <td>
+                  <input
+                    type="text"
+                    value={selectedPlan ? selectedPlan.TotalAmount : ""}
+                    disabled
+                  />
+                </td>
               </tbody>
             </table>
           </div>
@@ -917,12 +909,16 @@ useEffect(() => {
                   </td>
                   <td>
                     <input
+                      className="input-num"
                       type="number"
                       value={amountPaid}
                       // onChange={(e) => setAmountPaid(e.target.value)}
                       onChange={(e) => {
                         const inputAmount = parseFloat(e.target.value); // Convert the input value to a number
-                        const totalAmount = parseFloat(selectedPlan?.TotalAmount || 0); // Get the total amount as a number
+
+                        const totalAmount = parseFloat(
+                          selectedPlan?.TotalAmount || 0
+                        ); // Get the total amount as a number
                         // If the input amount is greater than the total amount, set amountPaid to the total amount; otherwise, set it to the input amount
                         setAmountPaid(Math.min(inputAmount, totalAmount));
                       }}

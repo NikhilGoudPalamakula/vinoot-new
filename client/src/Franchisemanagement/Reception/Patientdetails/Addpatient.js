@@ -412,7 +412,10 @@ const PatientForm = () => {
         fetchPatients(); //
         toast.success("Patient Added successfully", {
           position: "top-right",
-          autoClose: 1500,
+          autoClose: 700,
+          onClose: () => {
+            window.location.reload();
+          },
         });
       } catch (error) {
         console.error("Failed to submit data", error);

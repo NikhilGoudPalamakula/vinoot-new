@@ -13,5 +13,9 @@ router.get(
   "/billings/:franchiseID/:patientId/:billNumber",
   billingController.getPatientbillingById
 );
+router.put(
+  "/billings/:franchiseID/:patientId/:billNumber",
+  billingController.updatePatientbillingById
+);
 
 module.exports = router;

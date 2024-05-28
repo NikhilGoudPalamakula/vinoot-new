@@ -88,3 +88,23 @@ exports.getPatientbillingById = async (req, res) => {
       .json({ error: "An error occurred while fetching patient details" });
   }
 };
+exports.updatePatientbillingById = async (req, res) => {
+  const { franchiseID, patientId, billNumber } = req.params;
+  updatedPatientDetails = req.body;
+  try {
+    const patient = await Billing.findOneAndUpdate(
+      { franchiseID, patient_id: patientId, bill_number: billNumber },
+      updatedPatientDetails,
+      { new: true }
+    );
+
+    if (!patient) {
+      return res.status(404).json({ message: "Patient not found" });
+    }
+
+    return res.status(200).json(patient);
+  } catch (error) {
+    console.error("Error updating patient details:", error);
+    return res.status(500).json({ message: "Internal server error" });
+  }
+};

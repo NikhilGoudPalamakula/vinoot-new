@@ -33,7 +33,7 @@ const ShowPatientDetails = () => {
     };
 
     fetchPatientDetails();
-  }, [patientId]);
+  }, [patientId, billNumber]);
 
   useEffect(() => {
     const fetchPatientInstallments = async () => {
@@ -56,7 +56,7 @@ const ShowPatientDetails = () => {
     };
 
     fetchPatientInstallments();
-  }, [patientId]);
+  }, [patientId, billNumber]);
 
   useEffect(() => {
     // Check if patientInstallments is not null and not empty
@@ -99,6 +99,7 @@ const ShowPatientDetails = () => {
       // const presentTime = new Date().toLocaleString();
       const franchiseName = localStorage.getItem("franchisename");
       const createdBy = localStorage.getItem("userId");
+      // const modifiedBy = localStorage.getItem("userId");
       const franchiseID = localStorage.getItem("franchiseID");
       const currentDate = new Date().toLocaleString();
       const newInstallmentData = {
@@ -116,16 +117,28 @@ const ShowPatientDetails = () => {
         createdBy: createdBy,
       };
 
-      const response = await axios.post(
-        `${VINOOTNEW}/api/installments`,
-        newInstallmentData
-      );
+      await axios.post(`${VINOOTNEW}/api/installments`, newInstallmentData);
+      // Update patient details
+      const updatedPatientDetails = {
+        remainingAmount: updatedRemainingAmount,
+        amountPaid:
+          parseFloat(patientDetails.amountPaid) + parseFloat(subtractedAmount),
+        modifiedAt: new Date().toLocaleString(), // Format the date as a string
+        status: paymentStatus,
+        modifiedBy: createdBy,
+      };
 
-      console.log("New installment created:", response.data);
+      await axios.put(
+        `${VINOOTNEW}/api/billings/${franchiseID}/${patientDetails.patient_id}/${patientDetails.bill_number}`,
+        updatedPatientDetails
+      );
+      // console.log("New installment created:", response.data);
       toast.success("New installment paid successfully!", {
         autoClose: 1000,
+        onClose: () => {
+          window.location.reload();
+        },
       });
-      window.location.reload();
     } catch (error) {
       console.error("Error to pay new installment:", error);
       toast.error("Error to pay new installment. Please try again.", {
@@ -143,6 +156,17 @@ const ShowPatientDetails = () => {
   };
   const printDetails = () => {
     const printWindow = window.open("", "_blank");
+
+    if (!printWindow) {
+      toast.error(
+        "Failed to open print window. Please check your browser settings or disable popup blockers.",
+        {
+          position: "top-right",
+          autoClose: 1500,
+        }
+      );
+      return;
+    }
 
     const htmlContent = `
       <html>
@@ -231,25 +255,31 @@ const ShowPatientDetails = () => {
               </tr>
             </thead>
             <tbody>
-              ${patientInstallments
-                .map(
-                  (installment, index) => `
-                <tr key=${index}>
-                  <td>${installment.currentDate}</td>
-                  <td>${installment.patient_id}</td>
-                  <td>${installment.patient_name}</td>
-                  <td>${installment.mobile_number}</td>
-                  <td>${installment.bill_number}</td>
-                  <td>${installment.paymentType}</td>
-                  <td>${installment.amountPaid}</td>
-                  <td>${installment.remainingAmount}</td>
-                  <td>${installment.status}</td>
-                </tr>
-              `
-                )
-                .join("")}
+              ${
+                patientInstallments.length === 0 &&
+                patientInstallments.status === "Paid"
+                  ? `<tr><td colspan="9" style="text-align: center;">All paid</td></tr>`
+                  : patientInstallments
+                      .map(
+                        (installment, index) => `
+                      <tr key=${index}>
+                        <td>${installment.currentDate}</td>
+                        <td>${installment.patient_id}</td>
+                        <td>${installment.patient_name}</td>
+                        <td>${installment.mobile_number}</td>
+                        <td>${installment.bill_number}</td>
+                        <td>${installment.paymentType}</td>
+                        <td>${installment.amountPaid}</td>
+                        <td>${installment.remainingAmount}</td>
+                        <td>${installment.status}</td>
+                      </tr>
+                    `
+                      )
+                      .join("")
+              }
             </tbody>
           </table>
+
         </body>
       </html>
     `;
@@ -326,21 +356,31 @@ const ShowPatientDetails = () => {
                 </tr>
               </thead>
               <tbody>
-                {patientInstallments.map((installment, index) => (
-                  <tr key={index}>
-                    <td>{installment.currentDate}</td>
-                    <td>{installment.patient_id}</td>
-                    <td>{installment.patient_name}</td>
-                    <td>{installment.mobile_number}</td>
-                    <td>{installment.bill_number}</td>
-                    <td>{installment.paymentType}</td>
-                    <td>{installment.amountPaid}</td>
-                    <td>{installment.remainingAmount}</td>
-                    <td>{installment.status}</td>
+                {patientInstallments.length === 0 &&
+                patientDetails.status === "Paid" ? (
+                  <tr>
+                    <td colSpan="9" style={{ textAlign: "center" }}>
+                      All paid
+                    </td>
                   </tr>
-                ))}
+                ) : (
+                  patientInstallments.map((installment, index) => (
+                    <tr key={index}>
+                      <td>{installment.currentDate}</td>
+                      <td>{installment.patient_id}</td>
+                      <td>{installment.patient_name}</td>
+                      <td>{installment.mobile_number}</td>
+                      <td>{installment.bill_number}</td>
+                      <td>{installment.paymentType}</td>
+                      <td>{installment.amountPaid}</td>
+                      <td>{installment.remainingAmount}</td>
+                      <td>{installment.status}</td>
+                    </tr>
+                  ))
+                )}
               </tbody>
             </table>
+
             <ToastContainer />
 
             <form className="shwopat-belowdet" onSubmit={handleSubmit}>

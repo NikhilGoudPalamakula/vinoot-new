@@ -382,9 +382,12 @@ const Billing = () => {
       });
 
       // Reset form fields after successful save
+
       setPlanName("");
+      setSelectedDoctor("");
       setPaymentType("");
       setAmountPaid(0);
+      setPhoneInput("");
     } catch (error) {
       console.error("Error saving data:", error);
     }
@@ -426,6 +429,10 @@ const Billing = () => {
     };
     fetchCurrentDate();
   }, []);
+  // const handleSaveAndPrint = () => {
+  //   saveData(); // Call the saveData function to save the data
+  //   printDetails(); // Call the printDetails function to print the data
+  // };
 
   const printDetails = () => {
     // Open a new window for printing
@@ -504,9 +511,9 @@ const Billing = () => {
             <td>${localStorage.getItem("franchiseID")}</td>
           </tr>
           <tr>
-            <td>Selected Doctor</td>
-            <td>${selectedDoctor}</td>
-          </tr>
+      <td>Selected ${selectedDoctor ? "Doctor" : "Therapist"}</td>
+      <td>${selectedDoctor || selectedTherapist || "N/A"}</td>
+    </tr>
           <tr>
             <td>Plan Name</td>
             <td>${planName}</td>
@@ -564,19 +571,47 @@ const Billing = () => {
     printWindow.close();
   };
 
-  // const handleSaveAndPrint = () => {
-  //   saveData(); // Call the saveData function to save the data
-  //   printDetails(); // Call the printDetails function to print the data
-  // };
-
   const handleSaveAndPrint = async () => {
+    // Check if mobile number is selected
+    if (!selectedNumber || !selectedNumber.mobile_number) {
+      // Display error toast if mobile number is not selected
+      toast.error("Please select a mobile number.");
+      return; // Exit the function
+    }
+
+    // Check if plan is selected
+    if (!selectedPlan) {
+      // Display error toast if plan is not selected
+      toast.error("Please select a plan.");
+      return; // Exit the function
+    }
+
+    // Check if either doctor or therapist is selected
+    if (!selectedDoctor && !selectedTherapist) {
+      // Display error toast if neither doctor nor therapist is selected
+      toast.error("Please select either a doctor or a therapist.");
+      return; // Exit the function
+    }
+
+    // Check if amount paid is greater than 0
+    if (amountPaid <= 0) {
+      // If amount paid is 0, paymentType is not required
+      setPaymentType(""); // Reset paymentType if amountPaid is 0
+    }
+    if (amountPaid > 0 && !paymentType) {
+      toast.error("please select payment type.");
+      return; // Exit the function
+    }
+
     try {
       await saveData(); // Call the saveData function to save the data
 
       // If saveData succeeds, display success toast and then print the details
       toast.success("Data saved successfully!", {
+        autoClose: 1500,
         onClose: () => {
           printDetails(); // Call the printDetails function to print the data
+          window.location.reload();
         },
       });
     } catch (error) {
@@ -621,6 +656,7 @@ const Billing = () => {
                 onChange={handlePlanChange1}
                 onFocus={() => setFocusedInput1("plan")}
                 placeholder="Enter mobile number"
+                required
               />
               {patientError ? (
                 <div style={{ color: "red", fontSize: "0.8rem" }}>
@@ -666,6 +702,7 @@ const Billing = () => {
                   onChange={(e) => setPatientName(e.target.value)}
                   onFocus={() => setFocusedInput2("patientName")}
                   placeholder="Select patient name"
+                  required
                 />
                 {focusedInput2 === "patientName" && (
                   <div
@@ -766,6 +803,7 @@ const Billing = () => {
                   <td>
                     <select
                       value={selectedDoctor}
+                      required
                       onChange={handleDoctorChange}
                       disabled={selectedTherapist !== ""}>
                       <option value="">Select Doctor</option>
@@ -777,6 +815,7 @@ const Billing = () => {
                     </select>
                     <select
                       value={selectedTherapist}
+                      required
                       onChange={handleTherapistChange}
                       disabled={selectedDoctor !== ""}>
                       <option value="">Select Therapist</option>
@@ -794,6 +833,7 @@ const Billing = () => {
                       type="text"
                       name="planName"
                       value={planName}
+                      required
                       onChange={handlePlanChange} // Update the planName
                       onFocus={() => setFocusedInput("plan")}
                       placeholder="enter the plan"
@@ -912,6 +952,7 @@ const Billing = () => {
                       className="input-num"
                       type="number"
                       value={amountPaid}
+                      required
                       // onChange={(e) => setAmountPaid(e.target.value)}
                       onChange={(e) => {
                         const inputAmount = parseFloat(e.target.value); // Convert the input value to a number

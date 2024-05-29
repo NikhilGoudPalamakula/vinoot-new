@@ -151,45 +151,24 @@ const FranchiseRegModel = require("../models/FranchiseRegModel");
 
 exports.createAdmin = async (req, res) => {
   try {
+    // Check if the userID already exists
+    const existingAdmin = await Admin.findOne({ userId: req.body.userId });
+    if (existingAdmin) {
+      return res.status(400).json({ error: "User ID already exists" });
+    }
+
     const admin = new Admin(req.body);
-
-    // Check for unique userId and email
-    // const existingAdmin = await Admin.findOne({
-    //   $or: [
-    //     { userId: req.body.userId },
-    //     { email: req.body.email },
-    //     { franchiseID: req.body.franchiseID },
-    //   ],
-    // });
-
-    // if (existingAdmin) {
-    //   if (existingAdmin.userId === req.body.userId) {
-    //     return res.status(400).json({ error: "userId already exists" });
-    //   } else if (existingAdmin.email === req.body.email) {
-    //     return res.status(400).json({ error: "email already exists" });
-    //   } else if (existingAdmin.franchiseID === req.body.franchiseID) {
-    //     // return res.status(400).json({ error: "franchiseID already exists" });
-    //   }
-    // }
 
     await admin.save();
     res
       .status(201)
       .json({ success: true, message: "Admin created successfully." });
   } catch (error) {
-    // if (error.code === 11000 && error.keyPattern.userId) {
-    //   return res.status(400).json({ error: "userId already exists" });
-    // } else if (error.code === 11000 && error.keyPattern.email) {
-    //   return res.status(400).json({ error: "email already exists" });
-    // } else if (error.code === 11000 && error.keyPattern.franchiseID) {
-    //   // return res.status(400).json({ error: "franchiseID already exists" });
-    // } else {
     res.status(500).json({
       success: false,
-      message: "Failed create admin.",
+      message: "Failed to create admin.",
       error: error.message,
     });
-    // }
   }
 };
 
@@ -334,5 +313,16 @@ exports.updateFranchiseAdminActiveStatepart2 = async (req, res) => {
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Server Error" });
+  }
+};
+
+// Check if userID already exists
+exports.checkUserID = async (req, res) => {
+  try {
+    const admin = await Admin.findOne({ userId: req.params.userId });
+    res.json(admin !== null);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal server error' });
   }
 };

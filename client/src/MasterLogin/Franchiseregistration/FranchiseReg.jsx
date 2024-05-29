@@ -242,6 +242,29 @@ const FranchiseReg = () => {
         state: franchiseData.state.name, // Pass state_id instead of the entire state object
         createdBy: createdBy,
       };
+      // Check if franchiseID already exists
+      const existingFranchise = await axios.get(
+        `${VINOOTNEW}/api/franchise/${franchiseData.franchiseID}`
+      );
+      if (existingFranchise.data) {
+        toast.error("Franchise ID already exists", {
+          position: "top-right",
+          autoClose: 1500,
+        });
+        return;
+      }
+
+      // Check if userID already exists
+      const existingUser = await axios.get(
+        `${VINOOTNEW}/api/admin/${adminData.userId}`
+      );
+      if (existingUser.data) {
+        toast.error("User ID already exists", {
+          position: "top-right",
+          autoClose: 1500,
+        });
+        return;
+      }
 
       // Send a request to create admin
       await axios.post(`${VINOOTNEW}/api/admin`, updatedAdminData);
@@ -283,26 +306,15 @@ const FranchiseReg = () => {
     } catch (error) {
       if (error.response) {
         if (error.response.status === 400) {
-          // Handle specific error messages
-          // if (error.response.data.error === "userId already exists") {
-          //   // Handle userId already exists error
-          //   // Display appropriate message to the user
-          //   toast.error("User ID already exists", {
-          //     position: "top-right",
-          //     autoClose: 1500,
-          //   });
-          // } else if (error.response.data.error === "email already exists") {
-          //   // Handle email already exists error
-          //   // Display appropriate message to the user
-          //   toast.error("Email already exists", {
-          //     position: "top-right",
-          //     autoClose: 1500,
-          //   });
-          // }
           if (error.response.data.error === "franchiseID already exists") {
             // Handle email already exists error
             // Display appropriate message to the user
             toast.error("franchiseID already exists", {
+              position: "top-right",
+              autoClose: 1500,
+            });
+          } else if (error.response.data.error === "User ID already exists") {
+            toast.error("User ID already exists", {
               position: "top-right",
               autoClose: 1500,
             });
@@ -509,17 +521,6 @@ const FranchiseReg = () => {
     <div className="addfr-franchise-Reg">
       <ToastContainer />
       <Navbarlanding />
-      {/* <div className="addfr-franchise-Logo">
-        <div className="addfr-image">
-          <img
-            src="https://vinootherbal.com/wp-content/uploads/2024/02/grrb-1-1536x804.png"
-            alt="logo"
-          />
-        </div>
-        <div className="addfr-Registration">
-          <h2>Franchise Registration</h2>
-        </div>
-      </div> */}
       <div className="addfr-total">
         <h2 className="addfr-franchise-details">Franchise Form</h2>
         <form onSubmit={handleSubmit} className="addfr-franchiseReg-form">
@@ -592,20 +593,7 @@ const FranchiseReg = () => {
                       {errors.mobileNumber}
                     </div>
                   )}
-                  {/* <div className="addfr-input-wrap">
-                    <input
-                      className="addfr-input"
-                      type="text"
-                      name="country"
-                      value={franchiseData.country}
-                      onChange={handleFranchiseInputChange}
-                      placeholder=""
-                      required
-                    />
-                    <label>
-                      <span>Country <span style={{color:'red'}}>*</span></span>
-                    </label>
-                  </div> */}
+
                   <div className="addfr-input-wrap">
                     <input
                       id="stateInput"
@@ -785,21 +773,7 @@ const FranchiseReg = () => {
                       {errors.userId}
                     </div>
                   )}
-                  {/* <div className="addfr-input-wrap">
-                    <input
-                      className="addfr-input"
-                      type="text"
-                      name="designation"
-                      value={adminData.designation}
-                      onChange={handleAdminInputChange}
-                      placeholder=""
-                      readOnly
-                      required
-                    />
-                    <label>
-                      <span>Designation <span style={{color:'red'}}>*</span></span>
-                    </label>
-                  </div> */}
+
                   <div className="addfr-input-wrap">
                     <input
                       className="addfr-input"

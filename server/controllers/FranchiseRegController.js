@@ -72,5 +72,15 @@ exports.toggleFranchiseStatus = async (req, res) => {
     });
   }
 };
+// Check if franchiseID already exists
+exports.checkFranchiseID = async (req, res) => {
+  try {
+    const franchise = await Franchise.findOne({ franchiseID: req.params.franchiseID });
+    res.json(franchise !== null);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+};
 
 // Similarly, you can have methods for updating, deleting, and fetching franchises

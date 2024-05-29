@@ -354,7 +354,6 @@
 
 // export default FranchiseStaffReg;
 
-
 import React, { useState, useEffect } from "react";
 import "./FranchiseStaffReg.css";
 import axios from "axios";
@@ -377,6 +376,7 @@ const FranchiseStaffReg = () => {
   const [errors, setErrors] = useState({
     mobileNumber: "",
   });
+  const frid = localStorage.getItem("franchiseID");
 
   useEffect(() => {
     fetchAdmins();
@@ -384,12 +384,12 @@ const FranchiseStaffReg = () => {
 
   const fetchAdmins = async () => {
     try {
-      const frid = localStorage.getItem("franchiseID");
       if (frid) {
         const response = await axios.get(
           `${VINOOTNEW}/api/franchisefetchusers/${frid}`
         );
         setAdmins(response.data);
+        // console.log(response.data);
       } else {
         console.error("FranchiseID not found in localStorage");
       }
@@ -399,15 +399,18 @@ const FranchiseStaffReg = () => {
   };
 
   const generateAdminID = (admins) => {
-    if (admins.length === 0) {
-      return "STAFF001";
+    const prefix = frid ? frid + "STA" : "STA";
+
+    if (admins.length === 1) {
+      return prefix + "001";
+    } else if (admins.length > 1) {
+      const lastID = admins[admins.length - 1].userId;
+      const lastDigits = parseInt(lastID.substr(lastID.length - 3), 10);
+      const nextIDNumeric = lastDigits + 1;
+      return prefix + nextIDNumeric.toString().padStart(3, "0");
     } else {
-      const lastIDNumeric = parseInt(
-        admins[admins.length - 1].userId.substr(5),
-        10
-      );
-      const nextIDNumeric = lastIDNumeric + 1;
-      return "STAFF" + nextIDNumeric.toString().padStart(3, "0");
+      // If admins.length is not 1 or greater, return a default ID
+      return prefix + "001";
     }
   };
 
@@ -603,8 +606,7 @@ const FranchiseStaffReg = () => {
                   value={adminData.designation}
                   onChange={handleAdminInputChange}
                   placeholder="Select Designation"
-                  required
-                >
+                  required>
                   <option value=""></option>
                   <option value="Doctor">Doctor</option>
                   <option value="Reception">Reception</option>

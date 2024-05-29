@@ -5,6 +5,11 @@ const adminController = require("../controllers/FranchiseAdminController");
 
 router.post("/franchise", franchiseController.createFranchise);
 router.get("/franchise", franchiseController.getAllFranchises);
+// Route to check if franchiseID already exists
+router.get("/franchise/:franchiseID", franchiseController.checkFranchiseID);
+// Route to check if userID already exists
+router.get("/admin/:userId", adminController.checkUserID);
+
 router.put("/franchise/:id/toggle", franchiseController.toggleFranchiseStatus);
 router.post("/admin", adminController.createAdmin);
 router.post("/franchiselogin", adminController.loginfranchiseUser);

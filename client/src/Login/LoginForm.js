@@ -62,14 +62,14 @@ const LoginForm = () => {
             case "Reception":
               navigate("/Recepttion");
               break;
-            case "Therapist":
-              //   navigate("/Thearpy");
-              //   break;
-              // default:
-              navigate("/defaultDashboard");
-              break;
+            // case "Therapist":
+            //   //   navigate("/Thearpy");
+            //   //   break;
+            //   // default:
+            //   navigate("/defaultDashboard");
+            //   break;
             default:
-              navigate("/defaultDashboard");
+              navigate("/login");
               // Handle other designations here, if needed
               break;
           }

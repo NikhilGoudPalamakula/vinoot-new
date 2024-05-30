@@ -62,7 +62,7 @@ const LoginForm = () => {
             case "Reception":
               navigate("/Recepttion");
               break;
-            case "Thearpy":
+            case "Therapist":
               //   navigate("/Thearpy");
               //   break;
               // default:

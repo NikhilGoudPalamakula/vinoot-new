@@ -114,6 +114,24 @@ const FranchiseReg = () => {
     setCity("");
     setArea("");
   };
+  // Function to handle clicks outside of suggestion box or input fields
+  const handleClickOutside = (event) => {
+    if (
+      focusedInput !== null &&
+      !event.target.closest(".addfr-input-wrap") // Check if clicked outside of input fields
+    ) {
+      setFocusedInput(null); // Close suggestion boxes
+    }
+  };
+
+  // Add event listener when component mounts
+  useEffect(() => {
+    document.addEventListener("click", handleClickOutside);
+    // Cleanup the event listener when component unmounts
+    return () => {
+      document.removeEventListener("click", handleClickOutside);
+    };
+  }, [focusedInput]);
 
   const handleCityChange = (event) => {
     const value = event.target.value;

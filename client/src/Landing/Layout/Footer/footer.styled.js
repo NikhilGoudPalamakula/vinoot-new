@@ -43,7 +43,8 @@ export const FooterSquareStyled = styled.div`
       cursor: pointer;
       padding: 11px 12px;
       line-height: 5px;
-      background-color: red;
+      background-color: black;
+      color:white;
       margin-inline: 3px;
       background-color: ${({theme: {theme}}) =>
         theme === themeList.light ? "var(--ds-light-0)" : "#262626"};

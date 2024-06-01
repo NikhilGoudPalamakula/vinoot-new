@@ -159,7 +159,7 @@ const LoginForm = () => {
         <ToastContainer />{" "}
         {/* Add ToastContainer here to display toast messages */}
         <div
-          className={`container ${isSignInActive ? "right-panel-active" : ""}`}>
+          className={`containerlogin ${isSignInActive ? "right-panel-active" : ""}`}>
           <div className="container-form signUp">
             <form className="form">
               <h2 className="title">Super Admin</h2>

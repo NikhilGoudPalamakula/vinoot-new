@@ -33,13 +33,21 @@ import FranchiseLoginDetailsIcon from "./Franchisemanagement/Franchiseadmin/Fran
 import FranchiseDetails from "./MasterLogin/Franchiseregistration/Franchisedetails";
 import ShowFranchiseUsers from "./MasterLogin/Franchiseregistration/ShowFranchiseUsers";
 import ShowPatientDetails from "./Franchisemanagement/Reception/ShowPatientDetails/ShowPatientDetails";
-import Landingvinoot from "./Landingpage/Landing";
+// import Landingvinoot from "./Landingpage/Landing";
+import Newlanding from './Landing/pages/Landing/index';
+import {GlobalStyles} from "./Landing/styles/GlobalStyles";
+import {ThemeProvider} from "styled-components";
+// import ThemeContext from "./Landing/contexts/ThemeContext";
+
 function App() {
   return (
+    <>
+    {/* <GlobalStyles/> */}
     <Router>
       <Routes>
+     
         <Route path="/login" element={<LoginForm />} />
-        <Route path="/" element={<Landingvinoot />} />
+        <Route path="/" element={<Newlanding />} />
         {/* <Route path="/login" element={<Home />} /> */}
 
         <Route path="*" element={<NotFound />} />
@@ -114,6 +122,7 @@ function App() {
         {/* <FranchiseLoginDetailsIcon/> */}
       </Routes>
     </Router>
+    </>
   );
 }
 

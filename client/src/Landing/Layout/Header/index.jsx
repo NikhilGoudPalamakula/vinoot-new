@@ -48,12 +48,14 @@ const Header = () => {
     <HeaderStyled className={navBarScrolled ? "active" : ""}>
       <Navbar expand="lg">
         <Container>
-          <Link to="home" smooth>
-            <img src={logo} alt="Logo" style={{ height: "5rem", width: "10rem" }} />
-          </Link>
-          <Navbar.Toggle aria-controls="navbar-nav" onClick={() => setIsOpen(!isOpen)}>
+          <Navbar.Brand href="#">
+            <Link to="home" smooth>
+              <img src={logo} alt="Logo" style={{ height: "5rem", width: "10rem" }} />
+            </Link>
+          </Navbar.Brand>
+          {/* <Navbar.Toggle aria-controls="navbar-nav" onClick={() => setIsOpen(!isOpen)}>
             <HiOutlineMenu className="menu-icon" />
-          </Navbar.Toggle>
+          </Navbar.Toggle> */}
           <Navbar.Collapse id="navbar-nav" className={`justify-content-end ${isOpen ? 'show' : ''}`}>
             <Nav>
               {navlinks.map((link, idx) => (

@@ -6,8 +6,6 @@
 	--primary: #a6039e;
 	--secondary: #4c2191;
 	/* SIZES */
-	--max-width: 758px;
-	--max-height: 420px;
 	/* transform: scale(.9); */
 }
 
@@ -58,8 +56,8 @@
 .containerlogin {
 	/* background-color: var(--white); */
 	position: relative;
-	height: var(--max-height);
-	max-width: var(--max-width);
+	height: 420px;
+	max-width: 758px;
 	width: 100%;
 	border-radius: 1rem;
 	overflow: hidden;

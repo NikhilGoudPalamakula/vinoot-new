@@ -34,10 +34,6 @@ import FranchiseDetails from "./MasterLogin/Franchiseregistration/Franchisedetai
 import ShowFranchiseUsers from "./MasterLogin/Franchiseregistration/ShowFranchiseUsers";
 import ShowPatientDetails from "./Franchisemanagement/Reception/ShowPatientDetails/ShowPatientDetails";
 import Landingvinoot from "./Landingpage/Landing";
-// import Newlanding from './Landing/pages/Landing/index';
-// import {GlobalStyles} from "./Landing/styles/GlobalStyles";
-// import {ThemeProvider} from "styled-components";
-// import ThemeContext from "./Landing/contexts/ThemeContext";
 
 function App() {
   return (

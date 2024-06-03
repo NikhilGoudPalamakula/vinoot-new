@@ -37,7 +37,7 @@ root.render(
   <React.StrictMode>
     <ThemeContextProvider>
       <App/>
-      <Landing />
+      {/* <Landing /> */}
     </ThemeContextProvider>
   </React.StrictMode>
 );

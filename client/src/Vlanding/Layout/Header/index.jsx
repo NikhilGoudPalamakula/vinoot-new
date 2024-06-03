@@ -49,7 +49,7 @@ const Header = () => {
         <Container>
           <Link to="home" smooth>
          
-            <img src={logo} style={{height:"5rem",width:"10rem"}}/> 
+            <img src={logo} alt="" style={{height:"5rem",width:"10rem"}}/> 
           </Link>
           <Nav className={`ms-auto${isOpen ? " nav-links-container" : ""}`}>
             <MdClose

@@ -7,10 +7,10 @@ import FooterNewsLetter from "./FooterNewsLetter";
 import FooterSquare from "./FooterSquare";
 
 const Footer = () => {
-  const { usefulLinks, servicesLinks } = footerLinks;
+  const { usefulLinks } = footerLinks;
 
-  const [isOpen, setIsOpen] = useState(false);
-  const [navBarScrolled, setNavBarScrolled] = useState(false);
+  const [, setIsOpen] = useState(false);
+  const [, setNavBarScrolled] = useState(false);
 
   const handleResize = () => {
     if (window.innerWidth >= 992) {

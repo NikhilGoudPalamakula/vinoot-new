@@ -2,7 +2,7 @@ import React from "react";
 import {Col, Image} from "react-bootstrap";
 import SectionContainer from "../../components/SectionContainer";
 import AboutBlocks from "./AboutBlocks";
-import AboutSponsor from "./AboutSponsor";
+// import AboutSponsor from "./AboutSponsor";
 import {AiOutlineCheckCircle} from "react-icons/ai";
 import {RowReversedStyled} from "./About.styled";
 import {paragraphs} from "./aboutData";

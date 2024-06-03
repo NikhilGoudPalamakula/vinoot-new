@@ -1,6 +1,6 @@
 import React from "react";
 import "./img.css";
-import CustomButton from "../CustomButton";
+// import CustomButton from "../CustomButton";
 import {PricingCardStyled} from "./pricingCard.styled";
 const PricingCard = ({bloodState, planType,image,list}) => {
   return (
@@ -9,6 +9,7 @@ const PricingCard = ({bloodState, planType,image,list}) => {
       <img
         className="cimg"
         src={image}
+        alt=""
       />
 
       <ul style={{listStyle:'none'}}>

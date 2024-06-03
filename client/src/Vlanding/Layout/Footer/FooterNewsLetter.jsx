@@ -1,6 +1,6 @@
 import React from "react";
 import {FooterNewsLetterStyled} from "./footer.styled";
-import {Form} from "react-bootstrap";
+// import {Form} from "react-bootstrap";
 import { Link } from "react-router-dom";
 import CustomButton from "../../components/CustomButton";
 

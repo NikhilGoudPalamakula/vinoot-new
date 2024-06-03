@@ -13,22 +13,7 @@ const FooterListLinks = ({head, links}) => {
           </li>
         ))}
 
-        {/* <li>
-          <MdKeyboardArrowRight />
-          Web Development
-        </li>
-        <li>
-          <MdKeyboardArrowRight />
-          Product Management
-        </li>
-        <li>
-          <MdKeyboardArrowRight />
-          Marketing
-        </li>
-        <li>
-          <MdKeyboardArrowRight />
-          Graphic Design
-        </li> */}
+     
       </ul>
     </FooterListLinksStyled>
   );

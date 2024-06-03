@@ -48,7 +48,7 @@ const Header = () => {
       <Navbar>
         <Container>
           <Link to="home" smooth>
-            {/* <Navbar.Brand>VINOOT</Navbar.Brand> */}
+         
             <img src={logo} style={{height:"5rem",width:"10rem"}}/> 
           </Link>
           <Nav className={`ms-auto${isOpen ? " nav-links-container" : ""}`}>

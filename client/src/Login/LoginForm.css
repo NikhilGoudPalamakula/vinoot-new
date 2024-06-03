@@ -137,7 +137,7 @@
     background-color: #0aa506 !important;
 	border: none;
 	border-radius: 5px;
-	color: #FFF;
+	color: #FFF !important;
 	cursor: pointer;
 	font-weight: bold;
 	letter-spacing: 0.07rem;

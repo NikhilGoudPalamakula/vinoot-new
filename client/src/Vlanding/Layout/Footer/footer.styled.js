@@ -30,6 +30,7 @@ export const FooterSquareStyled = styled.div`
     margin: 0;
     font-size: 15px;
   }
+  
   .categoriesList {
     list-style-type: none;
     padding: 0;

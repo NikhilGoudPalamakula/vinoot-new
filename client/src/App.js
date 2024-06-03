@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Sidebar from "./Reception/sidebar";
 import NotFound from "./pages/NotFound";
 import PrivateRoute from "./MasterLogin/PrivateRoute";
+// import Footerlinks from "./Vlanding/Layout/Footer/Footerlinks";
 // import RegisterPage from "./MasterLogin/AddSuperAdmin/RegisterPage";
 import LoginPage from "./MasterLogin/LoginPage";
 import MasterUserT from "./MasterLogin/Masterusers/MasterUserT";
@@ -48,7 +49,7 @@ function App() {
         {/* <Route path="/login" element={<Home />} /> */}
 
         <Route path="*" element={<NotFound />} />
-
+        {/* <Route path="/Footerlinks" element={<Footerlinks />} /> */}
         <Route path="/superadminlogin" element={<LoginPage />} />
         <Route path="/fl" element={<FranchiseLogin />} />
 

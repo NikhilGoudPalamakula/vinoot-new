@@ -17,23 +17,23 @@ const FooterSquare = () => {
       <p className="mb-1">Phone: 8904980190</p>
       <p className="mb-1">Email: vinootherbals2024@gmail.com</p>
       <ul className="categoriesList">
-        <li>
-          <a href="https://www.facebook.com" target="_blank" rel="noopener noreferrer">
+        <li >
+          <a className="icons4" href="https://www.facebook.com/people/Vinootherbals24/61559348361216/" target="_blank" rel="noopener noreferrer" >
             <FaFacebookF />
           </a>
         </li>
         <li>
-          <a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer">
+          <a className="icons4" href="https://www.instagram.com/vinootherbals24/" target="_blank" rel="noopener noreferrer">
             <FaInstagram />
           </a>
         </li>
         <li>
-          <a href="https://www.youtube.com" target="_blank" rel="noopener noreferrer">
+          <a className="icons4" href="https://www.youtube.com/@vinootherbal/featured" target="_blank" rel="noopener noreferrer">
             <FaYoutube />
           </a>
         </li>
         <li>
-          <a href="https://www.linkedin.com" target="_blank" rel="noopener noreferrer">
+          <a className="icons4" href="https://www.linkedin.com/in/vinoot-herbal-9ba5682b6/" target="_blank" rel="noopener noreferrer">
             <FaLinkedinIn />
           </a>
         </li>

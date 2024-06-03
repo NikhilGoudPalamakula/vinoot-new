@@ -30,6 +30,22 @@ export const FooterSquareStyled = styled.div`
     margin: 0;
     font-size: 15px;
   }
+  .categoriesList {
+    list-style-type: none;
+    padding: 0;
+    display: flex;
+    gap: 1rem;
+
+    li a {
+      color: green;
+      text-decoration: none;
+      font-size: 1.5rem;
+
+      &:hover {
+        color: darkgrey; /* Optional: a different color on hover */
+      }
+    }
+  }
   ul {
     width: 100px;
     margin: auto;
@@ -99,7 +115,8 @@ export const FooterNewsLetterStyled = styled.div`
       }
     }
     button {
-      width: 60%;
+      width: 100%;
+      border-radius: 5px;
       padding: 10px;
       :hover{
         background-color:#193919;

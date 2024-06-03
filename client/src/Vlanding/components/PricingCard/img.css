@@ -1,0 +1,18 @@
+.cimg {
+    height: 20vh;
+    width: 10vw;
+    border-radius: 50%;
+    
+    /* Conditionally adjust height based on the value of 'planType' */
+    @if (planType === "business") {
+      height: 25vh;
+    }
+}
+
+@media screen and (width: 425px) {
+    .cimg {
+        height: 19vh;
+        width: 25vw;
+        border-radius: 50%;
+    }
+  }

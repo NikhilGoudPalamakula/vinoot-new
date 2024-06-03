@@ -10,3 +10,81 @@
       height: 10vh; 
     }
   }
+
+  /* Navbar.css */
+
+.lan-navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: white;
+  padding: 10px 20px;
+}
+
+.nav-logo-container img {
+  height: 50px;
+}
+
+.navbar-links-container {
+  display: flex;
+  gap: 20px;
+}
+
+.navbar-links-container a {
+  color: white;
+  text-decoration: none;
+  font-size: 16px;
+}
+
+.primary-button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+.primary-button:hover {
+  background-color: #0056b3;
+}
+
+.navbar-menu-container {
+  display: none;
+  color: gray;
+}
+
+.navbar-cart-icon {
+  font-size: 24px;
+  color: gray;
+}
+
+@media (max-width: 768px) {
+  .navbar-links-container {
+    display: none;
+  }
+
+  .navbar-menu-container {
+    display: block;
+  }
+}
+
+/* Drawer Styles */
+.MuiDrawer-paper {
+  background-color: #333;
+  color: gray;
+}
+
+.MuiListItemIcon-root {
+  color: gray;
+}
+
+.MuiListItemText-primary {
+  color: gray;
+}
+
+.MuiDivider-root {
+  background-color: #444;
+}

@@ -45,3 +45,11 @@
     transform: rotate(360deg);
   }
 }
+
+a {
+  text-decoration: none;
+}
+.categoriesList{
+  list-style: none;
+  padding: 0;
+}

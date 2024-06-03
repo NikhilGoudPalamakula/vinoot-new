@@ -8,9 +8,9 @@ const Pricing = () => {
     <SectionContainer id={"whyus"} secName={"pricing-sec"}>
     <SectionHead
       head={"Whyus"}
-      // text={
-      //   "Sit sint consectetur velit quisquam cupiditate impedit suscipit alias"
-      // }
+      text={
+        "Enjoy the Vinoot Herbal variation: unmatched Ayurvedic knowledge, a profitable business plan, comprehensive training, and continuous marketing assistance for franchisees"
+      }
     />
 
       <PricingBlock />

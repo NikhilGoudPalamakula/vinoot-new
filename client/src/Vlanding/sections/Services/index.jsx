@@ -9,7 +9,7 @@ const Services = () => {
       <SectionHead
         head={"services"}
         text={
-          "Sit sint consectetur velit quisquam cupiditate impedit suscipit alias"
+          "Vinoot Herbal quality ingredients and experienced formulas can help you get amazing results."
         }
       />
       <ServicesBlock />

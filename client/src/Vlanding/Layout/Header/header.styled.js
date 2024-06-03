@@ -32,6 +32,7 @@ export const HeaderStyled = styled.header`
         display: none;
       }
       a {
+        text-decoration: none;
         transition: 0.7s;
         font-size: 14px;
         cursor: pointer;

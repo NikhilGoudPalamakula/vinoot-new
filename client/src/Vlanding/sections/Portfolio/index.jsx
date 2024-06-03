@@ -9,7 +9,7 @@ const Portfolio = () => {
     <SectionHead
       head={"Products"}
       text={
-        "Sit sint consectetur velit quisquam cupiditate impedit suscipit alias"
+        "Vinoot Herbal offers 100% natural, high-quality products that are natural."
       }
     />
 

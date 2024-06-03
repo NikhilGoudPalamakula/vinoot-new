@@ -574,6 +574,7 @@ const FranchiseReg = () => {
                       name="franchiseID"
                       value={franchiseData.franchiseID}
                       onChange={handleFranchiseInputChange}
+                      maxLength={6}
                       placeholder=""
                       required
                     />

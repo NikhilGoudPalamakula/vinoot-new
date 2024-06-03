@@ -19,6 +19,8 @@
   justify-content: space-between;
   background-color: white;
   padding: 10px 20px;
+  margin-right: 50px;
+  margin-left: 33px;
 }
 
 .nav-logo-container img {
@@ -43,7 +45,7 @@
   border: none;
   padding: 10px 20px;
   cursor: pointer;
-  border-radius: 5px;
+  /* border-radius: 5px; */
   font-size: 16px;
   transition: background-color 0.3s ease;
 }

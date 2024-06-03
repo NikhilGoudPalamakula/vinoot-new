@@ -29,8 +29,8 @@ const Footer = () => {
           </Row>
           <hr />
               <div className="matrical" style={{display:'flex',alignItems:'center',justifyContent:'center'}}>
-            <span>Copyright © 2024. All rights reserved.
-              Developed By <a href="https://www.matrical.in/" target="_blank"  rel="noopener noreferrer">Matrical Technologies PVT LTD</a></span>
+            <span> © Copyright 2024. All rights reserved.
+              Developed By <a style={{textDecoration:'none',color:'green'}} href="https://www.matrical.in/" target="_blank"  rel="noopener noreferrer">Matrical Technologies PVT LTD</a></span>
           </div>
         </Container>
       </FooterStyled>

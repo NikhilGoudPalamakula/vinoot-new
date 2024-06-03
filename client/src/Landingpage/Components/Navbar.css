@@ -37,8 +37,8 @@
 }
 
 .primary-button {
-  background-color: #007bff;
-  color: white;
+  background-color: white;
+  color: green;
   border: none;
   padding: 10px 20px;
   cursor: pointer;
@@ -48,7 +48,8 @@
 }
 
 .primary-button:hover {
-  background-color: #0056b3;
+  background-color: green;
+  color: white;
 }
 
 .navbar-menu-container {

@@ -4,7 +4,19 @@ import CustomButton from "../../components/CustomButton";
 import {HomeSectionStyled} from "./home.styled";
 import "./button.css";
 import homeImg from "../../assets/bg.png.jpg";
+import { useNavigate } from "react-router-dom";
 const Home = () => {
+
+  const navigate = useNavigate();
+
+  const f1 = (() => {
+    navigate("/fr")
+  })
+
+  const login = (() => {
+    navigate("/login")
+  })
+
   return (
     <HomeSectionStyled
       id={"home"}
@@ -23,7 +35,7 @@ const Home = () => {
         </h2>
         <div style={{display:'flex',gap:'1rem'}}>
         {/* <CustomButton type="btn-on-img">Login</CustomButton> */}
-          <button type="button" class="btnl">
+          <button onClick={login} type="button" class="btnl">
             <strong>Login</strong>
             <div id="container-stars">
               <div id="stars"></div>
@@ -36,7 +48,7 @@ const Home = () => {
           </button>
 
         {/* <CustomButton type="btn-on-img">Register for Franchise</CustomButton> */}
-        <button type="button" class="btnr">
+        <button onClick={f1} type="button" class="btnr">
           <strong>Register for Franchise</strong>
           <div id="container-stars">
             <div id="stars"></div>

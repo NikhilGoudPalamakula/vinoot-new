@@ -28,7 +28,6 @@ import 'yet-another-react-lightbox/plugins/thumbnails.css';
 // ThemeContext
 import { ThemeContextProvider } from './Vlanding/contexts/ThemeContext';
 // Component
-import Landing from './Vlanding/Vlanding';
 // Report Web Vitals
 import reportWebVitals from './reportWebVitals';
 
@@ -37,7 +36,6 @@ root.render(
   <React.StrictMode>
     <ThemeContextProvider>
       <App/>
-      {/* <Landing /> */}
     </ThemeContextProvider>
   </React.StrictMode>
 );

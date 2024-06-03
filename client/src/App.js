@@ -33,7 +33,9 @@ import FranchiseLoginDetailsIcon from "./Franchisemanagement/Franchiseadmin/Fran
 import FranchiseDetails from "./MasterLogin/Franchiseregistration/Franchisedetails";
 import ShowFranchiseUsers from "./MasterLogin/Franchiseregistration/ShowFranchiseUsers";
 import ShowPatientDetails from "./Franchisemanagement/Reception/ShowPatientDetails/ShowPatientDetails";
-import Landingvinoot from "./Landingpage/Landing";
+// import Landingvinoot from "./Landingpage/Landing";
+// import Landing from "./Vlanding/pages/Landing";
+import Vlanding from "./Vlanding/Vlanding";
 
 function App() {
   return (
@@ -42,7 +44,7 @@ function App() {
       <Routes>
      
         <Route path="/login" element={<LoginForm />} />
-        <Route path="/" element={<Landingvinoot />} />
+        <Route path="/" element={<Vlanding />} />
         {/* <Route path="/login" element={<Home />} /> */}
 
         <Route path="*" element={<NotFound />} />

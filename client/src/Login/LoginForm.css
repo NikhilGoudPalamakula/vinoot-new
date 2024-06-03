@@ -134,7 +134,7 @@
 	/* background: linear-gradient(30deg,
 		var(--primary) 0%,
 		var(--secondary) 74%); */
-    background-color: #0aa506;
+    background-color: #0aa506 !important;
 	border: none;
 	border-radius: 5px;
 	color: #FFF;

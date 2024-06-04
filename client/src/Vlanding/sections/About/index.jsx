@@ -29,7 +29,7 @@ const About = () => {
                 </li>
               ))}
             </ul>
-            <p style={{letterSpacing:'1.5px',textAlign:'justify'}}>
+            <p style={{letterSpacing:'1px',textAlign:'justify'}}>
             As the founding father of Vinoot Herbal Products, I, Channabasappa Ullagaddi a science graduate with 18 years of experience in the petrochemical industry in India & Abroad. Upon returning from abroad, I developed a keen interest in Ayurveda due to a personal encounter with a young woman experiencing hair loss issues. This led me to invent a herbal product for hair regrowth, which has garnered positive feedback and secured a patent. Establishing Vinoot Herbal Specialities Pvt Ltd in Bangalore in 2010, I later founded Vinoot Herbal Specialities, focusing on hair regrowth therapies in 2017. With over 1500 successful treatments, I am now expanding through a franchise model to make our therapies accessible to all. Despite interest from a top FMCG company, we opted to retain ownership of our patented herbal molecules.
             </p>
           </Col>

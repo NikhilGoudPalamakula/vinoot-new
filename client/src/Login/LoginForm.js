@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify"; // Import ToastContainer and toast from react-toastify
 import "react-toastify/dist/ReactToastify.css"; // Import the default styles for React Toastify
 import "./LoginForm.css";
@@ -212,12 +212,12 @@ const LoginForm = () => {
                 placeholder="Password"
                 required
               />
-              <a href="/fr" className="link">
+              <Link to="/fr" className="link">
                 Do you want to register for{" "}
                 <span style={{ textDecoration: "underline", color: "green" }}>
                   Franchise?
                 </span>
-              </a>
+              </Link>
               <button className="btn" type="submit" onClick={handleSubmit}>
                 Login
               </button>

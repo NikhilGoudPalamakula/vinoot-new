@@ -10,7 +10,7 @@ const Contact = () => {
       <SectionHead
         head={"contact"}
         text={
-          "Discover natural solutions for hair wellness! Vinoot Herbals offers Ayurveda-based treatments & consultations. Contact us to learn more & unlock your healthiest hair."
+          "Contact us to learn more & unlock your healthiest hair & skin."
         }
       />
       <ContactInfoBlock />

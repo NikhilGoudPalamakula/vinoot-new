@@ -57,7 +57,7 @@ export const HeaderStyled = styled.header`
         @media (max-width: 992px) {
           position: fixed;
           margin: auto;
-          top: 0;
+          top: 0px;
           left: 0;
           bottom: 0;
           right: 0;
